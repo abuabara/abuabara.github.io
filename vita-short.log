@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.4.17)  18 APR 2025 12:14
+This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)  (format=lualatex 2025.4.17)  18 APR 2025 12:17
  restricted system commands enabled.
  file:line:error style messages enabled.
 **vita-short.tex
@@ -406,9 +406,9 @@ Inserting `l3color' in `luaotfload.parse_color'.)
 LaTeX Warning: Unused global option(s):
     [article,8pt].
 
-No file vita-short.aux.
-
+(./vita-short.aux)
 \openout1 = vita-short.aux
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
 LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
@@ -429,6 +429,7 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 19.
 LaTeX Font Info:    ... okay on input line 19.
+
 (/usr/local/texlive/2025basic/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count304
@@ -454,6 +455,7 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package hyperref Info: Link coloring OFF on input line 19.
+ (./vita-short.out) (./vita-short.out)
 \@outlinefile=\write3
 
 \openout3 = vita-short.out
@@ -518,25 +520,18 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-03-26>
  ***********
-
-
-Package rerunfilecheck Warning: File `vita-short.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `vita-short.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
+Package rerunfilecheck Info: File `vita-short.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 )
 
 Here is how much of LuaTeX's memory you used:
- 11327 strings out of 471941
+ 11344 strings out of 471941
  100000,662416 words of node,token memory allocated
  539 words of node memory still in use:
    6 hlist, 2 vlist, 2 rule, 2 glue, 4 kern, 1 glyph, 6 attribute, 63 glue_spec,
  6 attribute_list, 1 write nodes
-   avail lists: 2:438,3:353,4:5,5:303,6:92,7:6473,8:60,9:469,10:4,11:462
- 37702 multiletter control sequences out of 65536+600000
+   avail lists: 2:438,3:353,4:5,5:315,6:92,7:6545,8:60,9:469,10:4,11:480
+ 37704 multiletter control sequences out of 65536+600000
  43 fonts using 2607111 bytes
  72i,11n,75p,307b,350s stack positions out of 10000i,1000n,20000p,200000b,200000s
 {/usr/local/texlive/2025basic/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/loca
@@ -545,7 +540,7 @@ l/texlive/2025basic/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</usr/local/texlive
 asic/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2025basic/te
 xmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2025basic/texmf-di
 st/fonts/type1/public/lm/lmtt10.pfb>
-Output written on vita-short.pdf (1 page, 101871 bytes).
+Output written on vita-short.pdf (1 page, 101882 bytes).
 
 PDF statistics: 44 PDF objects out of 1000 (max. 8388607)
  36 compressed objects within 1 object stream
