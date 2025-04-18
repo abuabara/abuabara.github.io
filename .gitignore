@@ -2,3 +2,7 @@
 *.gz
 *.log
 *.log
+*.aux
+*.out
+*.log
+*.log
