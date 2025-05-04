@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Alexander Abuabara" />
+  <title>abuabara.github.io</title>
+  <style>
+        :root {
+            color-scheme: light dark;
+        }
+        :root {
+            color-scheme: light dark;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+        }
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: white;
+                color: black;
+            }
+        }
+        html {
+            font-family: system-ui, sans-serif;
+            max-width: 50ch;
+            padding: .2em .2em;
+            margin: auto;
+            line-height: 1.4;
+            font-size: 1.2em;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            table-layout: fixed
+        }
+        td, th {
+             text-align: left;
+             padding: 8px;
+        }
+  </style>
+  </head>
+  
+  <body>
+  
+  <h2 style="text-align: center;">Colors for my maps</h2>
+  
+  <h3 style="text-align: center;">Base map (based on Google Maps 2018)</h3>
+  
+  <div style="text-align: center;">
+  <table border="1" style="margin: 0 auto;">
+  <tr>
+  <th>Feature</th>
+  <th>HEX</th>
+  </tr>
+  <tr>
+  <td>Green areas</td>
+  <td style="background-color: #1ea362;"><span style="color: white;">#1ea362</span></td>
+  </tr>
+  <tr>
+  <td>Roads</td>
+  <td style="background-color: #ffe047;"><span style="color: black;">#ffe047</span></td>
+  </tr>
+  <tr>
+  <td>Water</td>
+  <td style="background-color: #4a89f3;"><span style="color: white;">#4a89f3</span></td>
+  </tr>
+  <tr>
+  <td>Terrain</td>
+  <td style="background-color: #d3d3d3;"><span style="color: black;">#d3d3d3</span></td>
+  </tr>
+  <tr>
+  <td>Borders</td>
+  <td style="background-color: #dd4b3e;"><span style="color: white;">#dd4b3e</span></td>
+  </tr>
+  <tr>
+  <td>Parcels, buildings</td>
+  <td style="background-color: #822f2b;"><span style="color: white;">#822f2b</span></td>
+  </tr>
+  </table>
+  </div>
+  
+  <h3 style="text-align: center;">Evacuation zones</h3>
+  
+  <div style="text-align: center;">
+  <table border="1" style="margin: 0 auto;">
+  <tr>
+  <th>Feature</th>
+  <th>HEX</th>
+  </tr>
+  <tr>
+  <td>A1</td>
+  <td style="background-color: #d64a6d;"><span style="color: white;">#d64a6d</span></td>
+  </tr>
+  <tr>
+  <td>A2</td>
+  <td style="background-color: #f26d76;"><span style="color: white;">#f26d76</span></td>
+  </tr>
+  <tr>
+  <td>A3</td>
+  <td style="background-color: #f29295;"><span style="color: white;">#f29295</span></td>
+  </tr>
+  <tr>
+  <td>B</td>
+  <td style="background-color: #ffc187;"><span style="color: black;">#ffc187</span></td>
+  </tr>
+  <tr>
+  <td>C</td>
+  <td style="background-color: #fff391;"><span style="color: black;">#fff391</span></td>
+  </tr>
+  </table>
+  </div>
+
+  <h3 style="text-align: center;">Floodplain</h3>
+  
+  <div style="text-align: center;">
+  <table border="1" style="margin: 0 auto;">
+  <tr>
+  <th>Feature</th>
+  <th>HEX</th>
+  </tr>
+  <tr>
+  <td>100Yr with velocity</td>
+  <td style="background-color: #08306b;"><span style="color: white;">#08306b</span></td>
+  </tr>
+  <tr>
+  <td>100Yr</td>
+  <td style="background-color: #0057b3;"><span style="color: white;">#0057b3</span></td>
+  </tr>
+  <tr>
+  <td>500Yr</td>
+  <td style="background-color: #56a9e0;"><span style="color: white;">#56a9e0</span></td>
+  </tr>
+  <tr>
+  <td>Levee protection</td>
+  <td style="background-color: #00ffff;"><span style="color: black;">#00ffff</span></td>
+  </tr>
+  <tr>
+  <td>Out</td>
+  <td style="background-color: #ffffff;"><span style="color: black;">#ffffff</span></td>
+  </tr>
+    
+  </table>
+  </div>
+  
+  <h3 style="text-align: center;">Surge</h3>
+  
+  <div style="text-align: center;">
+  <table border="1" style="margin: 0 auto;">
+  <tr>
+  <th>Feature</th>
+  <th>HEX</th>
+  </tr>
+  <tr>
+  <td>Cat. 1</td>
+  <td style="background-color: #050505;"><span style="color: white;">#050505</span></td>
+  </tr>
+  <tr>
+  <td>Cat. 2</td>
+  <td style="background-color: #2e2e2e;"><span style="color: white;">#2e2e2e</span></td>
+  </tr>
+  <tr>
+  <td>Cat. 3</td>
+  <td style="background-color: #575757;"><span style="color: white;">#575757</span></td>
+  </tr>
+  <tr>
+  <td>Cat. 4</td>
+  <td style="background-color: #7f7f7f;"><span style="color: white;">#7f7f7f</span></td>
+  </tr>
+  <tr>
+  <td>Cat. 5</td>
+  <td style="background-color: #e3e3e3;"><span style="color: black;">#e3e3e3</span></td>
+  </tr>
+  </table>
+  </div>
+  
+  <h3 style="text-align: center;">Vulnerability</h3>
+  
+  <div style="text-align: center;">
+  <table border="1" style="margin: 0 auto;">
+  <tr>
+  <th>Feature</th>
+  <th>HEX</th>
+  </tr>
+  <tr>
+  <td>Highest</td>
+  <td style="background-color: #6a51a5;"><span style="color: white;">#6a51a5</span></td>
+  </tr>
+  <tr>
+  <td>High</td>
+  <td style="background-color: #9d9ac7;"><span style="color: white;">#9d9ac7</span></td>
+  </tr>
+  <tr>
+  <td>Low</td>
+  <td style="background-color: #cbc8df;"><span style="color: black;">#cbc8df</span></td>
+  </tr>
+  <tr>
+  <td>Lowest</td>
+  <td style="background-color: #f1f0f8;"><span style="color: black;">#f1f0f8</span></td>
+  </tr>
+  </table>
+  </div>
+
+  Return <a href="https://abuabara.github.io/index.html">home</a>
+  
+  </body>
+</html>
