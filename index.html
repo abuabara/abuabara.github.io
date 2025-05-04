@@ -11,6 +11,22 @@
         :root {
             color-scheme: light dark;
         }
+        :root {
+            color-scheme: light dark;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #121212;
+                color: #e0e0e0;
+            }
+        }
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: white;
+                color: black;
+            }
+        }
         html {
             font-family: system-ui, sans-serif;
             max-width: 50ch;
