@@ -10,29 +10,46 @@
         :root {
             color-scheme: light dark;
         }
-        :root {
-            color-scheme: light dark;
-        }
-
+    
         @media (prefers-color-scheme: dark) {
             body {
-                background-color: #121212;
+                background-color: black;
                 color: #e0e0e0;
             }
         }
+    
         @media (prefers-color-scheme: light) {
             body {
                 background-color: white;
                 color: black;
             }
         }
+            .adaptive-heading {
+                color: maroon;
+            }
+
+        @media (prefers-color-scheme: dark) {
+            .adaptive-heading {
+                color: #FFC300;
+            }
+        }
+    
         html {
             font-family: system-ui, sans-serif;
             max-width: 50ch;
             padding: .2em .2em;
             margin: auto;
             line-height: 1.4;
-            font-size: 1em;
+            font-size: 1.1em;
+        }
+        table {
+            border-collapse: collapse;
+            width: 50%;
+            table-layout: fixed
+        }
+        td, th {
+             text-align: left;
+             padding: 8px;
         }
   </style>
   </style>
@@ -40,7 +57,7 @@
   </head>
   <body>
   
-  <h2 style="color:Maroon;">Alexander Abuabara, Ph.D.</h2>
+  <h2 class="adaptive-heading"">Alexander Abuabara, Ph.D.</h2>
   
   <p><i> Trying to leave a better world for our kids,<br>
          and better kids for our world ツ</i></p>
