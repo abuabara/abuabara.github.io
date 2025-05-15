@@ -1,6 +1,22 @@
 \documentclass[11pt]{article}
-\usepackage[left=2.4cm, right=2.4cm, bottom=2.4cm, top=2cm]{geometry}
+\usepackage[margin=2.2cm,bindingoffset=0cm]{geometry}
+%\usepackage[left=2.2cm, right=2.2cm, bottom=2.4cm, top=2cm]{geometry}
+\usepackage{fontspec}
+\setmainfont{Frutiger LT Std}[
+  UprightFont = {*Light},
+  BoldFont = {*Bold},
+  ItalicFont = {*Light Italic},
+  BoldItalicFont = {*Bold Italic}]
+  % Make sure URLs don't default to monospace
 \usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue}
+\renewcommand{\UrlFont}{\fontspec{Frutiger LT Std}[
+  UprightFont = {*Light},
+  ItalicFont = {*Light Italic}]}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \usepackage{titlesec}
@@ -14,7 +30,7 @@
 \pagestyle{fancyplain}
 \lfoot{May 14, 2025} \cfoot{}
 \begin{document}
-%\raggedright
+\raggedright
 
 \section*{Alexander Abuabara, Ph.D.}
 Website: \url{https://abuabara.github.io}\\[1pt]
