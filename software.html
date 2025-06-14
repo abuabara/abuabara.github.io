@@ -91,6 +91,32 @@
   <li><a href="https://apps.apple.com/us/app/yoink-better-drag-and-drop/id457622435">Yoink</a></li>
   </ul>
   
+  <h2>Some setup notes</h2>
+  <ul>
+  <li>
+  <a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
+  <code>8.8.8.8</code><br>
+  <code>8.8.4.4</code><br>
+  <code>2001:4860:4860::8888</code><br>
+  <code>2001:4860:4860::8844</code>
+  </li>
+  <li>Dock:<br>
+  <code>defaults write com.apple.dock autohide-time-modifier -int 0</code><br>
+  <code>defaults write com.apple.dock autohide-delay -float 0</code>
+  </li>
+  <li>Menubar, reduce spacing between items:<br>
+  <code>defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 10</code><br>
+  <code>defaults -currentHost write -globalDomain NSStatusItemSpacing -int 10</code>
+  </li>
+  <li>Screenshots:<br>
+  <code>defaults write com.apple.screencapture type jpg</code><br>
+  <code>defaults write com.apple.screencapture disable-shadow -bool TRUE</code>
+  </li>
+  <li>Application new instance:<br>
+  <code>open -n /Applications/Safari.app</code>
+  </li>
+  </ul>
+  
   Return <a href="index.html">home</a><br>
 
 </body>
