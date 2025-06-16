@@ -10,6 +10,7 @@
     :root {
       color-scheme: light dark;
     }
+
     html {
       font-family: system-ui, sans-serif;
       max-width: 55ch;
@@ -18,21 +19,40 @@
       line-height: 1.4;
       font-size: 1.1em;
     }
+
     body {
       margin-bottom: 50px;
       background-color: white;
       color: black;
     }
+
     .adaptive-heading {
       color: maroon;
     }
+
+    .midterm-notice {
+      background-color: lavender;
+      padding: 0.2em; /* Optional: for spacing around text */
+      display: inline-block; /* Optional: ensures background wraps nicely */
+    }
+
+    .in-class {
+      color: red;
+    }
+
     @media (prefers-color-scheme: dark) {
       body {
         background-color: black;
         color: #e0e0e0;
       }
+
       .adaptive-heading {
         color: #FFC300;
+      }
+
+      .midterm-notice {
+        background-color: blue;
+        color: white; /* Optional for better contrast */
       }
     }
   </style>
@@ -99,20 +119,20 @@
   <li>Uncertainty and confidence</li>
   <li>Predicting behaviors, estimation (MLE, MAP)</li>
   <li>Cue combination, learning as inference<br>
-      <text style="background-color:DodgerBlue;">1st midterm exam <text style="color:Red;">(in class)</text></text><br>&nbsp;</li>
+      <text class="midterm-notice">1st midterm exam <text style="color:Red;">(in class)</text></text></li>
   <li>Computational aspects of Bayes inference (MCMC)</li>
   <li>Discrimination and detection</li>
   <li>Binary classification</li>
   <li>Bayesian linear regression I</li>
   <li>Bayesian linear regression II<br>
-      <text style="background-color:DodgerBlue;">2nd midterm exam <text style="color:Red;">(in class)</text></text><br>&nbsp;</li>
+      <text class="midterm-notice">2nd midterm exam <text style="color:Red;">(in class)</text></text></li>
   <li>Combining inference with utility</li>
   <li>Rational choice under risk</li>
   <li>Some paradoxes, prospect theory</li>
   <li>Expectation maximization algorithm</li>
   <li>Variational inference</li>
   <li>Bayesian inference with neural networks<br>
-      <text style="background-color:DodgerBlue;">Projects <text style="color:Red;">(in class)</text></text><br>&nbsp;</li>
+      <text class="midterm-notice">Projects <text style="color:Red;">(in class)</text></text></li>
   </ol>
   </p>
   
