@@ -58,8 +58,8 @@ Y
 # posterior function
 def post(θ, Y, α = 1, β = 1):
     if 0 <= θ <= 1:
-        prior = stats.beta(α, β).pdf(θ)       stats.bernoulli(θ).pmf(Y).prod()    # belief about θ before seeing data
-        like  =   # likelihood of the data Y at this θ
+        prior = stats.beta(α, β).pdf(θ)           # belief about θ before seeing data
+        like  = stats.bernoulli(θ).pmf(Y).prod()  # likelihood of the data Y at this θ
         prob  = like * prior                      # un-normalised posterior
     else:
         prob = -np.inf                            # impossible θ values
