@@ -96,26 +96,37 @@
   
   <h2>Some setup notes</h2>
   <ul>
-  <li><a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder</li>
-  <li>
-  <a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
+  <li><a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder
+  </li>
+  
+  <li><a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
   <code style="color:Gray;">8.8.8.8</code><br>
   <code style="color:Gray;">8.8.4.4</code><br>
   <code style="color:Gray;">2001:4860:4860::8888</code><br>
   <code style="color:Gray;">2001:4860:4860::8844</code>
   </li>
+  
   <li>Dock, show/hide speed:<br>
   <code style="color:Tomato;">defaults write com.apple.dock autohide-time-modifier -int 0</code><br>
   <code style="color:Tomato;">defaults write com.apple.dock autohide-delay -float 0</code>
   </li>
+  
+  <li>Stage Manager, show/hide speed:<br>
+  <code style="color:Tomato;">defaults write com.apple.WindowManager StageFrameMinimumHorizontalInset -int 0</code><br>
+  <code style="color:Tomato;">defaults write com.apple.WindowManager AutoHideDelay -int 0</code><br>
+  <code style="color:Tomato;">defaults write com.apple.WindowManager AnimationSpeed -int 65536</code>
+  </li>
+  
   <li>Menubar, reduce spacing between items:<br>
   <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 7</code><br>
   <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSpacing -int 7</code>
   </li>
+  
   <li>Screenshots, change format and no shadow:<br>
   <code style="color:Tomato;"><del>defaults write com.apple.screencapture type jpg</del></code><br>
   <code style="color:Tomato;"><del>defaults write com.apple.screencapture disable-shadow -bool TRUE</del></code>
   </li>
+  
   <li>Application, new instance:<br><code style="color:DodgerBlue;">open -n /Applications/Safari.app</code></li>
   <li>Python, pip:<br><code style="color:#FFC300;">which pip3</code></li>
   <li>Python, pip:<br><code style="color:#FFC300;">pip install --upgrade pip</code></li>
