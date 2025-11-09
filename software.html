@@ -96,15 +96,15 @@
   </ul>
   
   <h2>Some setup notes</h2>
-  <ul>
-  <li><a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder
-  </li>
-  
+  <ul>  
   <li><a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
   <code style="color:Gray;">8.8.8.8</code><br>
   <code style="color:Gray;">8.8.4.4</code><br>
   <code style="color:Gray;">2001:4860:4860::8888</code><br>
   <code style="color:Gray;">2001:4860:4860::8844</code>
+  </li>
+  
+  <li><a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder
   </li>
   
   <li>Dock, show/hide speed:<br>
@@ -131,7 +131,12 @@
   <li>Application, new instance:<br><code style="color:DodgerBlue;">open -n /Applications/Safari.app</code></li>
   <li>Python, pip:<br><code style="color:#FFC300;">which pip3</code></li>
   <li>Python, pip:<br><code style="color:#FFC300;">pip install --upgrade pip</code></li>
-  <li>Python, libraries:<br><code style="color:#FFC300;">pip install numpy pandas matplotlib scipy bambi pymc pymc-bart kulprit nutpie scikit-learn jupyterlab notebook voila preliz graphviz pip-review</code></li>
+  
+  <li>Python, libraries:<br><code style="color:#FFC300;">pip install numpy==1.25.2 scipy==1.11.2 pandas==2.1.2 \
+                                                         matplotlib==3.8.1 graphviz jupyterlab notebook voila \
+                                                         statsmodels==0.15.2 scikit-learn==1.4.2 \
+                                                         pymc==5.25.1 bambi==0.12.0 pymc-bart kulprit nutpie preliz \
+                                                         pip-review</code></li>
   <li>Python, pip freeze:<br><code style="color:#FFC300;">pip freeze</code></li>
   <li>Python, pip-review:<br><code style="color:#FFC300;">pip-review</code></li>
   <li>Python, pip-review --auto:<br><code style="color:#FFC300;">pip-review --auto</code></li>
