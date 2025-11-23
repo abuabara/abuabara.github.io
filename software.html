@@ -88,7 +88,7 @@
   <li><a href="https://apps.apple.com/us/app/pages/id409201541">Pages</a></li>
   <li><a href="https://apps.apple.com/us/app/pixelmator-pro/id1289583905">Pixelmator Pro</a></li>
   <li><a href="https://apps.apple.com/us/app/pure-paste/id1611378436">Pure Paste</a></li>
-  <li><a href="https://apps.apple.com/us/app/radio-garden-live/id1339670993">Radio Garden</a></li>
+  <li><a href="https://apps.apple.com/us/app/radio-garden-live/id1339670993"><del>Radio Garden</del></a></li>
   <li><a href="https://apps.apple.com/us/app/system-color-picker/id1545870783">System Color Picker</a></li>
   <li><a href="https://apps.apple.com/us/app/ublock-origin-lite/id6745342698">uBlock Origin Lite</a></li>
   <!--- <li><a href="https://apps.apple.com/in/app/whatsapp-messenger/id310633997">WhatsApp</a></li> --->
@@ -140,10 +140,32 @@
   <li>jupyter notebook<br><code style="color:#FFC300;">jupyter notebook</code></li>
   
   <li><a href="https://www.gnu.org/software/wget/">wget</a><br>
-  <code style="color:#FFC300;">...</code></li>
+  <code style="color:#FFC300;">
+  xcode-select --install<br>
+  ... openssn ...<br>
+  curl -O https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz<br>
+  tar -xf wget-1.25.0.tar.gz<br>
+  cd wget-1.25.0<br>
+  ./configure --prefix=/usr/local<br>
+  make<br>
+  make install<br>
+  wget --version<br>
+  <br>
+  %PATH
+  </code></li>
   
   <li><a href="https://graphviz.org">graphviz</a><br>
-  <code style="color:#FFC300;">...</code></li>
+  <code style="color:#FFC300;">
+  curl -O ...<br>
+  tar -xf ...<br>
+  cd ...<br>
+  ./configure<br>
+  make<br>
+  make install<br>
+  dot -V<br>
+  <br>
+  %PATH
+  </code></li>
   </ul>
   
   Return <a href="index.html">home</a><br>
