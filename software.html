@@ -128,60 +128,84 @@
   <code style="color:Tomato;"><del>defaults write com.apple.screencapture disable-shadow -bool TRUE</del></code>
   </li>
   
-  <li>Application, new instance:<br><code style="color:DodgerBlue;">open -n /Applications/Safari.app</code></li>
+  <li>Application, new instance: <code style="color:DodgerBlue;">open -n /Applications/Safari.app</code></li>
   
-  <li>Xcode Command Line Tools:<br><code style="color:#FFC300;">xcode-select --install</code></li>
+  <li>Xcode Command Line Tools: <code style="color:#7a81ff;">xcode-select --install</code></li>
 
-  <li>Python pip:<br><code style="color:#FFC300;">which pip3</code></li>
-  <li>Python pip:<br><code style="color:#FFC300;">pip install --upgrade pip</code></li>
-  <li>Python libraries:<br><code style="color:#FFC300;">pip install anyio==4.11.0 arviz==0.22.0 bambi==0.16.0 beautifulsoup4==4.14.2 graphviz==0.21 h5py==3.15.1 httpx==0.28.1 ipykernel==7.1.0 ipython==9.7.0 jupyterlab==4.4.10 matplotlib==3.10.7 nbconvert==7.16.6 nbformat==5.10.4 notebook==7.4.7 numba==0.62.1 numpy==2.3.4 pandas==2.3.3 pip-review==1.3.0 plotnine==0.15.1 pymc==5.26.1 requests==2.32.5 scikit-learn==1.7.2 scipy==1.16.3 statsmodels==0.14.5 voila==0.5.11 xarray==2025.10.1</code></li>
-  <li>pip freeze:<br><code style="color:#FFC300;">pip freeze</code></li>
-  <li>pip-review:<br><code style="color:#FFC300;">pip-review</code></li>
-  <li>pip-review --auto:<br><code style="color:#FFC300;">pip-review --auto</code></li>
-  <li>pip-review --interactive:<br><code style="color:#FFC300;">pip-review --interactive</code></li>
-  <li>jupyter notebook<br><code style="color:#FFC300;">jupyter notebook</code></li>
+  <li>Python pip: <code style="color:#ff40ff;">which pip3</code></li>
+  <li>Python pip: <code style="color:#ff40ff;">pip install --upgrade pip</code></li>
+  <li>Python libraries: <code style="color:#ff40ff;">pip install anyio==4.11.0 arviz==0.22.0 bambi==0.16.0 beautifulsoup4==4.14.2 graphviz==0.21 h5py==3.15.1 httpx==0.28.1 ipykernel==7.1.0 ipython==9.7.0 jupyterlab==4.4.10 matplotlib==3.10.7 nbconvert==7.16.6 nbformat==5.10.4 notebook==7.4.7 numba==0.62.1 numpy==2.3.4 pandas==2.3.3 pip-review==1.3.0 plotnine==0.15.1 pymc==5.26.1 requests==2.32.5 scikit-learn==1.7.2 scipy==1.16.3 statsmodels==0.14.5 voila==0.5.11 xarray==2025.10.1</code></li>
+  <li>pip freeze: <code style="color:#ff40ff;">pip freeze</code></li>
+  <li>pip-review: <code style="color:#ff40ff;">pip-review</code></li>
+  <li>pip-review --auto: <code style="color:#ff40ff;">pip-review --auto</code></li>
+  <li>pip-review --interactive: <code style="color:#ff40ff;">pip-review --interactive</code></li>
+  <li>jupyter notebook: <code style="color:#d783ff;">jupyter notebook</code></li>
   
-  <li><a href="https://www.gnu.org/software/wget/">openssl+wget</a><br>
-  
-  openssl<br>
-  
-  <code style="color:#FFC300;">
-  curl -O https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz<br>
-  tar -xf openssl-3.5.4.tar.gz<br>
-  cd openssl-3.5.4<br>
-  ./Configure darwin64-arm64-cc --prefix=/usr/local/openssl --openssldir=/usr/local/openssl<br>
-  make<br>
-  make install<br>
-  %PATH
-  </code>
-  
-  wget<br>
-  
-  <code style="color:#FFC300;">
-  curl -O https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz<br>
-  tar -xf wget-1.25.0.tar.gz<br>
-  cd wget-1.25.0<br>
-  ./configure --prefix=/usr/local<br>
-  make<br>
-  make install<br>
-  wget --version<br>
-  %PATH
-  </code>
-  
+  <li><b>openssl</b><br>
+  download <code style="color:#ff40ff;">https://openssl-library.org/source/</code> or<br>
+  <code style="color:#ff40ff;">curl -O https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz</code><br>
+  unzip <code style="color:#ff40ff;">tar -xf openssl-3.5.4.tar.gz</code><br>
+  open terminal at folder openssl-3.5.4 <code style="color:#2700ff;">cd openssl-3.5.4</code><br>
+  <code style="color:#ff40ff;">mkdir ~/Library/wget</code><br>
+  <code style="color:#ff40ff;">./configure --prefix=$HOME/Library/wget</code><br>
+  <code style="color:#ff40ff;">make</code><br>
+  <code style="color:#ff40ff;">make install</code><br>
+  <br>
+  <b>wget</b><br>  
+  <code style="color:#ff40ff;">curl -O https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz</code><br>
+  <code style="color:#ff40ff;">tar -xf wget-1.25.0.tar.gz</code><br>
+  <code style="color:#ff40ff;">cd wget-1.25.0</code><br>
+  <code style="color:#ff40ff;">./configure --prefix=/usr/local</code><br>
+  <code style="color:#ff40ff;">make</code><br>
+  <code style="color:#ff40ff;">make install</code><br>
+  <code style="color:#ff40ff;">wget --version</code><br>
+  <br>
   </li>
   
-  <li><a href="https://graphviz.org">graphviz</a><br>
-  <code style="color:#FFC300;">
-  curl -O ...<br>
-  tar -xf ...<br>
-  cd ...<br>
-  ./configure<br>
+  <li><a href="https://graphviz.org"><b>graphviz</b></a><br>
+  <code style="color:#ff40ff;">
+  # find the link from https://gitlab.com/graphviz/graphviz/-/releases (don't use the one from Assets, but from Other)<br>
+  wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.4/graphviz-14.0.4.tar.gz<br>
+  # unzip the source code<br>
+  tar -xf graphviz-14.0.4.tar<br>
+  cd graphviz-14.0.4<br>
+  # create a folder to save graphviz locally<br>
+  mkdir ~/Library/graphviz<br>
+  # configure the installation<br>
+  ./configure --prefix=$HOME/Library/graphviz<br>
+  # install<br>
   make<br>
   make install<br>
+  <!--- # Configure the environment variables<br> --->
+  <!--- ## terminal<br> --->
+  <!--- ## nano ~/.bashrc<br> --->
+  <!--- nano .zprofile<br> --->
+  <!--- <br> --->
+  <!--- # copy+paste<br> --->
+  <!--- export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Library/graphviz/lib<br> --->
+  <!--- export PATH="$HOME/Library/graphviz/bin:$PATH"<br> --->
+  <!--- <br> --->
+  # Check the installation<br>
   dot -V<br>
-  <br>
-  %PATH
   </code>
+  <br>
+  </li>
+  
+  <li><b>.zprofile</b><br>
+  <code style="color:#ff40ff;">
+  LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/Library/graphviz/lib<br>
+  PATH="$HOME/Library/graphviz/bin:$PATH"<br>
+  PATH="$HOME/Library/wget/bin:$PATH"<br>
+  CPPFLAGS="$HOME/Library/wget/include:$PATH"<br>
+  LDFLAGS="$HOME/Library/wget/lib"<br>
+  <br>
+  # Setting PATH for Python 3.13<br>
+  PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:${PATH}"<br>
+  export PATH<br>
+  <br>
+  source ~/.zprofile<br>
+  </code>
+  <br>
   </li>
   </ul>
   
