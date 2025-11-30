@@ -92,40 +92,46 @@
   </ul>
   
   <h2>Some setup notes</h2>
-  <ul>  
-  <li><a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
+  <ul>
+  
+  <li>
+  <a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
   <code style="color:Gray;">8.8.8.8</code><br>
   <code style="color:Gray;">8.8.4.4</code><br>
   <code style="color:Gray;">2001:4860:4860::8888</code><br>
   <code style="color:Gray;">2001:4860:4860::8844</code>
   </li>
   
-  <li><a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder
+  <li>
+  <a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder
   </li>
   
-  <li>Dock, show/hide speed:<br>
+  <li>
+  Dock, show/hide speed:<br>
   <code style="color:Tomato;">defaults write com.apple.dock autohide-time-modifier -int 0</code><br>
   <code style="color:Tomato;">defaults write com.apple.dock autohide-delay -float 0</code>
   </li>
   
-  <li>Stage Manager, show/hide speed:<br>
+  <li>
+  Stage Manager, show/hide speed:<br>
   <code style="color:Tomato;">defaults write com.apple.WindowManager StageFrameMinimumHorizontalInset -int 0</code><br>
   <code style="color:Tomato;">defaults write com.apple.WindowManager AutoHideDelay -int 0</code><br>
   <code style="color:Tomato;">defaults write com.apple.WindowManager AnimationSpeed -int 65536</code>
   </li>
   
-  <li>Menubar, reduce spacing between items:<br>
+  <li>
+  Menubar, reduce spacing between items:<br>
   <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 7</code><br>
   <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSpacing -int 7</code>
   </li>
   
-  <li>Screenshots, change format and no shadow:<br>
+  <li>
+  Screenshots, change format and no shadow:<br>
   <code style="color:Tomato;"><del>defaults write com.apple.screencapture type jpg</del></code><br>
   <code style="color:Tomato;"><del>defaults write com.apple.screencapture disable-shadow -bool TRUE</del></code>
   </li>
   
   <li>Application, new instance: <code style="color:DodgerBlue;">open -n /Applications/Safari.app</code></li>
-  
   <li>Xcode Command Line Tools: <code style="color:#a9a9a9;">xcode-select --install</code></li>
 
   <li>Python pip: <code style="color:#c801a4;">which pip3</code></li>
@@ -138,7 +144,8 @@
   <li>pip uninstall all: <code style="color:#c801a4;">pip uninstall -y -r <(pip freeze)</code></li>
   <li>jupyter notebook: <code style="color:#c801a4;">jupyter notebook</code></li>
   
-  <li><b>openssl</b><br>
+  <li>
+  <b>openssl</b><br>
   download<br>
   <code style="color:#009051;">https://openssl-library.org/source/</code><br>
   or<br>
@@ -163,7 +170,8 @@
   <br>
   </li>
   
-  <li><a href="https://graphviz.org"><b>graphviz</b></a><br>
+  <li>
+  <a href="https://graphviz.org"><b>graphviz</b></a><br>
   <code style="color:#0096ff;">
   # find the link from https://gitlab.com/graphviz/graphviz/-/releases (don't use the one from Assets, but from Other)<br>
   wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.4/graphviz-14.0.4.tar.gz<br>
@@ -183,7 +191,8 @@
   <br>
   </li>
   
-  <li><b>.zprofile</b><br>
+  <li>
+  <b>.zprofile</b><br>
   <code style="color:#ff7e79;">
   <del>
   # MacPorts<br>
@@ -208,6 +217,7 @@
   </code>
   <br>
   </li>
+  
   </ul>
   
   Return <a href="index.html">home</a><br>
