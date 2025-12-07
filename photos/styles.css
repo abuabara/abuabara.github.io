@@ -79,7 +79,7 @@ body {
 /* Carousel Buttons */
 button {
   position: absolute;
-  top: 75%;
+  top: 35%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.35);
   color: white;
