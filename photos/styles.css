@@ -1,0 +1,68 @@
+body {
+    background-color: white;
+    color: black;
+    font-family: system-ui, sans-serif;
+    font-size: 1.1em;
+    line-height: 1.4;
+    margin: auto;
+    margin-bottom: 50px;
+    margin-top: 10px;
+    max-width: 40ch;
+    padding: 0.2em;
+}
+
+.adaptive-heading {
+    color: maroon;
+}
+
+.carousel {
+    position: relative;
+    max-width: 600px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-images img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(187, 187, 187, 0.7);
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+/* Dark mode */
+:root {
+    color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: black;
+        color: #e0e0e0;
+    }
+
+    .adaptive-heading {
+        color: #FFC300; /* or whatever color you prefer */
+    }
+}

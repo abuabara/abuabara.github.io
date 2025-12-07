@@ -1,225 +1,274 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="author" content="Alexander Abuabara"/>
-  <meta name="description" content="Software I use"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Alexander Abuabara" />
+  <meta name="description" content="Software I use" />
   <title>Alexander Abuabara, PhD</title>
+
   <style>
     :root {
       color-scheme: light dark;
     }
+
     html {
       font-family: system-ui, sans-serif;
       max-width: 75ch;
-      padding: 0.2em;
       margin: auto;
+      padding: 0.2em;
       line-height: 1.4;
       font-size: 1.1em;
+      scroll-behavior: smooth;
     }
+
     body {
-      margin-bottom: 50px;
       background-color: white;
       color: black;
+      margin-bottom: 50px;
     }
+
     .adaptive-heading {
       color: maroon;
     }
+
+    /* Table of Contents */
+    .toc {
+      border-left: 4px solid maroon;
+      padding-left: 1em;
+      margin-bottom: 2em;
+    }
+
+    .toc ul {
+      margin-top: 0;
+    }
+
+    code {
+      font-size: 0.95em;
+      word-break: break-all;
+    }
+
     table {
       border-collapse: collapse;
       width: 50%;
       table-layout: fixed;
     }
+
     td, th {
       text-align: left;
       padding: 8px;
     }
+
     @media (prefers-color-scheme: dark) {
       body {
         background-color: black;
         color: #e0e0e0;
       }
+
       .adaptive-heading {
         color: #FFC300;
+      }
+
+      .toc {
+        border-left-color: #FFC300;
       }
     }
   </style>
 </head>
 
-<body style="margin-bottom: 50px;">
-  
-  <h2>Free/open licenses</h2>
-  <ul>
-  <li><a href="https://www.qdev.de/?location=mac/exifrenamer">ExifRenamer</a> 2.4.0</li>
-  <li><a href="https://www.mozilla.org/en-US/firefox/download/">Firefox</a> 145.0.2</li>
-  <li><a href="https://desktop.github.com/download/">GitHub Desktop</a> 3.5.4</li>
-  <li><a href="https://jasp-stats.org/download/">JASP</a> 0.95.4</li>
-  <li><a href="https://us.mirrors.cicku.me/ctan/systems/mac/mactex/">MacTeX</a> 2025 (<a href="https://pages.uoregon.edu/koch/texshop/">TeXShop</a>, <a href="https://amaxwell.github.io/tlutility/">TeX Live Utility</a>)</li>
-  <li><a href="https://netnewswire.com">NetNewsWire</a> 6.1.10</li>
-  <li><a href="https://pandoc.org">Pandoc</a> 3.8.3</li>
-  <li><a href="https://www.python.org/downloads/">Python</a> 3.13.9, <a href="https://positron.posit.co/download.html">Positron</a> 2025.11.0</li>
-  <li><a href="https://download.qgis.org/downloads/macos/">QGIS</a> 3.99.0-Master</li>
-  <li><a href="https://cran.r-project.org/bin/macosx/big-sur-arm64/base/">R</a> 4.5.2, <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> 2025.09.2</li>
-  <!--- <li><a href="https://github.com/exelban/stats?tab=readme-ov-file">stats</a></li> --->
-  <!--- <li><a href="https://zoom.us/download"><del>Zoom</del></a></li> --->
-  </ul>
-  
-  <h2>Licensed</h2>
-  <ul>
-  <li><a href="https://bombich.com/download">Carbon Copy Cloner</a> 7.1.1</li>
-  <li><a href="https://www.omnigroup.com/omnigraffle/#download">OmniGraffle Pro</a> 7.25</li>
-  <!--- <li><a href="https://learn.microsoft.com/en-us/officeupdates/update-history-office-for-mac"><del>MS Office</del></a> <del>2024 16.101.3 (25100321; Word, Excel, Powerpoint)</del></li> --->
-  </ul>
-  
-  <h2>Mac App Store</h2>
-  <ul>
-  <li><a href="https://apps.apple.com/us/app/acorn-8/id6737921844">Acorn</a></li>
-  <li><a href="https://apps.apple.com/us/app/birthdaybook/id520125238">birthdayBook</a></li>
-  <li><a href="https://apps.apple.com/us/app/camera-preview/id1632827132">Camera Preview</a></li>
-  <li><a href="https://apps.apple.com/us/app/cloudclip-manager/id563362017">CloudClip Manager</a></li>
-  <li><a href="https://apps.apple.com/us/app/coteditor/id1024640650">CotEditor</a></li>
-  <li><a href="https://apps.apple.com/us/app/keynote/id361285480">Keynote</a>, <a href="https://apps.apple.com/us/app/numbers/id409203825">Numbers</a>, <a href="https://apps.apple.com/us/app/pages/id409201541">Pages</a></li>
-  <li><a href="https://apps.apple.com/us/app/pixelmator-pro/id1289583905">Pixelmator Pro</a></li>
-  <li><a href="https://apps.apple.com/us/app/pure-paste/id1611378436">Pure Paste</a></li>
-  <li><a href="https://apps.apple.com/us/app/system-color-picker/id1545870783">System Color Picker</a></li>
-  <li><a href="https://apps.apple.com/us/app/ublock-origin-lite/id6745342698">uBlock Origin Lite</a></li>
-  <li><a href="https://apps.apple.com/us/app/radio-garden-live/id1339670993"><del>Radio Garden</del></a></li>
-  <!--- <li><a href="https://apps.apple.com/us/app/overcast/id888422857"><del>Overcast</del></a></li> --->
-  <!--- <li><a href="https://apps.apple.com/in/app/whatsapp-messenger/id310633997">WhatsApp</a></li> --->
-  <!--- <li><a href="https://apps.apple.com/us/app/yoink-better-drag-and-drop/id457622435"><del>Yoink</del></a></li> --->
-  </ul>
-  
-  <h2>Some setup notes</h2>
-  <ul>
-  
-  <li>
-  <a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
-  <code style="color:Gray;">8.8.8.8</code><br>
-  <code style="color:Gray;">8.8.4.4</code><br>
-  <code style="color:Gray;">2001:4860:4860::8888</code><br>
-  <code style="color:Gray;">2001:4860:4860::8844</code>
-  </li>
-  
-  <li>
-  <a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder
-  </li>
-  
-  <li>
-  Dock, show/hide speed:<br>
-  <code style="color:Tomato;">defaults write com.apple.dock autohide-time-modifier -int 0</code><br>
-  <code style="color:Tomato;">defaults write com.apple.dock autohide-delay -float 0</code>
-  </li>
-  
-  <li>
-  Stage Manager, show/hide speed:<br>
-  <code style="color:Tomato;">defaults write com.apple.WindowManager StageFrameMinimumHorizontalInset -int 0</code><br>
-  <code style="color:Tomato;">defaults write com.apple.WindowManager AutoHideDelay -int 0</code><br>
-  <code style="color:Tomato;">defaults write com.apple.WindowManager AnimationSpeed -int 65536</code>
-  </li>
-  
-  <li>
-  Menubar, reduce spacing between items:<br>
-  <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 7</code><br>
-  <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSpacing -int 7</code>
-  </li>
-  
-  <li>
-  Screenshots, change format and no shadow:<br>
-  <code style="color:Tomato;"><del>defaults write com.apple.screencapture type jpg</del></code><br>
-  <code style="color:Tomato;"><del>defaults write com.apple.screencapture disable-shadow -bool TRUE</del></code>
-  </li>
-  
-  <li>Application, new instance: <code style="color:DodgerBlue;">open -n /Applications/Safari.app</code></li>
-  <li>Xcode Command Line Tools: <code style="color:#a9a9a9;">xcode-select --install</code></li>
+<body>
 
-  <li>Python pip: <code style="color:#c801a4;">which pip3</code></li>
-  <li>Python pip: <code style="color:#c801a4;">pip install --upgrade pip</code></li>
-  <li>Python libraries: <code style="color:#c801a4;">pip install arviz==0.22.0 bambi==0.16.0 census==0.8.24 contextily==1.7.0 earthpy==0.9.4 geographiclib==2.1 geopy==2.4.1 geopandas==1.1.1 graphviz==0.21 great-tables==0.20.0 imageio==2.37.2 ipython==9.7.0 jupyter-events==0.12.0 jupyterlab==4.5.0 kulprit==0.5.0 matplotlib==3.10.7 networkx==3.6 notebook==7.5.0 numba==0.62.1 numpy==2.3.5 pandas==2.3.3 pip-review==1.3.0 preliz==0.23.0 pyfixest==0.40.1 pymc==5.26.1 pyproj==3.7.2 pytensor==2.35.1 pytidycensus==1.2.3 rasterio==1.4.3 rasterstats==0.20.0 scikit-learn==1.7.2 scikit-image==0.25.2 scipy==1.15.3 seaborn==0.13.2 shapely==2.1.2 statsmodels==0.14.5 tableone==0.9.5</code></li>
-  <li>pip freeze: <code style="color:#c801a4;">pip freeze</code></li>
-  <li>pip review: <code style="color:#c801a4;">pip-review</code></li>
-  <li>pip review interactive: <code style="color:#c801a4;">pip-review --interactive</code></li>
-  <li>pip review auto: <code style="color:#c801a4;">pip-review --auto</code></li>
-  <li>pip uninstall all: <code style="color:#c801a4;">pip uninstall -y -r <(pip freeze)</code></li>
-  <li>jupyter notebook: <code style="color:#c801a4;">jupyter notebook</code></li>
-  
-  <li>
-  <b>openssl</b><br>
-  download<br>
-  <code style="color:#009051;">https://openssl-library.org/source/</code><br>
-  or<br>
-  <code style="color:#009051;">curl -O https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz</code><br>
-  unzip<br>
-  <code style="color:#009051;">tar -xf openssl-3.5.4.tar.gz</code><br>
-  open terminal at folder<br>
-  <code style="color:#009051;">cd openssl-3.5.4</code><br>
-  <code style="color:#009051;">mkdir ~/Library/wget</code><br>
-  <code style="color:#009051;">./configure --prefix=$HOME/Library/wget</code><br>
-  <code style="color:#009051;">make</code><br>
-  <code style="color:#009051;">make install</code><br>
-  <br>
-  <b>wget</b><br>  
-  <code style="color:#ff40ff;">curl -O https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz</code><br>
-  <code style="color:#ff40ff;">tar -xf wget-1.25.0.tar.gz</code><br>
-  <code style="color:#ff40ff;">cd wget-1.25.0</code><br>
-  <code style="color:#ff40ff;">./configure --prefix=/usr/local</code><br>
-  <code style="color:#ff40ff;">make</code><br>
-  <code style="color:#ff40ff;">make install</code><br>
-  <code style="color:#ff40ff;">wget --version</code><br>
-  <br>
-  </li>
-  
-  <li>
-  <a href="https://graphviz.org"><b>graphviz</b></a><br>
-  <code style="color:#0096ff;">
-  <code style="color:#878787;"># find the link from https://gitlab.com/graphviz/graphviz/-/releases (don't use the one from Assets, but from Other)</code><br>
-  wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.4/graphviz-14.0.4.tar.gz<br>
-  <code style="color:#878787;"># unzip the source code</code><br>
-  tar -xf graphviz-14.0.4.tar<br>
-  cd graphviz-14.0.4<br>
-  <code style="color:#878787;"># create a folder to save graphviz locally</code><br>
-  mkdir ~/Library/graphviz<br>
-  # configure the installation<br>
-  ./configure --prefix=$HOME/Library/graphviz<br>
-  <code style="color:#878787;"># install</code><br>
-  make<br>
-  make install<br>
-  <code style="color:#878787;"># Check the installation</code><br>
-  dot -V<br>
-  </code>
-  <br>
-  </li>
-  
-  <li>
-  <b>.zprofile</b><br>
-  <code style="color:#ff7e79;">
-  <del>
-  <code style="color:#878787;"># MacPorts<br>
-  export PATH="/opt/local/bin:/opt/local/sbin:$PATH"</code><br>
-  </del>
-  <br>
-  # Graphviz<br>
-  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/Library/graphviz/lib"<br>
-  export PATH="$HOME/Library/graphviz/bin:$PATH"<br>
-  <br>
-  # wget<br>
-  export PATH="$HOME/Library/wget/bin:$PATH"<br>
-  export CPPFLAGS="$HOME/Library/wget/include"<br>
-  export LDFLAGS="$HOME/Library/wget/lib"<br>
-  <br>
-  # Python 3.13<br>
-  export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:$PATH"<br>
-  <br>
-  </code>
-  <code style="color:#929000;">
-  source ~/.zprofile<br>
-  </code>
-  <br>
-  </li>
-  
+  <!-- ========================= -->
+  <!--       TABLE OF CONTENTS   -->
+  <!-- ========================= -->
+
+  <nav class="toc">
+    <h2 class="adaptive-heading">Table of Contents</h2>
+    <ul>
+      <li><a href="#free">Free/open licenses</a></li>
+      <li><a href="#licensed">Licensed</a></li>
+      <li><a href="#macappstore">Mac App Store</a></li>
+      <li><a href="#setup">Some setup notes</a></li>
+      <li><a href="#home">Return home</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========================= -->
+  <!--        MAIN SECTIONS      -->
+  <!-- ========================= -->
+
+  <h2 id="free" class="adaptive-heading">Free/open licenses</h2>
+  <ul>
+    <li><a href="https://www.qdev.de/?location=mac/exifrenamer">ExifRenamer</a> 2.4.0</li>
+    <li><a href="https://www.mozilla.org/en-US/firefox/download/">Firefox</a> 145.0.2</li>
+    <li><a href="https://desktop.github.com/download/">GitHub Desktop</a> 3.5.4</li>
+    <li><a href="https://jasp-stats.org/download/">JASP</a> 0.95.4</li>
+    <li>
+      <a href="https://us.mirrors.cicku.me/ctan/systems/mac/mactex/">MacTeX</a> 2025
+      (<a href="https://pages.uoregon.edu/koch/texshop/">TeXShop</a>,
+      <a href="https://amaxwell.github.io/tlutility/">TeX Live Utility</a>)
+    </li>
+    <li><a href="https://netnewswire.com">NetNewsWire</a> 6.1.10</li>
+    <li><a href="https://pandoc.org">Pandoc</a> 3.8.3</li>
+    <li>
+      <a href="https://www.python.org/downloads/">Python</a> 3.13.9,
+      <a href="https://positron.posit.co/download.html">Positron</a> 2025.11.0
+    </li>
+    <li><a href="https://download.qgis.org/downloads/macos/">QGIS</a> 3.99.0-Master</li>
+    <li>
+      <a href="https://cran.r-project.org/bin/macosx/big-sur-arm64/base/">R</a> 4.5.2,
+      <a href="https://posit.co/download/rstudio-desktop/">RStudio</a> 2025.09.2
+    </li>
   </ul>
-  
-  Return <a href="index.html">home</a><br>
+
+  <h2 id="licensed" class="adaptive-heading">Licensed</h2>
+  <ul>
+    <li><a href="https://bombich.com/download">Carbon Copy Cloner</a> 7.1.1</li>
+    <li><a href="https://www.omnigroup.com/omnigraffle/#download">OmniGraffle Pro</a> 7.25</li>
+  </ul>
+
+  <h2 id="macappstore" class="adaptive-heading">Mac App Store</h2>
+  <ul>
+    <li><a href="https://apps.apple.com/us/app/acorn-8/id6737921844">Acorn</a></li>
+    <li><a href="https://apps.apple.com/us/app/birthdaybook/id520125238">birthdayBook</a></li>
+    <li><a href="https://apps.apple.com/us/app/camera-preview/id1632827132">Camera Preview</a></li>
+    <li><a href="https://apps.apple.com/us/app/cloudclip-manager/id563362017">CloudClip Manager</a></li>
+    <li><a href="httpsapps.apple.com/us/app/coteditor/id1024640650">CotEditor</a></li>
+    <li>
+      <a href="https://apps.apple.com/us/app/keynote/id361285480">Keynote</a>,
+      <a href="https://apps.apple.com/us/app/numbers/id409203825">Numbers</a>,
+      <a href="httpsapps.apple.com/us/app/pages/id409201541">Pages</a>
+    </li>
+    <li><a href="https://apps.apple.com/us/app/pixelmator-pro/id1289583905">Pixelmator Pro</a></li>
+    <li><a href="httpsapps.apple.com/us/app/pure-paste/id1611378436">Pure Paste</a></li>
+    <li><a href="https://apps.apple.com/us/app/system-color-picker/id1545870783">System Color Picker</a></li>
+    <li><a href="https://apps.apple.com/us/app/ublock-origin-lite/id6745342698">uBlock Origin Lite</a></li>
+    <li><a href="https://apps.apple.com/us/app/radio-garden-live/id1339670993"><del>Radio Garden</del></a></li>
+  </ul>
+
+  <h2 id="setup" class="adaptive-heading">Some setup notes</h2>
+
+  <ul>
+    <li>
+      <a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
+      <code style="color:Gray;">8.8.8.8</code><br>
+      <code style="color:Gray;">8.8.4.4</code><br>
+      <code style="color:Gray;">2001:4860:4860::8888</code><br>
+      <code style="color:Gray;">2001:4860:4860::8844</code>
+    </li>
+    <li>
+      <a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder
+    </li>
+    <li>
+      Dock, show/hide speed:<br>
+      <code style="color:Tomato;">defaults write com.apple.dock autohide-time-modifier -int 0</code><br>
+      <code style="color:Tomato;">defaults write com.apple.dock autohide-delay -float 0</code>
+    </li>
+    <li>
+      Stage Manager, show/hide speed:<br>
+      <code style="color:Tomato;">defaults write com.apple.WindowManager StageFrameMinimumHorizontalInset -int 0</code><br>
+      <code style="color:Tomato;">defaults write com.apple.WindowManager AutoHideDelay -int 0</code><br>
+      <code style="color:Tomato;">defaults write com.apple.WindowManager AnimationSpeed -int 65536</code>
+    </li>
+    <li>
+      Menubar, reduce spacing between items:<br>
+      <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 7</code><br>
+      <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSpacing -int 7</code>
+    </li>
+    <li>
+      Screenshots, change format and no shadow:<br>
+      <code style="color:Tomato;"><del>defaults write com.apple.screencapture type jpg</del></code><br>
+      <code style="color:Tomato;"><del>defaults write com.apple.screencapture disable-shadow -bool TRUE</del></code>
+    </li>
+    <li>Application, new instance: <code style="color:DodgerBlue;">open -n /Applications/Safari.app</code></li>
+    <li>Xcode Command Line Tools: <code style="color:#a9a9a9;">xcode-select --install</code></li>
+    <li>Python pip: <code style="color:#7a81ff;">which pip3</code></li>
+    <li>Python pip: <code style="color:#7a81ff;">pip install --upgrade pip</code></li>
+
+    <li>
+      Python libraries:
+      <code style="color:#7a81ff;">
+      pip install arviz==0.22.0 bambi==0.16.0 census==0.8.24 contextily==1.7.0 earthpy==0.9.4 geographiclib==2.1 geopy==2.4.1 geopandas==1.1.1 graphviz==0.21 great-tables==0.20.0 imageio==2.37.2 ipython==9.7.0 jupyter-events==0.12.0 jupyterlab==4.5.0 kulprit==0.5.0 matplotlib==3.10.7 networkx==3.6 notebook==7.5.0 numba==0.62.1 numpy==2.3.5 pandas==2.3.3 pip-review==1.3.0 preliz==0.23.0 pyfixest==0.40.1 pymc==5.26.1 pyproj==3.7.2 pytensor==2.35.1 pytidycensus==1.2.3 rasterio==1.4.3 rasterstats==0.20.0 scikit-learn==1.7.2 scikit-image==0.25.2 scipy==1.15.3 seaborn==0.13.2 shapely==2.1.2 statsmodels==0.14.5 tableone==0.9.5
+      </code>
+    </li>
+    <li>pip freeze: <code style="color:#7a81ff;">pip freeze</code></li>
+    <li>pip review: <code style="color:#7a81ff;">pip-review</code></li>
+    <li>pip review interactive: <code style="color:#7a81ff;">pip-review --interactive</code></li>
+    <li>pip review auto: <code style="color:#7a81ff;">pip-review --auto</code></li>
+    <li>
+      pip uninstall all:
+      <code style="color:#7a81ff;">pip uninstall -y -r &lt;(pip freeze)</code>
+    </li>
+    <li>
+      jupyter notebook:
+      <code style="color:#7a81ff;">jupyter notebook</code>
+    </li>
+
+    <li>
+      <b>openssl</b><br>
+      download<br>
+      <code style="color:#ff40ff;">https://openssl-library.org/source/</code><br>
+      or<br>
+      <code style="color:#ff40ff;">curl -O https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz</code><br>
+      unzip<br>
+      <code style="color:#ff40ff;">tar -xf openssl-3.5.4.tar.gz</code><br>
+      then<br>
+      <code style="color:#ff40ff;">cd openssl-3.5.4</code><br>
+      <code style="color:#ff40ff;">mkdir ~/Library/wget</code><br>
+      <code style="color:#ff40ff;">./configure --prefix=$HOME/Library/wget</code><br>
+      <code style="color:#ff40ff;">make</code><br>
+      <code style="color:#ff40ff;">make install</code><br>
+      <br>
+
+      <b>wget</b><br>
+      <code style="color:#ff40ff;">curl -O https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz</code><br>
+      <code style="color:#ff40ff;">tar -xf wget-1.25.0.tar.gz</code><br>
+      <code style="color:#ff40ff;">cd wget-1.25.0</code><br>
+      <code style="color:#ff40ff;">./configure --prefix=/usr/local</code><br>
+      <code style="color:#ff40ff;">make</code><br>
+      <code style="color:#ff40ff;">make install</code><br>
+      <code style="color:#ff40ff;">wget --version</code><br>
+    </li>
+
+    <li>
+      <a href="https://graphviz.org"><b>graphviz</b></a><br>
+      <code>
+      <span style="color:Gray;"># find the link from https://gitlab.com/graphviz/graphviz/-/releases (don't use Assets—use “Other”)</span><br>
+      <span style="color:#009051;">wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.4/graphviz-14.0.4.tar.gz</span><br>
+      <span style="color:Gray;"># unzip the source code</span><br>
+      <span style="color:#009051;">tar -xf graphviz-14.0.4.tar</span><br>
+      <span style="color:#009051;">cd graphviz-14.0.4</span><br>
+      <span style="color:Gray;"># create a folder to save graphviz locally</span><br>
+      <span style="color:#009051;">mkdir ~/Library/graphviz</span><br>
+      <span style="color:#009051;">./configure --prefix=$HOME/Library/graphviz</span><br>
+      <span style="color:#009051;">make</span><br>
+      <span style="color:#009051;">make install</span><br>
+      <span style="color:Gray;"># Check the installation</span><br>
+      <span">dot -V</span><br>
+      </code>
+    </li>
+
+    <li>
+      <b>.zprofile</b><br>
+      <code>
+      <span style="color:Gray;"># Graphviz</span><br>
+      <span style="color:#ff7e79;">export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/Library/graphviz/lib"</span><br>
+      <span style="color:#ff7e79;">export PATH="$HOME/Library/graphviz/bin:$PATH"</span><br><br>
+      <span style="color:Gray;"># wget</span><br>
+      <span style="color:#ff7e79;">export PATH="$HOME/Library/wget/bin:$PATH"</span><br>
+      <span style="color:#ff7e79;">export CPPFLAGS="$HOME/Library/wget/include"</span><br>
+      <span style="color:#ff7e79;">export LDFLAGS="$HOME/Library/wget/lib"</span><br><br>
+      <span style="color:Gray;"># Python 3.13</span><br>
+      <span style="color:#ff7e79;">export PATH="/Library/Frameworks/Python.framework/Versions/3.13/bin:$PATH"</span><br><br>
+      </code>
+      <code>source ~/.zprofile</code>
+    </li>
+
+  </ul>
+
+  <p id="home">
+    Return <a href="index.html">home</a>
+  </p>
 
 </body>
 </html>
