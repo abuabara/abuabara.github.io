@@ -1,7 +1,4 @@
-/* ============================
-   Base Styles
-============================ */
-
+/* Base Styles */
 body {
   margin: 0;
   height: 100vh;
@@ -10,9 +7,8 @@ body {
   line-height: 1.4;
   background-color: white;
   color: black;
-  overflow-y: auto;   /* ← enables vertical scrolling */
-  overflow-x: auto;   /* ← keeps sideways scroll disabled */
-  /* overflow: hidden;   Prevents scroll when using fullscreen slides */
+  overflow-y: auto;     /* ← enables vertical scrolling */
+  overflow-x: auto;     /* ← keeps sideways scroll disabled */
 }
 
 .adaptive-heading {
@@ -26,20 +22,14 @@ body {
   margin: 1rem 1rem 1rem 1rem;
 }
 
-/* ============================
-   Fullscreen Image Style
-============================ */
-
+/* Fullscreen Image Style */
 .fullscreen-image {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
 }
 
-/* ============================
-   Carousel Layout
-============================ */
-
+/* Carousel Layout */
 .carousel {
   position: relative;
   width: 100vw;
@@ -50,7 +40,7 @@ body {
 .carousel-images {
   width: 100%;
   height: 100%;
-  position: relative;         /* important for fade stacking */
+  position: relative;    /* important for fade stacking */
 }
 
 .carousel-images img {
@@ -73,13 +63,10 @@ body {
   pointer-events: auto;
 }
 
-/* ============================
-   Carousel Buttons
-============================ */
-
+/* Carousel Buttons */
 button {
   position: absolute;
-  top: 50%;
+  top: 75%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.35);
   color: white;
@@ -112,10 +99,7 @@ button:hover {
   }
 }
 
-/* ============================
-   Dark Mode
-============================ */
-
+/* Dark Mode */
 @media (prefers-color-scheme: dark) {
   body {
     background-color: black;
