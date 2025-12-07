@@ -1,4 +1,6 @@
-/* Base Styles */
+/* =======================================
+   Base Styles
+======================================= */
 body {
   margin: 0;
   height: 100vh;
@@ -7,8 +9,7 @@ body {
   line-height: 1.4;
   background-color: white;
   color: black;
-  overflow-y: auto;     /* ← enables vertical scrolling */
-  overflow-x: auto;     /* ← keeps sideways scroll disabled */
+  overflow: hidden; /* No scrollbars during full-screen carousel */
 }
 
 .adaptive-heading {
@@ -18,18 +19,13 @@ body {
 }
 
 .return-link {
+  margin: 1rem;
   text-align: left;
-  margin: 1rem 1rem 1rem 1rem;
 }
 
-/* Fullscreen Image Style */
-.fullscreen-image {
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-}
-
-/* Carousel Layout */
+/* =======================================
+   Carousel Layout
+======================================= */
 .carousel {
   position: relative;
   width: 100vw;
@@ -40,38 +36,24 @@ body {
 .carousel-images {
   width: 100%;
   height: 100%;
-  position: relative;    /* important for fade stacking */
+  position: relative;
+  background: black; /* fills empty space around contain images */
 }
 
 .carousel-images img {
-  display: flex;
-  align-items: flex-end; /* keeps caption close to image bottom */
-  justify-content: center;
-  
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  max-height: 100vh;
-  object-fit: contain;   /* prevents cropping */
-  opacity: 0;
-  transition: opacity 0.2s;
-  pointer-events: none;
-  background: black;     /* hides empty space elegantly */
-}
-
-.carousel-caption {
-  position: absolute;
-  bottom: 60px;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
-  padding: 8px 16px;
-  background: rgba(0,0,0,0.4);
-  color: white;
-  border-radius: 6px;
-  font-size: 1.2rem;
-  z-index: 20;
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100vh;
+  object-fit: contain;
+  transform: translate(-50%, -50%);
+  
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
 }
 
 /* Active image becomes visible */
@@ -80,7 +62,27 @@ body {
   pointer-events: auto;
 }
 
-/* Carousel Buttons */
+/* =======================================
+   Caption Styling
+======================================= */
+.carousel-caption {
+  position: absolute;
+  bottom: 50px; /* lifted so it's not too low */
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 18px;
+  background: rgba(0, 0, 0, 0.4);
+  color: white;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  z-index: 30;
+  max-width: 90%;
+  text-align: center;
+}
+
+/* =======================================
+   Carousel Buttons (Prev / Next)
+======================================= */
 button {
   position: absolute;
   top: 50%;
@@ -91,9 +93,9 @@ button {
   cursor: pointer;
   padding: 12px 16px;
   font-size: 2rem;
-  z-index: 20;
   border-radius: 6px;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s;
+  z-index: 40;
 }
 
 button:hover {
@@ -112,11 +114,18 @@ button:hover {
 @media (max-width: 600px) {
   button {
     padding: 16px 20px;
-    font-size: 2.2rem;
+    font-size: 2.3rem;
+  }
+
+  .carousel-caption {
+    bottom: 40px;
+    font-size: 1.1rem;
   }
 }
 
-/* Dark Mode */
+/* =======================================
+   Dark Mode
+======================================= */
 @media (prefers-color-scheme: dark) {
   body {
     background-color: black;
