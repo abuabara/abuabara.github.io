@@ -1,68 +1,126 @@
+/* ============================
+   Base Styles
+============================ */
+
 body {
-    background-color: white;
-    color: black;
-    font-family: system-ui, sans-serif;
-    font-size: 1.1em;
-    line-height: 1.4;
-    margin: auto;
-    margin-bottom: 50px;
-    margin-top: 10px;
-    max-width: 40ch;
-    padding: 0.2em;
+  margin: 0;
+  height: 100vh;
+  font-family: system-ui, sans-serif;
+  font-size: 1.1em;
+  line-height: 1.4;
+  background-color: white;
+  color: black;
+  overflow-y: auto;   /* ← enables vertical scrolling */
+  overflow-x: hidden; /* ← keeps sideways scroll disabled */
+  /* overflow: hidden;   Prevents scroll when using fullscreen slides */
 }
 
 .adaptive-heading {
-    color: maroon;
+  text-align: center;
+  color: maroon;
+  margin: 0.5rem 0 1rem 0;
 }
 
+.return-link {
+  text-align: left;
+  margin: 1rem 1rem 1rem 1rem;
+}
+
+/* ============================
+   Fullscreen Image Style
+============================ */
+
+.fullscreen-image {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
+
+/* ============================
+   Carousel Layout
+============================ */
+
 .carousel {
-    position: relative;
-    max-width: 600px;
-    margin: auto;
-    overflow: hidden;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 .carousel-images {
-    display: flex;
-    transition: transform 0.5s ease;
+  width: 100%;
+  height: 100%;
+  position: relative;         /* important for fade stacking */
 }
 
 .carousel-images img {
-    max-width: 100%;
-    display: block;
+  position: absolute;         /* Allows fades and stacking */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: calc(100vh - 50px); /* leave 50px space at bottom */  /* height: 100vh; */
+  object-fit: cover;
+  opacity: 0;                 /* start hidden */
+  transition: opacity 0.6s ease;
+  pointer-events: none;       /* prevents accidental tap blocking */
 }
 
+/* Active image becomes visible */
+.carousel-images img.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ============================
+   Carousel Buttons
+============================ */
+
 button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(187, 187, 187, 0.7);
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 10;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.35);
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 12px 16px;
+  font-size: 2rem;
+  z-index: 20;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background-color: rgba(0, 0, 0, 0.55);
 }
 
 .prev {
-    left: 10px;
+  left: 20px;
 }
 
 .next {
-    right: 10px;
+  right: 20px;
 }
 
-/* Dark mode */
-:root {
-    color-scheme: light dark;
+/* Larger touch-friendly targets on mobile */
+@media (max-width: 600px) {
+  button {
+    padding: 16px 20px;
+    font-size: 2.2rem;
+  }
 }
+
+/* ============================
+   Dark Mode
+============================ */
 
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: black;
-        color: #e0e0e0;
-    }
+  body {
+    background-color: black;
+    color: #e0e0e0;
+  }
 
-    .adaptive-heading {
-        color: #FFC300; /* or whatever color you prefer */
-    }
+  .adaptive-heading {
+    color: #ffc300;
+  }
 }

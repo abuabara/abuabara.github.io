@@ -1,37 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="author" content="Alexander Abuabara"/>
-  <meta name="description" content="My photos"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Alexander Abuabara" />
+  <meta name="description" content="My photos" />
   <title>Alexander Abuabara, PhD</title>
 
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css" />
 
+  <!-- Light/Dark mode root declaration -->
   <style>
     :root {
       color-scheme: light dark;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: black;
-        color: #e0e0e0;
-      }
     }
   </style>
 </head>
 
 <body>
 
-  <h2 class="adaptive-heading" style="text-align:center;">My photos</h2>
+  <h2 class="adaptive-heading">My photos</h2>
 
   <div class="carousel">
     <div class="carousel-images">
-      <img src="IMG_3898.jpeg" alt="Photo 3898">
-      <img src="IMG_3905.jpeg" alt="Photo 3905">
-      <img src="IMG_3970.jpeg" alt="Photo 3970">
+      <img src="IMG_3898.jpeg" alt="Photo 3898" class="fullscreen-image" />
+      <img src="IMG_3905.jpeg" alt="Photo 3905" class="fullscreen-image" />
+      <img src="IMG_3970.jpeg" alt="Photo 3970" class="fullscreen-image" />
     </div>
 
     <button class="prev" onclick="changeSlide(-1)">❮</button>
@@ -40,9 +34,7 @@
 
   <script src="script.js"></script>
 
-  <p style="margin-bottom: 0.5cm;"></p>
-
-  <p>
+  <p class="return-link">
     Return <a href="https://abuabara.github.io/index.html">home</a>
   </p>
 
