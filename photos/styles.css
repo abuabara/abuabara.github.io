@@ -92,7 +92,7 @@ button {
 
 button {
   position: absolute;
-  top: 35%;
+  top: 25%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.35);
   color: white;
