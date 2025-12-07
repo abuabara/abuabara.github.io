@@ -44,6 +44,10 @@ body {
 }
 
 .carousel-images img {
+  display: flex;
+  align-items: flex-end; /* keeps caption close to image bottom */
+  justify-content: center;
+  
   position: absolute;
   top: 0;
   left: 0;
@@ -59,7 +63,7 @@ body {
 
 .carousel-caption {
   position: absolute;
-  bottom: 20px;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   padding: 8px 16px;
@@ -77,22 +81,9 @@ body {
 }
 
 /* Carousel Buttons */
-/* 
-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(187, 187, 187, 0.7);
-    border: none;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 10;
-}
-*/
-
 button {
   position: absolute;
-  top: 10%;
+  top: 50%;
   transform: translateY(-50%);
   background-color: rgba(0, 0, 0, 0.35);
   color: white;
