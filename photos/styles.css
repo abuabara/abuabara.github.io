@@ -37,7 +37,7 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  background: black; /* fills empty space around contain images */
+  background: white; /* fills empty space around contain images */
 }
 
 .carousel-images img {
@@ -130,10 +130,26 @@ button:hover {
 @media (prefers-color-scheme: dark) {
   body {
     background-color: black;
-    color: #e0e0e0;
+    color: white;
+  }
+
+  .carousel-images {
+    background-color: black; /* match system theme */
   }
 
   .adaptive-heading {
-    color: #ffc300;
+    color: #ffc300; /* optional highlight color */
+  }
+
+  .carousel-caption {
+    background: rgba(255,255,255,0.25); /* better contrast on black */
+  }
+
+  button {
+    background-color: rgba(255,255,255,0.35);
+  }
+
+  button:hover {
+    background-color: rgba(255,255,255,0.55);
   }
 }
