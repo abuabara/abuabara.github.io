@@ -251,16 +251,30 @@ for (var in c("expected_hh_impacts", "signif_evac_orders")){
 }
 
 ###### BN ######
-dag = model2network("[age][consult_info][evac_orders][gender][education][risk_area][social_cues][unnecessary_evac_exp][signif_evac_orders|evac_orders][multiple_concerns|age:gender:education][expected_hh_impacts|age:consult_info:gender:education:risk_area:social_cues][evacuation|expected_hh_impacts:signif_evac_orders:multiple_concerns:unnecessary_evac_exp]")
+dag = model2network("[gender][social_cues|gender][evacuation|social_cues:gender]")
 par(new = TRUE, mfrow = c(1, 1), bg = "white", pty = "m")
 graphviz.plot(dag, shape = "ellipse")
-bn = bn.fit(dag, dat_bn_dicretized)
+bn = bn.fit(dag, dat_bn_dicretized[c("evacuation","social_cues","gender")])
 coefficients(bn)
 par(mfrow = c(1, 1), bg = "white", pty = "m")
 # graphviz.chart(bn)
 graphviz.chart(bn, type = "barprob", grid = TRUE, scale = c(1, 1.2)) # c(1.2,2))
-(pvalues = arc.strength(dag, data = dat_bn_dicretized))
+(pvalues = arc.strength(dag, data = dat_bn_dicretized[c("evacuation","social_cues","gender")]))
 par(new = TRUE, mfrow = c(1, 1), bg = "white", pty = "m")
+strength.plot(dag, strength = pvalues, shape = "ellipse")
+
+LL  = logLik(dag, dat_bn_dicretized["evacuation","social_cues","gender"])
+k   = log(nrow(dat_bn_dicretized["evacuation","social_cues","gender"]))/2
+N   = nparams(dag, dat_bn_dicretized["evacuation","social_cues","gender"])
+(BIC = LL - N * k)
+score(dag, dat_bn_dicretized["evacuation","social_cues","gender"])
+
+dag = model2network("[age][consult_info][evac_orders][gender][education][risk_area][social_cues][unnecessary_evac_exp][signif_evac_orders|evac_orders][multiple_concerns|age:gender:education][expected_hh_impacts|age:consult_info:gender:education:risk_area:social_cues][evacuation|expected_hh_impacts:signif_evac_orders:multiple_concerns:risk_area:unnecessary_evac_exp]")
+par(new = TRUE, mfrow = c(1, 1), bg = "white")
+graphviz.plot(dag, shape = "ellipse")
+bn = bn.fit(dag, dat_bn_dicretized)
+pvalues = arc.strength(dag, data = dat_bn_dicretized)
+par(new = TRUE, mfrow = c(1, 1), bg = "white")
 strength.plot(dag, strength = pvalues, shape = "ellipse")
 LL  = logLik(dag, dat_bn_dicretized)
 k   = log(nrow(dat_bn_dicretized))/2
