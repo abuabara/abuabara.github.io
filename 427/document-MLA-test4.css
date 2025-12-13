@@ -1,23 +1,23 @@
  
 /* start css.sty */
-.cmbsy-10x-x-120{font-weight: bold;}
-.cmbsy-10x-x-120{font-weight: bold;}
-.cmbsy-10x-x-120{font-weight: bold;}
-.cmbsy-8{font-size:66%;font-weight: bold;}
-.cmbsy-8{font-weight: bold;}
-.cmbsy-8{font-weight: bold;}
-.cmbsy-6{font-size:50%;font-weight: bold;}
-.cmbsy-6{font-weight: bold;}
-.cmbsy-6{font-weight: bold;}
-.cmex-8{font-size:66%;}
-.cmex-7x-x-85{font-size:49%;}
-.cmr-8{font-size:66%;}
-.cmr-6{font-size:50%;}
-.cmmi-12{font-style: italic;}
-.cmmi-8{font-size:66%;font-style: italic;}
-.cmmi-6{font-size:50%;font-style: italic;}
-.cmsy-8{font-size:66%;}
-.cmsy-6{font-size:50%;}
+.cmr-7{font-size:70%;}
+.cmmi-7{font-size:70%;font-style: italic;}
+.cmmi-10{font-style: italic;}
+.cmsy-7{font-size:70%;}
+.cmr-12x-x-120{font-size:144%;}
+.cmbsy-10x-x-144{font-size:144%;font-weight: bold;}
+.cmbsy-10x-x-144{font-weight: bold;}
+.cmbsy-10x-x-144{font-weight: bold;}
+.cmbsy-10{font-weight: bold;}
+.cmbsy-10{font-weight: bold;}
+.cmbsy-10{font-weight: bold;}
+.cmbsy-7{font-size:70%;font-weight: bold;}
+.cmbsy-7{font-weight: bold;}
+.cmbsy-7{font-weight: bold;}
+.cmex-10x-x-144{font-size:144%;}
+.cmex-7{font-size:70%;}
+.cmmi-12x-x-120{font-size:144%;font-style: italic;}
+.cmsy-10x-x-144{font-size:144%;}
 p{margin-top:0;margin-bottom:0}
 p.indent{text-indent:0;}
 p + p{margin-top:1em;}
