@@ -9,125 +9,50 @@
     content="Homepage of Dr. Alexander Abuabara. This site serves as my homepage for work, projects, and interests."
   />
   <title>Alexander Abuabara, PhD</title>
-<style>
-  /* ---------- Root ---------- */
-  :root {
-    color-scheme: light dark;
-  }
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
 
-  /* ---------- Page Frame ---------- */
-  body {
-    font-family: serif;
-    line-height: 1.6;
-    margin: 0;
-    background-color: white;
-    color: black;
-  }
+    html {
+      font-family: system-ui, sans-serif;
+      max-width: 55ch;
+      margin: auto;
+      padding: 0.2em;
+      line-height: 1.4;
+      font-size: 1.1em;
+    }
 
-  /* Central reading column */
-  main {
-    max-width: 55ch;
-    margin: 2.5rem auto;
-    padding: 0 1rem;
-  }
-
-  section {
-    margin-bottom: 3rem;
-  }
-
-  article {
-    margin-bottom: 2.5rem;
-  }
-
-  h1, h2, h3 {
-    margin-top: 2rem;
-  }
-
-  .adaptive-heading {
-    color: maroon;
-    margin-top: 0.75rem;
-  }
-
-  ul {
-    margin-left: 1.5rem;
-  }
-
-  /* ---------- Navigation (full width, centered content) ---------- */
-  nav {
-    position: sticky;
-    top: 0;
-    background: #f5f5f5;
-    border-bottom: 1px solid #ccc;
-  }
-
-  nav .nav-inner {
-    max-width: 55ch;
-    margin: 0 auto;
-    padding: 0.75rem 1rem;
-  }
-
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  nav a {
-    text-decoration: none;
-    font-weight: bold;
-    color: #003366;
-  }
-
-  nav a:hover {
-    text-decoration: underline;
-  }
-
-  /* ---------- Media ---------- */
-  img {
-    display: block;
-    max-width: 100%;
-    margin: 1rem auto;
-    border-radius: 6px;
-  }
-
-  /* ---------- Dark Mode ---------- */
-  @media (prefers-color-scheme: dark) {
     body {
-      background-color: black;
-      color: #e0e0e0;
+      background-color: white;
+      color: black;
+      margin-bottom: 50px;
     }
 
     .adaptive-heading {
-      color: #ffc300;
+      color: maroon;
+      margin-top: 0.5em;
     }
 
-    nav {
-      background: #111;
-      border-bottom: 1px solid #333;
+    img {
+      margin: 0.5em 0;
+      border-radius: 6px;
     }
 
-    nav a {
-      color: #9ecbff;
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: black;
+        color: #e0e0e0;
+      }
+      .adaptive-heading {
+        color: #ffc300;
+      }
     }
-  }
-</style>
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
-<nav>
-  <div class="nav-inner">
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Notes</a></li>
-      <li><a href="#">Projects</a></li>
-    </ul>
-  </div>
-</nav>
-  
-  <section id="Contact info">
-  <h1 class="adaptive-heading">Alexander Abuabara, Ph.D.</h1>
+
+  <h2 class="adaptive-heading">Alexander Abuabara, Ph.D.</h2>
 
   <p>
     <a href="https://engineering.tamu.edu/industrial/profiles/abuabara-alexander.html">
@@ -143,8 +68,8 @@
   /><br>
 
   <a href="aboutme.html">About me</a>
-  
-  <h2>Contact info</h2>
+
+  <h3>Contact info</h3>
   <ul>
     <li><b>Email:</b> <a href="mailto:abuabara@tamu.edu">abuabara@tamu.edu</a></li>
     <li><b>Zoom:</b> <a href="https://tamu.zoom.us/my/abuabara">abuabara</a></li>
@@ -164,10 +89,8 @@
     join the conversation. For private matters, please schedule an appointment
     in advance.
   </p>
-  </section>
-  
-  <section id="Teaching">
-  <h2>Teaching</h2>
+
+  <h3>Teaching</h3>
 
   <p><b>Spring 2026</b></p>
   <ul>
@@ -180,19 +103,15 @@
     <li><a href="427/DAEN427.html">DAEN 427/ISEN 427 Decision and Risk Analysis</a></li>
     <li><a href="459/DAEN459.html">DAEN 459 Capstone Senior Design Planning</a></li>
   </ul>
-  </section>
-  
-  <section id="Research">
-  <h2>Research</h2>
+
+  <h3>Research</h3>
   <ul>
     <li>CV (<a href="abuabara-vita-short.html">short</a>, <a href="abuabara-vita-long.html">long</a>)</li>
     <li><a href="https://scholar.google.com/citations?user=r7vp11AAAAAJ">Google Scholar</a> r7vp11AAAAAJ</li>
     <li><a href="https://orcid.org/0000-0002-3522-6101">ORCID</a> 0000-0002-3522-6101</li>
   </ul>
-  </section>
-  
-  <section id="Misc">
-  <h2>Misc</h2>
+
+  <h3>Misc</h3>
   <ul>
     <li><a href="datasets.html">Datasets</a></li>
     <li><a href="bookmarks.html">Bookmarks</a></li>
@@ -205,17 +124,14 @@
       </a>
     </li>
   </ul>
-  </section>
 
-  <section id="Photos">
-  <h2>Photos</h2>
+  <h3>Photos</h3>
   <ul>
     <li><a href="photos/photos-aboutme.html">About me</a></li>
     <li><a href="photos/photos-BCS.html">College Station</a></li>
     <li><a href="photos/photos.html">Heydays</a></li>
     <li><a href="photos/photos-iceland.html">Iceland</a></li>
   </ul>
-  </section>
   
 </body>
 </html>
