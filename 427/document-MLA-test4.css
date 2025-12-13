@@ -1,10 +1,13 @@
  
 /* start css.sty */
+.cmr-5{font-size:50%;}
 .cmr-7{font-size:70%;}
+.cmmi-5{font-size:50%;font-style: italic;}
 .cmmi-7{font-size:70%;font-style: italic;}
 .cmmi-10{font-style: italic;}
 .cmsy-7{font-size:70%;}
 .cmr-12x-x-120{font-size:144%;}
+.cmbx-10{ font-weight: bold;}
 .cmbsy-10x-x-144{font-size:144%;font-weight: bold;}
 .cmbsy-10x-x-144{font-weight: bold;}
 .cmbsy-10x-x-144{font-weight: bold;}
@@ -16,8 +19,13 @@
 .cmbsy-7{font-weight: bold;}
 .cmex-10x-x-144{font-size:144%;}
 .cmex-7{font-size:70%;}
+.msam-7{font-size:70%;}
+.msbm-7{font-size:70%;}
 .cmmi-12x-x-120{font-size:144%;font-style: italic;}
 .cmsy-10x-x-144{font-size:144%;}
+.msam-5{font-size:50%;}
+.msbm-5{font-size:50%;}
+.cmti-10{ font-style: italic;}
 p{margin-top:0;margin-bottom:0}
 p.indent{text-indent:0;}
 p + p{margin-top:1em;}
@@ -164,6 +172,7 @@ table.equation-star { width:100%; }
 .boxed{border: 1px solid black; padding-left:2px; padding-right:2px;}
 mtd.align-odd{margin-left:2em; text-align:right;}
 mtd.align-even{margin-right:2em; text-align:left;}
+.rotatebox{display: inline-block;}
 dl.enumerate-enumitem{display:grid; grid-template-columns: min-content 1fr; align-items: top; row-gap:0ch;}
 dt.enumerate-enumitem{text-align: right;}
 dd.enumerate-enumitem{margin-left:1ch;}
