@@ -10,32 +10,27 @@
     :root {
       color-scheme: light dark;
     }
-
     html {
       font-family: system-ui, sans-serif;
-      max-width: 55ch;
+      max-width: 65ch;
       margin: auto;
       padding: 0.2em;
       line-height: 1.4;
       font-size: 1.1em;
     }
-
     body {
       background-color: white;
       color: black;
       margin-bottom: 50px;
     }
-
     .adaptive-heading {
       color: maroon;
       margin-top: 0.5em;
     }
-
     img {
       margin: 0.5em 0;
       border-radius: 6px;
     }
-
     @media (prefers-color-scheme: dark) {
       body {
         background-color: black;
@@ -45,11 +40,58 @@
         color: #ffc300;
       }
     }
+        .table-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th {
+            background: linear-gradient(270deg, #FEEBE7 0%, #500000 100%);
+            color: white;
+            font-weight: 600;
+            text-align: left;
+            padding: 16px 20px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #374151;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:hover {
+            background: #f9fafb;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #FEEBE7;
+            color: #500000;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 500;
+        }
   </style>
 </head>
 <body>
   
-  <h1>Collaborative student research</h1>
+  <h1 class="adaptive-heading">Collaborative student research</h1>
   
   <p>
   Are you interested in doing collaborative research with me, possibly culminating in publication and/or a Masters thesis? Great!
@@ -71,6 +113,32 @@
   
   <h2>Current and former students</h2>
   
+  <div class="table-container">
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Title</th>
+                <th>Date Graduated</th>
+            </tr>
+            <tr>
+                <td>Adam Mann</td>
+                <td>Master of Urban Planning</td>
+                <td><span class="status-badge">Expected Spring 2026</span></td>
+            </tr>
+            <tr>
+                <td>Aaron Garcia</td>
+                <td>Master of Urban Planning</td>
+                <td><span class="status-badge">Expected Spring 2026</span></td>
+            </tr>
+        </table>
+    </div>
+      
+  <p>Return <a href="index.html">home</a></p>
+
+</body>
+</html>
+
+<!---
   <table>
   <tr>
   <th>Name           </th>
@@ -78,9 +146,14 @@
   <th>Date graduated </th>
   </tr>
   <tr>
-  <td>               </td>
-  <td>               </td>
-  <td>Current student</td>
+  <td>Adam Mann</td>
+  <td>Master of Urban Planning</td>
+  <td>Current student (expected Spring 2026)</td>
+  </tr>
+  <tr>
+  <td>Aaron Garcia</td>
+  <td>Master of Urban Planning</td>
+  <td>Current student (expected Spring 2026)</td>
   </tr>
   <tr>
   <td></td>
@@ -88,8 +161,4 @@
   <td></td>
   </tr>
   </table>
-  
-  <p>Return <a href="index.html">home</a></p>
-
-</body>
-</html>
+--->

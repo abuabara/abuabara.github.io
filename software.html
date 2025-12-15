@@ -10,7 +10,6 @@
     :root {
       color-scheme: light dark;
     }
-
     html {
       font-family: system-ui, sans-serif;
       max-width: 75ch;
@@ -20,74 +19,83 @@
       font-size: 1.1em;
       scroll-behavior: smooth;
     }
-
     body {
       background-color: white;
       color: black;
       margin-bottom: 50px;
     }
-
     .adaptive-heading {
       color: maroon;
     }
-
     /* Table of Contents */
     .toc {
       border-left: 4px solid maroon;
       padding-left: 1em;
       margin-bottom: 2em;
     }
-
     .toc ul {
       margin-top: 0;
     }
-
     code {
       font-size: 0.95em;
       word-break: break-all;
     }
-
     table {
       border-collapse: collapse;
       width: 50%;
       table-layout: fixed;
     }
-
     td, th {
       text-align: left;
       padding: 8px;
     }
-
     @media (prefers-color-scheme: dark) {
       body {
         background-color: black;
         color: #e0e0e0;
       }
-
       .adaptive-heading {
         color: #FFC300;
       }
-
       .toc {
         border-left-color: #FFC300;
       }
+    }
+    nav {
+        background-color: #e0e0e0;
+        padding: 10px 18px;
+        text-align: center;
+        justify-content: center;
+        display: flex;
+    }
+    nav a {
+        margin-right: 18px;
+        margin: 0 8px;
+        text-decoration: none;
+        color: #000;
+        font-weight: bold;
+    }
+    nav a:hover {
+        text-decoration: underline;
+    }
+    .separator {
+    margin: 0 10px;
+    color: #000;
+    font-weight: 500;
     }
   </style>
 </head>
 <body>
   <!--       TABLE OF CONTENTS   -->
-  <nav class="toc">
-    <h2 class="adaptive-heading">toc</h2>
-    <ul>
-      <li><a href="#free">Free/open licenses</a></li>
-      <li><a href="#licensed">Licensed</a></li>
-      <li><a href="#macappstore">Mac App Store</a></li>
-      <li><a href="#setup">Some setup notes</a></li>
-    </ul>
+  <nav>
+    <a href="#free">Free/open</a> |
+    <a href="#licensed">Licensed</a> |
+    <a href="#macappstore">MacAppStore</a> |
+    <a href="#setup">Notes</a>
   </nav>
 
   <!--        MAIN SECTIONS      -->
-  <h2 id="free" class="adaptive-heading">Free/open licenses</h2>
+  <h2 id="free" class="adaptive-heading">Free/open</h2>
   <ul>
     <li><a href="https://www.qdev.de/?location=mac/exifrenamer">ExifRenamer</a> 2.4.0</li>
     <li><a href="https://www.mozilla.org/en-US/firefox/download/">Firefox</a> 146.0</li>
@@ -117,7 +125,7 @@
     <li><a href="https://www.omnigroup.com/omnigraffle/#download">OmniGraffle Pro</a> 7.25.1</li>
   </ul>
 
-  <h2 id="macappstore" class="adaptive-heading">Mac App Store</h2>
+  <h2 id="macappstore" class="adaptive-heading">MacAppStore</h2>
   <ul>
     <li><a href="https://apps.apple.com/us/app/acorn-8/id6737921844">Acorn</a></li>
     <li><a href="https://apps.apple.com/us/app/birthdaybook/id520125238">birthdayBook</a></li>
@@ -136,7 +144,7 @@
     <li><a href="https://apps.apple.com/us/app/radio-garden-live/id1339670993"><del>Radio Garden</del></a></li>
   </ul>
 
-  <h2 id="setup" class="adaptive-heading">Some setup notes</h2>
+  <h2 id="setup" class="adaptive-heading">Notes</h2>
 
   <ul>
     <li>
