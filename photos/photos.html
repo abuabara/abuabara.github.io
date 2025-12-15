@@ -5,17 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Alexander Abuabara" />
   <meta name="description" content="Heyday" />
-  <title>Alexander Abuabara, PhD</title>
+  <title>Alexander Abuabara</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Light/Dark mode root declaration -->
   <style>
     :root {
       color-scheme: light dark;
     }
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+    .close-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
   </style>
 </head>
 <body>
-
 <div class="carousel">
   <div class="carousel-images">
     <img src="IMG_3905.jpeg" data-caption="Ancient Stadium of Rhodes (Greece 25-Jul-2024)" />
@@ -25,21 +45,17 @@
     <img src="IMG_1411.jpeg" data-caption="Temple of Hephaestus (Greece 24-Jun-2024)" />
     <img src="IMG_1542.jpeg" data-caption="Eiffel Tower (Paris 30-Jun-2024)" />
     <img src="IMG_1489.jpeg" data-caption="Cozumel (Mexico 26-Jul-2025)" />
-
   </div>
-
   <div class="carousel-caption" id="carouselCaption"></div>
-
   <button class="prev" onclick="changeSlide(-1)">❮</button>
   <button class="next" onclick="changeSlide(1)">❯</button>
-
 </div>
-
   <script src="script.js"></script>
-
-  <p class="return-link" style="color:Red">
-    Return <a href="https://abuabara.github.io/index.html" style="color:Reds">home</a>
-  </p>
-
 </body>
 </html>
+
+<!---
+<p class="return-link" style="color:Red">
+   Return <a href="https://abuabara.github.io/index.html" style="color:Reds">home</a>
+</p>
+--->

@@ -5,18 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Alexander Abuabara" />
   <meta name="description" content="Iceland 2025" />
-  <title>Alexander Abuabara, PhD</title>
+  <title>Iceland 2023</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Light/Dark mode root declaration -->
   <style>
     :root {
       color-scheme: light dark;
     }
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+    .close-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
   </style>
 </head>
 <body>
-
 <div class="carousel">
+  <a href="https://abuabara.github.io/index.html" class="close-button">✕</a>
   <div class="carousel-images">
     <img src="IMG_2885.jpeg" data-caption="Saint John's Arms, Point of Interest, command key (Iceland 26-Jun-2023)" />
     <img src="IMG_2295.jpeg" data-caption="Hlíðarendi (Iceland 25-Jun-2023)" />
@@ -37,17 +58,9 @@
     <img src="IMG_8423.jpeg" data-caption="The Giantess in the Mountain (Iceland 27-Jun-2023)" />
   </div>
   <div class="carousel-caption" id="carouselCaption"></div>
-
   <button class="prev" onclick="changeSlide(-1)">❮</button>
   <button class="next" onclick="changeSlide(1)">❯</button>
-
 </div>
-
   <script src="script.js"></script>
-
-  <p class="return-link" style="color:Red">
-    Return <a href="https://abuabara.github.io/index.html" style="color:Reds">home</a>
-  </p>
-
 </body>
 </html>

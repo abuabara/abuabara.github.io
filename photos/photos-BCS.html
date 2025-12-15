@@ -5,36 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Alexander Abuabara" />
   <meta name="description" content="College Station" />
-  <title>Alexander Abuabara, PhD</title>
+  <title>BCS</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Light/Dark mode root declaration -->
   <style>
     :root {
       color-scheme: light dark;
     }
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+    .close-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
   </style>
 </head>
 <body>
-
 <div class="carousel">
+  <a href="https://abuabara.github.io/index.html" class="close-button">✕</a>
   <div class="carousel-images">
     <img src="Rusty_Surette-Briarcrest_and_29th_Av_2025-02-22.jpg" data-caption="Rusty Surette, Briarcrest and 29th Av (22-Feb-2025)" />
     <img src="Rusty_Surette-Texas_Av-2025-05-07.jpg" data-caption="Rusty Surette, Texas Av (7-May-2025)" />
     <img src="Rusty_Surette-2818_and_Highway21-2025-07-01.jpg" data-caption="Rusty Surette, 2818 and Highway 21 (1-Jul-2025)" />
   </div>
-
   <div class="carousel-caption" id="carouselCaption"></div>
-
   <button class="prev" onclick="changeSlide(-1)">❮</button>
   <button class="next" onclick="changeSlide(1)">❯</button>
-
 </div>
-
   <script src="script.js"></script>
-
-  <p class="return-link" style="color:Red">
-    Return <a href="https://abuabara.github.io/index.html" style="color:Reds">home</a>
-  </p>
-
 </body>
 </html>

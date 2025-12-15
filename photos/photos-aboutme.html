@@ -5,39 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="author" content="Alexander Abuabara" />
   <meta name="description" content="About me" />
-  <title>Alexander Abuabara, PhD</title>
+  <title>About me</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
     :root {
       color-scheme: light dark;
     }
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+    .close-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
   </style>
 </head>
 <body>
-
 <div class="carousel">
+  <a href="https://abuabara.github.io/index.html" class="close-button">✕</a>
   <div class="carousel-images">
     <img src="1980-03-19_09-19-17.jpeg" data-caption="" />
     <img src="1979-11-13_10-49-14.jpeg" data-caption="" />
     <img src="alexander_abuabara_2024.jpg" data-caption="" />
-    <img src="IMG_0297_edited.jpeg" data-caption="" />
     <img src="IMG_3999.jpeg" data-caption="" />
     <img src="IMG_9230.jpeg" data-caption="" />
-    <img src="IMG_7671.jpeg" data-caption="" />
   </div>
-
   <div class="carousel-caption" id="carouselCaption"></div>
-
   <button class="prev" onclick="changeSlide(-1)">❮</button>
   <button class="next" onclick="changeSlide(1)">❯</button>
-
 </div>
-
   <script src="script.js"></script>
-
-  <p class="return-link" style="color:Red">
-    Return <a href="https://abuabara.github.io/index.html" style="color:Reds">home</a>
-  </p>
-
 </body>
 </html>
