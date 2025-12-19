@@ -1,0 +1,420 @@
+<style>
+  table.surge {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+  table.surge th, table.surge td {
+    border: 1px solid #bfbfbf;
+    padding: 6px 8px;
+    vertical-align: middle;
+  }
+  table.surge thead th {
+    text-align: center;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  table.surge td:first-child, table.surge th:first-child {
+    text-align: left;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  /* Section label rows (UPPER-MIDDLE / LOWER-MIDDLE / LOWER) */
+  tr.section-row td:first-child {
+    background: #f2f2f2;
+  }
+  /* Slightly thicker separators between scenarios */
+  .sep-left { border-left: 2px solid #000 !important; }
+  .sep-right { border-right: 2px solid #000 !important; }
+  
+  tr.section-row td {
+    background: #f2f2f2; /* light gray */
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700; /* or: bold */
+  }
+</style>
+
+<table class="surge" aria-label="Surge scenarios table">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" class="sep-left">Scenario 1 - Limited Surge</th>
+      <th colspan="3" class="sep-left">Scenario 2 - Moderate Surge</th>
+      <th colspan="3" class="sep-left">Scenario 3 - Significant Surge</th>
+      <th colspan="4" class="sep-left sep-right">Scenario 4 - Major Surge</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- UPPER-MIDDLE -->
+    <tr class="section-row">
+      <td>UPPER-MIDDLE</td>
+
+      <!-- Scenario 1 (3 cols total) -->
+      <td class="sep-left"></td>
+      <td></td>
+      <td>Up-Mid_B-15</td>
+
+      <!-- Scenario 2 (3 cols total) -->
+      <td class="sep-left">Up-Mid_B-22</td>
+      <td>Up-Mid_B-23</td>
+      <td></td>
+
+      <!-- Scenario 3 (3 cols total) -->
+      <td class="sep-left">Up-Mid_B-31</td>
+      <td>Up-Mid_B-32</td>
+      <td>Up-Mid_B-33</td>
+
+      <!-- Scenario 4 (4 cols total) -->
+      <td class="sep-left">Up-Mid_B-42</td>
+      <td>Up-Mid_B-43</td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+
+    <tr>
+      <td>Newton</td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-15-run1032609056_Newton_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-22-run1032908137_Newton_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-23-run1032910918_Newton_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-31-run1032977292_Newton_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-32-run1032985475_Newton_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-33-run1032996599_Newton_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-42E-run1051269295_Newton_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-43E-run1051433734_Newton_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Jasper</td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-15-run1032609056_Jasper_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-22-run1032908137_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-23-run1032910918_Jasper_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-31-run1032977292_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-32-run1032985475_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-33-run1032996599_Jasper_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-42E-run1051269295_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-43E-run1051433734_Jasper_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Hardin</td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-15-run1032609056_Hardin_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-22-run1032908137_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-23-run1032910918_Hardin_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-31-run1032977292_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-32-run1032985475_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-33-run1032996599_Hardin_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-42E-run1051269295_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-43E-run1051433734_Hardin_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Orange</td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-15-run1032609056_Orange_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-22-run1032908137_Orange_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-23-run1032910918_Orange_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-31-run1032977292_Orange_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-32-run1032985475_Orange_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-33-run1032996599_Orange_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-42E-run1051269295_Orange_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-43E-run1051433734_Orange_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Jefferson</td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-15-run1032609056_Jeff_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-22-run1032908137_Jeff_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-23-run1032910918_Jeff_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-31-run1032977292_Jeff_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-32-run1032985475_Jeff_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-33-run1032996599_Jeff_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-42E-run1051269295_Jeff_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-43E-run1051433734_Jeff_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Liberty</td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-15-run1032609056_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-22-run1032908137_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-23-run1032910918_Liberty_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-31-run1032977292_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-32-run1032985475_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-33-run1032996599_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-42E-run1051269295_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-43E-run1051433734_Liberty_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Chambers</td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-15-run1032609056_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-22-run1032908137_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-23-run1032910918_Chambers_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-31-run1032977292_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-32-run1032985475_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-33-run1032996599_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-42E-run1051269295_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-43E-run1051433734_Chambers_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Galveston</td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-15-run1032609056_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-22-run1032908137_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-23-run1032910918_Galveston_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-31-run1032977292_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-32-run1032985475_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-33-run1032996599_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Up-Mid_B-42E-run1051269295_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Up-Mid_B-43E-run1051433734_Galveston_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+
+    <!-- LOWER-MIDDLE -->
+    <tr class="section-row">
+      <td>LOWER-MIDDLE</td>
+
+      <!-- Scenario 1 -->
+      <td class="sep-left">Mid_C-12</td>
+      <td>Mid_C-13</td>
+      <td></td>
+
+      <!-- Scenario 2 -->
+      <td class="sep-left">Mid_C-21</td>
+      <td>Mid_C-22</td>
+      <td>Mid_C-23</td>
+
+      <!-- Scenario 3 -->
+      <td class="sep-left">Mid_C-31</td>
+      <td>Mid_C-32</td>
+      <td>Mid_C-33</td>
+
+      <!-- Scenario 4 -->
+      <td class="sep-left">Mid_C-42</td>
+      <td>Mid_C-43</td>
+      <td>Mid_C-42-CFL2</td>
+      <td class="sep-right">Mid_C-43-CFL2</td>
+    </tr>
+
+    <tr>
+      <td>Liberty</td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-12-run1069452753_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-13-run1069481531_Liberty_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-21-run1071020986_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-22-run1071045649_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-23-run1071070322_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-31-run1071168971_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-32-run1071193633_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-33-run1071404090_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-42-run1074569058_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-43-run1074598384_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-42-CFL2-run1082571448_Liberty_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-43-CFL2-run1082550494_Liberty_plot.png"></td>
+    </tr>
+    <tr>
+      <td>Chambers</td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-12-run1069452753_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-13-run1069481531_Chambers_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-21-run1071020986_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-22-run1071045649_Chambersy_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-23-run1071070322_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-31-run1071168971_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-32-run1071193633_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-33-run1071404090_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-42-run1074569058_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-43-run1074598384_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-42-CFL2-run1082571448_Chambers_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-43-CFL2-run1082550494_Chambers_plot.png"></td>
+    </tr>
+    <tr>
+      <td>Galveston</td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-12-run1069452753_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-13-run1069481531_Galveston_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-21-run1071020986_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-22-run1071045649_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-23-run1071070322_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-31-run1071168971_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-32-run1071193633_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-33-run1071404090_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-42-run1074569058_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-43-run1074598384_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-42-CFL2-run1082571448_Galveston_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-43-CFL2-run1082550494_Galveston_plot.png"></td>
+    </tr>
+    <tr>
+      <td>Harris</td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-12-run1069452753_Harris_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-13-run1069481531_Harris_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-21-run1071020986_Harris_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-22-run1071045649_Harris_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-23-run1071070322_Harris_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-31-run1071168971_Harris_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-32-run1071193633_Harris_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-33-run1071404090_Harris_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-42-run1074569058_Harris_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-43-run1074598384_Harris_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-42-CFL2-run1082571448_Harris_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-43-CFL2-run1082550494_Harris_plot.png"></td>
+    </tr>
+    <tr>
+      <td>Brazoria</td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-12-run1069452753_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-13-run1069481531_Brazoria_plot.png"></td>
+      <td></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-21-run1071020986_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-22-run1071045649_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-23-run1071070322_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-31-run1071168971_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-32-run1071193633_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-33-run1071404090_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Mid_C-42-run1074569058_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-43-run1074598384_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Mid_C-42-CFL2-run1082571448_Brazoria_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-43-CFL2-run1082550494_Brazoria_plot.png"></td>
+    </tr>
+
+    <!-- LOWER -->
+    <tr class="section-row">
+      <td>LOWER</td>
+
+      <!-- Scenario 1 (2 cols total; label uses first, second left blank) -->
+      <td class="sep-left"></td>
+      <td>Lower_B-13</td>
+      <td></td>
+      <td class="sep-left"></td>
+
+      <!-- Scenario 2 -->
+      <td></td>
+      <td>Lower_B-23</td>
+      <td class="sep-left"></td>
+
+      <!-- Scenario 3 -->
+      <td>Lower_B-32</td>
+      <td>Lower_B-33</td>
+
+      <!-- Scenario 4 -->
+      <td class="sep-left">Lower_B-42</td>
+      <td>Lower_B-43</td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+
+    <tr>
+      <td>Brazoria</td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-13-run1030458103_Brazoria_plot.png"></td>
+      <td></td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Lower_B-23-run1030599779_Brazoria_plot.png"></td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-32-run1032008852_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-33-run1032037982_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Lower_B-42-run1032190296_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-43-run1032221625_Brazoria_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Matagorda</td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-13-run1030458103_Mata_plot.png"></td>
+      <td></td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Lower_B-23-run1030599779_Mata_plot.png"></td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-32-run1032008852_Mata_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-33-run1032037982_Mata_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Lower_B-42-run1032190296_Mata_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-43-run1032221625_Mata_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Jackson</td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-13-run1030458103_Jackson_plot.png"></td>
+      <td></td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Lower_B-23-run1030599779_Jackson_plot.png"></td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-32-run1032008852_Jackson_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-33-run1032037982_Jackson_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Lower_B-42-run1032190296_Jackson_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-43-run1032221625_Jackson_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Calhoun</td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-13-run1030458103_Calhoun_plot.png"></td>
+      <td></td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Lower_B-23-run1030599779_Calhoun_plot.png"></td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-32-run1032008852_Calhoun_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-33-run1032037982_Calhoun_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Lower_B-42-run1032190296_Calhoun_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-43-run1032221625_Calhoun_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+    <tr>
+      <td>Victoria</td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-13-run1030458103_Victoria_plot.png"></td>
+      <td></td>
+      <td class="sep-left"></td>
+      <td></td>
+      <td><img style="max-height: 210px" src="Lower_B-23-run1030599779_Victoria_plot.png"></td>
+      <td class="sep-left"></td>
+      <td><img style="max-height: 210px" src="Lower_B-32-run1032008852_Victoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-33-run1032037982_Victoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px" src="Lower_B-42-run1032190296_Victoria_plot.png"></td>
+      <td><img style="max-height: 210px" src="Lower_B-43-run1032221625_Victoria_plot.png"></td>
+      <td></td>
+      <td class="sep-right"></td>
+    </tr>
+  </tbody>
+</table>
