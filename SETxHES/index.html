@@ -140,7 +140,16 @@
         <li>
             <a href="RtePM_Dec2025/scenarios_table.html">
             <strong>Scenario table</strong></a>
-            <span class="blink"> <--- CLICK HERE</span>
+            <span class="blink"> <--- CLICK HERE</span><br>
+            Using a Python script, we processed the evacuation results from RtePM for 
+            multiple runs, reading a GIS shapefile of block-level results, 
+            aggregating vehicle counts by zone and time interval, and transforming those 
+            counts into a cumulative "evacuated proportion" time series per zone and scenario.
+            The script then parses zone labels into county and planning-zone categories, 
+            standardizes the planning-zone names and ordering, and for each county generates 
+            a figure consisting of (1) line curves of evacuated proportion over time for all 
+            planning zones in that county and (2) a small summary table reporting the estimated 
+            time (via linear interpolation) when each curve reaches 50% and 90% evacuation.
         </li>
     </ul>
       
