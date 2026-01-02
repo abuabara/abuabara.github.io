@@ -7,9 +7,6 @@
   <meta name="description" content="DAEN 427 / ISEN 427" />
   <title>Alexander Abuabara, PhD</title>
   <style>
-    :root {
-      color-scheme: light dark;
-    }
     html {
       font-family: system-ui, sans-serif;
       max-width: 55ch;
@@ -29,29 +26,8 @@
     .adaptive-heading {
       color: #4b1312;
     }
-    .midterm-notice {
-      background-color: lavender;
-      padding: 0.2em;
-      display: inline-block;
-    }
     .in-class {
       color: red;
-    }
-    /* -------------------------
-       Dark Mode
-       ------------------------- */
-    @media (prefers-color-scheme: dark) {
-      body {
-        background-color: black;
-        color: #e0e0e0;
-      }
-      .adaptive-heading {
-        color: #ffc300;
-      }
-      .midterm-notice {
-        background-color: blue;
-        color: white;
-      }
     }
   </style>
 </head>
@@ -67,7 +43,7 @@
   <b>Fall 2026</b>
   </p>
   
-  <h2>Description</h2>
+  <h2 class="adaptive-heading">Description</h2>
   
   <p style="text-align: justify;">
   In this course we’ll learn how to model decisions, risk, and preferences using Bayesian inference.
@@ -75,7 +51,7 @@
   Drawing from economics, psychology, and management science, we’ll apply these ideas to engineering systems.
   </p>
   
-  <h2>Schedule</h2>
+  <h2 class="adaptive-heading">Schedule</h2>
   
   <p style="text-align: justify;">
   We’ll try to follow this schedule, but since this is my first time working through these books, I’m not 100% sure I’ve got their content spaced our correctly, so we can be super flexible and make adjustments as needed.
@@ -87,11 +63,11 @@
               font-size: 0.76rem;
               table-layout: fixed;">
   <thead>
-    <tr style="background-color:#f2f2f2;">
-      <th style="width:10%;">Week</th>
-      <th style="width:15%; white-space:nowrap;">Dates</th>
-      <th>Tuesday</th>
-      <th>Thursday</th>
+    <tr style="background-color:#f2f2f2" class="adaptive-heading">
+      <th style="width:10%" class="adaptive-heading">Week</th>
+      <th style="width:15%; white-space:nowrap;" class="adaptive-heading">Dates</th>
+      <th class="adaptive-heading">Tuesday</th>
+      <th class="adaptive-heading">Thursday</th>
     </tr>
   </thead>
   <tbody>
@@ -189,7 +165,7 @@
 </table>
 
   
-  <h2>Resources</h2>
+  <h2 class="adaptive-heading">Resources</h2>
     
   <ul>
   <li><a href="https://allendowney.github.io/ThinkBayes2/">Think Bayes: Bayesian Statistics in Python</a></li>
