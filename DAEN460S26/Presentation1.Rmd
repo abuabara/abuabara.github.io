@@ -38,7 +38,6 @@ slides > slide {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  
   background-image: url("images/TAMU_logo.png");
   background-size: 13%;
   background-repeat: no-repeat;
@@ -63,26 +62,26 @@ slides > slide {
 
 .title-slide hgroup h2 {
   color: black;
-  font-size: 46px;
+  font-size: 44px;
   font-weight: 300;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 13px;
 }
 
 .title-slide hgroup p {
   color: black;
-  font-size: 32px;
+  font-size: 28px;
   text-align: center;
 }
 
 /* heading sizes */
 h2 {
-  font-size: 46px;
+  font-size: 44px;
   color: black;
 }
 
 h3 {
-  font-size: 44px;
+  font-size: 42px;
   color: black;
 }
 
@@ -93,7 +92,7 @@ li {
 }
 
 li li {
-  font-size: 26px;
+  font-size: 24px;
   color: black;
 }
 
@@ -124,6 +123,10 @@ p {
   border-radius: 12px;
 }
 
+table { 
+    margin-left: 0; /* Ensures no left margin */
+    float: left; /* Helps in some rendering engines */
+  }
 </style>
 ```
 
@@ -166,22 +169,21 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Course
 
 - [**Capstone Design**]{style="color: red;"} class represents the culmination of an educational journey.
-- It's where [**theory**]{style="color: red;"} meets [**practice**]{style="color: red;"},
-  
-  [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"},
-  
-  and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating, and owning** a complete system.
+- It's where [**theory**]{style="color: red;"} meets [**practice**]{style="color: red;"},\
+  [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"},\
+  and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating,\
+  and owning** a complete system.
 
 ## Goals
 
 - **Apply** Data Engineering Knowledge
 - **Develop** End-to-End Project Skills
-  - **Plan**, **document**, **execute** projects using a structured framework (i.e., V-Model)
+  - **Plan**, **document**, **execute** projects using a structured framework (i.e., V-Model).
 - Foster **Collaboration** & **Professional Skills**
 - Strengthen **Problem-Solving** & **Critical Thinking**
 - **Prepare** for Industry and Research
-  - Build a portfolio demonstrating technical and teamwork skills
-  - Experience working under professional expectations
+  - Build a portfolio demonstrating technical and teamwork skills,
+  - Experience working under professional expectations.
 
 ## [ISEN Mission Statement]{style="color: #800000;"}
 
@@ -209,15 +211,14 @@ Grading and Assessment
 
 ## Team Work
 
-In industry, project failure is rarely caused by lack of technical skill.
-Most often caused by:
-
-- Unclear expectations,
-- Poor communication,
-- Uneven workload distribution,
-- Missed deadlines,
-- Unresolved conflict,
-- Unprofessional behavior.
+- In industry, project failure is rarely caused by lack of technical skill.
+  Most often caused by:
+  - Unclear expectations,
+  - Poor communication,
+  - Uneven workload distribution,
+  - Missed deadlines,
+  - Unresolved conflict,
+  -  Unprofessional behavior.
 
 ## Code of Conduct
 
@@ -247,32 +248,32 @@ Most often caused by:
 
 ## <span style="font-size: .9em;">What Counts as a CI in a Data Platform</span>
 
-<table style="width:70%; margin:6px auto;">
+<table style="width:85%; margin:12px auto;">
 <thead style="background-color:#f0f0f0;">
 <tr>
-<th style="color:#500000; font-size:24px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">CI Area</th>
-<th style="color:#500000; font-size:24px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">Examples</th>
+<th style="color:#500000; font-size:32px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">CI Area</th>
+<th style="color:#500000; font-size:32px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">Examples</th>
 </tr>
 </thead>
 <tbody>
-<tr><td style="font-size:24px; padding:3px 4px;">Sources</td>
-<td style="font-size:24px; padding:3px 4px;">Ingest schema, API feed</td></tr>
-<tr><td style="font-size:24px; padding:3px 4px;">Pipelines</td>
-<td style="font-size:24px; padding:3px 4px;">ETL job, stream proc</td></tr>
-<tr><td style="font-size:24px; padding:3px 4px;">Storage</td>
-<td style="font-size:24px; padding:3px 4px;">Warehouse schema, lakehouse</td></tr>
-<tr><td style="font-size:24px; padding:3px 4px;">Code</td>
-<td style="font-size:24px; padding:3px 4px;">Feature lib, validation</td></tr>
-<tr><td style="font-size:24px; padding:3px 4px;">Models</td>
-<td style="font-size:24px; padding:3px 4px;">Forecast, classifier</td></tr>
-<tr><td style="font-size:24px; padding:3px 4px;">Orchestration</td>
-<td style="font-size:24px; padding:3px 4px;">Airflow DAG, dbt</td></tr>
-<tr><td style="font-size:24px; padding:3px 4px;">Interfaces</td>
-<td style="font-size:24px; padding:3px 4px;">API, data contracts</td></tr>
-<tr><td style="font-size:24px; padding:3px 4px;">Governance</td>
-<td style="font-size:24px; padding:3px 4px;">Quality rules, PII mask</td></tr>
-<tr><td style="font-size:24px; padding:3px 4px;">Docs</td>
-<td style="font-size:24px; padding:3px 4px;">Data dict, lineage</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Sources</td>
+<td style="font-size:28px; padding:3px 4px;">Ingest schema, API feed</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Pipelines</td>
+<td style="font-size:28px; padding:3px 4px;">ETL job, stream proc</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Storage</td>
+<td style="font-size:28px; padding:3px 4px;">Warehouse schema, lakehouse</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Code</td>
+<td style="font-size:28px; padding:3px 4px;">Feature lib, validation</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Models</td>
+<td style="font-size:28px; padding:3px 4px;">Forecast, classifier</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Orchestration</td>
+<td style="font-size:28px; padding:3px 4px;">Airflow DAG, dbt</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Interfaces</td>
+<td style="font-size:28px; padding:3px 4px;">API, data contracts</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Governance</td>
+<td style="font-size:28px; padding:3px 4px;">Quality rules, PII mask</td></tr>
+<tr><td style="font-size:28px; padding:3px 4px;">Docs</td>
+<td style="font-size:28px; padding:3px 4px;">Data dict, lineage</td></tr>
 </tbody>
 </table>
 

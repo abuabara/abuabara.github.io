@@ -3171,7 +3171,6 @@ slides > slide {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  
   background-image: url("images/TAMU_logo.png");
   background-size: 13%;
   background-repeat: no-repeat;
@@ -3196,26 +3195,26 @@ slides > slide {
 
 .title-slide hgroup h2 {
   color: black;
-  font-size: 46px;
+  font-size: 44px;
   font-weight: 300;
   text-align: center;
-  margin-bottom: 15px;
+  margin-bottom: 13px;
 }
 
 .title-slide hgroup p {
   color: black;
-  font-size: 32px;
+  font-size: 28px;
   text-align: center;
 }
 
 /* heading sizes */
 h2 {
-  font-size: 46px;
+  font-size: 44px;
   color: black;
 }
 
 h3 {
-  font-size: 44px;
+  font-size: 42px;
   color: black;
 }
 
@@ -3226,7 +3225,7 @@ li {
 }
 
 li li {
-  font-size: 26px;
+  font-size: 24px;
   color: black;
 }
 
@@ -3257,6 +3256,10 @@ p {
   border-radius: 12px;
 }
 
+table { 
+    margin-left: 0; /* Ensures no left margin */
+    float: left; /* Helps in some rendering engines */
+  }
 </style>
 
 <slide class=""><hgroup><h2>Agenda</h2></hgroup><article  id="agenda">
@@ -3318,18 +3321,14 @@ Health, Love &amp; Relationships, Purpose &amp; Meaning, Gratitude, Freedom, Lea
 </article></slide><slide class=""><hgroup><h2>Course</h2></hgroup><article  id="course">
 
 <ul>
-<li><p><span style="color: red;">
-<strong>Capstone Design</strong></span> class represents the culmination of an educational journey.</p></li>
-<li><p>It’s where <span style="color: red;">
+<li><span style="color: red;">
+<strong>Capstone Design</strong></span> class represents the culmination of an educational journey.</li>
+<li>It’s where <span style="color: red;">
 <strong>theory</strong></span> meets <span style="color: red;">
-<strong>practice</strong></span>,</p>
-
-<p><span style="color: red;">
+<strong>practice</strong></span>,<br/><span style="color: red;">
 <strong>abstraction</strong></span> meets <span style="color: red;">
-<strong>reality</strong></span>,</p>
-
-<p>and the <span style="color: #800000;">
-<strong>individual student</strong></span> transitions from <strong>learning concepts</strong> to <strong>creating, evaluating, and owning</strong> a complete system.</p></li>
+<strong>reality</strong></span>,<br/>and the <span style="color: #800000;">
+<strong>individual student</strong></span> transitions from <strong>learning concepts</strong> to <strong>creating, evaluating,<br/>and owning</strong> a complete system.</li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Goals</h2></hgroup><article  id="goals">
@@ -3339,15 +3338,15 @@ Health, Love &amp; Relationships, Purpose &amp; Meaning, Gratitude, Freedom, Lea
 <li><strong>Develop</strong> End-to-End Project Skills
 
 <ul>
-<li><strong>Plan</strong>, <strong>document</strong>, <strong>execute</strong> projects using a structured framework (i.e., V-Model)</li>
+<li><strong>Plan</strong>, <strong>document</strong>, <strong>execute</strong> projects using a structured framework (i.e., V-Model).</li>
 </ul></li>
 <li>Foster <strong>Collaboration</strong> &amp; <strong>Professional Skills</strong></li>
 <li>Strengthen <strong>Problem-Solving</strong> &amp; <strong>Critical Thinking</strong></li>
 <li><strong>Prepare</strong> for Industry and Research
 
 <ul>
-<li>Build a portfolio demonstrating technical and teamwork skills</li>
-<li>Experience working under professional expectations</li>
+<li>Build a portfolio demonstrating technical and teamwork skills,</li>
+<li>Experience working under professional expectations.</li>
 </ul></li>
 </ul>
 
@@ -3386,7 +3385,8 @@ Throughout this educational process, students will be instilled with the</span> 
 
 </article></slide><slide class=""><hgroup><h2>Team Work</h2></hgroup><article  id="team-work-1">
 
-<p>In industry, project failure is rarely caused by lack of technical skill. Most often caused by:</p>
+<ul>
+<li>In industry, project failure is rarely caused by lack of technical skill. Most often caused by:
 
 <ul>
 <li>Unclear expectations,</li>
@@ -3395,6 +3395,7 @@ Throughout this educational process, students will be instilled with the</span> 
 <li>Missed deadlines,</li>
 <li>Unresolved conflict,</li>
 <li>Unprofessional behavior.</li>
+</ul></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>Code of Conduct</h2></hgroup><article  id="code-of-conduct">
@@ -3440,19 +3441,19 @@ Any <span style="color: red;">
 </article></slide><slide class=""><hgroup><h2><span style="font-size: .9em;">
 What Counts as a CI in a Data Platform</span></h2></hgroup><article  id="what-counts-as-a-ci-in-a-data-platform">
 
-<table style="width:70%; margin:6px auto;">
+<table style="width:85%; margin:12px auto;">
 
 <thead style="background-color:#f0f0f0;">
 
 <tr>
 
-<th style="color:#500000; font-size:24px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">
+<th style="color:#500000; font-size:32px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">
 
 CI Area
 
 </th>
 
-<th style="color:#500000; font-size:24px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">
+<th style="color:#500000; font-size:32px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">
 
 Examples
 
@@ -3466,13 +3467,13 @@ Examples
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Sources
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Ingest schema, API feed
 
@@ -3482,13 +3483,13 @@ Ingest schema, API feed
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Pipelines
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 ETL job, stream proc
 
@@ -3498,13 +3499,13 @@ ETL job, stream proc
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Storage
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Warehouse schema, lakehouse
 
@@ -3514,13 +3515,13 @@ Warehouse schema, lakehouse
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Code
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Feature lib, validation
 
@@ -3530,13 +3531,13 @@ Feature lib, validation
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Models
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Forecast, classifier
 
@@ -3546,13 +3547,13 @@ Forecast, classifier
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Orchestration
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Airflow DAG, dbt
 
@@ -3562,13 +3563,13 @@ Airflow DAG, dbt
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Interfaces
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 API, data contracts
 
@@ -3578,13 +3579,13 @@ API, data contracts
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Governance
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Quality rules, PII mask
 
@@ -3594,13 +3595,13 @@ Quality rules, PII mask
 
 <tr>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Docs
 
 </td>
 
-<td style="font-size:24px; padding:3px 4px;">
+<td style="font-size:28px; padding:3px 4px;">
 
 Data dict, lineage
 
