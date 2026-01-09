@@ -239,7 +239,7 @@ Confidentiality and Non-attribution
   - Uneven workload distribution,
   - Missed deadlines,
   - Unresolved conflict,
-  -  Unprofessional behavior.
+  - Unprofessional behavior.
 
 ## Social Loafing
 
@@ -308,7 +308,21 @@ Social Loafing
 
 ## Mini Project Packet
 
+## Purpose
+
+<img src="images/Purpose.png" width="65%"/>
+
+## SE and PM Integration
+
+<img src="images/SE_PM_Integration.jpg" width="90%"/>
+
 ## Gantt Chart
+
+Gantt Chart
+
+## SE Standards
+
+<img src="images/SE_Standards.jpg" width="100%"/>
 
 <!-- ## Slide with R Output -->
 
