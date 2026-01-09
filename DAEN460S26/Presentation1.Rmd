@@ -137,12 +137,13 @@ knitr::opts_chunk$set(echo = FALSE)
 ## Agenda
 <!-- # Capstone Senior Design – Data Engineering -->
 
-1. Course Introduction: Goals and Expectations
-2. Semester Overview: Milestones and Deliverables
-3. Grading and Assessment
-4. Code of Conduct: Importance and Development
-5. V-Model Phases and Project Items
-6. Configuration Items (CI) &rarr; Project Charter
+1. Introduction
+2. Goals and Expectations
+3. Semester Overview: Milestones and Deliverables
+4. Grading and Assessment
+5. Code of Conduct: Importance and Development
+6. V-Model Phases and Project Items
+7. Configuration Items (CI) &rarr; Project Charter
 
 <!-- ## Agenda -->
 <!-- - Course -->
@@ -153,9 +154,13 @@ knitr::opts_chunk$set(echo = FALSE)
 <!-- - V-Model &rarr; Configuration Items (CI) -->
 <!-- - CIs &rarr; Project Charter Adjustments -->
 
+## Instructors, Faculty Advisor, Sponsor
+
+Course Instructors, Faculty Advisor, and Sponsor
+
 ## What is The Most Important Thing?
 
-> - In life, the most important thing is [**subjective**]{style="color: red;"}.
+> - **In life**, the most important thing is [**subjective**]{style="color: red;"}.
 > - [**Primary dimensions**]{style="color: red;"}:
     <div class="emailred">Health, Love & Relationships, Purpose & Meaning, Gratitude, Freedom, Learning & Growth, Self-Care.</div>
 > - This [**set of dimensions**]{style="color: red;"} makes a conceptual [**backbone for our capstone**]{style="color: #800000;"}, because it positions the course not as a technical culminating experience, but as a **professional and personal transition course.**
@@ -197,13 +202,29 @@ knitr::opts_chunk$set(echo = FALSE)
 - Quality and Documentation
 - Ethical Conduct
 
-## Milestones and Deliverables
+## Professional Standards of Conduct
 
-Milestones and Deliverables
+Professional Standards of Conduct
+
+## Attendance
+
+Attendance
+
+## Confidentiality and Non-attribution
+
+Confidentiality and Non-attribution
+
+## Milestones
+
+<img src="images/Schedule.jpg" width="80%"/>
+
+## Deliverables
+
+<img src="images/Deliverables.jpg" width="80%"/>
 
 ## Grading and Assessment
 
-Grading and Assessment
+<img src="images/Grading.jpg" width="80%"/>
 
 ## Team Work?
 
@@ -220,12 +241,16 @@ Grading and Assessment
   - Unresolved conflict,
   -  Unprofessional behavior.
 
+## Social Loafing
+
+Social Loafing
+
 ## Code of Conduct
 
 - Let us prevent these problems before they occur.
 - Due 1/19 at 5 PM
 - On Canvas:
-  https://canvas.tamu.edu/courses/431435/assignments/2874310
+  <span style="font-size: 24px;">https://canvas.tamu.edu/courses/431435/assignments/2874310</span>
 
 ## V-Model
 
