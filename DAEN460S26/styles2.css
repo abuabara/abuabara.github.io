@@ -1,0 +1,127 @@
+/* ===== Import Fonts ===== */
+@import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@300;400;600&family=Source+Code+Pro:wght@400;600&family=IBM+Plex+Serif:wght@400;500;600&display=swap');
+
+/* ===== Base ===== */
+body {
+  font-family: 'IBM Plex Serif', serif;
+  font-size: 28px;
+  line-height: 1.35;
+  color: #1a1a1a;
+}
+
+/* ===== Headings ===== */
+h1, h2, h3 {
+  font-family: 'Yanone Kaffeesatz', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+h1 {
+  font-size: 3.1em;
+  margin-bottom: 0.4em;
+}
+
+h2 {
+  font-size: 2.2em;
+  margin-bottom: 0.4em;
+}
+
+h3 {
+  font-size: 1.6em;
+}
+
+/* ===== Slide Layout ===== */
+.remark-slide-content {
+  padding: 3.5em 4em 3.5em 4em;
+}
+
+/* ===== Title Slide ===== */
+.title-slide h1 {
+  font-size: 3.8em;
+}
+
+.title-slide h2 {
+  font-size: 1.8em;
+  color: #555;
+}
+
+.title-slide h3 {
+  font-size: 1.2em;
+  color: #777;
+}
+
+/* ===== Lists ===== */
+ul, ol {
+  padding-left: 1.2em;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+/* ===== Emphasis ===== */
+strong {
+  color: #5c1b13;
+}
+
+em {
+  color: #444;
+}
+
+/* ===== Code ===== */
+code, pre {
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.85em;
+}
+
+pre {
+  background: #f6f6f6;
+  padding: 1em;
+  border-radius: 12px;
+  border-left: 6px solid #5c1b13;
+}
+
+/* ===== Links ===== */
+a {
+  color: #5c1b13;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* ===== Blockquotes ===== */
+blockquote {
+  border-left: 6px solid #5c1b13;
+  padding-left: 1em;
+  color: #444;
+  font-style: italic;
+}
+
+/* ===== Footer / Page Numbers ===== */
+.remark-slide-number {
+  font-size: 0.6em;
+  color: #777;
+}
+
+/* ===== Utility Classes ===== */
+.center {
+  text-align: center;
+}
+
+.small {
+  font-size: 0.75em;
+}
+
+.large {
+  font-size: 1.3em;
+}
+
+/* ===== Highlight Boxes ===== */
+.box {
+  border: 2px solid #5c1b13;
+  border-radius: 16px;
+  padding: 1em;
+  background: #fffafa;
+}

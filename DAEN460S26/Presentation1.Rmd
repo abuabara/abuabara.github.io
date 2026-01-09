@@ -2,11 +2,11 @@
 title:    "Introductions"
 subtitle: "DAEN 460 Senior Capstone Design"
 author:   "Alexander Abuabara"
-date:     "2026-01-13"
+date:     "01-13-2026"
 output:   
   ioslides_presentation:
-    widescreen: true
-    transition: 0
+  widescreen: true
+  transition: .5
 ---
 <style>
 body {
@@ -23,6 +23,7 @@ slides > slide {
 /* Title slide vertical centering */
 .title-slide {
   background: white;
+  color: black;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -37,47 +38,47 @@ slides > slide {
 }
 
 .title-slide hgroup h1 {
-  color: black;
-  font-size: 82px;
+  color: #500000;
+  font-size: 80px;
   font-weight: 700;
   text-align: center;
   margin-bottom: 20px;
 }
 
 .title-slide hgroup h2 {
-  color: #505050;
-  font-size: 48px;
+  color: black;
+  font-size: 46px;
   font-weight: 300;
   text-align: center;
   margin-bottom: 15px;
 }
 
 .title-slide hgroup p {
-  color: #505050;
-  font-size: 36px;
+  color: black;
+  font-size: 32px;
   text-align: center;
 }
 
 /* heading sizes */
 h2 {
-  font-size: 54px;
+  font-size: 46px;
   color: black;
 }
 
 h3 {
-  font-size: 48px;
+  font-size: 44px;
   color: black;
 }
 
 /* list item size */
 li {
-  font-size: 36px;
+  font-size: 32px;
   color: black;
 }
 
 /* paragraph size */
 p {
-  font-size: 36px;
+  font-size: 32px;
   color: black;
 }
 </style>
@@ -86,26 +87,25 @@ p {
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-## What’s The Most Important Thing?
+## What is The Most Important Thing?
 
-- The “most important thing” is <span style="color: blue;">**subjective**</span>.
-<!-- - It's hard to enjoy anything without **health**, **meaningful connections**, or **a sense of direction**. -->
-- <span style="color: blue;">**Primary dimensions**</span>: Health, Love & Relationships, Purpose & Meaning, Gratitude, Freedom, Learning & Growth, Self-Care.
-- This set of dimensions makes a <span style="color: blue;">**conceptual backbone for our capstone**</span>, because it positions the course not as a technical culminating experience, but as a <span style="color: blue;">**professional and personal transition course.**</span>
+> - The “most important thing” is <span style="color: blue;">**subjective**</span>.
+> - <span style="color: blue;">**Primary dimensions**</span>: Health, Love & Relationships, Purpose & Meaning, Gratitude, Freedom, Learning & Growth, Self-Care.
+> - This set of dimensions makes a <span style="color: blue;">**conceptual backbone for our capstone**</span>, because it positions the course not as a technical culminating experience, but as a <span style="color: blue;">**professional and personal transition course.**</span>
 
 ## The Bridge Between Academic Training and Life (After Graduation)
 
-- Learn to <span style="color: red;">**go beyond**</span> working your team's project and develop the ability to <span style="color: red;">**work in any project!**</span>
-- Others may always outpace you in coding, surveying, or technical execution.
-- Your true advantage is <span style="color: red;">**systems thinking**</span>, an advantage that reaches its full power only when paired with <span style="color: red;">**strong communication!**</span>
+> - Learn to <span style="color: red;">**go beyond**</span> working your team's project and develop the ability to <span style="color: red;">**work in any project!**</span>
+> - Others may always outpace you in coding, surveying, or technical execution.
+> - Your true advantage is <span style="color: red;">**systems thinking**</span>, an advantage that reaches its full power only when paired with <span style="color: red;">**strong communication!**</span>
 
-## <span style="color: #500000;">ISEN Mission Statement</span>
-**To serve** <span style="color: gray;">the state, nation and global community by educating industrial engineering students to be well founded in engineering fundamentals and to have the</span> **knowledge and skills** <span style="color: gray;">required</span> <span style="color: green;">**to design, develop, improve, implement and control**</span> <span style="color: gray;">sophisticated production and service</span> **systems** <span style="color: gray;">in an environment characterized by</span> **complex technical and social challenges**. <span style="color: gray;">Throughout this educational process, students will be instilled with the</span> **highest standards of professional and ethical behavior**.
+## <span style="color: #800000;">ISEN Mission Statement</span>
+**To serve** <span style="color: #C0C0C0;">the state, nation and global community by educating industrial engineering students to be well founded in engineering fundamentals and</span> **to have the knowledge and skills** <span style="color: #C0C0C0;">required</span> <span style="color: green;">**to design, develop, improve, implement and control**</span> <span style="color: #C0C0C0;">sophisticated production and service</span> **systems** <span style="color: #C0C0C0;">in an environment characterized by</span> **complex technical and social challenges**. <span style="color: #C0C0C0;">Throughout this educational process, students will be instilled with the</span> **highest standards of professional and ethical behavior**.
 
 ## V-Model
-<img src="images/SystemsEngineeringVeeEdited.png" width="70%">
+<img src="images/SystemsEngineeringVeeEdited.png" width="100%">
 
-## What’s a Configuration Item (CI)?
+## What is a Configuration Item (CI)?
 
 
 ## Code of Conduct
@@ -132,3 +132,5 @@ knitr::opts_chunk$set(echo = FALSE)
 <!-- plot(pressure) -->
 
 <!-- ``` -->
+
+<!-- remotes::install_github("yihui/xaringan") -->
