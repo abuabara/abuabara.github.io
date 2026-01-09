@@ -92,6 +92,11 @@ li {
   color: black;
 }
 
+li li {
+  font-size: 26px;
+  color: black;
+}
+
 /* paragraph size */
 p {
   font-size: 32px;
@@ -127,22 +132,23 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 ## Agenda
-- Course
-- Overview of the Semester
-  - Some details including <mark>grades</mark>
-- Communication Team
-- Code of Conduct: Importance and Development
-- V-Model &rarr; Configuration Items (CI)
-- CIs &rarr; Project Charter Adjustments
+<!-- # Capstone Senior Design – Data Engineering -->
 
-## Course
+1. Course Introduction: Goals and Expectations
+2. Semester Overview: Milestones and Deliverables
+3. Grading and Assessment
+4. Code of Conduct: Importance and Development
+5. V-Model Phases and Project Items
+6. Configuration Items (CI) &rarr; Project Charter
 
-- [**Capstone Design**]{style="color: red;"} class represents the culmination of an educational journey.
-- It's where [**theory**]{style="color: red;"} meets [**practice**]{style="color: red;"},
-  
-  [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"},
-  
-  and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating, and owning** a complete system.
+<!-- ## Agenda -->
+<!-- - Course -->
+<!-- - Overview of the Semester -->
+<!--   - Some details including <mark>grades</mark> -->
+<!-- - Communication Team -->
+<!-- - Code of Conduct: Importance and Development -->
+<!-- - V-Model &rarr; Configuration Items (CI) -->
+<!-- - CIs &rarr; Project Charter Adjustments -->
 
 ## What is The Most Important Thing?
 
@@ -157,9 +163,45 @@ knitr::opts_chunk$set(echo = FALSE)
 > - Others may always outpace you in [**coding**, **surveying**, or **technical execution**]{style="color: red;"}.
 > - Your true advantage is [**systems thinking**]{style="color: #800000;"}, an advantage that reaches its full power only when paired with **strong communication!**
 
+## Course
+
+- [**Capstone Design**]{style="color: red;"} class represents the culmination of an educational journey.
+- It's where [**theory**]{style="color: red;"} meets [**practice**]{style="color: red;"},
+  
+  [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"},
+  
+  and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating, and owning** a complete system.
+
+## Goals
+
+- **Apply** Data Engineering Knowledge
+- **Develop** End-to-End Project Skills
+  - **Plan**, **document**, **execute** projects using a structured framework (i.e., V-Model)
+- Foster **Collaboration** & **Professional Skills**
+- Strengthen **Problem-Solving** & **Critical Thinking**
+- **Prepare** for Industry and Research
+  - Build a portfolio demonstrating technical and teamwork skills
+  - Experience working under professional expectations
+
 ## [ISEN Mission Statement]{style="color: #800000;"}
 
 **To serve** [the state, nation and global community by educating industrial engineering students to be well founded in engineering fundamentals and]{style="color: #C0C0C0;"} **to have the knowledge and skills** [required]{style="color: #C0C0C0;"} [**to design, develop, improve, implement and control**]{style="color: green;"} [sophisticated production and service]{style="color: #C0C0C0;"} **systems** [in an environment characterized by]{style="color: #C0C0C0;"} **complex technical and social challenges**. [Throughout this educational process, students will be instilled with the]{style="color: #C0C0C0;"} **highest standards of professional and ethical behavior**.
+
+## Expectations
+
+- Active Participation
+- Ownership and Accountability
+- Professional Communication
+- Quality and Documentation
+- Ethical Conduct
+
+## Milestones and Deliverables
+
+Milestones and Deliverables
+
+## Grading and Assessment
+
+Grading and Assessment
 
 ## Team Work?
 
