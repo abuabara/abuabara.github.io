@@ -7,11 +7,22 @@ output:
   ioslides_presentation:
   widescreen: true
   transition: .5
+  logo: images/TAMU_logo.png
 ---
+
+```{=html}
 <style>
 body {
   background-color: white;
   color: black;
+}
+
+.my-footer {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    height: 60px;
+    width: 100%;
 }
 
 slides > slide {
@@ -27,6 +38,11 @@ slides > slide {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  
+  background-image: url("images/TAMU_logo.png");
+  background-size: 13%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
 }
 
 .title-slide hgroup {
@@ -81,41 +97,150 @@ p {
   font-size: 32px;
   color: black;
 }
+
+.emailmaroon {
+  border:        3px solid #800000;
+  background:    #ededed;
+  padding:       .075em .075em .075em .075em;
+  border-radius: 12px;
+}
+
+.emailblue {
+  border:        3px solid blue;
+  background:    #ededed;
+  padding:       .075em .075em .075em .075em;
+  border-radius: 12px;
+}
+
+.emailred {
+  border:        3px solid red;
+  background:    #ededed;
+  padding:       .075em .075em .075em .075em;
+  border-radius: 12px;
+}
+
 </style>
+```
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## Agenda
+- Course
+- Overview of the Semester
+  - Some details including <mark>grades</mark>
+- Communication Team
+- Code of Conduct: Importance and Development
+- V-Model &rarr; Configuration Items (CI)
+- CIs &rarr; Project Charter Adjustments
+
+## Course
+
+- [**Capstone Design**]{style="color: red;"} class represents the culmination of an educational journey.
+- It's where [**theory**]{style="color: red;"} meets [**practice**]{style="color: red;"},
+  
+  [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"},
+  
+  and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating, and owning** a complete system.
+
 ## What is The Most Important Thing?
 
-> - The “most important thing” is <span style="color: blue;">**subjective**</span>.
-> - <span style="color: blue;">**Primary dimensions**</span>: Health, Love & Relationships, Purpose & Meaning, Gratitude, Freedom, Learning & Growth, Self-Care.
-> - This set of dimensions makes a <span style="color: blue;">**conceptual backbone for our capstone**</span>, because it positions the course not as a technical culminating experience, but as a <span style="color: blue;">**professional and personal transition course.**</span>
+> - In life, the most important thing is [**subjective**]{style="color: red;"}.
+> - [**Primary dimensions**]{style="color: red;"}:
+    <div class="emailred">Health, Love & Relationships, Purpose & Meaning, Gratitude, Freedom, Learning & Growth, Self-Care.</div>
+> - This [**set of dimensions**]{style="color: red;"} makes a conceptual [**backbone for our capstone**]{style="color: #800000;"}, because it positions the course not as a technical culminating experience, but as a **professional and personal transition course.**
 
 ## The Bridge Between Academic Training and Life (After Graduation)
 
-> - Learn to <span style="color: red;">**go beyond**</span> working your team's project and develop the ability to <span style="color: red;">**work in any project!**</span>
-> - Others may always outpace you in coding, surveying, or technical execution.
-> - Your true advantage is <span style="color: red;">**systems thinking**</span>, an advantage that reaches its full power only when paired with <span style="color: red;">**strong communication!**</span>
+> - Learn to [**go beyond**]{style="color: red;"} working your team's project and develop the ability to [**work in any project!**]{style="color: red;"}
+> - Others may always outpace you in [**coding**, **surveying**, or **technical execution**]{style="color: red;"}.
+> - Your true advantage is [**systems thinking**]{style="color: #800000;"}, an advantage that reaches its full power only when paired with **strong communication!**
 
-## <span style="color: #800000;">ISEN Mission Statement</span>
-**To serve** <span style="color: #C0C0C0;">the state, nation and global community by educating industrial engineering students to be well founded in engineering fundamentals and</span> **to have the knowledge and skills** <span style="color: #C0C0C0;">required</span> <span style="color: green;">**to design, develop, improve, implement and control**</span> <span style="color: #C0C0C0;">sophisticated production and service</span> **systems** <span style="color: #C0C0C0;">in an environment characterized by</span> **complex technical and social challenges**. <span style="color: #C0C0C0;">Throughout this educational process, students will be instilled with the</span> **highest standards of professional and ethical behavior**.
+## [ISEN Mission Statement]{style="color: #800000;"}
 
-## V-Model
-<img src="images/SystemsEngineeringVeeEdited.png" width="100%">
+**To serve** [the state, nation and global community by educating industrial engineering students to be well founded in engineering fundamentals and]{style="color: #C0C0C0;"} **to have the knowledge and skills** [required]{style="color: #C0C0C0;"} [**to design, develop, improve, implement and control**]{style="color: green;"} [sophisticated production and service]{style="color: #C0C0C0;"} **systems** [in an environment characterized by]{style="color: #C0C0C0;"} **complex technical and social challenges**. [Throughout this educational process, students will be instilled with the]{style="color: #C0C0C0;"} **highest standards of professional and ethical behavior**.
 
-## What is a Configuration Item (CI)?
+## Team Work?
 
+<img src="images/Fry1.png" width="50%"/>
+
+## Team Work
+
+In industry, project failure is rarely caused by lack of technical skill.
+Most often caused by:
+
+- Unclear expectations,
+- Poor communication,
+- Uneven workload distribution,
+- Missed deadlines,
+- Unresolved conflict,
+- Unprofessional behavior.
 
 ## Code of Conduct
 
+- Let us prevent these problems before they occur.
+- Due 1/19 at 5 PM
+- On Canvas:
+  https://canvas.tamu.edu/courses/431435/assignments/2874310
+
+## V-Model
+
+<img src="images/SystemsEngineeringVeeEdited.png" width="100%"/>
+
+## What is a Configuration Item (CI)?
+
+- A CI is any [**hardware, software, firmware, document, or combination**]{style="color: red;"} thereof that is:
+  - Individually identifiable,
+  - Formally baselined,
+  - Controlled under configuration management,
+  - Verified against approved specifications.
+- In other words, a CI is anything the organization has decided must be [**controlled, versioned, and verified**]{style="color: #800000;"} as its own official product element.
+
+## What is a Configuration Item (CI)?
+
+- In data engineering, a CI is:
+  <div class="emailred">Any [**version-controlled, independently testable, production-quality component**]{style="color: red;"} of a data system that has formal requirements, formal tests, and formal approval.</div>
+- A CI is no longer "just a file", it becomes a [**certified system component**]{style="color: #800000;"}.
+
+## <span style="font-size: .9em;">What Counts as a CI in a Data Platform</span>
+
+<table style="width:70%; margin:6px auto;">
+<thead style="background-color:#f0f0f0;">
+<tr>
+<th style="color:#500000; font-size:24px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">CI Area</th>
+<th style="color:#500000; font-size:24px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="font-size:24px; padding:3px 4px;">Sources</td>
+<td style="font-size:24px; padding:3px 4px;">Ingest schema, API feed</td></tr>
+<tr><td style="font-size:24px; padding:3px 4px;">Pipelines</td>
+<td style="font-size:24px; padding:3px 4px;">ETL job, stream proc</td></tr>
+<tr><td style="font-size:24px; padding:3px 4px;">Storage</td>
+<td style="font-size:24px; padding:3px 4px;">Warehouse schema, lakehouse</td></tr>
+<tr><td style="font-size:24px; padding:3px 4px;">Code</td>
+<td style="font-size:24px; padding:3px 4px;">Feature lib, validation</td></tr>
+<tr><td style="font-size:24px; padding:3px 4px;">Models</td>
+<td style="font-size:24px; padding:3px 4px;">Forecast, classifier</td></tr>
+<tr><td style="font-size:24px; padding:3px 4px;">Orchestration</td>
+<td style="font-size:24px; padding:3px 4px;">Airflow DAG, dbt</td></tr>
+<tr><td style="font-size:24px; padding:3px 4px;">Interfaces</td>
+<td style="font-size:24px; padding:3px 4px;">API, data contracts</td></tr>
+<tr><td style="font-size:24px; padding:3px 4px;">Governance</td>
+<td style="font-size:24px; padding:3px 4px;">Quality rules, PII mask</td></tr>
+<tr><td style="font-size:24px; padding:3px 4px;">Docs</td>
+<td style="font-size:24px; padding:3px 4px;">Data dict, lineage</td></tr>
+</tbody>
+</table>
+
+## Project Charter Adjustments
+
+<img src="images/ProjectCharterIntegration.png" width="100%"/>
 
 ## Mini Project Packet
 
-
 ## Gantt Chart
-
 
 <!-- ## Slide with R Output -->
 
