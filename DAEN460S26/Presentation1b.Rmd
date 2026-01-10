@@ -304,47 +304,86 @@ class: center middle section-title section-title-4 animated fadeIn
 
 layout: false
 
-<!-- # Milestones -->
+# Weekly Schedule
 
-.box-4.SMALL.sp-after-short[
-Milestones
+.center[
+Getting Started
 ]
+
+| Week | Date | Topic |
+|------|------|-------|
+| 1 | 1/13 | Introductions + Comm Requirements |
+| 2 | 1/20 | Integrate engineering design ("The Toaster Project") |
+
+---
+
+# Weekly Schedule
+
+.center[
+Phase 1: Discover
+]
+
+| Week | Date | Topic |
+|------|------|-------|
+| 3 | 1/27 | Phase 1 Kickoff |
+| 4 | 2/3 | Phase 1 Presentations - Groups BH and COE |
+| 5 | 2/10 | Phase 1 Presentations - Groups ML |
+
+---
+
+# Weekly Schedule
+
+.center[
+Phase 2: Define
+]
+
+| Week | Date | Topic |
+|------|------|-------|
+| 6 | 2/17 | Phase 2 Kickoff |
+| 7 | 2/24 | Phase 2 Presentations - Groups BH and COE |
+| 8 | 3/3 | Phase 2 Presentations - Groups ML |
+
+
+---
+
+.box-4.normal.sp-after-short[
+March 7-15
+]
+
 .center[
 <figure>
-<img src="images/Schedule.jpg" alt="Schedule" title="Schedule" width="54%">
+<img src="images/SpringBreak3.png" alt="SpringBreak" title="SpringBreak" width="60%">
 </figure>
 ]
 
 ---
 
-.pull-left[
+# Weekly Schedule
 
-.box-4.SMALL.sp-after-short[
-Deliverables
-]
-.center[
-<figure>
-<img src="images/Deliverables.jpg" alt="Grading" title="Grading" width="100%">
-</figure>
-]
+.center[Phase 3: Develop
 ]
 
---
-
-.pull-right[
-.box-4.SMALL.sp-after-short[
-Grading and Assessment
-]
-.center[
-<figure>
-<img src="images/Grading.jpg" alt="Grading" title="Grading" width="100%">
-</figure>
-]
-]
+| Week | Date | Topic |
+|------|------|-------|
+| 9 | 3/17 | Phase 3 Kickoff |
+| 10 | 3/24 | Phase 3 Presentations - Groups BH and COE |
+| 11 | 3/31 | Phase 3 Presentations - Groups ML |
 
 ---
 
+# Weekly Schedule
 
+.center[
+Phase 4: Deliver
+]
+
+| Week | Date | Topic |
+|------|------|-------|
+| 12 | 4/7 | Phase 4 Kickoff |
+| 13 | 4/14 | Phase 4 Presentations - Groups BH and COE |
+| 14 | 4/21 | Phase 4 Presentations - Groups ML |
+
+---
 
 <!-- # Professional Standards of Conduct -->
 
@@ -497,3 +536,43 @@ Grading and Assessment
 <!-- ``` -->
 
 <!-- remotes::install_github("yihui/xaringan") -->
+
+<!-- layout: false -->
+
+<!-- <!-- # Milestones --> -->
+
+<!-- .box-4.SMALL.sp-after-short[ -->
+<!-- Milestones -->
+<!-- ] -->
+<!-- .center[ -->
+<!-- <figure> -->
+<!-- <img src="images/Schedule.jpg" alt="Schedule" title="Schedule" width="54%"> -->
+<!-- </figure> -->
+<!-- ] -->
+
+<!-- --- -->
+
+<!-- .pull-left[ -->
+
+<!-- .box-4.SMALL.sp-after-short[ -->
+<!-- Deliverables -->
+<!-- ] -->
+<!-- .center[ -->
+<!-- <figure> -->
+<!-- <img src="images/Deliverables.jpg" alt="Grading" title="Grading" width="100%"> -->
+<!-- </figure> -->
+<!-- ] -->
+<!-- ] -->
+
+<!-- -- -->
+
+<!-- .pull-right[ -->
+<!-- .box-4.SMALL.sp-after-short[ -->
+<!-- Grading and Assessment -->
+<!-- ] -->
+<!-- .center[ -->
+<!-- <figure> -->
+<!-- <img src="images/Grading.jpg" alt="Grading" title="Grading" width="100%"> -->
+<!-- </figure> -->
+<!-- ] -->
+<!-- ] -->

@@ -598,3 +598,22 @@ Coloring and inverse coloring in title bars and content boxes
 .maroon {
   color: #4b1310;
 }
+
+.scroll-up {
+  animation: scrollUp 10s linear;
+}
+
+@keyframes scrollUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+.scroll-container {
+  height: 400px;  /* fixed height */
+  overflow-y: auto;
+  border: 1px solid #ccc;
+}
