@@ -67,54 +67,38 @@ class: title title-inv-1
 ---
 
 layout: false
-name: slides
 class: center middle section-title section-title-2 animated fadeIn
+<!-- name: slides -->
 
 # Instructors
 
 ---
 
-layout: true
-class: title title-inv-2
-
----
-
-# Instructors
-
---
+layout: false
 
 .pull-left-3.center[
-
-.box-2[Alexander<br>Abuabara]
-
+.box-inv-2[Alexander<br>Abuabara]
 <figure>
 <img src="images/Alexander.png" alt="Alexander" title="Alexander" width="100%">
 </figure>
-
 ]
 
 --
 
 .pull-middle-3[
-
-.box-2[Jose<br>Vazquez]
-
+.box-inv-2[Jose<br>Vazquez]
 <figure>
 <img src="images/Vazquez.png" alt="Jose" title="Jose" width="100%">
 </figure>
-
 ]
 
 --
 
 .pull-right-3[
-
-.box-2[Jon<br>Elizondo]
-
+.box-inv-2[Jon<br>Elizondo]
 <figure>
 <img src="images/Jon.png" alt="JP" title="JP" width="100%">
 </figure>
-
 ]
 
 ---
@@ -128,13 +112,13 @@ class: center middle section-title section-title-3 animated fadeIn
 ---
 
 layout: true
-class: title title-inv-3
+class: title title-3
 
 ---
 
 # What is The Most Important Thing?
 
-.box-3.sp-after[*In life*, the most important thing is subjective.]
+.box-inv-3.sp-after[*In life*, the most important thing is subjective.]
 
 --
 
@@ -148,7 +132,10 @@ Gratitude, Freedom, Learning & Growth, Self-Care.
 .box-inv-3.SMALL.sp-after[
 These dimensions makes a conceptual backbone for our capstone,<br>
 framing it not as a purely technical culmination experience,<br>
-but as a <span class="highlight">professional and personal transition course</span>.
+but as a 
+<span class="highlight">
+professional and personal transition course
+</span>.
 ]
 
 ---
@@ -177,7 +164,9 @@ develop the ability to work in any project!
 
 .box-inv-3.SMALL.sp-after-short[
 Success is fully achieved when combined with<br>
-<span class="highlight">strong communication!</span>
+<span class="highlight">
+strong communication!
+</span>
 ]
 
 ---
@@ -187,11 +176,9 @@ layout: false
 &nbsp;
 
 .center[
-
 <figure>
 <img src="images/Yoda_communication.png" alt="Yoda" title="Yoda" width="50%">
 </figure>
-
 ]
 
 ---
@@ -211,44 +198,59 @@ It's where **theory** meets **practice**, **abstraction** meets **reality**.
 --
 
 .box-3.sp-after[
-The individual student transitions from learning concepts to creating,
-evaluating, and owning a complete system.
+The individual student transitions from learning concepts 
+to creating, evaluating, and owning a complete system.
 ]
 
 ---
+
 class: bg-full
 background-image: url("images/life-journey.gif")
 
 ---
 
 layout: true
-class: title title-inv-3
+class: title title-3
 
 ---
 
 # Goals
 
-.box-3.sp-after-veryshort[Apply data engineering knowledge]
+.box-inv-3.sp-after-veryshort[Apply data engineering knowledge]
 --
-.box-3.sp-after-veryshort[Develop end-to-end project skills]
+.box-inv-3.sp-after-veryshort[Develop end-to-end project skills]
 --
-.box-3.SMALL.sp-after-veryshort[Plan, document, execute projects using a structured framework (V-Model)]
+.box-inv-3.SMALL.sp-after-veryshort[Plan, document, execute projects using a structured framework (V-Model)]
 --
-.box-3.sp-after-veryshort[Foster collaboration & professional skills]
+.box-inv-3.sp-after-veryshort[Foster collaboration & professional skills]
 --
-.box-3.sp-after-veryshort[Strengthen problem-solving & critical thinking]
+.box-inv-3.sp-after-veryshort[Strengthen problem-solving & critical thinking]
 --
-.box-3.sp-after-veryshort[Prepare for industry and research]
+.box-inv-3.sp-after-veryshort[Prepare for industry and research]
 --
-.box-3.SMALL.sp-after-veryshort[Build a portfolio demonstrating technical and teamwork skills]
+.box-inv-3.SMALL.sp-after-veryshort[Build a portfolio demonstrating technical and teamwork skills]
 --
-.box-3.sp-after-veryshort[Experience working under professional expectations]
+.box-inv-3.sp-after-veryshort[Experience working under professional expectations]
 
 ---
 
-layout: false
+#  Expectations
 
-# <span style="color: maroon;">ISEN Mission Statement</span>
+.box-inv-3.sp-after-short[Active Participation]
+--
+.box-inv-3.sp-after-short[Ownership and Accountability]
+--
+.box-inv-3.sp-after-short[Professional Communication]
+--
+.box-inv-3.sp-after-short[Quality and Documentation]
+--
+.box-inv-3.sp-after-short[Ethical Conduct]
+
+---
+
+<!-- # <span style="color: maroon;">ISEN Mission Statement</span> -->
+
+# ISEN Mission Statement
 
 <span style="color: red;">
 **To serve**
@@ -292,24 +294,59 @@ in an environment characterized by
 
 ---
 
-layout: true
-class: title title-inv-3
+layout: false
+name: slides
+class: center middle section-title section-title-4 animated fadeIn
+
+# Semester Overview
 
 ---
 
-#  Expectations
+layout: false
 
-.box-3.sp-after-short[Active Participation]
---
-.box-3.sp-after-short[Ownership and Accountability]
---
-.box-3.sp-after-short[Professional Communication]
---
-.box-3.sp-after-short[Quality and Documentation]
---
-.box-3.sp-after-short[Ethical Conduct]
+<!-- # Milestones -->
 
-<!-- ## Professional Standards of Conduct -->
+.box-4.SMALL.sp-after-short[
+Milestones
+]
+.center[
+<figure>
+<img src="images/Schedule.jpg" alt="Schedule" title="Schedule" width="54%">
+</figure>
+]
+
+---
+
+.pull-left[
+
+.box-4.SMALL.sp-after-short[
+Deliverables
+]
+.center[
+<figure>
+<img src="images/Deliverables.jpg" alt="Grading" title="Grading" width="100%">
+</figure>
+]
+]
+
+--
+
+.pull-right[
+.box-4.SMALL.sp-after-short[
+Grading and Assessment
+]
+.center[
+<figure>
+<img src="images/Grading.jpg" alt="Grading" title="Grading" width="100%">
+</figure>
+]
+]
+
+---
+
+
+
+<!-- # Professional Standards of Conduct -->
 
 <!-- Professional Standards of Conduct -->
 
