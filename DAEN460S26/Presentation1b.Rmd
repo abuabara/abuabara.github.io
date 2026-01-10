@@ -248,8 +248,6 @@ class: title title-3
 
 ---
 
-<!-- # <span style="color: maroon;">ISEN Mission Statement</span> -->
-
 # ISEN Mission Statement
 
 <span style="color: red;">
@@ -313,7 +311,7 @@ Getting Started
 | Week | Date | Topic |
 |------|------|-------|
 | 1 | 1/13 | Introductions + Comm Requirements |
-| 2 | 1/20 | Integrate engineering design ("The Toaster Project") |
+| 2 | 1/20 | Integrate Engineering Design ("*The Toaster Project*") |
 
 ---
 
@@ -383,7 +381,175 @@ Phase 4: Deliver
 | 13 | 4/14 | Phase 4 Presentations - Groups BH and COE |
 | 14 | 4/21 | Phase 4 Presentations - Groups ML |
 
+
 ---
+
+# Faculty Advisor
+
+---
+
+# Sponsors
+
+---
+
+layout: false
+name: slides
+class: center middle section-title section-title-5 animated fadeIn
+
+# Grading and Assessment
+
+---
+
+layout: true
+class: title title-5
+
+---
+
+# Grading
+
+---
+
+# Deliverables
+
+---
+
+# AI, Confidentiality and Non-attribution
+
+---
+
+# Attendance
+
+---
+
+# Team Work
+
+.pull-left-3[
+&nbsp;
+<figure>
+<img src="images/Fry1.png" alt="Fry" title="Fry" width="94%">
+</figure>
+]
+
+--
+
+.pull-middle-3[
+&nbsp;
+.box-inv-5.SMALL.sp-after-short[
+In industry, project failure is rarely caused by lack of technical skill.
+]
+]
+
+--
+
+.pull-right-3[
+.box-inv-5.small.sp-after-veryshort[Most often caused by:]
+.box-5.small.sp-after-veryshort[Unclear expectations]
+.box-5.small.sp-after-veryshort[Poor communication]
+.box-5.pequeno.sp-after-veryshort[Uneven workload distribution]
+.box-5.small.sp-after-veryshort[Missed deadlines]
+.box-5.small.sp-after-veryshort[Unresolved conflict]
+.box-5.small.sp-after-veryshort[Unprofessional behavior]
+]
+
+---
+
+# Social Loafing
+
+---
+
+layout: false
+name: slides
+class: center middle section-title section-title-6 animated fadeIn
+
+# Code of Conduct
+
+---
+
+layout: true
+class: title title-6
+
+---
+
+# Professional Standards of Conduct
+
+---
+
+# Code of Conduct
+
+&nbsp;
+
+.box-inv-6.normal.sp-after[
+Let us prevent these problems before they occur.
+]
+
+.center[
+On Canvas - Due 1/19 at 5 PM
+]
+
+.center[
+<span style="font-size: 32px;">https://canvas.tamu.edu/courses/431435/assignments/2874310</span>
+]
+
+---
+
+layout: false
+name: slides
+class: center middle section-title section-title-7 animated fadeIn
+
+# NEXT WEEK
+
+---
+
+layout: true
+class: title title-7
+
+---
+
+# Project Charter Adjustments
+
+.center[
+<figure>
+<img src="images/ProjectCharterIntegration.png" alt="PC" title="PC" width="80%">
+</figure>
+]
+
+---
+
+# V-Model
+
+.center[
+<figure>
+<img src="images/SystemsEngineeringVeeEdited.png" alt="vmodel" title="vmodel" width="70%">
+</figure>
+]
+
+---
+
+layout: false
+
+&nbsp;
+
+.box-inv-7.large.sp-after-veryshort[
+What is a Configuration Item?
+]
+
+.box-7.large.sp-after-veryshort[
+What is a Configuration Item<br>
+in Data Engineering?
+]
+
+---
+
+class: bg-full
+background-image: url("images/toaster-project.jpg")
+
+
+
+
+
+
+
+
 
 <!-- # Professional Standards of Conduct -->
 
@@ -416,32 +582,6 @@ Phase 4: Deliver
 <!-- ## Grading and Assessment -->
 
 <!-- <img src="images/Grading.jpg" width="72%"/> -->
-
-<!-- ## Team Work? -->
-
-<!-- <img src="images/Fry1.png" width="50%"/> -->
-
-<!-- ## Team Work -->
-
-<!-- - In industry, project failure is rarely caused by lack of technical skill. -->
-<!--   Most often caused by: -->
-<!--   - Unclear expectations, -->
-<!--   - Poor communication, -->
-<!--   - Uneven workload distribution, -->
-<!--   - Missed deadlines, -->
-<!--   - Unresolved conflict, -->
-<!--   - Unprofessional behavior. -->
-
-<!-- ## Social Loafing -->
-
-<!-- Social Loafing -->
-
-<!-- ## Code of Conduct -->
-
-<!-- - Let us prevent these problems before they occur. -->
-<!-- - Due 1/19 at 5 PM -->
-<!-- - On Canvas: -->
-<!--   <span style="font-size: 24px;">https://canvas.tamu.edu/courses/431435/assignments/2874310</span> -->
 
 <!-- ## V-Model -->
 
@@ -519,60 +659,4 @@ Phase 4: Deliver
 
 <!-- <img src="images/SE_Standards.jpg" width="100%"/> -->
 
-<!-- ## Slide with R Output -->
-
-<!-- ```{r cars, echo = TRUE} -->
-
-<!-- summary(cars) -->
-
-<!-- ``` -->
-
-<!-- ## Slide with Plot -->
-
-<!-- ```{r pressure} -->
-
-<!-- plot(pressure) -->
-
-<!-- ``` -->
-
 <!-- remotes::install_github("yihui/xaringan") -->
-
-<!-- layout: false -->
-
-<!-- <!-- # Milestones --> -->
-
-<!-- .box-4.SMALL.sp-after-short[ -->
-<!-- Milestones -->
-<!-- ] -->
-<!-- .center[ -->
-<!-- <figure> -->
-<!-- <img src="images/Schedule.jpg" alt="Schedule" title="Schedule" width="54%"> -->
-<!-- </figure> -->
-<!-- ] -->
-
-<!-- --- -->
-
-<!-- .pull-left[ -->
-
-<!-- .box-4.SMALL.sp-after-short[ -->
-<!-- Deliverables -->
-<!-- ] -->
-<!-- .center[ -->
-<!-- <figure> -->
-<!-- <img src="images/Deliverables.jpg" alt="Grading" title="Grading" width="100%"> -->
-<!-- </figure> -->
-<!-- ] -->
-<!-- ] -->
-
-<!-- -- -->
-
-<!-- .pull-right[ -->
-<!-- .box-4.SMALL.sp-after-short[ -->
-<!-- Grading and Assessment -->
-<!-- ] -->
-<!-- .center[ -->
-<!-- <figure> -->
-<!-- <img src="images/Grading.jpg" alt="Grading" title="Grading" width="100%"> -->
-<!-- </figure> -->
-<!-- ] -->
-<!-- ] -->

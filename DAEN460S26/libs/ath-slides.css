@@ -47,6 +47,10 @@ Typography
   font-size: 0.8em;
 }
 
+.pequeno {
+  font-size: 0.65em;
+}
+
 .tiny {
   font-size: 0.5em;
 }
@@ -613,7 +617,20 @@ Coloring and inverse coloring in title bars and content boxes
 }
 
 .scroll-container {
-  height: 400px;  /* fixed height */
+  height: 400px;
   overflow-y: auto;
   border: 1px solid #ccc;
+}
+
+.blue-table table {
+  border: 2px solid #BF3984;
+}
+
+.blue-table thead {
+  background-color: #FFC0DC;
+  color: white;
+}
+
+.blue-table td {
+  border: 1px solid #BF3984;
 }
