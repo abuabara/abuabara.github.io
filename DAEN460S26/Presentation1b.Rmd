@@ -155,26 +155,34 @@ but as a <span class="highlight">professional and personal transition course</sp
 
 layout: false
 
-.box-3.NORMAL.sp-after[
+.box-3.sp-after-short[
 The Bridge Between Academic Training and Life<br>
 (After Graduation)
 ]
 
-.box-inv-3.SMALL.sp-after[
-Comprehensive <span class="highlight">technical expertise</span>!
+--
+
+.box-inv-3.SMALL.sp-after-short[
+Comprehensive <span class="highlight">technical expertise!</span>
 ]
 
-.box-3.small.sp-after[
+--
+
+.box-3.sp-after-short[
 Learn to <span class="highlight-red">go beyond</span> working your team's project,<br>
 develop the ability to work in any project!
 ]
 
-.box-inv-3.SMALL.sp-after[
+--
+
+.box-inv-3.SMALL.sp-after-short[
 Success is fully achieved when combined with<br>
 <span class="highlight">strong communication!</span>
 ]
 
 ---
+
+layout: false
 
 &nbsp;
 
@@ -188,40 +196,118 @@ Success is fully achieved when combined with<br>
 
 ---
 
-<!-- ## Course -->
+&nbsp;
 
-<!-- - [**Capstone Design**]{style="color: red;"} class represents the culmination of an educational journey. -->
-<!-- - It's where [**theory**]{style="color: red;"} meets [**practice**]{style="color: red;"},\ -->
-<!--   [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"}, -->
-<!--   and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating, -->
-<!--   and owning** a complete system. -->
+.box-3.SMALL.sp-after[
+Capstone Design represents the culmination of an educational journey.
+]
 
-<!-- <img src="images/life-journey.gif" class="bottom-image"> -->
+--
 
-<!-- ## Goals -->
+.box-inv-3.sp-after[
+It's where **theory** meets **practice**, **abstraction** meets **reality**.
+]
 
-<!-- - **Apply** Data Engineering Knowledge -->
-<!-- - **Develop** End-to-End Project Skills -->
-<!--   - **Plan**, **document**, **execute** projects using a structured framework (i.e., V-Model). -->
-<!-- - Foster **Collaboration** & **Professional Skills** -->
-<!-- - Strengthen **Problem-Solving** & **Critical Thinking** -->
-<!-- - **Prepare** for Industry and Research -->
-<!--   - Build a portfolio demonstrating technical and teamwork skills, -->
-<!--   - Experience working under professional expectations. -->
+--
 
-<!-- ## [ISEN Mission Statement]{style="color: #800000;"} -->
+.box-3.sp-after[
+The individual student transitions from learning concepts to creating,
+evaluating, and owning a complete system.
+]
 
-<!-- **To serve** [the state, nation and global community by educating industrial engineering students to be well founded in engineering fundamentals and]{style="color: #C0C0C0;"} **to have the knowledge and skills** [required]{style="color: #C0C0C0;"} [**to design, develop, improve, implement and control**]{style="color: green;"} [sophisticated production and service]{style="color: #C0C0C0;"} **systems** [in an environment characterized by]{style="color: #C0C0C0;"} **complex technical and social challenges**. [Throughout this educational process, students will be instilled with the]{style="color: #C0C0C0;"} **highest standards of professional and ethical behavior**. -->
+---
+class: bg-full
+background-image: url("images/life-journey.gif")
 
-<!-- <img src="images/TAMU-Industrial-and-Systems-Enginnering.png" style="max-width:50%;height:auto;"> -->
+---
 
-<!-- ## Expectations -->
+layout: true
+class: title title-inv-3
 
-<!-- - Active Participation -->
-<!-- - Ownership and Accountability -->
-<!-- - Professional Communication -->
-<!-- - Quality and Documentation -->
-<!-- - Ethical Conduct -->
+---
+
+# Goals
+
+.box-3.sp-after-veryshort[Apply data engineering knowledge]
+--
+.box-3.sp-after-veryshort[Develop end-to-end project skills]
+--
+.box-3.SMALL.sp-after-veryshort[Plan, document, execute projects using a structured framework (V-Model)]
+--
+.box-3.sp-after-veryshort[Foster collaboration & professional skills]
+--
+.box-3.sp-after-veryshort[Strengthen problem-solving & critical thinking]
+--
+.box-3.sp-after-veryshort[Prepare for industry and research]
+--
+.box-3.SMALL.sp-after-veryshort[Build a portfolio demonstrating technical and teamwork skills]
+--
+.box-3.sp-after-veryshort[Experience working under professional expectations]
+
+---
+
+layout: false
+
+# <span style="color: maroon;">ISEN Mission Statement</span>
+
+<span style="color: red;">
+**To serve**
+</span>
+<span style="color: #C0C0C0;">
+the state, nation and global community by educating 
+industrial engineering students to be well founded in engineering 
+fundamentals and
+</span>
+<span style="color: red;">
+**to have the knowledge and skills**
+</span>
+<span style="color: #C0C0C0;">
+required<br>
+</span>
+<span style="color: green;">
+**to design, develop, improve, implement and control**
+</span>
+<span style="color: #C0C0C0;">
+sophisticated production and service
+</span>
+<span style="color: red;">
+**systems**
+</span>
+<span style="color: #C0C0C0;">
+in an environment characterized by
+</span>
+<span style="color: red;">
+**complex technical and social challenges**
+</span>
+<span style="color: #C0C0C0;">
+. Throughout this educational process, students will be instilled with the
+<span style="color: maroon;">
+**highest standards of professional and ethical behavior**
+</span>
+<span style="color: #C0C0C0;">
+.
+</span>
+
+<img src="images/TAMU-Industrial-and-Systems-Enginnering.png" style="max-width:50%;height:auto;">
+
+---
+
+layout: true
+class: title title-inv-3
+
+---
+
+#  Expectations
+
+.box-3.sp-after-short[Active Participation]
+--
+.box-3.sp-after-short[Ownership and Accountability]
+--
+.box-3.sp-after-short[Professional Communication]
+--
+.box-3.sp-after-short[Quality and Documentation]
+--
+.box-3.sp-after-short[Ethical Conduct]
 
 <!-- ## Professional Standards of Conduct -->
 

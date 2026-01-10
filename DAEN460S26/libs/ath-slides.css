@@ -118,6 +118,14 @@ figcaption {
   margin-bottom: 0.7em !important;
 }
 
+.sp-after-short {
+  margin-bottom: 0.5em !important;
+}
+
+.sp-after-veryshort {
+  margin-bottom: 0.25em !important;
+}
+
 .remark-code,
 .remark-inline-code {
   font-size: 0.75em;
@@ -588,5 +596,5 @@ Coloring and inverse coloring in title bars and content boxes
 }
 
 .maroon {
-  color: #800000;
+  color: #4b1310;
 }
