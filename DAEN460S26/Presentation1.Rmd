@@ -4,10 +4,11 @@ subtitle: "DAEN 460 Senior Capstone Design"
 author:   "Alexander Abuabara"
 date:     "01-13-2026"
 output:   
+  # slidy_presentation
   ioslides_presentation:
   widescreen: true
-  transition: .5
-  logo: images/TAMU_logo.png
+  transition: .1
+  # logo: images/TAMU_logo.png
 ---
 
 ```{=html}
@@ -17,18 +18,11 @@ body {
   color: black;
 }
 
-.my-footer {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    height: 60px;
-    width: 100%;
-}
-
 slides > slide {
   background: white;
   color: black;
-  font-size: 36px;
+  font-size: 32px;
+  padding: 0em 0em !important;
 }
 
 /* Title slide vertical centering */
@@ -76,12 +70,12 @@ slides > slide {
 
 /* heading sizes */
 h2 {
-  font-size: 44px;
+  font-size: 42px;
   color: black;
 }
 
 h3 {
-  font-size: 42px;
+  font-size: 40px;
   color: black;
 }
 
@@ -126,7 +120,30 @@ p {
 table { 
     margin-left: 0; /* Ensures no left margin */
     float: left; /* Helps in some rendering engines */
-  }
+}
+
+.bottom-image {
+  position: absolute;
+  bottom: 0.8em;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 40%;
+  width: auto;
+  opacity: 0.99;
+  pointer-events: none;
+}
+
+.bottom-image2 {
+  position: absolute;
+  bottom: 0.8em;
+  left: 50%;
+  transform: translateX(-50%);
+  max-height: 30%;
+  width: auto;
+  opacity: 0.99;
+  pointer-events: none;
+}
+
 </style>
 ```
 
@@ -154,9 +171,17 @@ knitr::opts_chunk$set(echo = FALSE)
 <!-- - V-Model &rarr; Configuration Items (CI) -->
 <!-- - CIs &rarr; Project Charter Adjustments -->
 
-## Instructors, Faculty Advisor, Sponsor
+## Instructors
 
-Course Instructors, Faculty Advisor, and Sponsor
+Course Instructors
+
+## Faculty Advisor
+
+Faculty Advisor
+
+## Sponsors
+
+Sponsors
 
 ## What is The Most Important Thing?
 
@@ -165,19 +190,26 @@ Course Instructors, Faculty Advisor, and Sponsor
     <div class="emailred">Health, Love & Relationships, Purpose & Meaning, Gratitude, Freedom, Learning & Growth, Self-Care.</div>
 > - This [**set of dimensions**]{style="color: red;"} makes a conceptual [**backbone for our capstone**]{style="color: #800000;"}, because it positions the course not as a technical culminating experience, but as a **professional and personal transition course.**
 
-## The Bridge Between Academic Training and Life (After Graduation)
-
-> - Learn to [**go beyond**]{style="color: red;"} working your team's project and develop the ability to [**work in any project!**]{style="color: red;"}
-> - Others may always outpace you in [**coding**, **surveying**, or **technical execution**]{style="color: red;"}.
-> - Your true advantage is [**systems thinking**]{style="color: #800000;"}, an advantage that reaches its full power only when paired with **strong communication!**
+<img src="images/important-2.png" class="bottom-image2">
 
 ## Course
 
 - [**Capstone Design**]{style="color: red;"} class represents the culmination of an educational journey.
 - It's where [**theory**]{style="color: red;"} meets [**practice**]{style="color: red;"},\
-  [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"},\
-  and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating,\
+  [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"},
+  and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating,
   and owning** a complete system.
+
+<img src="images/life-journey.gif" class="bottom-image">
+
+## [The Bridge Between Academic Training and Life (After Graduation)]{style="font-size: 32px;"}
+
+- Learn to [**go beyond**]{style="color: red;"} working your team's project,\
+  develop the ability to [**work in any project!**]{style="color: red;"}
+- Others may always outpace you in [**technical expertise**]{style="color: red;"}.
+- Your true advantage is [**systems thinking**]{style="color: #800000;"}, an advantage that reaches its full power when paired with **strong communication!**
+
+<img src="images/Yoda_communication.png" class="bottom-image">
 
 ## Goals
 
@@ -193,6 +225,8 @@ Course Instructors, Faculty Advisor, and Sponsor
 ## [ISEN Mission Statement]{style="color: #800000;"}
 
 **To serve** [the state, nation and global community by educating industrial engineering students to be well founded in engineering fundamentals and]{style="color: #C0C0C0;"} **to have the knowledge and skills** [required]{style="color: #C0C0C0;"} [**to design, develop, improve, implement and control**]{style="color: green;"} [sophisticated production and service]{style="color: #C0C0C0;"} **systems** [in an environment characterized by]{style="color: #C0C0C0;"} **complex technical and social challenges**. [Throughout this educational process, students will be instilled with the]{style="color: #C0C0C0;"} **highest standards of professional and ethical behavior**.
+
+<img src="images/TAMU-Industrial-and-Systems-Enginnering.png" style="max-width:50%;height:auto;">
 
 ## Expectations
 
@@ -216,15 +250,15 @@ Confidentiality and Non-attribution
 
 ## Milestones
 
-<img src="images/Schedule.jpg" width="80%"/>
+<img src="images/Schedule.jpg" width="75%"/>
 
 ## Deliverables
 
-<img src="images/Deliverables.jpg" width="80%"/>
+<img src="images/Deliverables.jpg" width="75%"/>
 
 ## Grading and Assessment
 
-<img src="images/Grading.jpg" width="80%"/>
+<img src="images/Grading.jpg" width="75%"/>
 
 ## Team Work?
 
