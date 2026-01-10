@@ -210,151 +210,128 @@ background-image: url("images/life-journey.gif")
 ---
 
 layout: true
-class: title title-3
+class: title title-inv-6
 
 ---
 
 # Goals
 
-.box-inv-3.sp-after-veryshort[Apply data engineering knowledge]
+.box-6.sp-after-veryshort[Apply data engineering knowledge]
 --
-.box-inv-3.sp-after-veryshort[Develop end-to-end project skills]
+.box-inv-6.sp-after-veryshort[Develop end-to-end project skills]
 --
-.box-inv-3.SMALL.sp-after-veryshort[Plan, document, execute projects using a structured framework (V-Model)]
+.box-6.SMALL.sp-after-veryshort[Plan, document, execute projects using a structured framework (V-Model)]
 --
-.box-inv-3.sp-after-veryshort[Foster collaboration & professional skills]
+.box-inv-6.sp-after-veryshort[Foster collaboration & professional skills]
 --
-.box-inv-3.sp-after-veryshort[Strengthen problem-solving & critical thinking]
+.box-6.sp-after-veryshort[Strengthen problem-solving & critical thinking]
 --
-.box-inv-3.sp-after-veryshort[Prepare for industry and research]
+.box-inv-6.sp-after-veryshort[Prepare for industry and research]
 --
-.box-inv-3.SMALL.sp-after-veryshort[Build a portfolio demonstrating technical and teamwork skills]
+.box-6.SMALL.sp-after-veryshort[Build a portfolio demonstrating technical and teamwork skills]
 --
-.box-inv-3.sp-after-veryshort[Experience working under professional expectations]
+.box-inv-6.sp-after-veryshort[Experience working under professional expectations]
 
 ---
 
 #  Expectations
 
-.box-inv-3.sp-after-short[Active Participation]
+.box-6.sp-after-short[Active Participation]
 --
-.box-inv-3.sp-after-short[Ownership and Accountability]
+.box-inv-6.sp-after-short[Ownership and Accountability]
 --
-.box-inv-3.sp-after-short[Professional Communication]
+.box-6.sp-after-short[Professional Communication]
 --
-.box-inv-3.sp-after-short[Quality and Documentation]
+.box-inv-6.sp-after-short[Quality and Documentation]
 --
-.box-inv-3.sp-after-short[Ethical Conduct]
+.box-6.sp-after-short[Ethical Conduct]
 
 ---
 
-# ISEN Mission Statement
+layout: true
+class:
 
-<span style="color: red;">
-**To serve**
-</span>
-<span style="color: #C0C0C0;">
-the state, nation and global community by educating 
-industrial engineering students to be well founded in engineering 
-fundamentals and
-</span>
-<span style="color: red;">
-**to have the knowledge and skills**
-</span>
-<span style="color: #C0C0C0;">
-required<br>
-</span>
-<span style="color: green;">
-**to design, develop, improve, implement and control**
-</span>
-<span style="color: #C0C0C0;">
-sophisticated production and service
-</span>
-<span style="color: red;">
-**systems**
-</span>
-<span style="color: #C0C0C0;">
-in an environment characterized by
-</span>
-<span style="color: red;">
-**complex technical and social challenges**
-</span>
-<span style="color: #C0C0C0;">
-. Throughout this educational process, students will be instilled with the
-<span style="color: maroon;">
-**highest standards of professional and ethical behavior**
-</span>
-<span style="color: #C0C0C0;">
-.
-</span>
+---
 
+# <span style="color: maroon;"> ISEN Mission Statement </span>
+
+>  <span style="color: red; font-size: 30pt;">
+   **To serve**
+   </span>
+   <span style="color: #C0C0C0; font-size: 27pt;">
+   the state, nation and global community by educating 
+   industrial engineering students to be well founded in engineering 
+   fundamentals and
+   </span>
+   <span style="color: red; font-size: 30pt;">
+   **to have the knowledge and skills**
+   </span>
+   <span style="color: #C0C0C0; font-size: 27pt;">
+   required<br>
+   </span>
+   <span style="color: green; font-size: 30pt;">
+   **to design, develop, improve, implement and control**
+   </span>
+   <span style="color: #C0C0C0; font-size: 27pt;">
+   sophisticated production and service
+   </span>
+   <span style="color: red; font-size: 30pt;">
+   **systems**
+   </span>
+   <span style="color: #C0C0C0; font-size: 27pt;">
+   in an environment characterized by
+   </span>
+   <span style="color: red; font-size: 30pt;">
+   **complex technical and social challenges**
+   </span>
+   <span style="color: #C0C0C0; font-size: 27pt;">
+   . Throughout this educational process, students will be instilled with the
+   <span style="color: maroon; font-size: 30pt;">
+   **highest standards of professional and ethical behavior**
+   </span>
+   <span style="color: #C0C0C0; font-size: 27pt;">
+   .
+   </span>
+
+.center[
 <figure>
-<img src="images/TAMU-Industrial-and-Systems-Enginnering.png" style="max-width:50%;height:auto;">
+<img src="images/TAMU-Industrial-and-Systems-Enginnering.png" alt="ISEN-TAMU" title="ISEN-TAMU" width="49%">
 </figure>
+]
 
 ---
 
 layout: false
-name: slides
 class: center middle section-title section-title-4 animated fadeIn
 
 # Semester Overview
 
 ---
 
-layout: false
-
-.box-4.small.sp-after-short[
-Milestones
-]
-
-.center[
-<figure>
-<img src="images/Schedule.jpg" alt="Schedule" title="Schedule" width="54%">
-</figure>
-]
+layout: true
 
 ---
 
 # Weekly Schedule
 
-.center[
-Getting Started
-]
-
 | Week | Date | Topic |
 |------|------|-------|
-| 1 | 1/13 | Introductions + Comm Requirements |
-| 2 | 1/20 | Integrate Engineering Design ("*The Toaster Project*") |
+| 1    | 1/13 | Introductions + Comm Requirements |
+| 2    | 1/20 | Integrate Engineering Design (*The Toaster Project*) |
 
 ---
 
 # Weekly Schedule
 
-.center[
-Phase 1: Discover
-]
-
 | Week | Date | Topic |
 |------|------|-------|
-| 3 | 1/27 | Phase 1 Kickoff |
-| 4 | 2/3 | Phase 1 Presentations - Groups BH and COE |
-| 5 | 2/10 | Phase 1 Presentations - Groups ML |
-
----
-
-# Weekly Schedule
-
-.center[
-Phase 2: Define
-]
-
-| Week | Date | Topic |
-|------|------|-------|
-| 6 | 2/17 | Phase 2 Kickoff |
-| 7 | 2/24 | Phase 2 Presentations - Groups BH and COE |
-| 8 | 3/3 | Phase 2 Presentations - Groups ML |
-
+| 3    | 1/27 | Phase 1 Kickoff |
+| 4    | 2/3  | Phase 1 Presentations - Groups BH and COE |
+| 5    | 2/10 | Phase 1 Presentations - Groups ML |
+|      |      |       |
+| 6    | 2/17 | Phase 2 Kickoff |
+| 7    | 2/24 | Phase 2 Presentations - Groups BH and COE |
+| 8    | 3/3  | Phase 2 Presentations - Groups ML |
 
 ---
 
@@ -372,29 +349,15 @@ March 7-15
 
 # Weekly Schedule
 
-.center[Phase 3: Develop
-]
-
 | Week | Date | Topic |
 |------|------|-------|
-| 9 | 3/17 | Phase 3 Kickoff |
-| 10 | 3/24 | Phase 3 Presentations - Groups BH and COE |
-| 11 | 3/31 | Phase 3 Presentations - Groups ML |
-
----
-
-# Weekly Schedule
-
-.center[
-Phase 4: Deliver
-]
-
-| Week | Date | Topic |
-|------|------|-------|
-| 12 | 4/7 | Phase 4 Kickoff |
-| 13 | 4/14 | Phase 4 Presentations - Groups BH and COE |
-| 14 | 4/21 | Phase 4 Presentations - Groups ML |
-
+| 9    | 3/17 | Phase 3 Kickoff |
+| 10   | 3/24 | Phase 3 Presentations - Groups BH and COE |
+| 11   | 3/31 | Phase 3 Presentations - Groups ML |
+|      |      |   |
+| 12   | 4/7  | Phase 4 Kickoff |
+| 13   | 4/14 | Phase 4 Presentations - Groups BH and COE |
+| 14   | 4/21 | Phase 4 Presentations - Groups ML |
 
 ---
 
@@ -405,13 +368,69 @@ class: title title-4
 
 # Faculty Advisor
 
-Faculty Advisor
+- Each team must select a Texas A&M faculty advisor.
+
+--
+
+- Advisors are chosen for their expertise or interest in the project topic.
+
+--
+
+- Instructors may assist in identifying advisors if needed.
+
+---
+
+# Faculty Advisor
+
+- Advisors serve as the team's subject matter expert, providing guidance and recommendations.
+
+--
+
+- Biweekly meetings are recommended, based on advisor availability.
+
+--
+
+- Advisors take an active advisory role but are not responsible for developing solutions.
+
+--
+
+- Teams must treat advisors with professional respect and courtesy.
 
 ---
 
 # Sponsors
 
-Sponsors
+- The project sponsor is the **client**, owner of the project problem or opportunity.
+
+--
+
+- Each team must assign a *Point of Contact* to manage sponsor communication.
+
+--
+
+- Communication frequency and format should be defined based on sponsor availability.
+
+--
+
+- Regular **face-to-face** meetings (in person or video) are required; email alone is insufficient!
+
+---
+
+# Sponsors
+
+- **ALL** team members should attend sponsor meetings; absences must be acknowledged with reasons.
+
+--
+
+- Meetings are scheduled by the POC and sponsor and must start and end on time with <u>an agenda</u>.
+
+--
+
+- Only the sponsor may cancel meetings; cancellations must be reported in technical presentations.
+
+--
+
+- If meeting frequency is unacceptable to the sponsor, document it and consult the primary instructor.
 
 ---
 
