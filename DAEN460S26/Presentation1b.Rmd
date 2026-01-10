@@ -1,0 +1,376 @@
+---
+title: "Introductions"
+author: "Alexander Abuabara"
+date: "`r Sys.Date()`"
+output:
+  xaringan::moon_reader:
+    lib_dir: "libs"
+    chakra: "libs/remark-latest.min.js"
+    css: ["default", "libs/ath-slides.css", "libs/ath-inferno-fonts.css", "libs/animate.css"]
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      ratio: "16:9"
+      navigation:
+        scroll: false
+      # beforeInit: "libs/offline-mathjax.js"
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, 
+                      fig.retina = 3, fig.align = "center")
+```
+
+class: center middle main-title section-title-4
+
+# Introductions
+
+.class-info[
+DAEN 640 Capstone Senior Design
+
+.light[
+Alexander Abuabara<br>
+Jan 2026]
+]
+
+---
+
+name: outline
+class: title title-inv-1
+
+# Plan for today
+
+--
+
+.box-2.medium[Introductions]
+
+--
+
+.box-3.medium[Goals and Expectations]
+
+--
+
+.box-4.medium[Semester Overview]
+
+--
+
+.box-5.medium[Grading and Assessment]
+
+--
+
+.box-6.medium[Code of Conduct]
+
+---
+
+layout: false
+name: slides
+class: center middle section-title section-title-2 animated fadeIn
+
+# Instructors
+
+---
+
+layout: true
+class: title title-inv-2
+
+---
+
+# Instructors
+
+--
+
+.pull-left-3.center[
+
+.box-2[Alexander<br>Abuabara]
+
+<figure>
+<img src="images/Alexander.png" alt="Alexander" title="Alexander" width="100%">
+</figure>
+
+]
+
+--
+
+.pull-middle-3[
+
+.box-2[Jose<br>Vazquez]
+
+<figure>
+<img src="images/Vazquez.png" alt="Jose" title="Jose" width="100%">
+</figure>
+
+]
+
+--
+
+.pull-right-3[
+
+.box-2[Jon<br>Elizondo]
+
+<figure>
+<img src="images/Jon.png" alt="JP" title="JP" width="100%">
+</figure>
+
+]
+
+---
+
+layout: false
+name: slides
+class: center middle section-title section-title-3 animated fadeIn
+
+# Goals and Expectations
+
+---
+
+layout: true
+class: title title-inv-3
+
+---
+
+# What is The Most Important Thing?
+
+.box-3.sp-after[*In life*, the most important thing is subjective.]
+
+--
+
+.box-3.sp-after[
+Health, Love & Relationships, Purpose & Meaning,<br>
+Gratitude, Freedom, Learning & Growth, Self-Care.
+]
+
+--
+
+.box-inv-3.SMALL.sp-after[
+These dimensions makes a conceptual backbone for our capstone,<br>
+framing it not as a purely technical culmination experience,<br>
+but as a <span class="highlight">professional and personal transition course</span>.
+]
+
+---
+
+layout: false
+
+.box-3.NORMAL.sp-after[
+The Bridge Between Academic Training and Life<br>
+(After Graduation)
+]
+
+.box-inv-3.SMALL.sp-after[
+Comprehensive <span class="highlight">technical expertise</span>!
+]
+
+.box-3.small.sp-after[
+Learn to <span class="highlight-red">go beyond</span> working your team's project,<br>
+develop the ability to work in any project!
+]
+
+.box-inv-3.SMALL.sp-after[
+Success is fully achieved when combined with<br>
+<span class="highlight">strong communication!</span>
+]
+
+---
+
+&nbsp;
+
+.center[
+
+<figure>
+<img src="images/Yoda_communication.png" alt="Yoda" title="Yoda" width="50%">
+</figure>
+
+]
+
+---
+
+<!-- ## Course -->
+
+<!-- - [**Capstone Design**]{style="color: red;"} class represents the culmination of an educational journey. -->
+<!-- - It's where [**theory**]{style="color: red;"} meets [**practice**]{style="color: red;"},\ -->
+<!--   [**abstraction**]{style="color: red;"} meets [**reality**]{style="color: red;"}, -->
+<!--   and the [**individual student**]{style="color: #800000;"} transitions from **learning concepts** to **creating, evaluating, -->
+<!--   and owning** a complete system. -->
+
+<!-- <img src="images/life-journey.gif" class="bottom-image"> -->
+
+<!-- ## Goals -->
+
+<!-- - **Apply** Data Engineering Knowledge -->
+<!-- - **Develop** End-to-End Project Skills -->
+<!--   - **Plan**, **document**, **execute** projects using a structured framework (i.e., V-Model). -->
+<!-- - Foster **Collaboration** & **Professional Skills** -->
+<!-- - Strengthen **Problem-Solving** & **Critical Thinking** -->
+<!-- - **Prepare** for Industry and Research -->
+<!--   - Build a portfolio demonstrating technical and teamwork skills, -->
+<!--   - Experience working under professional expectations. -->
+
+<!-- ## [ISEN Mission Statement]{style="color: #800000;"} -->
+
+<!-- **To serve** [the state, nation and global community by educating industrial engineering students to be well founded in engineering fundamentals and]{style="color: #C0C0C0;"} **to have the knowledge and skills** [required]{style="color: #C0C0C0;"} [**to design, develop, improve, implement and control**]{style="color: green;"} [sophisticated production and service]{style="color: #C0C0C0;"} **systems** [in an environment characterized by]{style="color: #C0C0C0;"} **complex technical and social challenges**. [Throughout this educational process, students will be instilled with the]{style="color: #C0C0C0;"} **highest standards of professional and ethical behavior**. -->
+
+<!-- <img src="images/TAMU-Industrial-and-Systems-Enginnering.png" style="max-width:50%;height:auto;"> -->
+
+<!-- ## Expectations -->
+
+<!-- - Active Participation -->
+<!-- - Ownership and Accountability -->
+<!-- - Professional Communication -->
+<!-- - Quality and Documentation -->
+<!-- - Ethical Conduct -->
+
+<!-- ## Professional Standards of Conduct -->
+
+<!-- Professional Standards of Conduct -->
+
+<!-- ## Attendance -->
+
+<!-- Attendance -->
+
+<!-- ## Confidentiality and Non-attribution -->
+
+<!-- Confidentiality and Non-attribution -->
+
+<!-- ## Faculty Advisor -->
+
+<!-- Faculty Advisor -->
+
+<!-- ## Sponsors -->
+
+<!-- Sponsors -->
+
+<!-- ## Milestones -->
+
+<!-- <img src="images/Schedule.jpg" width="72%"/> -->
+
+<!-- ## Deliverables -->
+
+<!-- <img src="images/Deliverables.jpg" width="72%"/> -->
+
+<!-- ## Grading and Assessment -->
+
+<!-- <img src="images/Grading.jpg" width="72%"/> -->
+
+<!-- ## Team Work? -->
+
+<!-- <img src="images/Fry1.png" width="50%"/> -->
+
+<!-- ## Team Work -->
+
+<!-- - In industry, project failure is rarely caused by lack of technical skill. -->
+<!--   Most often caused by: -->
+<!--   - Unclear expectations, -->
+<!--   - Poor communication, -->
+<!--   - Uneven workload distribution, -->
+<!--   - Missed deadlines, -->
+<!--   - Unresolved conflict, -->
+<!--   - Unprofessional behavior. -->
+
+<!-- ## Social Loafing -->
+
+<!-- Social Loafing -->
+
+<!-- ## Code of Conduct -->
+
+<!-- - Let us prevent these problems before they occur. -->
+<!-- - Due 1/19 at 5 PM -->
+<!-- - On Canvas: -->
+<!--   <span style="font-size: 24px;">https://canvas.tamu.edu/courses/431435/assignments/2874310</span> -->
+
+<!-- ## V-Model -->
+
+<!-- <img src="images/SystemsEngineeringVeeEdited.png" width="93%"/> -->
+
+<!-- ## What is a Configuration Item (CI)? -->
+
+<!-- - A CI is any [**hardware, software, firmware, document, or combination**]{style="color: red;"} thereof that is: -->
+<!--   - Individually identifiable, -->
+<!--   - Formally baselined, -->
+<!--   - Controlled under configuration management, -->
+<!--   - Verified against approved specifications. -->
+<!-- - In other words, a CI is anything the organization has decided must be [**controlled, versioned, and verified**]{style="color: #800000;"} as its own official product element. -->
+
+<!-- ## What is a Configuration Item (CI)? -->
+
+<!-- - In data engineering, a CI is: -->
+<!--   <div class="emailred">Any [**version-controlled,\ -->
+<!--                              independently testable,\ -->
+<!--                              production-quality component**]{style="color: red;"}\ -->
+<!--                              of a data system that has formal requirements,\ -->
+<!--                              formal tests, and formal approval.</div> -->
+<!-- - A CI is no longer "just a file", it becomes a [**certified system component**]{style="color: #800000;"}. -->
+
+<!-- ## <span style="font-size: .9em;">What Counts as a CI in a Data Platform</span> -->
+
+<!-- <table style="width:85%; margin:12px auto;"> -->
+<!-- <thead style="background-color:#f0f0f0;"> -->
+<!-- <tr> -->
+<!-- <th style="color:#500000; font-size:32px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">CI Area</th> -->
+<!-- <th style="color:#500000; font-size:32px; font-weight:bold; padding:4px 4px; border-bottom:3px solid #500000; text-align:left;">Examples</th> -->
+<!-- </tr> -->
+<!-- </thead> -->
+<!-- <tbody> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Sources</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">Ingest schema, API feed</td></tr> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Pipelines</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">ETL job, stream proc</td></tr> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Storage</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">Warehouse schema, lakehouse</td></tr> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Code</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">Feature lib, validation</td></tr> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Models</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">Forecast, classifier</td></tr> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Orchestration</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">Airflow DAG, dbt</td></tr> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Interfaces</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">API, data contracts</td></tr> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Governance</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">Quality rules, PII mask</td></tr> -->
+<!-- <tr><td style="font-size:28px; padding:3px 4px;">Docs</td> -->
+<!-- <td style="font-size:28px; padding:3px 4px;">Data dict, lineage</td></tr> -->
+<!-- </tbody> -->
+<!-- </table> -->
+
+<!-- ## Project Charter Adjustments -->
+
+<!-- <img src="images/ProjectCharterIntegration.png" width="93%"/> -->
+
+<!-- ## Mini Project Packet -->
+
+<!-- ## Purpose -->
+
+<!-- <img src="images/Purpose.png" width="65%"/> -->
+
+<!-- ## SE and PM Integration -->
+
+<!-- <img src="images/SE_PM_Integration.jpg" width="90%"/> -->
+
+<!-- ## Gantt Chart -->
+
+<!-- Gantt Chart -->
+
+<!-- ## SE Standards -->
+
+<!-- <img src="images/SE_Standards.jpg" width="100%"/> -->
+
+<!-- ## Slide with R Output -->
+
+<!-- ```{r cars, echo = TRUE} -->
+
+<!-- summary(cars) -->
+
+<!-- ``` -->
+
+<!-- ## Slide with Plot -->
+
+<!-- ```{r pressure} -->
+
+<!-- plot(pressure) -->
+
+<!-- ``` -->
+
+<!-- remotes::install_github("yihui/xaringan") -->

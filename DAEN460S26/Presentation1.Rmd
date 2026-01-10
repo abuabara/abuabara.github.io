@@ -104,17 +104,25 @@ p {
 }
 
 .emailblue {
-  border:        3px solid blue;
-  background:    #ededed;
-  padding:       .075em .075em .075em .075em;
+  display: inline-block;
+  width: auto;
+  max-width: fit-content;
+  border: 3px solid blue;
+  background: #ededed;
+  padding: 0.15em 0.45em;
   border-radius: 12px;
+  white-space: nowrap;
 }
 
 .emailred {
-  border:        3px solid red;
-  background:    #ededed;
-  padding:       .075em .075em .075em .075em;
+  display: inline-block;
+  width: auto;
+  max-width: fit-content;
+  border: 3px solid red;
+  background: #ededed;
+  padding: 0.15em 0.45em;
   border-radius: 12px;
+  white-space: nowrap;
 }
 
 table { 
@@ -124,7 +132,7 @@ table {
 
 .bottom-image {
   position: absolute;
-  bottom: 0.8em;
+  bottom: 1em;
   left: 50%;
   transform: translateX(-50%);
   max-height: 40%;
@@ -135,13 +143,18 @@ table {
 
 .bottom-image2 {
   position: absolute;
-  bottom: 0.8em;
+  bottom: 1em;
   left: 50%;
   transform: translateX(-50%);
   max-height: 30%;
   width: auto;
   opacity: 0.99;
   pointer-events: none;
+}
+
+.slide-number {
+  right: 3px !important;
+  bottom: 3px !important;
 }
 
 </style>
@@ -175,14 +188,6 @@ knitr::opts_chunk$set(echo = FALSE)
 
 Course Instructors
 
-## Faculty Advisor
-
-Faculty Advisor
-
-## Sponsors
-
-Sponsors
-
 ## What is The Most Important Thing?
 
 > - **In life**, the most important thing is [**subjective**]{style="color: red;"}.
@@ -191,6 +196,15 @@ Sponsors
 > - This [**set of dimensions**]{style="color: red;"} makes a conceptual [**backbone for our capstone**]{style="color: #800000;"}, because it positions the course not as a technical culminating experience, but as a **professional and personal transition course.**
 
 <img src="images/important-2.png" class="bottom-image2">
+
+## [The Bridge Between Academic Training and Life (After Graduation)]{style="font-size: 32px;"}
+
+- Learn to [**go beyond**]{style="color: red;"} working your team's project,\
+  develop the ability to [**work in any project!**]{style="color: red;"}
+- Others may always outpace you in [**technical expertise**]{style="color: red;"}.
+- Your true advantage is [**systems thinking**]{style="color: #800000;"}, an advantage that reaches its full power when paired with **strong communication!**
+
+<img src="images/Yoda_communication.png" class="bottom-image">
 
 ## Course
 
@@ -201,15 +215,6 @@ Sponsors
   and owning** a complete system.
 
 <img src="images/life-journey.gif" class="bottom-image">
-
-## [The Bridge Between Academic Training and Life (After Graduation)]{style="font-size: 32px;"}
-
-- Learn to [**go beyond**]{style="color: red;"} working your team's project,\
-  develop the ability to [**work in any project!**]{style="color: red;"}
-- Others may always outpace you in [**technical expertise**]{style="color: red;"}.
-- Your true advantage is [**systems thinking**]{style="color: #800000;"}, an advantage that reaches its full power when paired with **strong communication!**
-
-<img src="images/Yoda_communication.png" class="bottom-image">
 
 ## Goals
 
@@ -248,17 +253,25 @@ Attendance
 
 Confidentiality and Non-attribution
 
+## Faculty Advisor
+
+Faculty Advisor
+
+## Sponsors
+
+Sponsors
+
 ## Milestones
 
-<img src="images/Schedule.jpg" width="75%"/>
+<img src="images/Schedule.jpg" width="72%"/>
 
 ## Deliverables
 
-<img src="images/Deliverables.jpg" width="75%"/>
+<img src="images/Deliverables.jpg" width="72%"/>
 
 ## Grading and Assessment
 
-<img src="images/Grading.jpg" width="75%"/>
+<img src="images/Grading.jpg" width="72%"/>
 
 ## Team Work?
 
@@ -288,7 +301,7 @@ Social Loafing
 
 ## V-Model
 
-<img src="images/SystemsEngineeringVeeEdited.png" width="100%"/>
+<img src="images/SystemsEngineeringVeeEdited.png" width="93%"/>
 
 ## What is a Configuration Item (CI)?
 
@@ -302,7 +315,11 @@ Social Loafing
 ## What is a Configuration Item (CI)?
 
 - In data engineering, a CI is:
-  <div class="emailred">Any [**version-controlled, independently testable, production-quality component**]{style="color: red;"} of a data system that has formal requirements, formal tests, and formal approval.</div>
+  <div class="emailred">Any [**version-controlled,\
+                             independently testable,\
+                             production-quality component**]{style="color: red;"}\
+                             of a data system that has formal requirements,\
+                             formal tests, and formal approval.</div>
 - A CI is no longer "just a file", it becomes a [**certified system component**]{style="color: #800000;"}.
 
 ## <span style="font-size: .9em;">What Counts as a CI in a Data Platform</span>
@@ -338,7 +355,7 @@ Social Loafing
 
 ## Project Charter Adjustments
 
-<img src="images/ProjectCharterIntegration.png" width="100%"/>
+<img src="images/ProjectCharterIntegration.png" width="93%"/>
 
 ## Mini Project Packet
 
