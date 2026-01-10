@@ -481,7 +481,7 @@ class: title title-4
 
 .center[
 <figure>
-<img src="images/doc.png" alt="doc" title="doc" width="20%">
+<img src="images/important-2.png" alt="doc" title="doc" width="20%">
 </figure>
 ]
 
@@ -643,7 +643,7 @@ layout: false
 
 .center[
 <figure>
-<img src="images/social-loafing.png" alt="Social Loafing" title="Social Loafing" width="76%">
+<img src="images/social-loafing.png" alt="Social Loafing" title="Social Loafing" width="80%">
 </figure>
 ]
 
