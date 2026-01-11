@@ -130,6 +130,10 @@ figcaption {
   margin-bottom: 0.25em !important;
 }
 
+.sp-after-veryveryshort {
+  margin-bottom: 0.15em !important;
+}
+
 .remark-code,
 .remark-inline-code {
   font-size: 0.75em;
@@ -282,11 +286,11 @@ Slides with title bars at the top
 }
 
 .title-6 {
-  border-top-color: #F89441;
+  border-top-color: #FC642D;
 }
 
 .title-7 {
-  border-top-color: #FCCE25;
+  border-top-color: #35ACFB;
 }
 
 .title-inv-1 {
@@ -314,7 +318,7 @@ Slides with title bars at the top
 }
 
 .title-inv-7 {
-  border-top-color: #FFF0D4;
+  border-top-color: #EAF6FF;
 }
 
 /*
@@ -341,11 +345,11 @@ General color classes
 }
 
 .color-6 {
-  color: #F89441;
+  color: #FC642D;
 }
 
 .color-7 {
-  color: #FCCE25;
+  color: #35ACFB;
 }
 
 .color-light-1 {
@@ -373,7 +377,7 @@ General color classes
 }
 
 .color-light-7 {
-  color: #FFF0D4;
+  color: #EAF6FF;
 }
 
 /* 
@@ -406,12 +410,16 @@ Coloring and inverse coloring in title bars and content boxes
 
 .box-6,
 .section-title-6 {
-  background-color: #F89441;
+  background-color: #FC642D;
 }
 
 .box-7,
 .section-title-7 {
-  background-color: #FCCE25;
+  background-color: #35ACFB;
+}
+
+.section-maroon {
+  background-color: #800000;
 }
 
 .box-inv-1,
@@ -446,7 +454,7 @@ Coloring and inverse coloring in title bars and content boxes
 
 .box-inv-7,
 .section-title-inv-7 {
-  background-color: #FFF0D4;
+  background-color: #EAF6FF;
 }
 
 .box-inv-1,
@@ -482,13 +490,13 @@ Coloring and inverse coloring in title bars and content boxes
 .box-inv-6,
 .title-inv-6 h1,
 .section-title-inv-6 h1 {
-  color: #F89441;
+  color: #FC642D;
 }
 
 .box-inv-7,
 .title-inv-7 h1,
 .section-title-inv-7 h1 {
-  color: #FCCE25;
+  color: #35ACFB;
 }
 
 .box-7, .box-6, .box-5, .box-4, .box-3, .box-2, .box-1, .title-7 h1, .title-6 h1, .title-5 h1, .title-4 h1, .title-3 h1, .title-2 h1, .title-1 h1, .section-title h1 {
