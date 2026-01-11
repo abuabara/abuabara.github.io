@@ -29,11 +29,9 @@ class: center middle main-title section-title-4
 
 # Introductions
 
-<!-- <figure> -->
-<!-- <img src="images/TAMU_logo.png" alt="TAMU" title="TAMU" width="20%"> -->
-<!-- </figure> -->
-
 .class-info[
+<span style="font-size: 64pt;">🎓</span>
+
 DAEN 640 Capstone Senior Design
 
 .light[
@@ -54,7 +52,7 @@ class: title title-inv-1
 
 --
 
-.box-3.medium[Goals and Expectations]
+.box-3.medium[Goals & Expectations]
 
 --
 
@@ -62,7 +60,7 @@ class: title title-inv-1
 
 --
 
-.box-5.medium[Grading and Assessment]
+.box-5.medium[Grading & Assessment]
 
 --
 
@@ -135,10 +133,10 @@ Gratitude, Freedom, Learning & Growth, Self-Care
 
 .box-inv-3.SMALL.sp-after[
 These dimensions makes a conceptual backbone for our capstone,<br>
-framing it not as a purely technical culmination experience,<br>
+framing it not as a purely <span style="color: red;">technical</span> culmination experience,<br>
 but as a 
 <span class="highlight">
-professional and personal transition course
+professional & personal transition course
 </span>
 ]
 
@@ -147,7 +145,7 @@ professional and personal transition course
 layout: false
 
 .box-3.sp-after-short[
-The Bridge Between Academic Training and Life<br>
+The Bridge Between Academic Training & Life<br>
 (After Graduation)
 ]
 
@@ -226,15 +224,15 @@ class: title title-inv-6
 --
 .box-inv-6.sp-after-veryshort[Develop end-to-end project skills]
 --
-.box-6.SMALL.sp-after-veryshort[Plan, document, execute projects using a structured framework (V-Model)]
+.box-6.SMALL.sp-after-veryshort[Plan, document, execute projects using a structured framework (<span style="color: yellow;">V-Model</span>)]
 --
 .box-inv-6.sp-after-veryshort[Foster collaboration & professional skills]
 --
+.box-6.SMALL.sp-after-veryshort[Build a portfolio demonstrating technical & teamwork skills]
+--
+.box-inv-6.sp-after-veryshort[Prepare for industry & research]
+--
 .box-6.sp-after-veryshort[Strengthen problem-solving & critical thinking]
---
-.box-inv-6.sp-after-veryshort[Prepare for industry and research]
---
-.box-6.SMALL.sp-after-veryshort[Build a portfolio demonstrating technical and teamwork skills]
 --
 .box-inv-6.sp-after-veryshort[Experience working under professional expectations]
 
@@ -244,11 +242,11 @@ class: title title-inv-6
 
 .box-6.sp-after-short[Active Participation]
 --
-.box-inv-6.sp-after-short[Ownership and Accountability]
+.box-inv-6.sp-after-short[Ownership & Accountability]
 --
 .box-6.sp-after-short[Professional Communication]
 --
-.box-inv-6.sp-after-short[Quality and Documentation]
+.box-inv-6.sp-after-short[Quality & Documentation]
 --
 .box-6.sp-after-short[Ethical Conduct]
 
@@ -329,11 +327,11 @@ layout: true
 | Week | Date | Topic |
 |:-----|:----:|-------|
 | 3    | 1/27 | Phase 1 Kickoff |
-| 4    | 2/3  | Phase 1 Presentations - Groups BH and COE |
+| 4    | 2/3  | Phase 1 Presentations - Groups BH & COE |
 | 5    | 2/10 | Phase 1 Presentations - Groups ML |
 |      |      |       |
 | 6    | 2/17 | Phase 2 Kickoff |
-| 7    | 2/24 | Phase 2 Presentations - Groups BH and COE |
+| 7    | 2/24 | Phase 2 Presentations - Groups BH & COE |
 | 8    | 3/3  | Phase 2 Presentations - Groups ML |
 
 ---
@@ -355,11 +353,11 @@ March 7-15
 | Week | Date | Topic |
 |:-----|:----:|-------|
 | 9    | 3/17 | Phase 3 Kickoff |
-| 10   | 3/24 | Phase 3 Presentations - Groups BH and COE |
+| 10   | 3/24 | Phase 3 Presentations - Groups BH & COE |
 | 11   | 3/31 | Phase 3 Presentations - Groups ML |
 |      |      |   |
 | 12   | 4/7  | Phase 4 Kickoff |
-| 13   | 4/14 | Phase 4 Presentations - Groups BH and COE |
+| 13   | 4/14 | Phase 4 Presentations - Groups BH & COE |
 | 14   | 4/21 | Phase 4 Presentations - Groups ML |
 
 ---
@@ -381,7 +379,7 @@ class: title title-4
 * Team presentation days:
 
   * All team members must stay for the entire class!
-  * Other students are welcome and encouraged to attend
+  * Other students are welcome & encouraged to attend
 
 ---
 
@@ -401,7 +399,7 @@ class: title title-4
 
 # Faculty Advisor
 
-* Advisors serve as the team's subject matter expert, providing guidance and recommendations.
+* Advisors serve as the team's subject matter expert, providing guidance & recommendations.
 
 --
 
@@ -413,7 +411,7 @@ class: title title-4
 
 --
 
-* Teams must treat advisors with professional respect and courtesy.
+* Teams must treat advisors with professional respect & courtesy.
 
 ---
 
@@ -427,7 +425,7 @@ class: title title-4
 
 --
 
-* Communication frequency and format should be defined based on sponsor availability.
+* Communication frequency & format should be defined based on sponsor availability.
 
 --
 
@@ -453,7 +451,7 @@ class: title title-4
 
 ---
 
-# Confidentiality and Non-attribution
+# Confidentiality & Non-attribution
 
 * Course data, client info, and project discussions are confidential
 
@@ -469,7 +467,7 @@ class: title title-4
 
 ---
 
-# Confidentiality and Non-attribution
+# Confidentiality & Non-attribution
 
 * Don’t attribute information to specific people or teams
 
@@ -491,7 +489,7 @@ layout: false
 name: slides
 class: center middle section-title section-title-5 animated fadeIn
 
-# Grading and Assessment
+# Grading & Assessment
 
 ---
 
@@ -522,6 +520,30 @@ layout: false
 
 layout: true
 class: title title-5
+
+---
+
+# Deliverables
+
+* <span style="color: gray; font-size: 22pt;">We’ll try to stick to the schedule, but some changes may happen to help you learn better</span>
+
+* <span style="color: gray; font-size: 22pt;">Check Canvas for all official due dates</span>
+
+--
+
+  * <span style="color: gray; font-size: 22pt;">They’re final unless we send a notice by Canvas + email</span>
+
+--
+
+* <span style="color: gray; font-size: 22pt;">You can resubmit assignments for a better grade after the due date</span>
+
+* <span style="color: gray; font-size: 22pt;">All regrade work must be in by the assignment’s close date</span>
+
+--
+
+* <span style="color: gray; font-size: 22pt;">When resubmitting, make sure to:</span>
+  * <span style="color: gray; font-size: 22pt;"><span class="highlight">Highlight</span> what you changed</span>
+  * <span style="color: gray; font-size: 22pt;">Address ALL feedback from class, presentations, or office hours</span>
 
 ---
 
@@ -695,7 +717,7 @@ On Canvas - Due 1/19 at 5 PM
 
 # Professional Standards of Conduct
 
-* .small[Learning includes respectfully engaging with different opinions and keeping an open mind.]
+* .small[Learning includes respectfully engaging with different opinions & keeping an open mind.]
 
 --
 
@@ -703,7 +725,7 @@ On Canvas - Due 1/19 at 5 PM
 
 --
 
-* .small[These expectations apply to **all** course-related activities and meetings.]
+* .small[These expectations apply to **all** course-related activities & meetings.]
 
 * .small[Communication should be factual, constructive, and free of harassing, offensive, or demeaning language.]
 
@@ -711,7 +733,7 @@ On Canvas - Due 1/19 at 5 PM
 
 # Professional Standards of Conduct
 
-* .small[Disagreements are allowed,<br>... but they must be fact-based and civil in tone.]
+* .small[Disagreements are allowed,<br>... but they must be fact-based & civil in tone.]
 
 --
 
@@ -887,18 +909,6 @@ background-image: url("images/minecraft.jpeg")
 <span style="color: red; font-size: 44pt;">
 <b>Make it a GREAT semester! ツ</b>
 </span>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- ## Mini Project Packet -->
