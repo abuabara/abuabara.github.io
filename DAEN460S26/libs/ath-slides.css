@@ -630,15 +630,225 @@ Coloring and inverse coloring in title bars and content boxes
   border: 1px solid #ccc;
 }
 
-.blue-table table {
-  border: 2px solid #BF3984;
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.blue-table thead {
-  background-color: #FFC0DC;
-  color: white;
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
-.blue-table td {
-  border: 1px solid #BF3984;
+th {
+  background-color: #f2f2f2;
+}
+
+/* Coral Modern Table - Complete CSS Styling */
+
+/* Base Table Styling */
+.coral-table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(225, 101, 98, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Header Styling */
+.coral-table th {
+  background-color: #FFE9E8; /* Very light coral tint */
+  color: #C13835; /* Darker coral for contrast */
+  text-align: left;
+  padding: 7px 14px;
+  border: 1px solid #F5B9B7; /* Medium coral border */
+  font-size: 1em;
+}
+
+/* Table Data Cells */
+.coral-table td {
+  padding: 7px 12px;
+  border: 1px solid #FFD4D3; /* Light coral border */
+  color: #A85553; /* Dark gray for readability */
+  font-size: 1em;
+}
+
+/* Alternating Row Colors (Zebra Striping) */
+.coral-table tbody tr:nth-child(even) {
+  background-color: #FFF6F5; /* Ultra light coral */
+}
+
+.coral-table tbody tr:nth-child(odd) {
+  background-color: #FFFFFF; /* White */
+}
+
+/* Hover Effect */
+.coral-table tbody tr:hover {
+  background-color: #FFE9E8; /* Light coral on hover */
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+/* Accent Border on Header */
+.coral-table thead tr {
+  border-bottom: 3px solid #E16562; /* Theme color accent */
+}
+
+/* Table Caption (if used) */
+.coral-table caption {
+  caption-side: top;
+  padding: 7px;
+  font-weight: 600;
+  color: #C13835; /* Darker coral */
+  font-size: 1em;
+  text-align: left;
+}
+
+/* Modern Touch: Highlight Active Row */
+.coral-table tbody tr.active {
+  background-color: #E16562;
+  color: #FFFFFF;
+}
+
+.coral-table tbody tr.active td {
+  color: #FFFFFF;
+  border-color: #C13835;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .coral-table th,
+  .coral-table td {
+    padding: 8px 12px;
+    font-size: 1em;
+  }
+  
+  .coral-table {
+    font-size: 0.8em;
+  }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+  .coral-table th,
+  .coral-table td {
+    padding: 6px 8px;
+    font-size: 0.6em;
+  }
+}
+
+/* Rose Table - Complete CSS Styling */
+
+/* Base Table Styling */
+.rose-table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(225, 101, 98, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Header Styling */
+.rose-table th {
+  background-color: #FCE7F3; /* Very light rose tint */
+  color: #831843; /* Darker rose for contrast */
+  font-weight: 600;
+  text-align: left;
+  padding: 7px 14px;
+  border: 1px solid #F5B9B7; /* Medium rose border */
+  font-size: 1.1em;
+}
+
+/* Table Data Cells */
+.rose-table td {
+  padding: 7px 12px;
+  border: 1px solid #FBCFE8; /* Light rose border */
+  color: #8e1334; /* Dark gray for readability */
+  font-size: 1em;
+}
+
+/* Alternating Row Colors (Zebra Striping) */
+.rose-table tbody tr:nth-child(even) {
+  background-color: #FDF2F8; /* Ultra light rose */
+}
+
+.rose-table tbody tr:nth-child(odd) {
+  background-color: #FFFFFF; /* White */
+}
+
+/* Hover Effect */
+.rose-table tbody tr:hover {
+  background-color: #FCE7F3; /* Light rose on hover */
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+/* First Column Emphasis (Optional) */
+.rose-table td:first-child {
+  font-weight: 500;
+  color: #9F1239; /* Theme color */
+}
+
+/* Accent Border on Header */
+.rose-table thead tr {
+  border-bottom: 3px solid #9F1239; /* Theme color accent */
+}
+
+/* Table Caption (if used) */
+.rose-table caption {
+  caption-side: top;
+  padding: 7px;
+  font-weight: 600;
+  color: #9F1239; /* Darker rose */
+  font-size: 1em;
+  text-align: left;
+}
+
+/* Modern Touch: Highlight Active Row */
+.rose-table tbody tr.active {
+  background-color: #e075a6;
+  color: #FFFFFF;
+}
+
+.rose-table tbody tr.active td {
+  color: #FFFFFF;
+  border-color: #c13984;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .rose-table th,
+  .rose-table td {
+    padding: 8px 12px;
+    font-size: 1em;
+  }
+  
+  .rose-table {
+    font-size: 0.8em;
+  }
+}
+
+/* Extra Small Screens */
+@media (max-width: 480px) {
+  .rose-table th,
+  .rose-table td {
+    padding: 6px 8px;
+    font-size: 0.6em;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
 }

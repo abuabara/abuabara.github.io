@@ -310,20 +310,30 @@ class: center middle section-title section-title-4 animated fadeIn
 ---
 
 layout: true
+class: title title-4
 
 ---
 
 # Weekly Schedule
 
+<div class="rose-table">
+
+.small[
 | Week | Date | Topic |
 |------|------|-------|
 | 1    | 1/13 | Introductions + Comm Requirements |
 | 2    | 1/20 | Integrate Engineering Design (*The Toaster Project*) |
+]
+
+</div>
 
 ---
 
 # Weekly Schedule
 
+<div class="rose-table">
+
+.small[
 | Week | Date | Topic |
 |:-----|:----:|-------|
 | 3    | 1/27 | Phase 1 Kickoff |
@@ -333,8 +343,13 @@ layout: true
 | 6    | 2/17 | Phase 2 Kickoff |
 | 7    | 2/24 | Phase 2 Presentations - Groups BH & COE |
 | 8    | 3/3  | Phase 2 Presentations - Groups ML |
+]
+
+</div>
 
 ---
+
+layout: false
 
 .box-4.normal.sp-after-short[
 March 7-15
@@ -348,8 +363,16 @@ March 7-15
 
 ---
 
+layout: true
+class: title title-4
+
+---
+
 # Weekly Schedule
 
+<div class="rose-table">
+
+.small[
 | Week | Date | Topic |
 |:-----|:----:|-------|
 | 9    | 3/17 | Phase 3 Kickoff |
@@ -359,11 +382,9 @@ March 7-15
 | 12   | 4/7  | Phase 4 Kickoff |
 | 13   | 4/14 | Phase 4 Presentations - Groups BH & COE |
 | 14   | 4/21 | Phase 4 Presentations - Groups ML |
+]
 
----
-
-layout: true
-class: title title-4
+</div>
 
 ---
 
@@ -497,20 +518,25 @@ layout: false
 
 <!-- # Grading -->
 
+<div class="coral-table">
+
 .small[
 | Team Grades | Weight on the Final Grade | Grade Type |
 |:------------|:-------------------------:|:----------:|
-| Mini Management Packet  | 5%            | Technical |
-| Phase 1-3 Presentations | 15% (5% each) | " |
-| Phase 4 Presentation    | 10%           | " |
-| Showcase Poster         | 5%            | " |
-| Communication Log       | 2% (1% each)  | " |
-| Final Report            | 18%           | " |
-| **Individual Grades**   |               |   |
+| Mini Management Packet  | 5%            | Technical  |
+| Phase 1-3 Presentations | 15% (5% each) | "          |
+| Phase 4 Presentation    | 10%           | "          |
+| Showcase Poster         | 5%            | "          |
+| Communication Log       | 2% (1% each)  | "          |
+| Final Report            | 18%           | "          |
+|                    |        |       |
+| <span style="color: #C13835;">**Individual Grades**</span>   | &nbsp;        | &nbsp;     |
 | Phase Presentations     | 15%           | Communication |
-| Writing Assignments     | 18%           | Writing |
-| Peer Performance        | 12%           | &nbsp;  |
+| Writing Assignments     | 18%           | Writing    |
+| Peer Performance        | 12%           | &nbsp;     |
 ]
+
+</div>
 
 <!-- --- -->
 
@@ -525,25 +551,25 @@ class: title title-5
 
 # Deliverables
 
-* <span style="color: gray; font-size: 22pt;">We’ll try to stick to the schedule, but some changes may happen to help you learn better</span>
+* <span style="color: #3a1a1a; font-size: 22pt;">We’ll try to stick to the schedule, but some changes may happen to help you learn better</span>
 
-* <span style="color: gray; font-size: 22pt;">Check Canvas for all official due dates</span>
-
---
-
-  * <span style="color: gray; font-size: 22pt;">They’re final unless we send a notice by Canvas + email</span>
+* <span style="color: #3a1a1a; font-size: 22pt;">Check Canvas for all official due dates</span>
 
 --
 
-* <span style="color: gray; font-size: 22pt;">You can resubmit assignments for a better grade after the due date</span>
-
-* <span style="color: gray; font-size: 22pt;">All regrade work must be in by the assignment’s close date</span>
+  * <span style="color: #3a1a1a; font-size: 22pt;">They’re final unless we send a notice by Canvas + email</span>
 
 --
 
-* <span style="color: gray; font-size: 22pt;">When resubmitting, make sure to:</span>
-  * <span style="color: gray; font-size: 22pt;"><span class="highlight">Highlight</span> what you changed</span>
-  * <span style="color: gray; font-size: 22pt;">Address ALL feedback from class, presentations, or office hours</span>
+* <span style="color: #3a1a1a; font-size: 22pt;">You can resubmit assignments for a better grade after the due date</span>
+
+* <span style="color: #3a1a1a; font-size: 22pt;">All regrade work must be in by the assignment’s close date</span>
+
+--
+
+* <span style="color: #3a1a1a; font-size: 22pt;">When resubmitting, make sure to:</span>
+  * <span style="color: #3a1a1a; font-size: 22pt;"><span class="highlight">Highlight</span> what you changed</span>
+  * <span style="color: #3a1a1a; font-size: 22pt;">Address ALL feedback from class, presentations, or office hours</span>
 
 ---
 
