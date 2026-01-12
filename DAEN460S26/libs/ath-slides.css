@@ -645,6 +645,12 @@ th {
   background-color: #f2f2f2;
 }
 
+/* Improve blockquote appearance */
+blockquote {
+  border-left: 5px solid #C0C0C0;
+  color: #2f2f2f;
+}
+
 /* Coral Modern Table - Complete CSS Styling */
 
 /* Base Table Styling */
@@ -851,4 +857,26 @@ th, td {
 
 th {
   background-color: #f2f2f2;
+}
+
+.zoom-figure {
+  display: inline-block;
+  overflow: hidden;
+  border-radius: 3px;
+  transition: transform .25s ease, box-shadow .25s ease;
+  cursor: zoom-in;
+}
+
+.zoom-figure img {
+  display: block;
+  transition: transform .25s ease;
+}
+
+.zoom-figure:hover {
+  transform: scale(1.15);
+  z-index: 10;
+}
+
+.zoom-figure:hover img {
+  transform: scale(1.3);
 }

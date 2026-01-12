@@ -80,7 +80,7 @@ layout: false
 
 .pull-left-3.center[
 .box-inv-2[Alexander<br>Abuabara]
-<figure>
+<figure class="zoom-figure">
 <img src="images/Alexander.png" alt="Alexander" title="Alexander" width="100%">
 </figure>
 ]
@@ -89,7 +89,7 @@ layout: false
 
 .pull-middle-3[
 .box-inv-2[Jose<br>Vazquez]
-<figure>
+<figure class="zoom-figure">
 <img src="images/Vazquez.png" alt="Jose" title="Jose" width="100%">
 </figure>
 ]
@@ -98,7 +98,7 @@ layout: false
 
 .pull-right-3[
 .box-inv-2[Jon<br>Elizondo]
-<figure>
+<figure class="zoom-figure">
 <img src="images/Jon.png" alt="JP" title="JP" width="100%">
 </figure>
 ]
@@ -253,7 +253,6 @@ class: title title-inv-6
 ---
 
 layout: true
-class:
 
 ---
 
@@ -296,7 +295,7 @@ class:
 
 .center[
 <figure>
-<img src="images/TAMU-Industrial-and-Systems-Enginnering.png" alt="ISEN-TAMU" title="ISEN-TAMU" width="49%">
+<img src="images/TAMU-Industrial-and-Systems-Enginnering.png" alt="ISEN-TAMU" title="ISEN-TAMU" width="47%">
 </figure>
 ]
 
@@ -309,8 +308,86 @@ class: center middle section-title section-title-4 animated fadeIn
 
 ---
 
+class: bg-full
+
+background-image: url("images/double-diamond-design-thinking.png")
+
+---
+
 layout: true
 class: title title-4
+
+---
+
+# Discover: Understand the Problem
+
+.box-inv-4.SMALL.sp-after-short[
+Purpose: Explore and learn before building
+]
+
+* Investigate the problem domain
+* Identify stakeholders and users
+* Study existing solutions and technologies
+* Gather data (surveys, literature, benchmarks)
+* Uncover unmet needs and constraints
+
+.box-inv-4.SMALL.sp-after-short[
+Outcome: Clear understanding of what problem matters and why
+]
+
+---
+
+# Define: Frame the Right Problem
+
+.box-inv-4.SMALL.sp-after-short[
+Purpose: Turn research into a focused project
+]
+
+* Synthesize findings into insights
+* Write a precise problem statement
+* Define scope, objectives, and constraints
+* Establish functional and performance requirements
+* Set success metrics and milestones
+
+.box-inv-4.SMALL.sp-after-short[
+Outcome: A well-scoped, testable project definition
+]
+
+---
+
+# Develop: Design and Build
+
+.box-inv-4.SMALL.sp-after-short[
+Purpose: Create and validate the solution
+]
+
+* Generate and compare design concepts
+* Select the optimal solution
+* Create system architecture and models
+* Build prototypes or minimum viable products
+* Test, iterate, and refine based on data
+
+.box-inv-4.SMALL.sp-after-short[
+Outcome: A functional, validated engineering solution
+]
+
+---
+
+# Deliver: Validate and Communicate
+
+.box-inv-4.SMALL.sp-after-short[
+Purpose: Prepare for real-world use and evaluation
+]
+
+* Perform final verification and validation
+* Confirm performance meets requirements
+* Finalize documentation, code, and design artifacts
+* Prepare reports, posters, and presentations
+* Demonstrate the solution to stakeholders
+
+.box-inv-4.small.sp-after-short[
+Outcome: A complete, defensible project ready for deployment and assessment
+]
 
 ---
 
@@ -326,6 +403,14 @@ class: title title-4
 ]
 
 </div>
+
+&nbsp;
+
+.center[
+<figure>
+<img src="images/today.jpg" alt="ISEN-TAMU" title="ISEN-TAMU" width="17%">
+</figure>
+]
 
 ---
 
