@@ -859,6 +859,93 @@ th {
   background-color: #f2f2f2;
 }
 
+/* Light Blue Table - Complete CSS Styling */
+/* Base Table Styling */
+.light-blue-table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(96, 165, 250, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+}
+/* Header Styling */
+.light-blue-table th {
+  background-color: #DBEAFE; /* Very light blue tint */
+  color: #1E3A8A; /* Darker blue for contrast */
+  font-weight: 600;
+  text-align: left;
+  padding: 7px 14px;
+  border: 1px solid #93C5FD; /* Medium blue border */
+  font-size: 1.1em;
+}
+/* Table Data Cells */
+.light-blue-table td {
+  padding: 7px 12px;
+  border: 1px solid #BFDBFE; /* Light blue border */
+  color: #1E40AF; /* Dark blue for readability */
+  font-size: 1em;
+}
+/* Alternating Row Colors (Zebra Striping) */
+.light-blue-table tbody tr:nth-child(even) {
+  background-color: #EFF6FF; /* Ultra light blue */
+}
+.light-blue-table tbody tr:nth-child(odd) {
+  background-color: #FFFFFF; /* White */
+}
+/* Hover Effect */
+.light-blue-table tbody tr:hover {
+  background-color: #DBEAFE; /* Light blue on hover */
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+/* First Column Emphasis (Optional) */
+.light-blue-table td:first-child {
+  font-weight: 500;
+  color: #1D4ED8; /* Theme color */
+}
+/* Accent Border on Header */
+.light-blue-table thead tr {
+  border-bottom: 3px solid #1D4ED8; /* Theme color accent */
+}
+/* Table Caption (if used) */
+.light-blue-table caption {
+  caption-side: top;
+  padding: 7px;
+  font-weight: 600;
+  color: #1E3A8A; /* Darker blue */
+  font-size: 1em;
+  text-align: left;
+}
+/* Modern Touch: Highlight Active Row */
+.light-blue-table tbody tr.active {
+  background-color: #60A5FA;
+  color: #FFFFFF;
+}
+.light-blue-table tbody tr.active td {
+  color: #FFFFFF;
+  border-color: #3B82F6;
+}
+/* Responsive Design */
+@media (max-width: 768px) {
+  .light-blue-table th,
+  .light-blue-table td {
+    padding: 8px 12px;
+    font-size: 1em;
+  }
+  
+  .light-blue-table {
+    font-size: 0.8em;
+  }
+}
+/* Extra Small Screens */
+@media (max-width: 480px) {
+  .light-blue-table th,
+  .light-blue-table td {
+    padding: 6px 8px;
+    font-size: 0.6em;
+  }
+}
+
 .zoom-figure {
   display: inline-block;
   overflow: hidden;
