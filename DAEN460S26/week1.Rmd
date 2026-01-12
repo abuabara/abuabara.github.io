@@ -1,5 +1,5 @@
 ---
-title: "Introductions"
+title: "week1"
 author: "Alexander Abuabara"
 date: "`r Sys.Date()`"
 output:
@@ -270,7 +270,7 @@ layout: true
 
 .center[
 <figure>
-<img src="images/TAMU-Industrial-and-Systems-Enginnering.png" alt="ISEN-TAMU" title="ISEN-TAMU" width="47%">
+<img src="images/TAMU-Industrial-and-Systems-Enginnering.png" alt="ISEN TAMU logo" title="ISEN TAMU" width="47%">
 </figure>
 ]
 
@@ -383,7 +383,7 @@ Outcome: A complete, defensible project ready for deployment and assessment
 
 .center[
 <figure>
-<img src="images/today.jpg" alt="ISEN-TAMU" title="ISEN-TAMU" width="17%">
+<img src="images/today.jpg" alt="Today calendar" title="Today!" width="17%">
 </figure>
 ]
 
@@ -417,7 +417,7 @@ March 7-15
 
 .center[
 <figure>
-<img src="images/SpringBreak3.png" alt="SpringBreak" title="SpringBreak" width="60%">
+<img src="images/SpringBreak3.png" alt="Spring Break" title="Spring Break" width="60%">
 </figure>
 ]
 
@@ -455,8 +455,6 @@ class: title title-4
   * First two weeks of class
   * Phase kick-offs
 
---
-
 * Team presentation days:
 
   * All team members must stay for the entire class!
@@ -481,10 +479,10 @@ class: title title-4
 
 .box-inv-4.sp-after-short[Presentation Weeks]
 
-* On the day for your group, <span style="color: red;">entire team must be present, the entire time!</span>
-* Appropriate attire
-* Be a good listener
-* <span style="color: red;">Ask</span> questions, participate!
+* On the day for your group, ALL team members must be present, the entire time!
+  * Appropriate attire
+  * Be a good listener
+  * <span style="color: red;">Ask</span> questions, participate!
 * You are welcomed/<span style="color: red;">encouraged</span> to attend presentations on the day of the other group
 
 ---
@@ -549,8 +547,6 @@ Each team must select a Texas A&M faculty advisor.
 
   * Share information only with classmates or instructors, following confidentiality rules
 
---
-
 * Keep confidential materials secure
 
   * In a folder, binder, or password-protected device
@@ -571,7 +567,7 @@ Each team must select a Texas A&M faculty advisor.
 
 .center[
 <figure>
-<img src="images/important-2.png" alt="doc" title="doc" width="20%">
+<img src="images/important-2.png" alt="Important" title="Important" width="20%">
 </figure>
 ]
 
@@ -618,16 +614,21 @@ class: title title-5
 
 # Deliverables
 
-* Code of Conduct: will not be graded but must be turned in as a
-group assignment!
+* <span style="color: #3a1a1a; font-size: 22pt;">Code of Conduct: will not be graded but MUST be turned in as a group assignment!</span>
+  * <span style="color: #3a1a1a; font-size: 22pt;">As well other things in the deliverables table: Showcase Registration, Meeting Logs, etc.</span>
 
-* As well other things in the deliverables table: Showcase Registration, Meeting Logs, etc.
+* <span style="color: #3a1a1a; font-size: 22pt;">Next week I'll give more details on the Engineering Project Showcase, Phase Presentations, etc.</span>
+.center[
+<figure>
+<img src="images/stay-tuned.png" alt="stay tuned" title="stay tuned" width="30%">
+</figure>
+]
 
 ---
 
 # Deliverables
 
-* <span style="color: #3a1a1a; font-size: 22pt;">Check Canvas for all official due dates</span>
+* <span style="color: #3a1a1a; font-size: 22pt;">Check Canvas for all due dates</span>
   * <span style="color: #3a1a1a; font-size: 22pt;">They’re final unless we send a notice by Canvas + email</span>
 * <span style="color: #3a1a1a; font-size: 22pt;">You can resubmit assignments for a better grade after the due date</span>
 * <span style="color: #3a1a1a; font-size: 22pt;">All regrade work must be in by the assignment’s close date</span>
@@ -713,7 +714,7 @@ layout: false
 
 .center[
 <figure>
-<img src="images/what-is-social-loafing.png" alt="what-is-social-loafing" title="what-is-social-loafing" width="75%">
+<img src="images/what-is-social-loafing.png" alt="what is social loafing" title="what is social loafing" width="75%">
 </figure>
 ]
 
@@ -840,7 +841,7 @@ class: title title-7
 
 .center[
 <figure>
-<img src="images/ProjectCharterIntegration.png" alt="PC" title="PC" width="80%">
+<img src="images/ProjectCharterIntegration.png" alt="Project Charter Integration" title="Project Charter Integration" width="80%">
 </figure>
 ]
 
@@ -850,7 +851,7 @@ class: title title-7
 
 .center[
 <figure>
-<img src="images/SystemsEngineeringVeeEdited.png" alt="vmodel" title="vmodel" width="70%">
+<img src="images/SystemsEngineeringVeeEdited.png" alt="vee-model" title="vee-model" width="70%">
 </figure>
 ]
 
@@ -900,8 +901,6 @@ Controlled under configuration management
 Verified against approved specifications
 ]
 
---
-
 .center[
 .small[
 <span style="color: red;">
@@ -915,8 +914,6 @@ In other words, a CI is anything the organization has decided must be<br> <u>con
 * In data engineering, a CI is:
 
   * Any version-controlled, independently testable, production-quality component of a data system that has formal requirements, formal tests, and formal approval.
-
---
 
 * A CI is no longer "just a file", it becomes a certified system component.
 
@@ -947,10 +944,6 @@ layout: false
 class: bg-full
 
 background-image: url("images/toaster-project.jpg")
-
-&nbsp;
-
-&nbsp;
 
 &nbsp;
 
