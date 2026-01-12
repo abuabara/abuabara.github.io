@@ -160,8 +160,6 @@ strong communication!
 
 layout: false
 
----
-
 &nbsp;
 
 .center[
@@ -617,7 +615,7 @@ class: title title-5
 * <span style="color: #3a1a1a; font-size: 22pt;">Code of Conduct: will not be graded but MUST be turned in as a group assignment!</span>
   * <span style="color: #3a1a1a; font-size: 22pt;">As well other things in the deliverables table: Showcase Registration, Meeting Logs, etc.</span>
 
-* <span style="color: #3a1a1a; font-size: 22pt;">Next week I'll give more details on the Engineering Project Showcase, Phase Presentations, etc.</span>
+* <span style="color: #3a1a1a; font-size: 22pt;">Next week: more details on the Engineering Showcase, Phase Presentations, etc.</span>
 .center[
 <figure>
 <img src="images/stay-tuned.png" alt="stay tuned" title="stay tuned" width="30%">
