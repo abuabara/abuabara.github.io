@@ -64,7 +64,7 @@ layout: false
 
 .center[
 <figure class="figure">
-<img src="images/Engineering_Design_Process3.png" alt="Engineering Design Process" title="Engineering Design Process" width="43%">
+<img src="images/Engineering_Design_Process3.png" alt="Engineering Design Process" title="Engineering Design Process" width="40%">
 </figure>
 ]
 .small[A step-by-step approach engineers use to identify problems, brainstorm solutions, build and test prototypes, and improve designs to create effective, practical solutions.]
@@ -333,7 +333,7 @@ class: title title-5
 
 &nbsp;
 
-.box-inv-6.normal.sp-after[
+.box-inv-5.normal.sp-after[
 Please be sure to include these answers in your submission
 ]
 
