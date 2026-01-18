@@ -53,6 +53,30 @@ class: title title-inv-1
 
 ---
 
+class: title title-1
+
+# Learning Goals
+
+.box-inv-1.medium.sp-after-veryshort[Map the V-Model]
+.box-inv-1.medium.sp-after-veryshort[Identify Configuration Items]
+.box-inv-1.medium.sp-after-veryshort[Understand Traceability]
+.box-inv-1.medium.sp-after-veryshort[Connect Tests to Artifacts]
+.box-inv-1.medium.sp-after-veryshort[Evaluate Change Impact]
+
+---
+
+.center[*Descriptions*]
+
+.pequeno[
+* **<span style="color: black;">Map the V-Model</span>**<br><span style="color: gray;">See how requirements, design, and implementation connect to testing and validation.</span>
+* **<span style="color: black;">Identify Configuration Items</span>**<br><span style="color: gray;">Recognize key items (requirements, schemas, code, pipelines, infrastructure) and how they are versioned.</span>
+* **<span style="color: black;">Understand Traceability</span>**<br><span style="color: gray;">Follow how requirements link to system components, data pipelines, and tests.</span>
+* **<span style="color: black;">Connect Tests to Artifacts</span>**<br><span style="color: gray;">Identify what is tested or validated for each major configuration item.</span>
+* **<span style="color: black;">Evaluate Change Impact</span>**<br><span style="color: gray;">Understand how changes ripple across design, implementation, and testing.</span>
+]
+
+---
+
 layout: false
 class: center middle section-title section-title-2 animated fadeIn
 
@@ -280,7 +304,7 @@ System Verification → User Acceptance Validation]
 .box-5.large.sp-after-short[V-Model Alignment]
 
 .center[
-Requirements → Data definitions, SLAs, quality rules
+Requirements → Data definitions, quality rules
 
 Design → Pipeline workflows, storage schemas
 
@@ -316,15 +340,15 @@ class: title title-5
 # Project Alignment Questions
 
 .small[
-1. *V-Model Mapping:* How does your project diagram map requirements → design → implementation (left side) to testing → integration → validation (right side)?
+1. *V-Model Mapping:* <span style="color: red;">How does your project diagram map requirements → design → implementation (left side) to testing → integration → validation (right side)?</span>
 
-1. *Configuration Items:* What are the key configuration items (e.g., requirements, schemas, code, pipelines, infrastructure), and how are they identified and versioned?
+1. *Configuration Items:* <span style="color: red;">What are the key configuration items (e.g., requirements, schemas, code, pipelines, infrastructure), and how are they identified and versioned?</span>
 
-1. *Traceability:* How does the diagram show traceability between requirements, system components, data pipelines, and verification activities?
+1. *Traceability:* <span style="color: red;">How does the diagram show traceability between requirements, system components, data pipelines, and verification activities?</span>
 
-1. *Verification & Validation:* For each major CI, what test or validation activity is defined and where is it represented on the right side of the V-Model?
+1. *Verification & Validation:* <span style="color: red;">For each major CI, what test or validation activity is defined and where is it represented on the right side of the V-Model?</span>
 
-1. *Change Impact:* How does the diagram communicate the impact of changes to requirements or data definitions across design, implementation, and testing?
+1. *Change Impact:* <span style="color: red;">How does the diagram communicate the impact of changes to requirements or data definitions across design, implementation, and testing?</span>
 ]
 
 ---
@@ -386,7 +410,28 @@ layout: false
 
 .center[
 <figure class="figure">
-<img src="images/Deconstruction.png" alt="Deconstruction" title="Deconstruction" width="65%">
+<img src="images/Deconstruction.png" alt="Deconstruction" title="Deconstruction" width="70%">
+</figure>
+]
+
+
+---
+
+layout: false
+
+.center[
+<figure class="figure">
+<img src="images/Construction2.jpg" alt="Construction" title="Construction" width="70%">
+</figure>
+]
+
+---
+
+layout: false
+
+.center[
+<figure class="figure">
+<img src="images/Construction3.jpg" alt="Construction" title="Construction" width="70%">
 </figure>
 ]
 
@@ -398,3 +443,43 @@ class: center middle section-title section-title-7 animated fadeIn
 # Challenges, Solutions
 
 ---
+
+### Q1. Feasibility & Hidden Complexity  
+What assumptions are we making about the simplicity, availability of resources, and manufacturability of our design, and how will we validate or challenge them early?
+
+*<span style="color: gray;">Expose hidden complexity and prevent unrealistic scope definition.</span>*
+
+---
+
+### Q2. Materials, Supply Chains, and Constraints  
+What critical materials, tools, and external resources does our project depend on, and what are the risks if they are unavailable or delayed?
+
+*<span style="color: gray;">Early supply-chain awareness and contingency planning.</span>*
+
+---
+
+### Q3. Cost and Schedule Realism  
+How will we estimate cost and schedule realistically, and where do we expect uncertainty, rework, or iteration to occur?
+
+*<span style="color: gray;">Encourage defensible planning with buffers and explicit risk acknowledgment.</span>*
+
+---
+
+### Q4. Performance Definition & Validation  
+What does “success” mean for our system, and how will we verify and validate performance throughout the project rather than only at the end?
+
+*<span style="color: gray;">Link requirements to measurable, testable outcomes.</span>*
+
+---
+
+### Q5. Process Choices & Tradeoffs  
+How will we evaluate alternative technical approaches, and what criteria will justify simplifying, changing, or abandoning a design when constraints arise?
+
+*<span style="color: gray;">Promote pragmatic, evidence-based engineering decisions.</span>*
+
+---
+
+### Q6. Documentation & Learning from Failure  
+How will we document decisions, failures, and lessons learned in real time, and how will this knowledge be used to improve subsequent design choices?
+
+*<span style="color: gray;">Reinforce engineering as an iterative, learning-driven process.</span>*

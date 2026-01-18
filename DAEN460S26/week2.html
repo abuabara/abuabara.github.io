@@ -45,6 +45,30 @@ class: title title-inv-1
 
 ---
 
+class: title title-1
+
+# Learning Goals
+
+.box-inv-1.medium.sp-after-veryshort[Map the V-Model]
+.box-inv-1.medium.sp-after-veryshort[Identify Configuration Items]
+.box-inv-1.medium.sp-after-veryshort[Understand Traceability]
+.box-inv-1.medium.sp-after-veryshort[Connect Tests to Artifacts]
+.box-inv-1.medium.sp-after-veryshort[Evaluate Change Impact]
+
+---
+
+.center[*Descriptions*]
+
+.pequeno[
+* **&lt;span style="color: black;"&gt;Map the V-Model&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;See how requirements, design, and implementation connect to testing and validation.&lt;/span&gt;
+* **&lt;span style="color: black;"&gt;Identify Configuration Items&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;Recognize key items (requirements, schemas, code, pipelines, infrastructure) and how they are versioned.&lt;/span&gt;
+* **&lt;span style="color: black;"&gt;Understand Traceability&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;Follow how requirements link to system components, data pipelines, and tests.&lt;/span&gt;
+* **&lt;span style="color: black;"&gt;Connect Tests to Artifacts&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;Identify what is tested or validated for each major configuration item.&lt;/span&gt;
+* **&lt;span style="color: black;"&gt;Evaluate Change Impact&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;Understand how changes ripple across design, implementation, and testing.&lt;/span&gt;
+]
+
+---
+
 layout: false
 class: center middle section-title section-title-2 animated fadeIn
 
@@ -272,7 +296,7 @@ System Verification → User Acceptance Validation]
 .box-5.large.sp-after-short[V-Model Alignment]
 
 .center[
-Requirements → Data definitions, SLAs, quality rules
+Requirements → Data definitions, quality rules
 
 Design → Pipeline workflows, storage schemas
 
@@ -308,15 +332,15 @@ class: title title-5
 # Project Alignment Questions
 
 .small[
-1. *V-Model Mapping:* How does your project diagram map requirements → design → implementation (left side) to testing → integration → validation (right side)?
+1. *V-Model Mapping:* &lt;span style="color: red;"&gt;How does your project diagram map requirements → design → implementation (left side) to testing → integration → validation (right side)?&lt;/span&gt;
 
-1. *Configuration Items:* What are the key configuration items (e.g., requirements, schemas, code, pipelines, infrastructure), and how are they identified and versioned?
+1. *Configuration Items:* &lt;span style="color: red;"&gt;What are the key configuration items (e.g., requirements, schemas, code, pipelines, infrastructure), and how are they identified and versioned?&lt;/span&gt;
 
-1. *Traceability:* How does the diagram show traceability between requirements, system components, data pipelines, and verification activities?
+1. *Traceability:* &lt;span style="color: red;"&gt;How does the diagram show traceability between requirements, system components, data pipelines, and verification activities?&lt;/span&gt;
 
-1. *Verification &amp; Validation:* For each major CI, what test or validation activity is defined and where is it represented on the right side of the V-Model?
+1. *Verification &amp; Validation:* &lt;span style="color: red;"&gt;For each major CI, what test or validation activity is defined and where is it represented on the right side of the V-Model?&lt;/span&gt;
 
-1. *Change Impact:* How does the diagram communicate the impact of changes to requirements or data definitions across design, implementation, and testing?
+1. *Change Impact:* &lt;span style="color: red;"&gt;How does the diagram communicate the impact of changes to requirements or data definitions across design, implementation, and testing?&lt;/span&gt;
 ]
 
 ---
@@ -378,7 +402,28 @@ layout: false
 
 .center[
 &lt;figure class="figure"&gt;
-&lt;img src="images/Deconstruction.png" alt="Deconstruction" title="Deconstruction" width="65%"&gt;
+&lt;img src="images/Deconstruction.png" alt="Deconstruction" title="Deconstruction" width="70%"&gt;
+&lt;/figure&gt;
+]
+
+
+---
+
+layout: false
+
+.center[
+&lt;figure class="figure"&gt;
+&lt;img src="images/Construction2.jpg" alt="Construction" title="Construction" width="70%"&gt;
+&lt;/figure&gt;
+]
+
+---
+
+layout: false
+
+.center[
+&lt;figure class="figure"&gt;
+&lt;img src="images/Construction3.jpg" alt="Construction" title="Construction" width="70%"&gt;
 &lt;/figure&gt;
 ]
 
@@ -390,6 +435,46 @@ class: center middle section-title section-title-7 animated fadeIn
 # Challenges, Solutions
 
 ---
+
+### Q1. Feasibility &amp; Hidden Complexity  
+What assumptions are we making about the simplicity, availability of resources, and manufacturability of our design, and how will we validate or challenge them early?
+
+*&lt;span style="color: gray;"&gt;Expose hidden complexity and prevent unrealistic scope definition.&lt;/span&gt;*
+
+---
+
+### Q2. Materials, Supply Chains, and Constraints  
+What critical materials, tools, and external resources does our project depend on, and what are the risks if they are unavailable or delayed?
+
+*&lt;span style="color: gray;"&gt;Early supply-chain awareness and contingency planning.&lt;/span&gt;*
+
+---
+
+### Q3. Cost and Schedule Realism  
+How will we estimate cost and schedule realistically, and where do we expect uncertainty, rework, or iteration to occur?
+
+*&lt;span style="color: gray;"&gt;Encourage defensible planning with buffers and explicit risk acknowledgment.&lt;/span&gt;*
+
+---
+
+### Q4. Performance Definition &amp; Validation  
+What does “success” mean for our system, and how will we verify and validate performance throughout the project rather than only at the end?
+
+*&lt;span style="color: gray;"&gt;Link requirements to measurable, testable outcomes.&lt;/span&gt;*
+
+---
+
+### Q5. Process Choices &amp; Tradeoffs  
+How will we evaluate alternative technical approaches, and what criteria will justify simplifying, changing, or abandoning a design when constraints arise?
+
+*&lt;span style="color: gray;"&gt;Promote pragmatic, evidence-based engineering decisions.&lt;/span&gt;*
+
+---
+
+### Q6. Documentation &amp; Learning from Failure  
+How will we document decisions, failures, and lessons learned in real time, and how will this knowledge be used to improve subsequent design choices?
+
+*&lt;span style="color: gray;"&gt;Reinforce engineering as an iterative, learning-driven process.&lt;/span&gt;*
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="libs/remark-latest.min.js"></script>
