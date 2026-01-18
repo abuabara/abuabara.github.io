@@ -4,7 +4,7 @@
     <title>week2</title>
     <meta charset="utf-8" />
     <meta name="author" content="Alexander Abuabara" />
-    <meta name="date" content="2026-01-17" />
+    <meta name="date" content="2026-01-18" />
     <script src="libs/header-attrs-2.30/header-attrs.js"></script>
     <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="libs/ath-slides.css" type="text/css" />
@@ -76,12 +76,12 @@ layout: false
 
 .box-3.large[&lt;span style="color: yellow;"&gt;Life Lessons from a Pencil&lt;/span&gt;]
 
-.box-inv-3.sp-after-veryshort[What matters is what’s inside]
-.box-inv-3.sp-after-veryshort[Keep yourself sharp]
-.box-inv-3.sp-after-veryshort[Mistakes are part of the process]
-.box-inv-3.sp-after-veryshort[Pressure creates output]
-.box-inv-3.sp-after-veryshort[Collaboration matters]
-.box-inv-3.sp-after-veryshort[Durability comes from design]
+.box-inv-3.sp-after-veryshort[*What matters is what’s inside*]
+.box-inv-3.sp-after-veryshort[*Keep yourself sharp*]
+.box-inv-3.sp-after-veryshort[*Mistakes are part of the process*]
+.box-inv-3.sp-after-veryshort[*Pressure creates output*]
+.box-inv-3.sp-after-veryshort[*Collaboration matters*]
+.box-inv-3.sp-after-veryshort[*Durability comes from design*]
 
 &lt;!-- * What matters is what’s inside: Just as the graphite core defines a pencil’s function, your knowledge, skills, and values define your potential. Focus on strengthening your "core." --&gt;
 &lt;!-- * Keep yourself sharp: Pencils must be sharpened to perform well; similarly, continuous learning, practice, and self-improvement keep you ready to tackle challenges. --&gt;
@@ -172,11 +172,11 @@ layout: false
 
 &amp;nbsp;
 
-.box-2.medium.sp-after-short[Integrated Engineering Design Process]
+.box-4.medium.sp-after-veryshort[Integrated Engineering Design Process]
 
-.box-inv-2.small.sp-after-veryshort[(multiple disciplines and feedback loops)]
+.box-inv-4.small.sp-after-short[&lt;span style="color: red;"&gt;(multiple disciplines and feedback loops)&lt;/span&gt;]
 
-.box-inv-2.normal.sp-after-veryshort[Materials + Mechanical + Environmental + Economics]
+.box-inv-4.normal.sp-after-veryshort[Materials + Mechanical + Environmental + Economics]
 
 .center[📝💡🔧🔬♻️💰]
 
@@ -184,18 +184,15 @@ layout: false
 
 layout: false
 
-* Integrating engineering design means combining different subjects, ideas, and people with the Engineering Design Process to solve problems together. 
+.box-inv-4.normal.sp-after-short[Integrating engineering design means:&lt;br&gt;Combining different subjects, ideas, and people with the Engineering Design Process to solve problems together]
 
-* Instead of working in separate steps, this approach encourages teamwork and big-picture thinking to create complete solutions.
+.box-inv-4.small.sp-after-short[&lt;span style="color: purple;"&gt;Instead of working in separate steps, this approach encourages teamwork and big-picture thinking to create complete solutions&lt;/span&gt;]
 
 --
 
-* It helps us build skills in STEM, critical thinking, and practical problem-solving, from the first idea all the way through testing and improving designs.
+.box-inv-4.normal.sp-after-short[It helps us build skills in STEM, critical thinking, and practical problem-solving, from the first idea all the way through testing and improving designs]
 
-* You see this approach in schools and in big projects (like designing buildings :)
-
----
-
+.box-inv-4.small.sp-after-short[&lt;span style="color: purple;"&gt;You see this approach in schools and in big projects&lt;/span&gt;&lt;br&gt;&lt;span style="color: red;"&gt;(like designing buildings :)&lt;/span&gt;]
 
 ---
 
@@ -206,6 +203,145 @@ class: center middle section-title section-title-5 animated fadeIn
 
 ---
 
+.box-5.large.sp-after-short[System Architecture&lt;br&gt;&lt;span style="color: yellow;"&gt;(V-Model Aligned)&lt;/span&gt;]
+
+.box-inv-5.normal.sp-after-short[**Objective:** Provide a modular, testable architecture that supports traceability from requirements through validation]
+
+.box-inv-5.normal.sp-after-short[High-Level Architecture]
+
+.small[
+* Presentation Layer: Dashboards, APIs, reporting interfaces
+* Application / Processing Layer: Business logic, analytics services, orchestration
+* Data Layer: Raw, curated, and analytics-ready data stores
+* Infrastructure Layer: Compute, storage, networking, security controls]
+
+---
+
+.box-5.large.sp-after-short[V-Model Mapping]
+
+.box-inv-5.sp-after-veryshort[Decomposition &amp; Design *(Left Side)*]
+.center[
+System Requirements → System Architecture&lt;br&gt;
+Subsystem Design → Component Design]
+
+.box-inv-5.sp-after-veryshort[Integration &amp; Verification *(Right Side)*]
+.center[
+Component Testing → Subsystem Integration&lt;br&gt;
+System Verification → User Acceptance Validation]
+
+---
+
+.box-5.large.sp-after-short[Configuration Items]
+
+.box-inv-5.normal.sp-after-short[Architecture design documents]
+
+.box-inv-5.normal.sp-after-short[Interface control documents]
+
+.box-inv-5.normal.sp-after-short[Infrastructure-as-Code templates]
+
+.box-inv-5.normal.sp-after-short[Versioned service definitions and APIs]
+
+---
+
+.box-5.large.sp-after-short[End-to-End Data Pipeline]
+
+.pull-left[
+.box-inv-5.sp-after-veryshort[Data Ingestion]
+.small[
+* Batch and streaming sources
+* Schema validation and data quality checks]
+
+.box-inv-5.sp-after-veryshort[Data Processing]
+.small[
+* Transformation, aggregation
+* Business rule enforcement]
+]
+
+.pull-right[
+.box-inv-5.sp-after-veryshort[Data Storage]
+.small[
+* Raw (immutable), curated, and analytics layers]
+
+.box-inv-5.sp-after-veryshort[Data Consumption]
+.small[
+* BI tools, ML models, downstream services]
+]
+
+---
+
+.box-5.large.sp-after-short[V-Model Alignment]
+
+.center[
+Requirements → Data definitions, SLAs, quality rules
+
+Design → Pipeline workflows, storage schemas
+
+Implementation → ETL/ELT jobs, orchestration logic
+
+Verification &amp; Validation:&lt;br&gt;
+.small[Data quality tests, Pipeline integration tests, End-user data validation]
+]
+
+---
+
+.box-5.large.sp-after-veryshort[Key Configuration Items]
+
+.center[
+Data schemas and metadata definitions&lt;br&gt;
+Pipeline code (ETL/ELT, orchestration)&lt;br&gt;
+Data quality rules and test cases&lt;br&gt;
+Versioned datasets and lineage artifacts]
+
+.box-5.large.sp-after-veryshort[Outcome]
+
+.center[
+Full traceability from data requirements to validated outputs&lt;br&gt;
+Controlled change management and audit readiness]
+
+---
+
+layout: true
+class: title title-5
+
+---
+
+# Project Alignment Questions
+
+.small[
+1. *V-Model Mapping:* How does your project diagram map requirements → design → implementation (left side) to testing → integration → validation (right side)?
+
+1. *Configuration Items:* What are the key configuration items (e.g., requirements, schemas, code, pipelines, infrastructure), and how are they identified and versioned?
+
+1. *Traceability:* How does the diagram show traceability between requirements, system components, data pipelines, and verification activities?
+
+1. *Verification &amp; Validation:* For each major CI, what test or validation activity is defined and where is it represented on the right side of the V-Model?
+
+1. *Change Impact:* How does the diagram communicate the impact of changes to requirements or data definitions across design, implementation, and testing?
+]
+
+---
+
+# Mini Project Packet
+
+&amp;nbsp;
+
+.box-inv-6.normal.sp-after[
+Please be sure to include these answers in your submission
+]
+
+.center[
+On Canvas - Due 2/16 at 5 PM
+]
+
+.center[
+&lt;span style="font-size: 32px;"&gt;https://canvas.tamu.edu/courses/431435/assignments/2873361&lt;/span&gt;
+]
+
+.center[
+&lt;figure&gt;
+&lt;img src="images/doc.png" alt="doc" title="doc" width="10%"&gt;
+&lt;/figure&gt;
+]
 
 ---
 
