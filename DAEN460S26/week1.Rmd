@@ -73,21 +73,21 @@ layout: false
 .box-inv-2[Alexander<br>Abuabara]
 <figure class="zoom-figure">
 <img src="images/Alexander.png" alt="Alexander" title="Alexander" width="100%">
-</figure>
+</zoom-figure>
 ]
 
 .pull-middle-3[
 .box-inv-2[Jose<br>Vazquez]
 <figure class="zoom-figure">
 <img src="images/Vazquez.png" alt="Jose" title="Jose" width="100%">
-</figure>
+</zoom-figure>
 ]
 
 .pull-right-3[
 .box-inv-2[Jon<br>Elizondo]
 <figure class="zoom-figure">
 <img src="images/Jon.png" alt="JP" title="JP" width="100%">
-</figure>
+</zoom-figure>
 ]
 
 ---
