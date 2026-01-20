@@ -312,7 +312,6 @@ System Verification → User Acceptance Validation]
 .small[
 * Batch and streaming sources
 * Schema validation and data quality checks]
-
 .box-inv-5.sp-after-veryshort[Data Processing]
 .small[
 * Transformation, aggregation
@@ -323,7 +322,6 @@ System Verification → User Acceptance Validation]
 .box-inv-5.sp-after-veryshort[Data Storage]
 .small[
 * Raw (immutable), curated, and analytics layers]
-
 .box-inv-5.sp-after-veryshort[Data Consumption]
 .small[
 * BI tools, ML models, downstream services]
