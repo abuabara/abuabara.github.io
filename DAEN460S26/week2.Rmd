@@ -41,6 +41,18 @@ Jan 2026]
 
 ---
 
+class: title title-1
+
+# Updates
+
+.box-inv-1.medium.sp-after-veryshort[**BH**: reach out for data access]
+.box-inv-1.medium.sp-after-veryshort[**COE**: data/modelling/prototyping]
+.box-inv-1.medium.sp-after-veryshort[**ML**: simulation models/data generation]
+.box-inv-1.medium.sp-after-veryshort[**Next week**: PM, revised goals, Questions]
+.box-inv-1.medium.sp-after-veryshort[Check **Canvas**]
+
+---
+
 class: title title-inv-1
 
 # Plan for today
@@ -93,6 +105,24 @@ layout: false
 ]
 .small[A step-by-step approach engineers use to identify problems, brainstorm solutions, build and test prototypes, and improve designs to create effective, practical solutions.]
 
+
+---
+
+class: title title-2
+
+# Engineering Design Process
+
+.box-inv-2.medium.sp-after-veryshort[Similarities to the scientific method]
+
+* .small[Begin with existing knowledge, gradually become more specific]
+
+.box-inv-2.medium.sp-after-veryshort[Key difference?]
+
+--
+
+* .small[The scientific process emphasizes <u>explanation</u>, <u>prediction</u>, and <u>discovery</u>.]
+* .small[The engineering process focuses on <u><span style="color: red;">application of systematic thinking</span></u> to leverage technology in service of <u><span class="highlight" style="color: red;">human needs</span></u>!]
+
 ---
 
 layout: false
@@ -136,12 +166,12 @@ layout: false
 
 .box-2.large[Engineering Design Process]
 
-1. Define the problem (*Why make a pencil?*)
-2. Research & brainstorm (*What materials & designs?*)
-3. Develop concepts (*Sketch ideas, pick the best*)
-4. Build & prototype (*Make a sample pencil*)
-5. Test & evaluate (*Does it write? Break?*)
-6. Redesign/refine (*Improve core, casing, process*)
+1. <u>Define</u> the problem (*Why make a pencil?*)
+2. <u>Research</u> & <u>brainstorm</u> (*What materials & designs?*)
+3. <u>Develop</u> concepts (*Sketch ideas, pick the best*)
+4. <u>Build</u> & prototype (*Make a sample pencil*)
+5. <u>Test</u> & <u>evaluate</u> (*Does it write? Break?*)
+6. <u>Redesign/refine</u> (*Improve core, casing, process*)
 
 ---
 
