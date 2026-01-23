@@ -50,11 +50,16 @@ image(x[,1:10,1:10], text_values = TRUE, border = 'grey', main = "(b)")
 
 ############################################################
 
+par(mar = c(2, 2, 2, 2), mfrow = c(1, 1), pty = "s")
+
+
 library(dplyr)
 library(sf)
+
 sf_use_s2(FALSE) # spherical geometry
 
 library(tmap)
+
 tmap_mode("plot") # static maps
 tmap_options(frame = FALSE)
 
@@ -74,6 +79,7 @@ grid <-
     square = TRUE,
     what = "polygons"
   )
+
 print(grid, n=20)
 
 plot(grid)
@@ -275,3 +281,4 @@ b2n <- normalize_geom(brazos_2)
 
 plot(b1n, border="red", col=NA)
 plot(b2n, border="blue", col=NA, add=TRUE)
+
