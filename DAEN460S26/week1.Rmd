@@ -565,7 +565,7 @@ Each team must select a Texas A&M faculty advisor.
 
 .center[
 <figure>
-<img src="images/important-2.png" alt="Important" title="Important" width="20%">
+<img src="images/Important.png" alt="Important" title="Important" width="20%">
 </figure>
 ]
 
