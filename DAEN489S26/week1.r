@@ -14,13 +14,15 @@ glimpse(nc)
 
 nc.32119 <- st_transform(nc, 'EPSG:32119')
 
+nc |> select(BIR74) |> plot(graticule = TRUE, axes = TRUE)
+
 nc.32119 |> select(BIR74) |> plot(graticule = TRUE, axes = TRUE)
 
 ############################################################
 
 library(tmap)
 
-tmap_mode("view")
+tmap_mode("plot")
 
 qtm(nc.32119, fill = "BIR74", fill_alpha = .5)
 
@@ -142,7 +144,7 @@ tm_shape(World) +
   tm_shape(grid_sf_projected) + 
   tm_borders(col = "red", lwd = 2) + 
   tm_scalebar(position = c("left", "bottom"), text.size = .9) +
-  tm_crs(crs = "+proj=robin") +
+  # tm_crs(crs = "+proj=robin") +
   # tm_crs(crs = 4326) +
   # tm_crs(crs = 32610) +
   # tm_crs(crs = 32614) +
