@@ -29,7 +29,7 @@ filter(us_counties, STATEFP == 48)
 
 tx_counties <- filter(us_counties, STATEFP == 48)
 
-# plot(tx_counties)
+plot(tx_counties)
 
 # plot(st_geometry(tx_counties))
 
