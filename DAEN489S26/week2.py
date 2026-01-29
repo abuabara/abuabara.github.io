@@ -8,9 +8,9 @@ import matplotlib.pyplot as plt
 
 # Data
 world = gpd.read_file('/Users/abuabara/Downloads/DAEN489_data/pydata/world.gpkg')
-src_elev = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/elev.tif')
-src_grain = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/grain.tif')
-src_multi_rast = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/landsat.tif')
+elev = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/elev.tif')
+grain = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/grain.tif')
+multi_rast = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/landsat.tif')
 
 # Vectors
 world.head()
@@ -80,6 +80,8 @@ rasterio.plot.show(grain)
 
 grain = src_grain.read(1)
 freq = np.unique(grain, return_counts=True)
+
+plt.close('all')
 plt.bar(*freq)
 plt.show()
 
