@@ -7,10 +7,10 @@ import rasterio.plot
 import matplotlib.pyplot as plt
 
 # Data
-world = gpd.read_file('/Users/abuabara/Downloads/DAEN489_data/pydata/world.gpkg')
-elev = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/elev.tif')
-grain = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/grain.tif')
-multi_rast = rasterio.open('/Users/abuabara/Downloads/DAEN489_data/pydata/landsat.tif')
+world = gpd.read_file('/Users/alexander/GitHub/abuabara.github.io/DAEN489S26/pydata/world.gpkg')
+elev = rasterio.open('/Users/alexander/GitHub/abuabara.github.io/DAEN489S26/pydata/elev.tif')
+grain = rasterio.open('/Users/alexander/GitHub/abuabara.github.io/DAEN489S26/pydata/grain.tif')
+multi_rast = rasterio.open('/Users/alexander/GitHub/abuabara.github.io/DAEN489S26/pydata/landsat.tif')
 
 # Vectors
 world.head()
