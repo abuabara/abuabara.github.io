@@ -145,7 +145,6 @@
   </ul>
 
   <h2 id="setup" class="adaptive-heading">Notes</h2>
-
   <ul>
     <li>
       <a href="https://developers.google.com/speed/public-dns">Google DNS</a>:<br>
@@ -154,42 +153,47 @@
       <code style="color:Gray;">2001:4860:4860::8888</code><br>
       <code style="color:Gray;">2001:4860:4860::8844</code>
     </li>
+    
     <li>
       <a href="https://andrewmarder.net/firefox/">Firefox Privacy Checklist</a> by Andrew Marder
     </li>
-    <br>
+    
     <li>
       Dock, show/hide speed:<br>
       <code style="color:Tomato;">defaults write com.apple.dock autohide-time-modifier -int 0</code><br>
       <code style="color:Tomato;">defaults write com.apple.dock autohide-delay -float 0</code>
     </li>
+    
     <li>
       Stage Manager, show/hide speed:<br>
       <code style="color:Tomato;">defaults write com.apple.WindowManager StageFrameMinimumHorizontalInset -int 0</code><br>
       <code style="color:Tomato;">defaults write com.apple.WindowManager AutoHideDelay -int 0</code><br>
       <code style="color:Tomato;">defaults write com.apple.WindowManager AnimationSpeed -int 65536</code>
     </li>
+    
     <li>
       Menubar, reduce spacing between items:<br>
       <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSelectionPadding -int 7</code><br>
       <code style="color:Tomato;">defaults -currentHost write -globalDomain NSStatusItemSpacing -int 7</code>
     </li>
+    
     <li>
       Screenshots, change format and no shadow:<br>
       <code style="color:Tomato;"><del>defaults write com.apple.screencapture type jpg</del></code><br>
       <code style="color:Tomato;"><del>defaults write com.apple.screencapture disable-shadow -bool TRUE</del></code>
     </li>
     <br>
-    <li>Application, new instance: <code style="color:DodgerBlue;">open -n /Applications/Safari.app</code></li>
-    <li>Xcode Command Line Tools: <code style="color:#a9a9a9;">xcode-select --install</code></li>
+    
+    <li>Application, new instance: <code style="color:Tomato;">open -n /Applications/Safari.app</code></li>
+    <li>Xcode Command Line Tools: <code style="color:Tomato;">xcode-select --install</code></li>
     <br>
-    <li>Python pip: <code style="color:#7a81ff;">which pip3</code></li>
-    <li>Python pip: <code style="color:#7a81ff;">pip install --upgrade pip</code></li>
-    <li>pip freeze: <code style="color:#7a81ff;">pip freeze</code></li>
+    
+    <li>Python pip: <code style="color:Tomato;">which pip3</code></li>
+    <li>Python pip: <code style="color:Tomato;">pip install --upgrade pip</code></li>
+    <li>pip freeze: <code style="color:Tomato;">pip freeze</code></li>
     <li>
       Python libraries:
-      <code style="color:#7a81ff;">
-      <!--- pip install arviz==0.23.0 bambi==0.16.0 census==0.8.24 contextily==1.7.0 earthpy==0.9.4 geographiclib==2.1 geopy==2.4.1 geopandas==1.1.2 graphviz==0.21 great-tables==0.20.0 imageio==2.37.2 ipython==9.8.0 jupyterlab==4.5.1 kulprit==0.5.1 matplotlib==3.10.8 networkx==3.6.1 notebook==7.5.1 numba==0.63.1 numpy==2.3.5 pandas==2.3.3 pip-review==1.3.0 preliz==0.23.0 pyfixest==0.40.1 pymc==5.27.0 pyproj==3.7.2 pytensor==2.36.1 pytidycensus==1.2.3 rasterio==1.4.4 rasterstats==0.20.0 scikit-learn==1.7.2 scikit-image==0.26.0 scikit-learn==1.8.0 scipy==1.16.3 seaborn==0.13.2 shapely==2.1.2 stargazer==0.0.7 statsmodels==0.14.6 tableone==0.9.5 --->
+      <code style="color:Tomato;">
       pip install 
         pip-review
         arviz
@@ -214,59 +218,62 @@
         # geopy
       </code>
     </li>
-    <li>pip review: <code style="color:#7a81ff;">pip-review</code></li>
-    <li>pip review interactive: <code style="color:#7a81ff;">pip-review --interactive</code></li>
-    <li>pip review auto: <code style="color:#7a81ff;">pip-review --auto</code></li>
+    <li>pip review: <code style="color:Tomato;">pip-review</code></li>
+    <li>pip review interactive: <code style="color:Tomato;">pip-review --interactive</code></li>
+    <li>pip review auto: <code style="color:Tomato;">pip-review --auto</code></li>
     <li>
       pip uninstall all:
-      <code style="color:#7a81ff;">pip uninstall -y -r &lt;(pip freeze)</code>
+      <code style="color:Tomato;">pip uninstall -y -r &lt;(pip freeze)</code>
     </li>
     <li>
       jupyter notebook:
-      <code style="color:#7a81ff;">jupyter notebook</code>
+      <code style="color:Tomato;">jupyter notebook</code>
     </li>
     <br>
+    
     <li>
       <b>openssl</b><br>
       download<br>
-      <code style="color:#ff40ff;">https://openssl-library.org/source/</code><br>
+      <code style="color:Tomato;">https://openssl-library.org/source/</code><br>
       or<br>
-      <code style="color:#ff40ff;">curl -O https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz</code><br>
+      <code style="color:Tomato;">curl -O https://github.com/openssl/openssl/releases/download/openssl-3.5.4/openssl-3.5.4.tar.gz</code><br>
       unzip<br>
-      <code style="color:#ff40ff;">tar -xf openssl-3.5.4.tar.gz</code><br>
+      <code style="color:Tomato;">tar -xf openssl-3.5.4.tar.gz</code><br>
       then<br>
-      <code style="color:#ff40ff;">cd openssl-3.5.4</code><br>
-      <code style="color:#ff40ff;">mkdir ~/Library/wget</code><br>
-      <code style="color:#ff40ff;">./configure --prefix=$HOME/Library/wget</code><br>
-      <code style="color:#ff40ff;">make</code><br>
-      <code style="color:#ff40ff;">make install</code><br>
+      <code style="color:Tomato;">cd openssl-3.5.4</code><br>
+      <code style="color:Tomato;">mkdir ~/Library/wget</code><br>
+      <code style="color:Tomato;">./configure --prefix=$HOME/Library/wget</code><br>
+      <code style="color:Tomato;">make</code><br>
+      <code style="color:Tomato;">make install</code><br>
       <br>
+      
       <b>wget</b><br>
-      <code style="color:#ff40ff;">curl -O https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz</code><br>
-      <code style="color:#ff40ff;">tar -xf wget-1.25.0.tar.gz</code><br>
-      <code style="color:#ff40ff;">cd wget-1.25.0</code><br>
-      <code style="color:#ff40ff;">./configure --prefix=/usr/local</code><br>
-      <code style="color:#ff40ff;">make</code><br>
-      <code style="color:#ff40ff;">make install</code><br>
-      <code style="color:#ff40ff;">wget --version</code><br>
+      <code style="color:Tomato;">curl -O https://ftp.gnu.org/gnu/wget/wget-1.25.0.tar.gz</code><br>
+      <code style="color:Tomato;">tar -xf wget-1.25.0.tar.gz</code><br>
+      <code style="color:Tomato;">cd wget-1.25.0</code><br>
+      <code style="color:Tomato;">./configure --prefix=/usr/local</code><br>
+      <code style="color:Tomato;">make</code><br>
+      <code style="color:Tomato;">make install</code><br>
+      <code style="color:Tomato;">wget --version</code><br>
       <br>
     </li>
     <br>
+    
     <li>
       <a href="https://graphviz.org"><b>graphviz</b></a><br>
       <code>
       <span style="color:Gray;"># find the link from https://gitlab.com/graphviz/graphviz/-/releases (don't use Assets—use “Other”)</span><br>
-      <span style="color:#009051;">wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.4/graphviz-14.0.4.tar.gz</span><br>
+      <span style="color:Tomato;">wget https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/14.0.4/graphviz-14.0.4.tar.gz</span><br>
       <span style="color:Gray;"># unzip the source code</span><br>
-      <span style="color:#009051;">tar -xf graphviz-14.0.4.tar</span><br>
-      <span style="color:#009051;">cd graphviz-14.0.4</span><br>
+      <span style="color:Tomato;">tar -xf graphviz-14.0.4.tar</span><br>
+      <span style="color:Tomato;">cd graphviz-14.0.4</span><br>
       <span style="color:Gray;"># create a folder to save graphviz locally</span><br>
-      <span style="color:#009051;">mkdir ~/Library/graphviz</span><br>
-      <span style="color:#009051;">./configure --prefix=$HOME/Library/graphviz</span><br>
-      <span style="color:#009051;">make</span><br>
-      <span style="color:#009051;">make install</span><br>
+      <span style="color:Tomato;">mkdir ~/Library/graphviz</span><br>
+      <span style="color:Tomato;">./configure --prefix=$HOME/Library/graphviz</span><br>
+      <span style="color:Tomato;">make</span><br>
+      <span style="color:Tomato;">make install</span><br>
       <span style="color:Gray;"># Check the installation</span><br>
-      <span">dot -V</span><br>
+      <span>dot -V</span><br>
       </code>
     </li>
     <br>
@@ -274,42 +281,44 @@
       <b>.zprofile</b><br>
       <code>
       <span style="color:Gray;"><del># MacPorts</del></span></br>
-      <span style="color:#ff7e79;"><del>export PATH="/opt/local/bin:/opt/local/sbin:$PATH"</del></span><br>
+      <span style="color:Tomato;"><del>export PATH="/opt/local/bin:/opt/local/sbin:$PATH"</del></span><br>
       
       <span style="color:Gray;"># Python 3.14</span><br>
-      <span style="color:#ff7e79;">export PATH="/Library/Frameworks/Python.framework/Versions/3.14/bin:$PATH"</span><br>
-      <span style="color:#ff7e79;">export PATH="$HOME/Library/Python/3.14/bin:$PATH"</span><br>
+      <span style="color:Tomato;">export PATH="/Library/Frameworks/Python.framework/Versions/3.14/bin:$PATH"</span><br>
+      <span style="color:Tomato;">export PATH="$HOME/Library/Python/3.14/bin:$PATH"</span><br>
 
       <span style="color:Gray;"># Graphviz</span><br>
-      <span style="color:#ff7e79;">export PATH="$HOME/Library/graphviz/bin:$PATH"</span><br>
-      <span style="color:#ff7e79;">export LD_LIBRARY_PATH="$HOME/Library/graphviz/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"</span><br>
+      <span style="color:Tomato;">export PATH="$HOME/Library/graphviz/bin:$PATH"</span><br>
+      <span style="color:Tomato;">export LD_LIBRARY_PATH="$HOME/Library/graphviz/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"</span><br>
       
       <span style="color:Gray;"># wget</span><br>
-      <span style="color:#ff7e79;">export PATH="$HOME/Library/wget/bin:$PATH"</span><br>
+      <span style="color:Tomato;">export PATH="$HOME/Library/wget/bin:$PATH"</span><br>
       
       <span style="color:Gray;"># wget: Only set these IF you truly need them for compiling C extensions</span><br>
-      <span style="color:#ff7e79;">export CPPFLAGS="-I$HOME/Library/wget/include"</span><br>
-      <span style="color:#ff7e79;">export LDFLAGS="-L$HOME/Library/wget/lib"</span><br>
-      </code><br>
+      <span style="color:Tomato;">export CPPFLAGS="-I$HOME/Library/wget/include"</span><br>
+      <span style="color:Tomato;">export LDFLAGS="-L$HOME/Library/wget/lib"</span><br>
+      </code>
+      <br>
       <code>source ~/.zprofile</code>
     </li>
     <br>
+    
     <li>
       <b style="color:Red;">QGIS plugins</b><br>
       <code>
-      <span style="color:blue;">autoSaver</span><br>
-      <span style="color:blue;">Bivariate color polygon renderer</span><br>
-      <span style="color:blue;">Digitizing Tools</span><br>
-      <span style="color:blue;">GeoCoding</span><br>
-      <span style="color:blue;">Georeferencer Extension</span><br>
-      <span style="color:blue;">HCMGIS</span><br>
-      <span style="color:blue;">Lat Lon Tools</span><br>
-      <span style="color:blue;">mmqgis</span><br>
-      <span style="color:#ff7e79;">QGIS Cloud</span><br>
-      <span style="color:#ff7e79;">qgis2web</span><br>
-      <span style="color:blue;">QuickMapServices</span><br>
-      <span style="color:blue;">QuickOSM</span><br>
-      <span style="color:blue;">Street View</span><br>
+      <span style="color:Tomato;">autoSaver</span><br>
+      <span style="color:Tomato;">Bivariate color polygon renderer</span><br>
+      <span style="color:Tomato;">Digitizing Tools</span><br>
+      <span style="color:Tomato;">GeoCoding</span><br>
+      <span style="color:Tomato;">Georeferencer Extension</span><br>
+      <span style="color:Tomato;">HCMGIS</span><br>
+      <span style="color:Tomato;">Lat Lon Tools</span><br>
+      <span style="color:Tomato;">mmqgis</span><br>
+      <span style="color:Tomato;">QGIS Cloud</span><br>
+      <span style="color:Tomato;">qgis2web</span><br>
+      <span style="color:Tomato;">QuickMapServices</span><br>
+      <span style="color:Tomato;">QuickOSM</span><br>
+      <span style="color:Tomato;">Street View</span><br>
       </code>
     </li>
     <br>
