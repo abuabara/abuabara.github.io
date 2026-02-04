@@ -14,9 +14,11 @@ import os
 
 # 2. set working dir / load data (auto choose between personal computer or school computer folder structure)
 try:
-    os.chdir('/Users/alexander/Library/Mobile Documents/com~apple~CloudDocs/TAMU/Teaching/2025:2026/2025 Fall/427/My_files/Project/')
+    os.chdir('/Users/alexander/GitHub/abuabara.github.io/DAEN427F25')
 except FileNotFoundError:
-    os.chdir('/Users/abuabara/Library/Mobile Documents/com~apple~CloudDocs/TAMU/Teaching/2025:2026/2025 Fall/427/My_files/Project')
+    os.chdir('/Users/abuabara/GitHub/abuabara.github.io/DAEN427F25')
+
+# /Users/abuabara/Library/Mobile Documents/com~apple~CloudDocs/TAMU/Teaching/2025:2026/2025 Fall/427/My_files/Project
 
 survey = pd.read_csv('survey_short.csv')
 
