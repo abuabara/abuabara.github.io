@@ -1,3 +1,5 @@
+# ALEXANDER
+
 library(dplyr)
 library(janitor)
 library(sf)
@@ -14,118 +16,6 @@ setwd("~/Library/Mobile Documents/com~apple~CloudDocs/TAMU/Teaching/2025:2026/20
 
 # FLOODING
 # https://floodmaps.fema.gov/NFHL/status.shtml
-floodplain <- st_read("./48041C_20250122/S_FLD_HAZ_AR.shp")
-
-floodplain <-
-  floodplain %>% filter(!st_is_empty(.)) %>%
-  st_make_valid() %>%
-  clean_names() %>%
-  filter(st_geometry_type(.) %in% c("POLYGON", "MULTIPOLYGON"))
-
-floodplain %>% st_drop_geometry() %>%
-  count( fld_zone, zone_subty
-  )
-#   fld_zone                         zone_subty    n
-# 1        A                               <NA>  138
-# 2       AE                           FLOODWAY   47
-# 3       AE                               <NA>  812
-# 4        X 0.2 PCT ANNUAL CHANCE FLOOD HAZARD 1756
-# 5        X            1 PCT FUTURE CONDITIONS   15
-# 6        X       AREA OF MINIMAL FLOOD HAZARD  139
-
-floodplain_class <-
-  floodplain %>% mutate(
-    fld_class = case_when(fld_zone %in% c("VE", "V", "AE", "AH", "AO", "A", "A99") ~ "100Yr",
-                          fld_zone == "X" & zone_subty == "1 PCT FUTURE CONDITIONS" ~ "100Yr",
-                          fld_zone == "X" & zone_subty == "0.2 PCT ANNUAL CHANCE FLOOD HAZARD" ~ "500Yr",
-                          TRUE ~ "Out")
-  ) %>% filter(fld_class != "Out") %>%
-  select(fld_zone, zone_subty, fld_class) %>%
-  group_by(fld_class) %>%
-  summarise() %>%
-  st_make_valid()
-
-# DON'T DO, SUPER SLOW
-# tmap(floodplain_class) +
-#   tm_polygons("fld_class")
-
-# SUPPOSEDLY "FASTER", BUT STILL VERY SLOW
-# qtm(floodplain_class, fill = "fld_class", style = "cobalt", crs = "+proj=eck4")
-
-# st_write(floodplain_class, "floodplain_48041C_20250122.shp", delete_dsn = TRUE)
-
-floodplain_class_simp <-
-  smoothr::smooth(floodplain_class,
-                  method = "spline")
-
-# st_write(floodplain_class_simp, "floodplain_class_simp_48041C_20250122.shp", delete_dsn = TRUE)
-
-as.numeric(object.size(floodplain_class)) / 
-  as.numeric(object.size(floodplain_class_simp))
-
-# PARCELS
-# https://brazoscad.org/tax-information/gis/
-
-parcels <- st_read("./Public_Parcel_Boundary_certified_2025/Public_Parcel_Boundary_certified.shp")
-
-parcels_point <- parcels %>%
-  st_make_valid() %>%
-  clean_names() %>%
-  select(state_cd, yr_built, state_cd, market, land_val, imprv_val) %>%
-  st_point_on_surface()
-
-parcels_point$state_cd_2 <- substr(parcels_point$state_cd, 1, 1)
-
-table(parcels_point$state_cd_2, useNA = "always") %>% addmargins()
-#     A     B     C     D     E     F     J     M  <NA>   Sum 
-# 55222  3270  6125  2408  4743  3702    49     3   130 75652 
-
-# ANALYSIS
-parcels_point_floodplain_join <-
-  st_join(parcels_point,
-          st_transform(floodplain_class_simp, st_crs(parcels_point)))
-
-table(parcels_point_floodplain_join$fld_class,
-      useNA = "always") %>% addmargins()
-# 100Yr 500Yr  <NA>   Sum 
-#  2486   456 72710 75652 
-
-with(
-  parcels_point_floodplain_join,
-  table(fld_class, state_cd_2, useNA = "always")
-)
-
-#           state_cd_2
-# fld_class          A     B     C     D     E     F     J     M  <NA>
-# 100Yr            847    73   442   520   483   109     4     0     8
-# 500Yr            340    21    56     1     9    26     0     0     3
-# <NA>           54035  3176  5627  1887  4251  3567    45     3   119
-
-table(
-  parcels_point_floodplain_join$fld_class,
-  parcels_point_floodplain_join$state_cd_2,
-  useNA = "always"
-) %>% addmargins()
-
-#           A     B     C     D     E     F     J     M  <NA>   Sum
-# 100Yr   847    73   442   520   483   109     4     0     8  2486
-# 500Yr   340    21    56     1     9    26     0     0     3   456
-# <NA>  54035  3176  5627  1887  4251  3567    45     3   119 72710
-# Sum   55222  3270  6125  2408  4743  3702    49     3   130 75652
-
-# st_write(parcels_point_floodplain_join, "parcels_point_floodplain_join.shp", delete_dsn = TRUE)
-
-# save.image("~/Library/Mobile Documents/com~apple~CloudDocs/TAMU/Teaching/2025:2026/2026 Spring/DAEN ISEN 489/Assignment3_sol/Assignment3_workspace.RData")
-
-# ALEXANDER
-
-library(dplyr)
-library(janitor)
-library(sf)
-library(tmap)
-
-setwd("~/Library/Mobile Documents/com~apple~CloudDocs/TAMU/Teaching/2025:2026/2026 Spring/DAEN ISEN 489/Assignment3_sol")
-
 floodplain <- st_read("./48041C_20250122/S_FLD_HAZ_AR.shp")
 
 glimpse(floodplain)
@@ -167,6 +57,7 @@ floodplain_class <-
   filter(fld_class != "Out")
 
 # 14795264 / 26431976
+# 0.5597487
 
 # qtm(floodplain_class, fill = "fld_class")
 
@@ -178,8 +69,10 @@ floodplain_class <-
 # object.size(floodplain_class_simp)
 
 # 72845288/14795264
+# 4.923554
 
 # PARCELS
+# https://brazoscad.org/tax-information/gis/
 parcels <- st_read("./Public_Parcel_Boundary_certified_2025/Public_Parcel_Boundary_certified.shp")
 
 glimpse(parcels)
@@ -207,7 +100,6 @@ parcels_inclass_centroid <- st_point_on_surface(parcels_inclass)
 # join_test <- st_join(parcels_inclass, floodplain_class)
 
 # ANALYSIS
-
 parcels_floodplain_join <- st_join(parcels_inclass_centroid, floodplain_class)
 
 st_within(parcels_inclass_centroid, floodplain_class)
@@ -220,11 +112,13 @@ table(parcels_floodplain_join$fld_class,
 table(parcels_floodplain_join$fld_class,
       parcels_floodplain_join$state_cd2,
       useNA = "always") %>% addmargins()
+#     A     B     C     D     E     F     J     M  <NA>   Sum
+# 100yr   848    72   442   518   491   112     4     0     8  2495
+# 500yr   336    23    54     1    10    24     0     0     3   451
+# <NA>  54038  3175  5629  1889  4242  3566    45     3   119 72706
+# Sum   55222  3270  6125  2408  4743  3702    49     3   130 75652
 
 # save.image("~/Library/Mobile Documents/com~apple~CloudDocs/TAMU/Teaching/2025:2026/2026 Spring/DAEN ISEN 489/Assignment3_sol/Inclass3.RData")
-
-
-
 
 # ...
 # ALTERNATIVELLY ...
@@ -261,6 +155,5 @@ table(vector)
 parcels_touching <- parcels_A[vector, ]
 
 # OR
-
 # As_and_100yr = st_intersection(filter(parcels_point, state_cd_2 == "A"),
 #                                st_transform(filter(floodplain_class_simp, fld_class == "100Yr"), st_crs(parcels_point)))
