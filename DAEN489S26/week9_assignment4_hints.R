@@ -26,11 +26,11 @@ plot(ls2019day_masked)
 c(ls2019day_masked, ls2020day_masked, ls2021day_masked)
 
 diff = ls2021day_masked-ls2020day_masked
-
 diff[diff == 0] <- NA
 # diff <- reclassify(diff, cbind(0, NA))
+diff[diff > -10 & diff < 10] <- NA
 
-plot(brazos_projected[1], col = NA, border = "black", lwd = .5)
+plot(brazos_projected[4], col = NA, border = "black", lwd = .5, main = "")
 
 r <- range(values(diff), na.rm = TRUE)
 lim <- max(abs(r))
@@ -40,4 +40,18 @@ plot(
   col = colorRampPalette(c("red", "white", "blue"))(50),
   add = TRUE
 )
-# plot(diff, add = TRUE)
+
+names(diff) <- c("pop_diff_2021-2020")
+
+library(tmap)
+
+tmap_mode("view")
+
+tm_shape(diff) + 
+  tm_raster(
+    "pop_diff_2021-2020",
+    title = "Population Change (2021–2020)",
+    palette = "RdBu",
+    style = "cont",
+    midpoint = 0
+  )
