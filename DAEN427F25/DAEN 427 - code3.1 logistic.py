@@ -7,7 +7,8 @@ from scipy import special
 
 #### DATA ####
 # penguins = pd.read_csv('/Users/alexander/Library/Mobile Documents/com~apple~CloudDocs/Python/BMCP/data/penguins.csv')
-penguins = pd.read_csv('/Users/abuabara/Library/Mobile Documents/com~apple~CloudDocs/TAMU/DAEN/Fall 2025/427/My_files/Code/data/penguins.csv')
+# penguins = pd.read_csv('/Users/abuabara/Library/Mobile Documents/com~apple~CloudDocs/TAMU/DAEN/Fall 2025/427/My_files/Code/data/penguins.csv')
+penguins = pd.read_csv('/Users/abuabara/Documents/GitHub/abuabara.github.io/DAEN427F25/penguins.csv')
 missing_data = penguins[[
     'body_mass_g',
     'flipper_length_mm',
