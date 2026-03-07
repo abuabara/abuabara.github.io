@@ -14,7 +14,7 @@ import os
 
 # 2. set working dir / load data (auto choose between personal computer or school computer folder structure)
 try:
-    os.chdir('/Users/alexander/Documents/GitHub/abuabara.github.io/DAEN427F25')
+    os.chdir('/Users/alexander/GitHub/abuabara.github.io/DAEN427F25')
 except FileNotFoundError:
     os.chdir('/Users/abuabara/Documents/GitHub/abuabara.github.io/DAEN427F25')
 
