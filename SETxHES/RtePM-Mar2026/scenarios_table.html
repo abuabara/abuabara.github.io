@@ -1,0 +1,415 @@
+<style>
+  table.surge {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+  table.surge th, table.surge td {
+    border: 1px solid #bfbfbf;
+    padding: 6px 8px;
+    vertical-align: middle;
+  }
+  table.surge thead th {
+    text-align: center;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  table.surge td:first-child, table.surge th:first-child {
+    text-align: left;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  /* Section label rows (UPPER-MIDDLE / LOWER-MIDDLE / LOWER) */
+  tr.section-row td:first-child {
+    background: #f2f2f2;
+  }
+  /* Slightly thicker separators between scenarios */
+  .sep-left { border-left: 2px solid #000 !important; }
+  .sep-right { border-right: 2px solid #000 !important; }
+  
+  tr.section-row td {
+    background: #f2f2f2; /* light gray */
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700; /* or: bold */
+  }
+</style>
+
+<table class="surge" aria-label="Surge scenarios table">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="3" class="sep-left">Scenario 1 - Limited Surge</th>
+      <th colspan="3" class="sep-left">Scenario 2 - Moderate Surge</th>
+      <th colspan="3" class="sep-left">Scenario 3 - Significant Surge</th>
+      <th colspan="2" class="sep-left sep-right">Scenario 4 - Major Surge</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <!-- UPPER-MIDDLE -->
+    <tr class="section-row">
+      <td>UPPER-MIDDLE</td>
+
+      <!-- Scenario 1 -->
+      <td class="sep-left">
+          Up-Mid_B-13</td>
+      <td>Up-Mid_B-14</td>
+      <td>Up-Mid_B-16</td>
+
+      <!-- Scenario 2 -->
+      <td class="sep-left">
+          Up-Mid_B-24</td>
+      <td>Up-Mid_B-25</td>
+      <td>Up-Mid_B-26</td>
+
+      <!-- Scenario 3 -->
+      <td class="sep-left">
+          Up-Mid_B-34</td>
+      <td>Up-Mid_B-35</td>
+      <td>Up-Mid_B-36</td>
+
+      <!-- Scenario 4 -->
+      <td class="sep-left">Up-Mid_B-45E</td>
+      <td class="sep-right">Up-Mid_B-46E</td>
+    </tr>
+
+    <tr>
+      <td>Chambers</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-13_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-14_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-16_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-24_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-25_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-26_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-34_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-35_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-36_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-45E_Chambers_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Up-Mid_B-46E_Chambers_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Galveston</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-13_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-14_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-16_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-24_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-25_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-26_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-34_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-35_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-36_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-45E_Galveston_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Up-Mid_B-46E_Galveston_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Hardin</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-13_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-14_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-16_Hardin_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-24_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-25_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-26_Hardin_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-34_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-35_Hardin_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-36_Hardin_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-45E_Hardin_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Up-Mid_B-46E_Hardin_plot.png"></td>
+    </tr>
+    
+    <tr>
+      <td>Jasper</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-13_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-14_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-16_Jasper_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-24_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-25_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-26_Jasper_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-34_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-35_Jasper_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-36_Jasper_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-45E_Jasper_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Up-Mid_B-46E_Jasper_plot.png"></td>
+    </tr>
+    
+    <tr>
+      <td>Jefferson</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-13_Jefferson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-14_Jefferson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-16_Jefferson_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-24_Jefferson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-25_Jefferson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-26_Jefferson_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-34_Jefferson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-35_Jefferson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-36_Jefferson_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-45E_Jefferson_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Up-Mid_B-46E_Jefferson_plot.png"></td>
+    </tr>
+    
+    <tr>
+      <td>Liberty</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-13_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-14_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-16_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-24_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-25_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-26_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-34_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-35_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-36_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-45E_Liberty_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Up-Mid_B-46E_Liberty_plot.png"></td>
+    </tr>
+    
+    <tr>
+      <td>Newton</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-13_Newton_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-14_Newton_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-16_Newton_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-24_Newton_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-25_Newton_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-26_Newton_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-34_Newton_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-35_Newton_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-36_Newton_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-45E_Newton_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Up-Mid_B-46E_Newton_plot.png"></td>
+    </tr>
+    
+    <tr>
+      <td>Orange</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-13_Orange_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-14_Orange_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-16_Orange_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-24_Orange_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-25_Orange_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-26_Orange_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-34_Orange_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-35_Orange_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Up-Mid_B-36_Orange_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Up-Mid_B-45E_Orange_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Up-Mid_B-46E_Orange_plot.png"></td>
+    </tr>
+
+    <!-- MIDDLE -->
+    <tr class="section-row">
+      <td>MIDDLE</td>
+
+      <!-- Scenario 1 (2 cols total; label uses first, second left blank) -->
+      <td class="sep-left">
+          Mid_C-14</td>
+      <td>Mid_C-15</td>
+      <td>Mid_C-16</td>
+
+      <!-- Scenario 2 -->
+      <td class="sep-left">
+          Mid_C-24</td>
+      <td>Mid_C-25</td>
+      <td>Mid_C-26</td>
+
+      <!-- Scenario 3 -->
+      <td class="sep-left">
+          Mid_C-34</td>
+      <td>Mid_C-35</td>
+      <td>Mid_C-36</td>
+
+      <!-- Scenario 4 -->
+      <td class="sep-left">Mid_C-45</td>
+      <td>Mid_C-46</td>
+      <td>Mid_C-45-CFL2</td>
+      <td class="sep-right">Mid_C-46-CFL2</td>
+    </tr>
+    
+    <tr>
+      <td>Brazoria</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-14_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-15_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-16_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-24_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-25_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-26_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-34_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-35_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-36_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-45_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-46_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-45-CFL2_Brazoria_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-46-CFL2_Brazoria_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Chambers</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-14_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-15_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-16_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-24_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-25_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-26_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-34_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-35_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-36_Chambers_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-45_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-46_Chambers_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-45-CFL2_Chambers_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-46-CFL2_Chambers_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Galveston</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-14_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-15_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-16_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-24_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-25_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-26_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-34_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-35_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-36_Galveston_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-45_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-46_Galveston_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-45-CFL2_Galveston_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-46-CFL2_Galveston_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Harris</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-14_Harris_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-15_Harris_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-16_Harris_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-24_Harris_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-25_Harris_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-26_Harris_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-34_Harris_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-35_Harris_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-36_Harris_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-45_Harris_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-46_Harris_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-45-CFL2_Harris_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-46-CFL2_Harris_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Liberty</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-14_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-15_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-16_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-24_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-25_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-26_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-34_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-35_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-36_Liberty_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Mid_C-45_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-46_Liberty_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Mid_C-45-CFL2_Liberty_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Mid_C-46-CFL2_Liberty_plot.png"></td>
+    </tr>
+
+    <!-- LOWER -->
+    <tr class="section-row">
+      <td>LOWER</td>
+
+      <!-- Scenario 1 (2 cols total; label uses first, second left blank) -->
+      <td class="sep-left">
+          Lower_B-14</td>
+      <td>Lower_B-15</td>
+      <td>Lower_B-16</td>
+
+      <!-- Scenario 2 -->
+      <td class="sep-left">
+          Lower_B-24</td>
+      <td>Lower_B-25</td>
+      <td>Lower_B-26</td>
+
+      <!-- Scenario 3 -->
+      <td class="sep-left">
+          Lower_B-34</td>
+      <td>Lower_B-35</td>
+      <td>Lower_B-36</td>
+
+      <!-- Scenario 4 -->
+      <td class="sep-left">Lower_B-45</td>
+      <td class="sep-right">Lower_B-46</td>
+    </tr>
+
+    <tr>
+      <td>Brazoria</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-14_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-15_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-16_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-24_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-25_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-26_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-34_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-35_Brazoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-36_Brazoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-45_Brazoria_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Lower_B-46_Brazoria_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Calhoun</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-14_Calhoun_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-15_Calhoun_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-16_Calhoun_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-24_Calhoun_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-25_Calhoun_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-26_Calhoun_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-34_Calhoun_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-35_Calhoun_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-36_Calhoun_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-45_Calhoun_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Lower_B-46_Calhoun_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Jackson</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-14_Jackson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-15_Jackson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-16_Jackson_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-24_Jackson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-25_Jackson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-26_Jackson_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-34_Jackson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-35_Jackson_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-36_Jackson_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-45_Jackson_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Lower_B-46_Jackson_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Matagorda</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-14_Matagorda_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-15_Matagorda_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-16_Matagorda_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-24_Matagorda_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-25_Matagorda_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-26_Matagorda_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-34_Matagorda_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-35_Matagorda_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-36_Matagorda_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-45_Matagorda_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Lower_B-46_Matagorda_plot.png"></td>
+    </tr>
+
+    <tr>
+      <td>Victoria</td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-14_Victoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-15_Victoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-16_Victoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-24_Victoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-25_Victoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-26_Victoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-34_Victoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-35_Victoria_plot.png"></td>
+      <td><img style="max-height: 210px"                   src="Lower_B-36_Victoria_plot.png"></td>
+      <td class="sep-left"><img style="max-height: 210px"  src="Lower_B-45_Victoria_plot.png"></td>
+      <td class="sep-right"><img style="max-height: 210px" src="Lower_B-46_Victoria_plot.png"></td>
+    </tr>
+    
+  </tbody>
+</table>
