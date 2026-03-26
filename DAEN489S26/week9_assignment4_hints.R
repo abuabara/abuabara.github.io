@@ -28,7 +28,14 @@ points_sf <- st_as_sf(
 
 plot(st_geometry(points_sf))
 
-# test
+st_write(points_sf, "points_sf.parquet", driver = "Parquet")
+
+
+library(dplyr)
+points_sf %>% 
+  st_buffer(200) %>%
+  mutate(geometry = st_as_binary(geometry))
+
 # st_write(points_sf, "points_sf.shp")
 # st_write(st_buffer(points_sf, 200), "points_sf_buff.shp")
 
