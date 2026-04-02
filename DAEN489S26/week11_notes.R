@@ -8,7 +8,7 @@ us_states <- states(cb = TRUE, resolution = "20m")
 us_states_shifted <- shift_geometry(us_states)
 
 ggplot(data = us_states_shifted) +
-  geom_sf(fill = "whitesmoke", color = "darkgray") +
+  geom_sf(fill = "lightyellow2", color = "darkgray") +
   theme_void() +
   labs(title = "U.S. State Basemap")
 
