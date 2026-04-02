@@ -32,13 +32,13 @@ hu_dd <- left_join(hungary, drink_driving, by = c("name" = "name"))
 library(ggplot2)
 
 map <- ggplot(data = hu_dd) +             # specify data to use
-  geom_sf(aes(fill = total_breath_tests)) # specify aestetics 
+  geom_sf(aes(fill = total_breath_tests)) # specify aesthetics 
 
 map
 
 # 4
 map <- map + 
-  theme_void()# remove grid 
+  theme_void() # remove grid 
 
 map
 
@@ -50,7 +50,7 @@ ggplot(data = hu_dd) +
 # 6
 ggplot(data = hu_dd) + 
   geom_sf(aes(fill = total_breath_tests), lwd = 0.5, 
-          col = "white") + # specify border colour
+          col = "white") + # specify border color
   theme_void()
 
 # 7
