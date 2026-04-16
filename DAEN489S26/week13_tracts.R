@@ -42,7 +42,7 @@ vars <- c(
 )
 
 tx_data <- get_acs(
-  geography = "county",
+  geography = "tract",
   variables = vars,
   state     = "TX",
   year      = 2022,
@@ -55,8 +55,8 @@ data <- tx_data %>%
   filter(!st_is_empty(geometry)) %>%
   transmute(
     GEOID,
-    NAME             = str_remove_all(NAME, " County, Texas"),
-    myplace          = as.integer((grepl("Brazos", NAME))),
+    # NAME             = str_remove_all(NAME, " County, Texas"),
+    # myplace          = as.integer((grepl("Brazos", NAME))),
     pct_hisp         = (pop_hispE / pop_totalE) * 100,
     pct_with_diploma = ((diploma5E + diploma6E + diploma7E + diploma8E + diploma9E) / pop_over_25E) * 100,
     med_income_k     = med_incomeE / 1000,
@@ -83,11 +83,12 @@ ggplot(data, aes(x = med_income_k, y = "")) +
                alpha = 0.5,
                width = 0.5,
                outliers = TRUE) +
-  labs(title    = "Distribution of Median Household Income in the Past 12 Months",
-       subtitle = "Texas Counties",
-       caption  = "Source: ACS 5-Year Data (2008-2022)",
-       y = "",
-       x = "Median Household Income ($k)") + theme_minimal()
+  labs(
+    # title    = "Distribution of Median Household Income in the Past 12 Months",
+    # subtitle = "Texas Counties",
+    caption  = "Source: ACS 5-Year Data (2008-2022)",
+    y = "",
+    x = "Median Household Income ($k)") + theme_minimal()
 
 
 dev.off()
@@ -119,20 +120,20 @@ dev.off()
                y = med_income_k)) +
     geom_point(alpha = .5) +
     geom_smooth(method = "lm", color = "red", se = FALSE) +
-    geom_point(data = subset(data, myplace == 1),
-               aes(color = "1"),
-               size  = 2,
-               alpha = .9) +
-    scale_color_manual(name   = "",
-                       labels = c("0" = "Other",
-                                  "1" = "Brazos"),
-                       values = c("0" = "black",
-                                  "1" = "orange")) +
+    # geom_point(data = subset(data, myplace == 1),
+    #            aes(color = "1"),
+    #            size  = 2,
+    #            alpha = .9) +
+    # scale_color_manual(name   = "",
+    #                    labels = c("0" = "Other",
+    #                               "1" = "Brazos"),
+    #                    values = c("0" = "black",
+    #                               "1" = "orange")) +
     scale_y_continuous(labels = scales::label_dollar(),
                        limits = c(min(data$med_income_k), max(data$med_income_k))) +
     labs(
-      title    = "The Impact of Education on Household Income",
-      subtitle = "Texas Counties",
+      # title    = "The Impact of Education on Household Income",
+      # subtitle = "Texas Counties",
       caption  = "Source: ACS 5-Year Data (2008-2022)",
       x        = "Percent With Bachelor Degree or Higher Education",
       y        = "Median Household Income ($k)") +
@@ -191,8 +192,8 @@ dev.off()
     scale_y_continuous(labels = scales::label_dollar(),
                        limits = c(min(data$med_income_k), max(data$med_income_k))) +
     labs(
-      title    = "The Impact of Education on Household Income",
-      subtitle = "Texas Counties",
+      # title    = "The Impact of Education on Household Income",
+      # subtitle = "Texas Counties",
       caption  = "Source: ACS 5-Year Data (2008-2022)",
       x        = "Percent With Bachelor Degree or Higher Education",
       y        = "Median Household Income ($k)") +
@@ -411,13 +412,6 @@ Li_map <-
 #                       low = "red") + theme_void()
 
 gridExtra::grid.arrange(Ci_map, Li_map, nrow = 1)
-
-
-
-
-
-
-
 
 
 
