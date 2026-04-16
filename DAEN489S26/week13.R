@@ -18,7 +18,7 @@ options(digits = 4,
         tigris_use_cache = TRUE,
         stringsAsFactors = FALSE)
 
-theme_set(theme_minimal(14))
+theme_set(theme_minimal(12))
 
 setwd("~/GitHub/abuabara.github.io/DAEN489S26")
 
@@ -76,18 +76,18 @@ data <- tx_data %>%
 #        x = "Percent With Bachelor Degree or Higher Education") +
 #   theme_minimal()
 
+dev.off()
 ggplot(data, aes(x = med_income_k, y = "")) +
   geom_boxplot(color = "navy",
                fill  = "navy",
                alpha = 0.5,
-               width = 0.25,
+               width = 0.5,
                outliers = FALSE) +
   labs(title    = "Distribution of Median Household Income in the Past 12 Months",
        subtitle = "Texas Counties",
        caption  = "Source: ACS 5-Year Data (2008-2022)",
        y = "",
-       x = "Median Household Income ($k)") +
-  theme_minimal()
+       x = "Median Household Income ($k)") + theme_minimal()
 
 # standard linear model (baseline) -- ignoring both spatial and regional nesting
 
@@ -97,6 +97,7 @@ cor.test(data$med_income_k, data$pct_with_diploma)
 
 # cor.test(data$pct_with_diploma, data$pct_hisp)
 
+dev.off()
 (plot <-
     ggplot(data,
            aes(x = pct_with_diploma,
@@ -114,15 +115,17 @@ cor.test(data$med_income_k, data$pct_with_diploma)
                                   "1" = "orange")) +
     scale_y_continuous(labels = scales::label_dollar(),
                        limits = c(min(data$med_income_k), max(data$med_income_k))) +
-    labs(title.   = "The Impact of Education on Household Income",
-         subtitle = "Texas Places",
-         caption  = "Source: ACS 5-Year Data (2008-2022)",
-         x        = "Percent With Bachelor Degree or Higher Education",
-         y        = "Median Household Income ($k)") +
+    labs(
+      title    = "The Impact of Education on Household Income",
+      subtitle = "Texas Counties",
+      caption  = "Source: ACS 5-Year Data (2008-2022)",
+      x        = "Percent With Bachelor Degree or Higher Education",
+      y        = "Median Household Income ($k)") +
     # theme_minimal() +
     theme(legend.position="none") +
     coord_fixed(ratio = .4))
 
+dev.off()
 (plot2 <- ggMarginal(plot, type="boxplot", size = 10, colour = "grey10", fill = "royalblue", alpha = .5))
 
 model0 <- lm(med_income_k ~ 1, data = data)
@@ -143,7 +146,7 @@ stargazer(model0, model1, type = "text",
 # while holding the effect of pct_with_diploma constant
 
 dev.off()
-plot(data[, "region_id"], main = "Region id")
+plot(data[, "region_id"], main = "Regions ID")
 
 plot(data[, "pct_with_diploma"], main = "Percent with Diploma")
 
@@ -175,6 +178,9 @@ target <- data[data$ID == 1, ]
 neighbor_indices <- unlist(st_touches(target, data))
 
 zoom_area <- data[c(which(data$ID == 1), neighbor_indices), ]
+
+dev.off()
+plot(data, main = "Region ID / Neighbors")
 
 dev.off()
 plot(zoom_area[, "ID"], main = "Region ID / Neighbors", reset = FALSE)
