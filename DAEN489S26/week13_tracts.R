@@ -45,6 +45,7 @@ tx_data <- get_acs(
   geography = "tract",
   variables = vars,
   state     = "TX",
+  county    = "Brazos",
   year      = 2022,
   geometry  = TRUE,
   output    = "wide"
@@ -59,11 +60,13 @@ data <- tx_data %>%
     # myplace          = as.integer((grepl("Brazos", NAME))),
     pct_hisp         = (pop_hispE / pop_totalE) * 100,
     pct_with_diploma = ((diploma5E + diploma6E + diploma7E + diploma8E + diploma9E) / pop_over_25E) * 100,
+    med_incomeE,
     med_income_k     = med_incomeE / 1000,
     # simulate a "region" grouping variable for the multilevel model
     # (in a real analysis, you would join this with a dataset of Texas COGs or MSAs)
-    region_id = as.factor(kmeans(st_coordinates(st_centroid(geometry)), centers = 5)$cluster)
-  ) %>% na.omit()# filter(!is.na(med_income_k), !is.na(pct_with_diploma), !is.na(pct_hisp))
+  )
+
+st_write(data, "census.shp")
 
 # ggplot(data, aes(x = pct_with_diploma, y = "")) +
 #   geom_boxplot(color = "navy", fill = "navy",
