@@ -1,0 +1,96 @@
+\documentclass[12pt]{beamer}
+
+%  CORE PACKAGES --------------------------------
+\usepackage{amsmath, amssymb, graphicx, booktabs, tabularx, setspace, soul}
+\usepackage{subcaption}
+\usepackage{tikz, pgfplots}
+\pgfplotsset{compat=1.18}
+\usepackage[many]{tcolorbox}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{minted}
+
+%  FONTS & STYLING ------------------------------
+\usepackage{fontspec}
+\usefonttheme{professionalfonts}
+\setsansfont[
+UprightFont     = *Light,
+BoldFont        = *Bold,
+ItalicFont      = *Light Italic,
+BoldItalicFont  = *Bold Italic,
+Ligatures       = TeX,
+Scale           = MatchLowercase
+]{Frutiger LT Pro}
+\renewcommand{\familydefault}{\sfdefault}
+\linespread{.95}\selectfont
+
+%  COLORS & THEMES ------------------------------
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\definecolor{beamer@blendedblue}{RGB}{80,0,0}
+\usecolortheme{default}
+
+\setbeamertemplate{itemize items}{•}
+\setbeamertemplate{itemize subitem}[•]
+\setbeamertemplate{itemize subsubitem}[•]
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+%  HYPERLINKS -----------------------------------
+\usepackage{hyperref}
+\hypersetup{
+colorlinks=true,
+linkcolor=aggiemaroon,
+urlcolor=aggiemaroon,
+citecolor=aggiemaroon
+}
+
+%  BEAMER TEMPLATES -----------------------------
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{
+\color{aggiemaroon}{\hfill \insertframenumber/\inserttotalframenumber \hspace{2pt} \vskip2pt}
+}
+
+%  CUSTOM ENVIRONMENTS --------------------------
+\newenvironment{stepenumerate}{
+\begin{enumerate}[<+->]
+}{\end{enumerate}}
+
+\newenvironment{stepitemize}{
+\begin{itemize}[<+->]
+}{\end{itemize}}
+
+\newenvironment{stepenumeratewithalert}{
+\begin{enumerate}[<+-| alert@+>]
+}{\end{enumerate}}
+
+\newenvironment{stepitemizewithalert}{
+\begin{itemize}[<+-| alert@+>]
+}{\end{itemize}}
+
+% DOCUMENT INFO ---------------------------------
+\title{Decision and Risk Analysis}
+\subtitle{Lecture 1: \textbf{Bayesian Thinking for Risk and Decision Analysis}}
+\author{\emph{}}
+\date{\color{aggiemaroon}{
+DAEN 427/ISEN 427/ISEN 627\\
+\textbf{Alexander Abuabara}\\
+Fall 2026
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+% -----------------------------------------------
+\begin{document}
+
+% -----------------------------------------------
+\maketitle
+
+% -----------------------------------------------
+\begin{frame}
+\frametitle{Risk and Uncertainty}
+\hspace{0.5cm} Often a distinction is made between {\color{red} risk} and {\color{blue}  uncertainty}: 
+\begin{itemize} 
+\item A choice under {\color{red} risk} is made when the outcomes are random and the probabilities of outcomes are known.
+\item A choice under {\color{blue}  uncertainty} is made when the outcome probabilities are unknown.
+\end{itemize}
+\end{frame}
+
+\end{document}
