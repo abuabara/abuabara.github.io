@@ -1,0 +1,340 @@
+\documentclass[11pt]{article}
+
+% Page Layout & Formatting
+\usepackage{geometry}
+\geometry{margin=1.55cm}
+\setlength{\parindent}{0pt}
+\setlength{\tabcolsep}{2pt}
+\usepackage{setspace}
+\setstretch{.98}
+\raggedbottom
+
+% Lists & Tables
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+
+% Themes & Colors
+\usepackage{xcolor}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\usepackage{soul}
+
+% Formatting
+\usepackage{titlesec}
+\titleformat{\section}
+  {\color{aggiemaroon}\bfseries\Large}
+  {\thesection}{}{}
+\titleformat{\subsection}
+  {\color{aggiemaroon}\bfseries\large}
+  {\thesubsection}{}{}
+\titlespacing*{\section}{0pt}{*1}{*.2} % {left}{before}{after}
+\titlespacing*{\subsection}{0pt}{*1.2}{*.2}
+\renewcommand{\arraystretch}{.9}
+
+% Title Positioning
+\usepackage{titling}
+\setlength{\droptitle}{-2.2cm}
+
+% Hyperlinks
+\usepackage[hidelinks]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=aggiemaroon,
+  urlcolor=red!60!black,
+  citecolor=aggettarono
+}
+\renewcommand{\UrlFont}{\ttfamily\small}
+
+% Fonts
+\usepackage{fontspec}
+\setmainfont{Frutiger LT Pro}[
+  UprightFont    = {*Light},
+  BoldFont       = {*Bold},
+  ItalicFont     = {*Light Italic},
+  BoldItalicFont = {*Bold Italic}
+]
+
+% -------------------------------------------------
+\begin{document}
+\title{\color{aggiemaroon}{\textbf{DAEN 427 / ISEN 427 Decision and Risk Analysis}\\[-4pt]
+{\normalsize Fall 2026}}}
+\author{} % Alexander Abuabara
+\date{}
+\maketitle
+\vspace{-7.5em}
+
+% -------------------------------------------------
+\section*{Course Information}
+\begin{description}[nosep,leftmargin=0.5in]
+%\item[Time (Location)] Tue-Thu 9:35--10:50 AM \emph{3 credit hours} (ETB 1013)
+\item[Time (Location)] Mon-Wed-Fri 11:30--12:20 AM \emph{3 credit hours} (ETB 1027)
+\item[Prerequisites] Grade of C or better in ISEN 310, DAEN 321, or STAT 212
+\item[Cross listing] ISEN 427 / DAEN 427
+\item[Instructor] Alexander Abuabara \url{mailto:abuabara@tamu.edu}
+\item[Course office hours (location)] Wed 1-3 PM or by appointment (ETB 4013)
+\end{description}
+
+% -------------------------------------------------
+\subsection*{Description}
+Overview of the state of the art in descriptive and prescriptive theories 
+of decision making under uncertainty with emphasis on the ways in which human 
+decisions depart from normative models of rationality; analytical foundations 
+stemming from several disciplines, economics, psychology, management science; 
+application in engineering systems will be considered.
+
+% -------------------------------------------------
+%\subsection*{Learning Outcomes}
+\subsection*{Outcomes}
+\begin{enumerate}[leftmargin=*,nosep]
+\item Apply Bayesian approach to perception and decisions under uncertainty.
+\item Implement computational models for Bayesian inference and strategic decision support.
+\item Use concepts from economics, psychology, and management science to analyze decision-making processes.
+\end{enumerate}
+
+% -------------------------------------------------
+\subsection*{Materials}
+\begin{itemize}[leftmargin=*,nosep]
+%\item Python \url{https://www.python.org} and Positron (IDE) \url{https://positron.posit.co}.
+%\item {Think Bayes: Bayesian Statistics in Python} \url{https://allendowney.github.io/ThinkBayes2}.
+\item {Bayes Rules! An Introduction to Applied Bayesian Modeling} \url{https://www.bayesrulesbook.com/}.
+\item {... Bayesian Inference, Methods, Computation} \mbox{\url{https://link.springer.com/book/10.1007/978-3-030-82808-0}}.
+\item {A Course in Behavioral Economics} \mbox{\url{https://www.erikangner.com/a-course-in-behavioral-economics}.}
+\item R \url{https://cran.r-project.org/}, RStudio (IDE) \url{https://posit.co/download/rstudio-desktop}.
+\end{itemize}
+
+% -------------------------------------------------
+\subsection*{Grading}
+\renewcommand{\arraystretch}{1.025}
+\begin{tabular}{l l l}
+\hline
+\textbf{Assessment}             & \textbf{Weight}    & \textbf{Description} \\
+\hline
+Exam (2)                        & 60\% (30\% each)   & Content on weeks 1--6 \& 1--12 \\
+Project (report + presentation) & 28\% (groups of 2) & Case study exploring decision and risk analysis in engineering \\
+Participation                   & 12\%               & In-class (quizzes, discussions, assignments, practice questions) \\
+\hline
+\end{tabular}
+
+\vspace{0pt}
+
+{\footnotesize
+\renewcommand{\arraystretch}{.9}
+\begin{itemize}[leftmargin=*,nosep]
+\item Grades will be calculated on the basis of total points earned.
+\item The thresholds for letter grades are: {A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D ≥ 60\%, F < 60\%}.
+\end{itemize}
+}
+
+% -------------------------------------------------
+\subsection*{Schedule \emph{(tentative)}}
+\renewcommand{\arraystretch}{1.025}
+\begin{tabular}{l l l}
+\hline
+\textbf{Lecture} & \textbf{Topic} & \textbf{Chapter} \\ \hline
+1  & Bayesian thinking for risk and decision analysis & Ch. 1 \\ \hline
+2  & Bayesian updating and evidence accumulation & Ch. 2 \\ \hline
+3  & Prior modeling and expert knowledge & Ch. 3--4 \\ \hline
+4  & Bayesian simulation and uncertainty propagation & Ch. 5--6 \\ \hline
+5  & MCMC and computational Bayesian inference & Ch. 7 \\ \hline
+6  & Bayesian workflow and model validation & Ch. 8 \\ \hline
+   & \textbf{Exam 1: Bayesian foundations + computation} & \\ \hline
+7  & Bayesian regression for risk modeling & Ch. 9 \\ \hline
+8  & Bayesian prediction and model comparison & Ch. 10 \\ \hline
+9  & Multiple regression and decision drivers & Ch. 11 \\ \hline
+10 & Bayesian count models and rare events & Ch. 12 \\ \hline
+11 & Bayesian classification and logistic risk models & Ch. 13--14 \\ \hline
+12 & Hierarchical Bayesian models & Ch. 15--16 \\ \hline
+   & \textbf{Exam 2: Predictive modeling + risk analysis} & \\ \hline
+13 & Advanced multilevel and structured uncertainty models & Ch. 17--18 \\ \hline
+14 & Bayesian decision analysis and probabilistic forecasting & Ch. 19 \\ \hline
+   & \textbf{Final project: probabilistic programming, risk communication} & \\ \hline
+\end{tabular}
+
+% -------------------------------------------------
+\subsection*{Policies}
+\begin{itemize}[leftmargin=*,nosep]
+\item Be nice. Be honest. Don’t cheat. Adhere to all University Policies.
+\item Students should engage actively, stay current with readings, participate, and seek help early.
+\item Course material is cumulative and requires consistent effort. All assignments must be completed carefully and on time.
+      Presentation quality (organization, clarity, tables, graphs, and discussion) is part of grading.
+\item Excused absences apply only to attendance and in-class activities and do not extend assignment deadlines.
+      Alternatives must be arranged prior to deadline.
+\item Regrade applies to the entire submission. To ensure fairness and timely feedback, no changes after one week.
+\item E-mail is the primary method of communication. Include the course number in the subject line.
+      Responses should not be expected after 5:00 PM, on weekends, or on holidays.
+\item All assignments must be submitted through Canvas.
+      If technical issues prevent submission, send your assignment from your \texttt{@tamu.edu} email to the instructor’s \texttt{@tamu.edu} email as a backup.
+      The subject line must include the course number and assignment name.
+      Late work is not accepted and will receive a grade of zero.
+\item Audio or video recording of lectures or any portion of the course is prohibited without written instructor permission. Unauthorized recording constitutes a violation of student conduct.
+\item Headphones and non-class-related browsing are not permitted during class.
+\end{itemize}
+
+%\begin{itemize}[leftmargin=*,nosep]
+%\item Be nice. Be honest. Don’t cheat. We will also follow University Policies.
+%\item Late work is not accepted (zero).~Excused absences apply to attendance and in-class work only and do not extend assignment deadlines, including project components.~Alternatives must be arranged before deadlines.
+%\item Regrades apply to the full work; to ensure fairness and timely feedback, no changes after one week.
+
+%\item E-mail is the primary method of communication. Always include the course number in the subject line. Responses should not be expected after 5:00 PM, on weekends, or on holidays.
+%\item All assignments must be submitted through Canvas. If technical issues prevent submission, send your assignment from your \texttt{@tamu.edu} email to the instructor’s \texttt{@tamu.edu} email as a backup. The subject line must include the course number and assignment name.
+%\item Course material is cumulative and requires consistent effort. All assignments must be completed carefully and on time. Presentation quality (organization, clarity, tables, charts, graphs, maps, and technical discussion) is considered part of grading. Students are expected to actively engage, keep up with readings, participate, and seek help early when difficulties arise.
+%\item Electronic devices may be used only for class-related activities as directed by the instructor. Headphones and non-class-related browsing are not permitted during class without explicit approval.
+%\item Audio or video recording of lectures or any portion of the course is prohibited without written instructor permission. Unauthorized recording constitutes a violation of student conduct.
+%\item Use of others’ ideas is encouraged as part of scholarly work, but all sources must be properly cited. Proper attribution is required for all coursework and projects.
+%\end{itemize}
+
+\small
+
+% -------------------------------------------------
+\section*{University Policies}
+
+% -------------------------------------------------
+\subsection*{Attendance}
+The university views class attendance and participation as an individual student responsibility. Students are expected to attend class and to complete all assignments. Please refer to Student Rule 7 in its entirety for information about excused absences, including definitions, and related documentation and timelines.
+
+% -------------------------------------------------
+\subsection*{Student Observances for Religious Holy Days}
+In accordance with Texas Education Code \S51.911(b) and Texas A\&M Student Rule 7: Attendance, students shall be excused from attending classes or other required activities, including examinations, for the observance of a religious holy day, including travel for that purpose. For more information about excused absences due to religious holy days, please visit the Faculty Affairs website (under Other University Guidelines).
+
+% -------------------------------------------------
+\subsection*{Makeup Work}
+Students will be excused from attending class on the day of a graded activity or when attendance contributes to a student’s grade, for the reasons stated in Student Rule 7, or other reason deemed appropriate by the instructor. Please refer to Student Rule 7 in its entirety for information about makeup work, including definitions, and related documentation and timelines.
+Absences related to Title IX of the Education Amendments of 1972 may necessitate a period of more than 30 days for make-up work, and the timeframe for make-up work should be agreed upon by the student and instructor (Student Rule 7, Section 7.4.1).
+``The instructor is under no obligation to provide an opportunity for the student to make up work missed because of an unexcused absence'' (Student Rule 7, Section 7.4.2).
+Students who request an excused absence are expected to uphold the Aggie Honor Code and Student Conduct Code. (See Student Rule 24.)
+
+% -------------------------------------------------
+\subsection*{Academic Integrity Statement}
+\hl{``An Aggie does not lie, cheat or steal, or tolerate those who do.''}
+``Texas A\&M University students are responsible for authenticating all work submitted to an instructor. If asked, students must be able to produce proof that the item submitted is indeed the work of that student. Students must keep appropriate records at all times. The inability to authenticate one’s work, should the instructor request it, may be sufficient grounds to initiate an academic misconduct case'' (Section 20.1.2.3, Student Rule 20).
+You can learn more about the Aggie Honor System Office Rules and Procedures, academic integrity, and your rights and responsibilities at aggiehonor.tamu.edu.
+
+% -------------------------------------------------
+\subsection*{Plagiarism}
+According to the Texas A\&M University Definitions of Academic Misconduct, plagiarism is the appropriation of another person's ideas, processes, results or words without giving appropriate credit (aggiehonor.tamu.edu). You should credit your use of anyone else's words, graphic images, or ideas using standard citation styles. AI text generators (ChatGPT, Google Bard, etc.) should not be used for any work for this class without explicit permission of the instructor and appropriate attribution. This includes, but is not limited to:
+(\emph{i}) creating or revising drafts, (\emph{ii}) editing your work, (\emph{iii}) reviewing a peer's work.
+This excludes pre-existing software additions such as spelling and grammar checkers, which are acceptable.
+Such use of AI text generators in this manner could be considered plagiarism and cheating according to Student Rule 20. More information may also be found at \url{https://aggiehonor.tamu.edu} or you may contact your instructor if you have questions.
+
+% -------------------------------------------------
+\subsection*{Americans with Disabilities Act (ADA)}
+Texas A\&M University is committed to providing equitable access to learning opportunities for all students. If you experience barriers to your education due to a disability or think you may have a disability, please contact the Disability Resources office on your campus. Disabilities may include, but are not limited to attentional, learning, mental health, sensory, physical, or chronic health conditions. All students are encouraged to discuss their disability related needs with Disability Resources and their instructors as soon as possible.
+Disability Resources is in the Student Services Building or at (979) 845-1637 or visit \url{https://disability.tamu.edu}.
+
+% -------------------------------------------------
+\subsection*{Title IX and Statement on Limits to Confidentiality}
+Texas A\&M University is committed to fostering a learning environment that is safe and productive for all. University policies and federal and state laws prohibit gender-based discrimination and sexual harassment, including sexual assault, sexual exploitation, domestic violence, dating violence, and stalking.
+With the exception of some medical and mental health providers, all university employees (including full and part-time faculty, staff, paid graduate assistants, student workers, etc.) are Mandatory Reporters and must report to the Title IX Office if the employee experiences, observes, or becomes aware of an incident that meets the following conditions (see University Rule 08.01.01.M1):
+(\emph{i}) the incident is reasonably believed to be discrimination or harassment,
+(\emph{ii}) the incident is alleged to have been committed by or against a person who, at the time of the incident, was a student or employee of the University.
+\\[.5ex]
+Mandatory Reporters must file a report regardless of how the information comes to their attention – including but not limited to face-to-face conversations, a written class assignment or paper, class discussion, email, text, or social media post.
+Students wishing to discuss concerns related to mental and/or physical health in a confidential setting are encouraged to make an appointment with University Health Services or download the TELUS Health Student Support app for 24/7 access to professional counseling in multiple languages. Walk-in services for urgent, non-emergency needs are available during normal business hours at University Health Services locations; call 979.458.4584 for details.
+Students can learn more about filing a report, accessing supportive resources, and navigating the Title IX investigation and resolution process on the University’s Title IX webpage.
+
+% -------------------------------------------------
+\subsection*{Statement on Mental Health and Wellness}
+Texas A\&M University recognizes that mental health and wellness are critical factors influencing a student’s academic success and overall wellbeing. Students are encouraged to engage in healthy self-care practices by utilizing the resources and services available through University Health Services. The TELUS Health Student Support app provides access to professional counseling in multiple languages anytime, anywhere by phone or chat, and the 988 Suicide \& Crisis Lifeline offers 24-hour emergency support at 988 or \url{https://988lifeline.org}.
+
+% -------------------------------------------------
+\subsection*{Pregnancy Accommodations}
+Texas A\&M provides reasonable accommodations to students due to pregnancy and/or related conditions, such as childbirth, recovery and lactation. Students should contact the University’s Pregnancy Coordinator as soon as they become aware of the need for accommodation. Depending on the circumstances, accommodations could include extended time to complete assignments or exams, changes in course sequence, or modifications to the physical classroom environment. Texas A\&M will also allow a voluntary leave of absence, ensure the availability of lactation space, and maintain grievance procedures to provide for the prompt and equitable resolution of complaints of sex discrimination. For information regarding pregnancy accommodations, email \url{TIX.Pregnancy@tamu.edu}.
+
+\end{document}
+
+%\item Johnson et al. \textit{Bayes Rules! An Introduction to Applied Bayesian Modeling}. \url{https://www.bayesrulesbook.com}
+
+%\begin{tabularx}{\textwidth}{l l l} \toprule
+%Week & Topic & Exam \\ \midrule
+%1    & Introduction, \href{https://www.bayesrulesbook.com/chapter-1}{Thinking like a Bayesian} \\
+%2    & Rational Choice under Certainty, \href{https://www.bayesrulesbook.com/chapter-2}{Bayes' Rule} \\
+%3    & Decision-Making under Certainty, \href{https://www.bayesrulesbook.com/chapter-3}{The Beta-Binomial Bayesian Model} \\
+%4    & Probability Judgment, \href{https://www.bayesrulesbook.com/chapter-4}{Balance and Sequentiality in Bayesian Analyses} \\
+%5    & \href{https://www.bayesrulesbook.com/chapter-7}{Computational Aspects of Bayes' Inference (MCMC under the Hood)} & Midterm \#1 \\ \midrule
+%6    & Judgment under Risk and Uncertainty, \href{https://www.bayesrulesbook.com/chapter-8}{Posterior Inference \& Prediction} \\
+%7    & Rational Choice under Risk and Uncertainty, \href{https://www.bayesrulesbook.com/chapter-9}{Simple Normal Regression} \\
+%8    & Decision-Making under Risk and Uncertainty, \href{https://www.bayesrulesbook.com/chapter-9}{Simple Normal Regression cont.} \\
+%9    & The Discounted Utility Model, \href{https://www.bayesrulesbook.com/chapter-10}{Evaluating Regression Models} \\
+%10   & \href{https://www.bayesrulesbook.com/chapter-11}{Extending the Normal Regression Model} & Midterm \#2 \\ \midrule
+%11   & Intertemporal Choice, \href{https://www.bayesrulesbook.com/chapter-13}{Logistic Regression} \\
+%12   & Analytical Game Theory, \href{https://www.bayesrulesbook.com/chapter-15}{Basics of Hierarchical Models} \\
+%13   & Behavioral Game Theory, Behavioral Policy, Nudge \\
+%14   & Presentations, Case Studies, Future Trends (ML, AI) & Final \\
+%\bottomrule
+%\end{tabularx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Assignments                    & 10\%               & Biweekly homework \& practice questions \\
+%Final Exam                     & 20\%               & Content on week 1--13 \\
+
+%\item Software: {\large\texttt{R}} \url{https://cran.r-project.org} \quad RStudio \url{https://posit.co/rstudio-desktop} % MS Excel, 
+
+%\item Lecture, notes, research papers (posted on Canvas).
+
+%\item Kochenderfer. \textit{Decision Making Under Uncertainty}. \url{https://doi.org/10.7551/mitpress/10187.001.0001}
+%\item Huntington-Klein. \textit{The Effect: An Introduction to Research Design and Causality}. \url{https://theeffectbook.net}
+%\item Cunningham. \textit{Causal Inference, The Mixtape}. \url{https://mixtape.scunning.com}
+%\item Whickham et al. \textit{R for Data Science}. \url{https://r4ds.hadley.nz}
+%\item Kahneman, \textit{Thinking, Fast and Slow}
+%\item Thaler \& Sunstein, \textit{Nudge: Improving Decisions About Health, Wealth, and Happiness}
+%\item Bertsekas, \textit{Dynamic Programming \& Optimal Control, Vol. I}
+%\item Kochenderfer, \textit{Algorithms for Decision Making}, \href{https://mitpress.mit.edu/9780262047012/algorithms-for-decision-making/}{{The MIT Press Open Access.}}
+%\item Martin, Kumarand, Lao, \textit{Bayesian Modeling and Computation in Python}, \href{https://bayesiancomputationbook.com/welcome.html}{{Open Access.}}
+%\item Clemen \& Reilly, \textit{Making Hard Decisions}
+
+%\begin{tabular}{l l l}
+%\toprule
+%Week & Topics                                                                      & Readings \\
+%\midrule
+%\multicolumn{3}{l}{\textbf{Modeling Decisions}}                                       \\
+%1    & Introduction, risk, economic foundations                                    &  \\
+%2    & Elements of decision problems, inter-temporal choice                        &  \\
+%3    & Structuring decisions, making choices                                       &  \\
+%4    & Sensitivity analysis                                                        &  \\
+%& \emph{Exam \#1}                                                                 &  \\
+%\midrule
+%\multicolumn{3}{l}{\textbf{Modeling Uncertainty}} \\
+%5    & Probability foundations, conditional probability                            &  \\
+%6    & Distributions and probability models                                        &  \\
+%7    & Linear and logistics regressions                                            &  \\
+%8    & Simulation models, value of information                                     &  \\
+%& \emph{Exam \#2}                                                                 &  \\
+%\midrule
+%\multicolumn{3}{l}{\textbf{Modeling Preferences}}                                     \\
+%9    & Preferences, expected utility, prospect theory, loss aversion, nudge        &  \\
+%10   & Paradoxes, heuristics and biases, more social preferences                   &  \\
+%11   & Game theory, strategic interaction (incentives under uncertainty)           &  \\
+%12   & Human-algorithm decisions (trust, transparency, automation bias)            &  \\
+%13   & Prescriptive analytics, simulation (link predictive models to optimization) &  \\
+%14   & Case study presentations                                                    &  \\
+%& \emph{Final Exam}                                                               &  \\
+%\bottomrule
+%\end{tabular}
+
+%\begin{tabular}{l l l}
+%\toprule
+%Week & Topics & Readings \\
+%\midrule
+%1    & Introduction, foundations (preferences, rationality, utility) &  \\
+%2    & Math background and expected value                            &  \\
+%3    & Expected utility theory and anomalies                         &  \\
+%4    & Prospect theory                                               &  \\
+%     & \emph{Exam \#1} & \\
+%\midrule
+%5    & Conditional probability                 &  \\
+%6    & Distributions and probability models    &  \\
+%7    & Linear and logistics regressions        &  \\
+%8    & Simulation models, value of information &  \\
+%     & \emph{Exam \#2} & \\
+%\midrule
+%9    & Risk, prospect theory, loss aversion    &  \\
+%10   & Expected utility \& paradoxes           &  \\
+%11   & Game theory, strategic interaction (incentives under uncertainty) &  \\
+%12   & Human-algorithm decisions (trust, transparency, automation bias)  &  \\
+%13   & Prescriptive analytics, simulation (link predictive models to optimization) &  \\
+%14   & Case study presentations                                                    &  \\
+%& \emph{Final Exam} & \\
+%\bottomrule
+%\end{tabular}
