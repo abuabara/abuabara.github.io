@@ -22,6 +22,8 @@ Scale           = MatchLowercase
 ]{Frutiger LT Pro}
 \renewcommand{\familydefault}{\sfdefault}
 \linespread{1.}\selectfont
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
 
 %  COLORS & THEMES ------------------------------
 \definecolor{aggiemaroon}{RGB}{80,0,0}
@@ -112,17 +114,134 @@ under certain \textbf{objectives} and \textbf{constraints}.\\
 
 %------------------------------------------------
 \begin{frame}{}
+\begin{block}{Decision and Risk Analysis, Examples}
+\begin{enumerate}
+\item \textbf{Modeling Decisions}\\A student chooses between studying for an exam tonight or attending a social event.
+\item \textbf{Modeling Risk}\\A company launches a new product knowing there is a 70\% chance of high demand and a 30\% chance of low demand.
+\item \textbf{Modeling Uncertainty}\\A farmer decides what crop to plant without knowing how much rain will fall this season.
+\item \textbf{Modeling Preferences}\\A traveler chooses between a cheaper flight with a long layover and a more expensive direct flight.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
 \begin{block}{Bayesian Modeling for Decision Analysis}
 \begin{itemize}
 \item Bayesian modeling provides a way to update beliefs as new information becomes available.
 \item It combines:
 \begin{enumerate}
-\item \textbf{Prior beliefs}: what we know or assume before seeing new data.
+\item \textbf{Prior beliefs}: what we know / assume before seeing new data.
 \item \textbf{Evidence/data}: new information relevant to the decision.
 \item \textbf{Posterior beliefs}: updated probabilities after incorporating the evidence.
 \end{enumerate}
 \item In decision analysis, Bayesian modeling helps decision makers revise risk estimates and make better choices under uncertainty.
 \item In short, it supports learning from evidence and improving decisions over time.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Bayesian vs.\ Frequentist Thinking}
+\footnotesize
+\renewcommand{\arraystretch}{1.1}
+
+\begin{tabular}
+{@{}p{1.4cm}
+>{\raggedright\arraybackslash}p{4.65cm}
+>{\raggedright\arraybackslash}p{4.15cm}@{}}
+\toprule
+& \textbf{Frequentist} & \textbf{Bayesian} \\
+\midrule
+Probability
+& Long-run frequency
+& Degree of belief \\ \hline
+Fixed
+& True parameter
+& Observed data \\ \hline
+Varies
+& Sample data
+& Belief about parameter \\ \hline
+Main idea
+& ``What happens in repeated trials?''
+& ``What should I believe now?'' \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.2cm}
+
+\begin{itemize}
+\item[] \textbf{Is this coin fair?}
+\item \textbf{Frequentist:} ``If the coin were fair, how surprising would these flips be?''
+\item \textbf{Bayesian:} ``Given these flips, how much should I believe the coin is fair?''
+\end{itemize}
+\end{block}
+\end{frame}
+
+{
+\setbeamercolor{background canvas}{bg=blue!10}
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz 1}
+When flipping a fair coin, we say that "the probability of flipping Heads is 0.5." How do you interpret this probability?
+\begin{itemize}
+\item[a.] If I flip this coin over and over, roughly 50\% will be Heads.
+\item[b.] Heads and Tails are equally plausible.
+\item[c.] Both a and b make sense.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz 2}
+An election is coming up and a pollster claims that candidate A has a 0.9 probability of winning. How do you interpret this probability?
+\begin{itemize}
+\item[a.] If we observe the election over and over, candidate A will win roughly 90\% of the time.
+\item[b.] Candidate A is much more likely to win than to lose.
+\item[c.] The pollster’s calculation is wrong. Candidate A will either win or lose, thus their probability of winning can only be 0 or 1.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz 3}
+Consider two claims:
+\begin{itemize}
+\item[1] Zuofu claims that he can predict the outcome of a coin flip. To test his claim, you flip a fair coin 10 times and he correctly predicts all 10.
+\item[2] Kavya claims that she can distinguish natural and artificial sweeteners. To test her claim, you give her 10 sweetener samples and she correctly identifies each.
+\end{itemize}
+
+In light of these experiments, what do you conclude?
+
+\begin{itemize}
+\item[a.] You’re more confident in Kavya’s claim than Zuofu’s claim.
+\item[b.] The evidence supporting Zuofu’s claim is just as strong as the evidence supporting Kavya’s claim.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz 4}
+Suppose that during a recent doctor’s visit, you tested positive for a very rare disease. If you only get to ask the doctor one question, which would it be?
+\begin{itemize}
+\item[a.] What’s the chance that I actually have the disease?
+\item[b.] If in fact I don’t have the disease, what’s the chance that I would’ve gotten this positive test result?
+\end{itemize}
+\end{block}
+\end{frame}
+}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+\begin{itemize}
+\item 
+\item 
+\item 
 \end{itemize}
 \end{block}
 \end{frame}
@@ -139,14 +258,66 @@ under certain \textbf{objectives} and \textbf{constraints}.\\
 \end{frame}
 
 %------------------------------------------------
-%\begin{frame}{}
-%\begin{block}{}
-%\begin{itemize}
-%\item 
-%\item 
-%\item 
-%\end{itemize}
-%\end{block}
-%\end{frame}
+\begin{frame}{}
+\begin{block}{}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+{
+\setbeamercolor{background canvas}{bg=orange!10}
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 1.3\\(When was the last time you changed your mind?)}
+Think of a recent situation in which you changed your mind.
+As with the Italian restaurant example (Figure 1.1), make a diagram that includes your prior information, your new data that helped you change your mind, and your posterior conclusion.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 1.6 (Applying for an internship)}
+There are several data scientist openings at a much-ballyhooed company.
+Having read the job description, you know for a fact that you are qualified for the position: this is your data.
+Your goal is to ascertain whether you will actually be offered a position: this is your hypothesis.
+\begin{itemize}
+\item[a.] From the perspective of someone using frequentist thinking, what question is answered in testing the hypothesis that you’ll be offered the position?
+\item[b.] Repeat part a from the perspective of someone using Bayesian thinking.
+\item[c.] Which question would you rather have the answer to: the frequentist or the Bayesian? Explain your reasoning.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 1.7 (You already know stuff)}
+There are several data scientist openings at a much-ballyhooed company.
+Having read the job description, you know for a fact that you are qualified for the position: this is your data.
+Your goal is to ascertain whether you will actually be offered a position: this is your hypothesis.
+\begin{itemize}
+\item[a.] Identify a topic that you know about (e.g., a sport, a school subject, music).
+\item[b.] Identify a hypothesis about this subject.
+\item[c.] How would your current expertise inform your conclusion about this hypothesis?
+\item[d.] Which framework are you employing here, Bayesian or frequentist?
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 1.8 (Benefits of Bayesian Statistics)}
+Your friend just became interested in Bayesian statistics.
+Explain the following to them:
+\begin{itemize}
+\item[a.] Why is Bayesian statistics useful?
+\item[b.] What are the similarities in Bayesian and frequentist statistics?
+\end{itemize}
+\end{block}
+\end{frame}
+}
 
 \end{document}
