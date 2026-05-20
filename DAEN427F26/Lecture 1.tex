@@ -5,6 +5,7 @@
 \usepackage{subcaption}
 \usepackage{tikz, pgfplots}
 \pgfplotsset{compat=1.18}
+\usetikzlibrary{positioning, arrows.meta, arrows.meta, positioning, shapes, calc}
 \usepackage[many]{tcolorbox}
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{minted}
@@ -143,39 +144,92 @@ under certain \textbf{objectives} and \textbf{constraints}.\\
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{block}{Bayesian vs.\ Frequentist Thinking}
-\footnotesize
-\renewcommand{\arraystretch}{1.1}
-
-\begin{tabular}
-{@{}p{1.4cm}
->{\raggedright\arraybackslash}p{4.65cm}
->{\raggedright\arraybackslash}p{4.15cm}@{}}
-\toprule
-& \textbf{Frequentist} & \textbf{Bayesian} \\
-\midrule
-Probability
-& Long-run frequency
-& Degree of belief \\ \hline
-Fixed
-& True parameter
-& Observed data \\ \hline
-Varies
-& Sample data
-& Belief about parameter \\ \hline
-Main idea
-& ``What happens in repeated trials?''
-& ``What should I believe now?'' \\
-\bottomrule
-\end{tabular}
+\begin{block}{A Bayesian Knowledge-Building Diagram}
 
 \vspace{0.2cm}
 
-\begin{itemize}
-\item[] \textbf{Is this coin fair?}
-\item \textbf{Frequentist:} ``If the coin were fair, how surprising would these flips be?''
-\item \textbf{Bayesian:} ``Given these flips, how much should I believe the coin is fair?''
-\end{itemize}
+\begin{tikzpicture}[
+    >=Stealth,
+    every node/.style={
+        draw,
+        ellipse,
+        minimum width=2.2cm,
+        minimum height=1cm,
+        font=\bfseries
+    }
+]
+
+% spacing parameters
+\def\hsep{1.cm}
+\def\vsep{1.cm}
+
+% Top row
+\node[fill=yellow!30] (prior1) {Prior};
+\node[fill=green!30, right=\hsep of prior1] (data1) {Data};
+
+% First posterior
+\node[fill=cyan!30, below=\vsep of $(prior1)!0.5!(data1)$] (post1) {Posterior};
+
+% Arrows to first posterior
+\draw[->, thick] (prior1) -- (post1);
+\draw[->, thick] (data1) -- (post1);
+
+\end{tikzpicture}
+
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{A Bayesian Knowledge-Building Diagram}
+
+\vspace{0.2cm}
+
+\begin{tikzpicture}[
+    >=Stealth,
+    every node/.style={
+        draw,
+        ellipse,
+        minimum width=2.2cm,
+        minimum height=1cm,
+        font=\bfseries
+    }
+]
+
+% spacing parameters
+\def\hsep{1.cm}
+\def\vsep{1.cm}
+
+% Top row
+\node[fill=yellow!30] (prior1) {Prior};
+\node[fill=green!30, right=\hsep of prior1] (data1) {Data};
+
+% First posterior
+\node[fill=cyan!30, below=\vsep of $(prior1)!0.5!(data1)$] (post1) {Posterior};
+
+% Arrows to first posterior
+\draw[->, thick] (prior1) -- (post1);
+\draw[->, thick] (data1) -- (post1);
+
+% Second row
+\node[right=\hsep of post1] (data2) {New data};
+
+% Second posterior
+\node[below=\vsep of $(post1)!0.5!(data2)$] (post2) {Posterior};
+
+% Arrows to second posterior
+\draw[->, thick] (post1) -- (post2);
+\draw[->, thick] (data2) -- (post2);
+
+% Third new data
+\node[right=\hsep of post2] (data3) {New data};
+
+% Dashed continuation arrows
+\draw[->, dashed, thick] (post2) -- ++(1.5,-1.5);
+\draw[->, dashed, thick] (data3) -- ++(-1.5,-1.5);
+
+\end{tikzpicture}
+
 \end{block}
 \end{frame}
 
@@ -237,34 +291,158 @@ Suppose that during a recent doctor’s visit, you tested positive for a very ra
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{block}{}
+\begin{block}{Interpreting Probability}
 \begin{itemize}
-\item 
-\item 
-\item 
+\item The frequentist philosophy is so named for its interpretation of probability as the long-run relative frequency of a repeatable event.
+\item In the Bayesian philosophy, a probability measures the relative plausibility of an event.
 \end{itemize}
 \end{block}
+
+\begin{itemize}
+\item[] \textbf{Is this coin fair?}
+\item \textbf{Frequentist:} ``If the coin were fair, how surprising would these flips be?''
+\item \textbf{Bayesian:} ``Given these flips, how much should I believe the coin is fair?''
+\end{itemize}
+
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{block}{}
+\begin{block}{One-Time Events}
 \begin{itemize}
-\item 
-\item 
-\item 
+\item Many important events are unrepeatable:
+
+\begin{itemize}
+\item[] Big Bang, elections, weather and climate change, ...
+\end{itemize}
+
+\item \textbf{Frequentist} probability can be awkward for one-time events because there is no long-run repetition.
+\item \textbf{Bayesian} probability is more flexible:
+
+\begin{itemize}
+\item It expresses degree of belief.
+\item It incorporates model, evidence, and uncertainty.
+\end{itemize}
 \end{itemize}
 \end{block}
+
+\begin{itemize}
+\item A 0.9 probability of winning means the candidate is considered 9 times more likely to win than lose.
+\end{itemize}
+
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{block}{}
+\begin{block}{The Bayesian Balancing Act}
 \begin{itemize}
-\item 
-\item 
-\item 
+\item Bayesian and frequentist approaches interpret the same evidence differently:
+\begin{itemize}
+\item \textbf{Frequentist:} Treats "10 out of 10" identically in all cases.
+\item \textbf{Bayesian:} Plausibility on observed evidence given prior beliefs.
 \end{itemize}
+\end{itemize}
+\end{block}
+
+\begin{itemize}
+\item[] Both achieve 10 out of 10 correct in testing:
+\item Zuofu claims he can predict coin flips.
+\item[] ... is doubtful, predicting coin flips is highly implausible.
+\item Kavya claims she can distinguish natural / artificial sweeteners.
+\item[] ... is more believable.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Ask Questions!}
+\begin{itemize}
+\item A frequentist analysis assesses the uncertainty of the observed data in light of an assumed hypothesis.
+\item A Bayesian analysis assesses the uncertainty of the hypothesis in light of the observed data.
+\end{itemize}
+\end{block}
+
+\textbf{Scenario:}
+\begin{itemize}
+    \item Population: 100 people
+    \item 4 have the disease, 96 do not have the disease
+        \begin{center}
+        \begin{tabular}{lccc}
+        \hline
+         & \textbf{Test +} & \textbf{Test --} & \textbf{Total} \\
+        \hline
+        Disease & 3 & 1 & 4 \\
+        No disease & 9 & 87 & 96 \\
+        \hline
+        Total & 12 & 88 & 100 \\
+        \hline
+        \end{tabular}
+        \end{center}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{}
+\textbf{Frequentist question:} $P(\text{Positive Test} \mid \text{No Disease})$
+\begin{itemize}
+    \item Among the 96 healthy people, 9 tested positive
+    \item False positive rate: $\frac{9}{96} \approx 0.10$
+    \item If a person does \emph{not} have the disease, there is about a 10\% chance of testing positive.
+    \begin{itemize}
+        \item Frequentist analysis focuses on: $P(\text{Data} \mid \text{Null Hypothesis})$
+        \item A p-value is \emph{not} the probability that the hypothesis is true.\\ (common misunderstanding)
+    \end{itemize}
+\end{itemize}
+
+\vspace{.2cm}
+
+\textbf{Bayesian question:} $P(\text{Disease} \mid \text{Positive Test})$
+\begin{itemize}
+    \item Only 3 of the 12 positive tests are true positives.
+    \item Probability of actually having the disease: $\frac{3}{12} = 0.25$
+    \item Even with a positive test, there is only a 25\% chance of having the disease.
+    \begin{itemize}
+    \item $\text{Sensitivity}: P(+ \mid \text{Disease}) = \frac{3}{4} = 75\%$
+	\item $\text{Specificity}: P(- \mid \text{No Disease}) = \frac{87}{96} \approx 90.6\%$
+	\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{The Meaning of Probability}
+
+\textbf{Probability describes uncertainty.}
+\vspace{0.2cm}
+
+\begin{columns}[t]
+\begin{column}{0.45\textwidth}
+\textbf{Frequentist:}
+\begin{itemize}
+    \item Probability is\\a \textbf{long-run frequency}.
+    \item Describes what happens over many repeated trials.
+\end{itemize}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\textbf{Bayesian:}
+\begin{itemize}
+    \item Probability is\\a \textbf{degree of belief}.
+    \item Measures how plausible something is given current information.
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.4cm}
+Bayesian thinking updates beliefs using evidence:
+\[
+\text{Posterior} \propto \text{Prior} \times \text{Likelihood}
+\]
+Probability is not only about randomness;\\
+it is a mathematical language for learning under uncertainty.
 \end{block}
 \end{frame}
 
@@ -272,29 +450,35 @@ Suppose that during a recent doctor’s visit, you tested positive for a very ra
 \setbeamercolor{background canvas}{bg=orange!10}
 %------------------------------------------------
 \begin{frame}{Homework}
-\begin{block}{Question 1.3\\(When was the last time you changed your mind?)}
+\begin{block}{Question 1\\(When was the last time you changed your mind?)}
 Think of a recent situation in which you changed your mind.
-As with the Italian restaurant example (Figure 1.1), make a diagram that includes your prior information, your new data that helped you change your mind, and your posterior conclusion.
+As with the Italian restaurant example (Figure "Bayesian Knowledge-Building Diagram"), 
+make a diagram that includes your prior information, 
+your new data that helped you change your mind, and your posterior conclusion.
 \end{block}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}{Homework}
-\begin{block}{Question 1.6 (Applying for an internship)}
+\begin{block}{Question 2 (Applying for an internship)}
 There are several data scientist openings at a much-ballyhooed company.
-Having read the job description, you know for a fact that you are qualified for the position: this is your data.
-Your goal is to ascertain whether you will actually be offered a position: this is your hypothesis.
+Having read the job description, you know for a fact that you are qualified for the position: 
+this is your data.
+Your goal is to ascertain whether you will actually be offered a position: 
+this is your hypothesis.
 \begin{itemize}
-\item[a.] From the perspective of someone using frequentist thinking, what question is answered in testing the hypothesis that you’ll be offered the position?
+\item[a.] From the perspective of someone using frequentist thinking, 
+what question is answered in testing the hypothesis that you’ll be offered the position?
 \item[b.] Repeat part a from the perspective of someone using Bayesian thinking.
-\item[c.] Which question would you rather have the answer to: the frequentist or the Bayesian? Explain your reasoning.
+\item[c.] Which question would you rather have the answer to: 
+the frequentist or the Bayesian? Explain your reasoning.
 \end{itemize}
 \end{block}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}{Homework}
-\begin{block}{Question 1.7 (You already know stuff)}
+\begin{block}{Question 3 (You already know stuff)}
 There are several data scientist openings at a much-ballyhooed company.
 Having read the job description, you know for a fact that you are qualified for the position: this is your data.
 Your goal is to ascertain whether you will actually be offered a position: this is your hypothesis.
@@ -309,7 +493,7 @@ Your goal is to ascertain whether you will actually be offered a position: this 
 
 %------------------------------------------------
 \begin{frame}{Homework}
-\begin{block}{Question 1.8 (Benefits of Bayesian Statistics)}
+\begin{block}{Question 4 (Benefits of Bayesian Statistics)}
 Your friend just became interested in Bayesian statistics.
 Explain the following to them:
 \begin{itemize}
@@ -318,6 +502,231 @@ Explain the following to them:
 \end{itemize}
 \end{block}
 \end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{columns}[c]
+% Left column: image
+    \begin{column}{0.32\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{Bags.jpg}
+    \end{column}
+% Right column: text
+    \begin{column}{0.66\textwidth}
+    \begin{block}{Question 5}
+    \small
+    Let's suppose that you are an air traveler along with 99 other passengers from your flight, each of whom, like you, checked one item of luggage.
+    
+    \vspace{0.2cm}
+    
+    A recording piped through the speakers reminds you that:
+    \emph{``Many bags look alike. Please check your bag carefully before exiting the terminal.''}
+    
+    \vspace{0.2cm}
+    
+    Indeed, your bag is one of the most popular models on the market, a medium-sized black rectangular case used by 5 percent of all travelers.
+    
+    \vspace{0.2cm}
+    
+    Given your distance from the luggage chute, you can discern only the shape, size, and color of the bags that emerge, not any detailed markings on the bags.
+    \end{block}
+    \end{column}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+[5a.] Let's suppose that the first bag from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
+      Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
+
+\vspace{0.4cm}
+    
+[5b.] Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
+      Calculate the posterior probability that the 99th bag, which also matches ours in shape, size, and color, is our own.
+
+\end{frame}
+}
+
+{
+\setbeamercolor{background canvas}{bg=blue!10}
+%------------------------------------------------
+\begin{frame}{}
+[a.] Let's suppose that the first bag from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
+     Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
+
+    \textbf{Answer:}
+    {\color{blue}
+    \footnotesize
+    Let \(Y\) = first bag is yours, and \(M\) = first bag matches.
+    
+    \[
+    \begin{aligned}
+    &P(Y)=\frac{1}{100}\\
+    &\mathcal{L}(Y^c\mid M)=P(M\mid Y^c)=0.05\\
+    &\mathcal{L}(Y\mid M)=P(M\mid Y)=1\\
+    \end{aligned}
+    \]
+    
+    \[
+    \begin{aligned}
+    P(Y\mid M)&=\frac{P(M\mid Y)P(Y)}{P(M)}
+              =\frac{P(M\mid Y)P(Y)}
+                     {P(M\mid Y)P(Y)+P(M\mid Y^c)P(Y^c)}=\\
+    &=\frac{1\cdot 0.01}{1\cdot 0.01+0.05\cdot 0.99}
+    =\frac{0.01}{0.0595}\approx 0.168
+    \end{aligned}
+    \]
+    
+    So even though the first bag matches, it is probably not yours.
+
+    }
+    \end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+[b.] Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
+     Calculate the posterior probability that the 99th bag, which also matches ours in shape, size, and color, is our own.
+     
+    \textbf{Answer:}
+    {\color{blue}
+    \footnotesize
+    \[
+    \begin{aligned}
+    P(Y\mid M)
+    &=\frac{1\cdot \tfrac{1}{\text{total of bags remaining}}}
+           {1\cdot \tfrac{1}{\text{total of bags remaining}} + 0.05\cdot \tfrac{\text{total of bags remaining} - 1}{\text{total of bags remaining}}}\\
+    &\text{(if 2 bags remain)}\\
+    &=\frac{1\cdot \tfrac{1}{2}}
+           {1\cdot \tfrac{1}{2} + 0.05\cdot \tfrac{1}{2}}=\frac{1}{1+0.05} \approx 0.9524
+    \end{aligned}
+    \]
+    
+    There is a 95.24\% chance that the 99th bag is mine given that it looks like mine.
+    }
+\end{frame}
 }
 
 \end{document}
+
+%------------------------------------------------
+%\begin{frame}{}
+%\begin{block}{Bayesian vs.\ Frequentist Thinking}
+%\footnotesize
+%\renewcommand{\arraystretch}{1.1}
+%
+%\begin{tabular}
+%{@{}p{1.4cm}
+%>{\raggedright\arraybackslash}p{4.65cm}
+%>{\raggedright\arraybackslash}p{4.15cm}@{}}
+%\toprule
+%& \textbf{Frequentist} & \textbf{Bayesian} \\
+%\midrule
+%Probability
+%& Long-run frequency
+%& Degree of belief \\ \hline
+%Fixed
+%& True parameter
+%& Observed data \\ \hline
+%Varies
+%& Sample data
+%& Belief about parameter \\ \hline
+%Main idea
+%& ``What happens in repeated trials?''
+%& ``What should I believe now?'' \\
+%\bottomrule
+%\end{tabular}
+%
+%\vspace{0.2cm}
+%
+%\begin{itemize}
+%\item[] \textbf{Is this coin fair?}
+%\item \textbf{Frequentist:} ``If the coin were fair, how surprising would these flips be?''
+%\item \textbf{Bayesian:} ``Given these flips, how much should I believe the coin is fair?''
+%\end{itemize}
+%\end{block}
+%\end{frame}
+
+%------------------------------------------------
+%\begin{frame}{}
+%\begin{block}{A Simple Bayesian Network\\for a Probabilistic Risk Assessment}
+%\begin{center}
+%\begin{tikzpicture}[
+%    >=Stealth,
+%    every node/.style={
+%        draw,
+%        ellipse,
+%        minimum width=2.2cm,
+%        minimum height=1cm,
+%        font=\bfseries
+%    }
+%]
+%
+%% spacing parameters
+%\def\hsep{1.cm}
+%
+%% Top row
+%\node[fill=yellow!30] (threat) {Threat};
+%\node[fill=green!30, right=\hsep of threat] (vulnerability) {Vulnerability};
+%
+%% First posterior
+%\node[fill=cyan!30, right=\hsep of vulnerability] (impact) {Impact};
+%
+%% Arrows to first posterior
+%\draw[->, thick] (threat) -- (vulnerability);
+%\draw[->, thick] (vulnerability) -- (impact);
+%
+%\end{tikzpicture}
+%\end{center}
+%\end{block}
+%\begin{itemize}
+%\item Threat: intensity of a hazard
+%\item Vulnerability: susceptibility given a threat intensity
+%\item Impact: resulting consequence, severity, or loss
+%\end{itemize}
+%\begin{block}{}
+%\centering
+%$\text{Risk} = P(T)\,P(V \mid T)\,\mathbb{E}[\ell(I) \mid T,V]$
+%\end{block}
+%\end{frame}
+
+%------------------------------------------------
+%\begin{frame}{}
+%\begin{block}{Example: Cybersecurity Risk Assessment}
+%\begin{itemize}
+%    \item A phishing threat has a 20\% probability of occurring: $P(T)=0.20$
+%    \item Given the threat, the organization has a 40\% probability of being vulnerable: $P(V \mid T)=0.40$
+%    \item If the threat succeeds and the system is vulnerable, the expected loss is: $\mathbb{E}[\ell(I)\mid T,V] = \$500{,}000$
+%\end{itemize}
+%
+%\vspace{0.2cm}
+%
+%\[
+%\begin{aligned}
+%\textbf{Expected Risk} &= P(T)\,P(V \mid T)\,\mathbb{E}[\ell(I)\mid T,V]\\
+%                       &= 0.20 \times 0.40 \times 500{,}000 = \$40{,}000
+%\end{aligned}
+%\]
+%
+%The expected cybersecurity risk associated with the phishing threat is \$40{,}000
+%\end{block}
+%\end{frame}
+
+%------------------------------------------------
+%\begin{frame}{}
+%\begin{block}{For example,}
+%\begin{center}
+%\includegraphics[height=.625\textwidth]{SimpleBayesNet.png}
+%\end{center}
+%\end{block}
+%\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
