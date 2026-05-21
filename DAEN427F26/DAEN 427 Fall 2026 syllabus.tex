@@ -57,7 +57,7 @@
 
 % -------------------------------------------------
 \begin{document}
-\title{\color{aggiemaroon}{\textbf{DAEN 427 / ISEN 427 Decision and Risk Analysis}\\[-4pt]
+\title{\color{aggiemaroon}{\textbf{DAEN 427 Decision and Risk Analysis}\\[-4pt]
 {\normalsize Fall 2026}}}
 \author{} % Alexander Abuabara
 \date{}
@@ -70,7 +70,7 @@
 %\item[Time (Location)] Tue-Thu 9:35--10:50 AM \emph{3 credit hours} (ETB 1013)
 \item[Time (Location)] Mon-Wed-Fri 11:30--12:20 AM \emph{3 credit hours} (ETB 1027)
 \item[Prerequisites] Grade of C or better in ISEN 310, DAEN 321, or STAT 212
-\item[Cross listing] ISEN 427 / DAEN 427
+\item[Cross listing] ISEN 427 / ISEN 627
 \item[Instructor] Alexander Abuabara \url{mailto:abuabara@tamu.edu}
 \item[Course office hours (location)] Wed 1-3 PM or by appointment (ETB 4013)
 \end{description}
@@ -93,7 +93,7 @@ application in engineering systems will be considered.
 \end{enumerate}
 
 % -------------------------------------------------
-\subsection*{Materials}
+\subsection*{Recommended Resources}
 \begin{itemize}[leftmargin=*,nosep]
 %\item Python \url{https://www.python.org} and Positron (IDE) \url{https://positron.posit.co}.
 %\item {Think Bayes: Bayesian Statistics in Python} \url{https://allendowney.github.io/ThinkBayes2}.
@@ -110,9 +110,9 @@ application in engineering systems will be considered.
 \hline
 \textbf{Assessment}             & \textbf{Weight}    & \textbf{Description} \\
 \hline
-Exam (2)                        & 60\% (30\% each)   & Content on weeks 1--6 \& 1--12 \\
+Exam (2)                        & 60\% (30\% each)   & Content on weeks 1--5 \& 1--11 \\
 Project (report + presentation) & 28\% (groups of 2) & Case study exploring decision and risk analysis in engineering \\
-Participation                   & 12\%               & In-class (quizzes, discussions, assignments, practice questions) \\
+Participation / Activities      & 12\%               & In-class quizzes, discussions, assignments, practice questions \\
 \hline
 \end{tabular}
 
@@ -120,10 +120,11 @@ Participation                   & 12\%               & In-class (quizzes, discus
 
 {\footnotesize
 \renewcommand{\arraystretch}{.9}
-\begin{itemize}[leftmargin=*,nosep]
-\item Grades will be calculated on the basis of total points earned.
-\item The thresholds for letter grades are: {A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D ≥ 60\%, F < 60\%}.
-\end{itemize}
+Grades are based on total points earned: A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D ≥ 60\%, F < 60\%.
+%\begin{itemize}[leftmargin=*,nosep]
+%\item Grades will be calculated on the basis of total points earned.
+%\item The thresholds for letter grades are: {A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D ≥ 60\%, F < 60\%}.
+%\end{itemize}
 }
 
 % -------------------------------------------------
@@ -131,37 +132,38 @@ Participation                   & 12\%               & In-class (quizzes, discus
 \renewcommand{\arraystretch}{1.025}
 \begin{tabular}{l l l}
 \hline
-\textbf{Lecture} & \textbf{Topic} & \textbf{Chapter} \\ \hline
-1  & Bayesian thinking for risk and decision analysis & Ch. 1 \\ \hline
-2  & Bayesian updating and evidence accumulation & Ch. 2 \\ \hline
-3  & Prior modeling and expert knowledge & Ch. 3--4 \\ \hline
-4  & Bayesian simulation and uncertainty propagation & Ch. 5--6 \\ \hline
-5  & MCMC and computational Bayesian inference & Ch. 7 \\ \hline
-6  & Bayesian workflow and model validation & Ch. 8 \\ \hline
-   & \textbf{Exam 1: Bayesian foundations + computation} & \\ \hline
-7  & Bayesian regression for risk modeling & Ch. 9 \\ \hline
-8  & Bayesian prediction and model comparison & Ch. 10 \\ \hline
-9  & Multiple regression and decision drivers & Ch. 11 \\ \hline
-10 & Bayesian count models and rare events & Ch. 12 \\ \hline
-11 & Bayesian classification and logistic risk models & Ch. 13--14 \\ \hline
-12 & Hierarchical Bayesian models & Ch. 15--16 \\ \hline
-   & \textbf{Exam 2: Predictive modeling + risk analysis} & \\ \hline
-13 & Advanced multilevel and structured uncertainty models & Ch. 17--18 \\ \hline
-14 & Bayesian decision analysis and probabilistic forecasting & Ch. 19 \\ \hline
-   & \textbf{Final project: probabilistic programming, risk communication} & \\ \hline
+\textbf{Lecture}  & \textbf{Topic}                                                        & \textbf{Chapter} \\ \hline
+1                 & Bayesian thinking for risk and decision analysis                      & Ch. 1            \\ \hline
+2                 & Bayesian updating and evidence accumulation                           & Ch. 2            \\ \hline
+3                 & Prior modeling and expert knowledge                                   & Ch. 3--4         \\ \hline
+4                 & Bayesian simulation and uncertainty propagation                       & Ch. 5--6         \\ \hline
+5                 & MCMC and computational Bayesian inference                             & Ch. 7            \\ \hline
+\hl{Sep 28}       & \textbf{Exam 1: Bayesian foundations + computation}                   & \hl{Ch. 1--7}    \\ \hline
+6                 & Bayesian workflow and model validation                                & Ch. 8            \\ \hline
+7                 & Bayesian regression for risk modeling                                 & Ch. 9            \\ \hline
+8                 & Bayesian prediction and model comparison                              & Ch. 10           \\ \hline
+9                 & Multiple regression and decision drivers                              & Ch. 11           \\ \hline
+10                & Bayesian count models and rare events                                 & Ch. 12           \\ \hline
+11                & Bayesian classification and logistic risk models                      & Ch. 13--14       \\ \hline
+\hl{Nov 9}        & \textbf{Exam 2: Predictive modeling + risk analysis}                  & \hl{Ch. 1--14}   \\ \hline
+12                & Hierarchical Bayesian models                                          & Ch. 15--16       \\ \hline
+13                & Advanced multilevel and structured uncertainty models                 & Ch. 17--18       \\ \hline
+14                & Bayesian decision analysis and probabilistic forecasting              & Ch. 19           \\ \hline
+\hl{Nov 30/Dec 1} & \textbf{Final project: probabilistic programming, risk communication} & \hl{Ch. 1--19}   \\
+\hline
 \end{tabular}
 
 % -------------------------------------------------
 \subsection*{Policies}
 \begin{itemize}[leftmargin=*,nosep]
 \item Be nice. Be honest. Don’t cheat. Adhere to all University Policies.
-\item Students should engage actively, stay current with readings, participate, and seek help early.
+%\item Students should engage actively, stay current with readings, participate, and seek help early.
 \item Course material is cumulative and requires consistent effort. All assignments must be completed carefully and on time.
       Presentation quality (organization, clarity, tables, graphs, and discussion) is part of grading.
 \item Excused absences apply only to attendance and in-class activities and do not extend assignment deadlines.
-      Alternatives must be arranged prior to deadline.
+      Alternative arrangements must be made prior to the deadline.
 \item Regrade applies to the entire submission. To ensure fairness and timely feedback, no changes after one week.
-\item E-mail is the primary method of communication. Include the course number in the subject line.
+\item Email is the primary form of communication; include the course number in the subject line.
       Responses should not be expected after 5:00 PM, on weekends, or on holidays.
 \item All assignments must be submitted through Canvas.
       If technical issues prevent submission, send your assignment from your \texttt{@tamu.edu} email to the instructor’s \texttt{@tamu.edu} email as a backup.
