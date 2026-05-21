@@ -88,6 +88,48 @@ Fall 2026
 
 %------------------------------------------------
 \begin{frame}{}
+\begin{columns}[c]
+% Left column: image
+    \begin{column}{0.32\textwidth}
+    \centering
+    \includegraphics[width=3.75cm]{Bags.jpg}
+    \end{column}
+% Right column: text
+    \begin{column}{0.66\textwidth}
+    \small
+    Let's suppose that you are an air traveler along with 99 other passengers from your flight, each of whom, like you, checked one item of luggage.
+    
+    \vspace{0.2cm}
+    
+    A recording piped through the speakers reminds you that:
+    \emph{``Many bags look alike. Please check your bag carefully before exiting the terminal.''}
+    
+    \vspace{0.2cm}
+    
+    Indeed, your bag is one of the most popular models on the market, a medium-sized black rectangular case \textbf{used by 5\% of all travelers}.
+    
+    \vspace{0.2cm}
+    
+    Given your distance from the luggage chute, you can discern only the shape, size, and color of the bags that emerge, not any detailed markings on the bags.
+    \end{column}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{itemize}
+\item[a.] Let's suppose that the \textbf{first bag} from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
+          Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
+
+\vspace{0.4cm}
+    
+\item[b.] Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
+          Calculate the posterior probability that the \textbf{99th} bag, which also matches ours in shape, size, and color, is our own.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
 \begin{block}{}
 \begin{itemize}
 \item 
@@ -133,56 +175,17 @@ fake_news %>%
 
 {
 \setbeamercolor{background canvas}{bg=orange!10}
-%------------------------------------------------
-\begin{frame}{}
-\begin{columns}[c]
-% Left column: image
-    \begin{column}{0.32\textwidth}
-    \centering
-    \includegraphics[width=\linewidth]{Bags.jpg}
-    \end{column}
-% Right column: text
-    \begin{column}{0.66\textwidth}
-    \begin{block}{Question 4}
-    \small
-    Let's suppose that you are an air traveler along with 99 other passengers from your flight, each of whom, like you, checked one item of luggage.
-    
-    \vspace{0.2cm}
-    
-    A recording piped through the speakers reminds you that:
-    \emph{``Many bags look alike. Please check your bag carefully before exiting the terminal.''}
-    
-    \vspace{0.2cm}
-    
-    Indeed, your bag is one of the most popular models on the market, a medium-sized black rectangular case used by 5 percent of all travelers.
-    
-    \vspace{0.2cm}
-    
-    Given your distance from the luggage chute, you can discern only the shape, size, and color of the bags that emerge, not any detailed markings on the bags.
-    \end{block}
-    \end{column}
-\end{columns}
-\end{frame}
 
-%------------------------------------------------
-\begin{frame}{}
-[5a.] Let's suppose that the first bag from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
-      Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
-
-\vspace{0.4cm}
-    
-[5b.] Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
-      Calculate the posterior probability that the 99th bag, which also matches ours in shape, size, and color, is our own.
-
-\end{frame}
 }
 
 {
 \setbeamercolor{background canvas}{bg=blue!10}
 %------------------------------------------------
 \begin{frame}{}
-[a.] Let's suppose that the first bag from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
-     Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
+a. Let's suppose that the first bag from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
+   Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
+
+   \vspace{0.2cm}
 
     \textbf{Answer:}
     {\color{blue}
@@ -214,9 +217,11 @@ fake_news %>%
 
 %------------------------------------------------
 \begin{frame}{}
-[b.] Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
-     Calculate the posterior probability that the 99th bag, which also matches ours in shape, size, and color, is our own.
-     
+b. Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
+   Calculate the posterior probability that the 99th bag, which also matches ours in shape, size, and color, is our own.
+
+   \vspace{0.2cm}
+
     \textbf{Answer:}
     {\color{blue}
     \footnotesize
@@ -231,7 +236,8 @@ fake_news %>%
     \end{aligned}
     \]
     
-    There is a 95.24\% chance that the 99th bag is mine given that it looks like mine.
+    There is a 95\% chance that the 99th bag is yours, given that it looks like yours.\\
+    Or, \hl{it is \textbf{19 times more likely} to be yours than not yours $^{(0.95/0.05 = 19)}$.}
     }
 \end{frame}
 }
