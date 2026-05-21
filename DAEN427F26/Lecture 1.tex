@@ -134,7 +134,7 @@ When flipping a fair coin, we say that "the probability of flipping Heads is 0.5
 \begin{itemize}
 \item[a.] If I flip this coin over and over, roughly 50\% will be Heads.
 \item[b.] Heads and Tails are equally plausible.
-\item[c.] Both a and b make sense.
+\item[c.] Both (a) and (b) make sense.
 \end{itemize}
 \end{block}
 \end{frame}
@@ -358,15 +358,14 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \begin{frame}{}
 \begin{block}{Ask Questions!}
 \begin{itemize}
-\item A frequentist analysis assesses the uncertainty of the observed data in light of an assumed hypothesis.
-\item A Bayesian analysis assesses the uncertainty of the hypothesis in light of the observed data.
+\item A \textbf{frequentist} analysis assesses the uncertainty of the observed data in light of an assumed hypothesis.
+\item A \textbf{Bayesian} analysis assesses the uncertainty of the hypothesis in light of the observed data.
 \end{itemize}
 \end{block}
 
-\textbf{Scenario:}
-\begin{itemize}
-    \item Population: 100 people
-    \item 4 have the disease, 96 do not have the disease
+\vspace{.2cm}
+
+\textbf{Scenario:} Population 100 people, 4 have the disease, 96 do not.
         \begin{center}
         \begin{tabular}{lccc}
         \hline
@@ -379,7 +378,6 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
         \hline
         \end{tabular}
         \end{center}
-\end{itemize}
 \end{frame}
 
 
@@ -387,12 +385,12 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \textbf{Frequentist question:} $P(\text{Positive Test} \mid \text{No Disease})$
 \begin{itemize}
     \item Among the 96 healthy people, 9 tested positive
-    \item False positive rate: $\frac{9}{96} \approx 0.10$
-    \item If a person does \emph{not} have the disease, there is about a 10\% chance of testing positive.
     \begin{itemize}
-        \item Frequentist analysis focuses on: $P(\text{Data} \mid \text{Null Hypothesis})$
-        \item A p-value is \emph{not} the probability that the hypothesis is true.\\ (common misunderstanding)
+        \item False positive rate: $\frac{9}{96} \approx 0.10$
+        \item[] If a person does \emph{not} have the disease,\\there is about a 10\% chance of testing positive.
     \end{itemize}
+    \item Frequentist analysis focuses on: $P(\text{Data} \mid \text{Null Hypothesis})$
+    \item A p-value is \emph{not} the probability that the hypothesis is true.\\ (common misunderstanding)
 \end{itemize}
 
 \vspace{.2cm}
@@ -400,12 +398,12 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \textbf{Bayesian question:} $P(\text{Disease} \mid \text{Positive Test})$
 \begin{itemize}
     \item Only 3 of the 12 positive tests are true positives.
-    \item Probability of actually having the disease: $\frac{3}{12} = 0.25$
-    \item Even with a positive test, there is only a 25\% chance of having the disease.
     \begin{itemize}
+        \item Probability of actually having the disease: $\frac{3}{12} = 0.25$
+        \item[] Even with a positive test, disease probability is only 25\%.
+	\end{itemize}
     \item $\text{Sensitivity}: P(+ \mid \text{Disease}) = \frac{3}{4} = 75\%$
 	\item $\text{Specificity}: P(- \mid \text{No Disease}) = \frac{87}{96} \approx 90.6\%$
-	\end{itemize}
 \end{itemize}
 
 \end{frame}
@@ -439,7 +437,9 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \vspace{0.4cm}
 Bayesian thinking updates beliefs using evidence:
 \[
+\color{aggiemaroon}{
 \text{Posterior} \propto \text{Prior} \times \text{Likelihood}
+}
 \]
 Probability is not only about randomness;\\
 it is a mathematical language for learning under uncertainty.
@@ -450,6 +450,16 @@ it is a mathematical language for learning under uncertainty.
 \setbeamercolor{background canvas}{bg=orange!10}
 %------------------------------------------------
 \begin{frame}{Homework}
+
+\vspace{-1.5cm}
+
+\color{blue}{
+Send in your answers before the next class.\\
+Responses may be shared anonymously during class discussion.
+}
+
+\vspace{.5cm}
+
 \begin{block}{Question 1
 %\\(When was the last time you changed your mind?)
 }
@@ -481,9 +491,6 @@ what question is answered in testing the hypothesis that you’ll be offered the
 \begin{block}{Question 3
 %(You already know stuff)
 }
-There are several data scientist openings at a much-ballyhooed company.
-Having read the job description, you know for a fact that you are qualified for the position: this is your data.
-Your goal is to ascertain whether you will actually be offered a position: this is your hypothesis.
 \begin{itemize}
 \item[a.] Identify a topic that you know about (e.g., a sport, a school subject, music).
 \item[b.] Identify a hypothesis about this subject.
@@ -495,7 +502,41 @@ Your goal is to ascertain whether you will actually be offered a position: this 
 
 %------------------------------------------------
 \begin{frame}{Homework}
-\begin{block}{Question 4
+\begin{block}{Question 4}
+A university health center is considering whether to recommend a costly new screening test for a rare disease among students.
+Historical data suggest that only 2\% of students have the disease.
+The test correctly identifies diseased students 95\% of the time.
+The test falsely identifies healthy students as diseased 8\% of the time.
+A student tests positive.
+\begin{itemize}
+\item[a.] What is the probability the student actually has the disease?
+\item[b.] Should the health center automatically recommend treatment after one positive test?
+\item[c.] What are the risks of a false positive? a false negative?
+\item[d.] How would the decision change if the disease were more common?
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 5}
+Suppose two analysts disagree about the probability of a cyberattack before seeing evidence.
+\\ - Analyst A believes the probability is 1\%.
+\\ - Analyst B believes the probability is 20\%.
+\\
+Both observe the same security alert.
+\begin{itemize}
+\item[a.] How can Bayesian reasoning explain why the analysts may still reach different conclusions?
+\item[b.] What role do priors play in decision-making under uncertainty?
+\item[c.] When is it reasonable for two people to maintain different posterior beliefs after observing the same data?
+\item[d.] How do costs and risks influence the final decision, beyond just the posterior probability?
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 6
 %(Benefits of Bayesian Statistics)
 }
 Your friend just became interested in Bayesian statistics.
