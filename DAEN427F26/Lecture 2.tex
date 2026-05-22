@@ -147,20 +147,8 @@ Fall 2026
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Data}
-Bayesian reasoning to estimate whether a news article is fake.
-\begin{block}{Dataset structure}
-\begin{itemize}
-    \item 150 news articles: 60 fake, 90 real
-    \item $P(\text{Fake}) = \frac{60}{150} = 0.40$.
-          Before looking at the headline, the prior probability that an article is fake is 40\%.
-\end{itemize}
-\vspace{0.4em}
-\end{block}
-\end{frame}
-
-%------------------------------------------------
 \begin{frame}[fragile]{}
+\begin{block}{Dataset structure}
 \begin{minted}[fontsize=\footnotesize, linenos]{r}
 # Load packages
 library(bayesrules)
@@ -178,6 +166,24 @@ fake_news %>%
 #  real  90     0.6
 # Total 150     1.0
 \end{minted}
+\begin{itemize}
+    \item 150 news articles: 60 fake, 90 real
+    \item $P(\text{Fake}) = \frac{60}{150} = 0.40$.
+          Before looking at the headline, the prior probability that an article is fake is 40\%.
+\end{itemize}
+\vspace{0.4em}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+Bayesian reasoning to estimate whether a news article is fake:
+
+\vspace{0.4em}
+
+\includegraphics[height=3.3cm]{fake_news_diagram.png}
+\end{block}
 \end{frame}
 
 %------------------------------------------------
@@ -194,6 +200,27 @@ fake_news %>%
 #           TRUE   16    2
 #          Total   60   90
 \end{minted}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Exclamation Points as Evidence}
+\vspace{0.2em}
+\includegraphics[height=3.4cm]{fake_news_diagram.png}
+\begin{table}
+\centering
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Title Has ``!''} & \textbf{Fake} & \textbf{Real} & \textbf{Total} \\
+\midrule
+Yes & 16 & 2  & 18 \\
+No  & 44 & 88 & 132 \\
+\midrule
+Total & 60 & 90 & 150 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{block}
 \end{frame}
 
 %------------------------------------------------
@@ -223,7 +250,7 @@ $P(! \mid \text{Real}) = \frac{2}{90} \approx 0.022$
 An exclamation point increases the probability that an article is fake.
 \[
 P(\text{Fake} \mid !) =
-\frac{P(! \mid \text{Fake})P(\text{Fake})}{P(!)}
+\frac{P(\text{Fake}) ~ P(! \mid \text{Fake})}{P(!)}
 \]
 \end{block}
 \end{frame}
@@ -691,14 +718,3 @@ Answer this question by simulating data for 10,000 images.
 }
 
 \end{document}
-
-%------------------------------------------------
-%\begin{frame}{}
-%\begin{block}{}
-%\begin{itemize}
-%\item 
-%\item 
-%\item 
-%\end{itemize}
-%\end{block}
-%\end{frame}
