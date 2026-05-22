@@ -283,7 +283,7 @@ Total & 60 & 90 & 150 \\
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{block}{Exclamation Points as Evidence}
+\begin{block}{Conditional Probability \& Likelihood}
 \begin{table}
 \centering
 \begin{tabular}{lrrr}
@@ -306,10 +306,168 @@ $P(! \mid \text{Real}) = \frac{2}{90} \approx 0.022$
 \vspace{0.4em}
 
 An exclamation point increases the probability that an article is fake.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Conditional Probability \& Likelihood}
 \[
-P(\text{Fake} \mid !) =
-\frac{P(\text{Fake}) ~ P(! \mid \text{Fake})}{P(!)}
+\begin{aligned}
+B &: \text{article is fake} \\
+B^c &: \text{article is real}
+\end{aligned}
 \]
+\[
+\begin{aligned}
+A &: \text{article uses exclamation points} \\
+A^c &: \text{article does not use exclamation points}
+\end{aligned}
+\]
+
+From the data:
+\[
+P(A \mid B)=0.267 \qquad P(A \mid B^c)=0.022
+\]
+
+Fake news articles are much more likely to use exclamation points than real news articles.
+\end{block}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Conditional vs Unconditional Probability}
+\begin{itemize}
+    \item \textbf{Unconditional probability} is the chance something happens without extra information.
+    \[
+    P(A)
+    \]
+
+    \item \textbf{Conditional probability} is the chance something happens given that something else is already known.
+    \[
+    P(A \mid B)
+    \]
+
+    \item Comparing \(P(A)\) and \(P(A \mid B)\) tells us whether knowing \(B\) changes how likely \(A\) is.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Independent Events}
+\begin{itemize}
+    \item Two events are \textbf{independent} if knowing one happens does not change the probability of the other.
+
+    \item In symbols:
+    \[
+    P(A \mid B) = P(A)
+    \]
+
+    \item \emph{Example}: rolling a die and flipping a coin are independent, because the die result does not affect the coin flip.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{From Probability to Likelihood}
+\begin{itemize}
+    \item Earlier, we computed:
+    \[
+    P(A \mid B)=0.2667
+    \qquad
+    P(A \mid B^c)=0.0222
+    \]
+    \item Fake articles are much more likely to use exclamation points.
+    \item Suppose we already observed an article with exclamation points.
+    \item Now the question becomes:\\
+          \centering \textit{Is the article more likely fake or real?}
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{What is Likelihood?}
+\begin{itemize}
+    \item \textbf{Probability} starts with a known cause and predicts data.
+    \[
+    P(A \mid B)
+    \]
+
+    \item \textbf{Likelihood} starts with observed data and compares possible causes.
+    \[
+    \mathcal{L}(B \mid A)=P(A \mid B)
+    \]
+
+    \item In our example:
+    \begin{itemize}
+        \item \(A\): article uses exclamation points
+        \item \(B\): article is fake
+        \item Since
+              \[
+              P(A \mid B) > P(A \mid B^c)
+              \]
+              \emph{exclamation} provide evidence that the article may be fake.
+        \end{itemize}
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{center}
+\begin{tabular}{p{4cm}|p{4cm}}
+\textbf{Probability} & \textbf{Likelihood} \\
+\hline
+Known condition & Known data \\
+Predicts outcomes & Compares explanations \\
+\[
+P(A \mid B)
+\]
+& 
+\[
+\mathcal{L}(B \mid A)
+\]
+\end{tabular}
+\end{center}
+\begin{itemize}
+\item The distinction is \textbf{subtle}, especially since people use the terms “likelihood” and “probability” interchangeably in casual conversation.
+\item Likelihood \textbf{helps us decide} which explanation best fits the observed data.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+\begin{itemize}
+\item The likelihood function \textbf{is not} a probability function, but rather provides a framework to compare the relative compatibility of our exclamation point data with $B$ and $B^c$.
+\end{itemize}
+\begin{table}[h]
+\centering
+\begin{tabular}{lccc}
+\hline
+\textbf{Event} & \(B\) & \(B^c\) & \textbf{Total} \\
+\hline
+Prior probability & 0.4   & 0.6   & 1      \\[0.1cm]
+Likelihood $(\cdot \mid A)$ & 0.267 & 0.022 & \hl{0.289} \\
+\hline
+\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Normalizing Constants}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
 \end{block}
 \end{frame}
 
@@ -322,58 +480,30 @@ P(\text{Fake} \mid !) =
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{block}{Conditional Probability \& Likelihood}
-\begin{itemize}
-\item 
-\item 
-\item 
-\end{itemize}
+\begin{block}{}
+\[
+P(\text{Fake} \mid !) =
+\frac{P(\text{Fake}) ~ P(! \mid \text{Fake})}{P(!)}
+\]
 \end{block}
 \end{frame}
 
-%------------------------------------------------
-\begin{frame}{}
-\begin{block}{Conditional vs Unconditional Probability}
-\begin{itemize}
-\item 
-\item 
-\item 
-\end{itemize}
-\end{block}
-\end{frame}
 
-%------------------------------------------------
-\begin{frame}{}
-\begin{block}{Independent Events}
-\begin{itemize}
-\item 
-\item 
-\item 
-\end{itemize}
-\end{block}
-\end{frame}
 
-%------------------------------------------------
-\begin{frame}{}
-\begin{block}{Probability vs Likelihood}
-\begin{itemize}
-\item 
-\item 
-\item 
-\end{itemize}
-\end{block}
-\end{frame}
 
-%------------------------------------------------
-\begin{frame}{}
-\begin{block}{Normalizing Constants}
-\begin{itemize}
-\item 
-\item 
-\item 
-\end{itemize}
-\end{block}
-\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %------------------------------------------------
 \begin{frame}{}
