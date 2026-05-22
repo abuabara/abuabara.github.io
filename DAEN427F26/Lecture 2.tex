@@ -129,14 +129,22 @@ Fall 2026
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{}
-\begin{block}{}
+\begin{frame}{We’re Using R Instead of Python}
+\begin{block}{Python}
 \begin{itemize}
-\item 
-\item 
-\item 
+\item "Can do everything" ... installs $n$ packages, breaks after update
+\item Stack Overflow becomes your TA
 \end{itemize}
 \end{block}
+\begin{block}{R}
+\begin{itemize}
+\item Literally for statistics: \texttt{lm(y \textasciitilde{} x)} and move on with your life
+\item Excellent, open-source, keeps us focused on data analysis,\\and I enjoy sleeping at night!
+\end{itemize}
+\end{block}
+\textbf{What I Need From You:} learn concepts, analyze data, pass the class.\\
+\textbf{What I Do Not Need:} a 2-hour debate about virtual environments.
+
 \end{frame}
 
 %------------------------------------------------
@@ -163,8 +171,239 @@ fake_news %>%
 \end{frame}
 
 %------------------------------------------------
+\begin{frame}{Building a Bayesian Model for Events}
+\begin{block}{Prior Probability Model}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
 \begin{frame}{}
-\begin{block}{}
+\begin{block}{Conditional Probability \& Likelihood}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Conditional vs Unconditional Probability}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Independent Events}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Probability vs Likelihood}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Normalizing Constants}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Calculating Joint and Conditional Probabilities}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Posterior Probability Model via Bayes’ Rule}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Posterior Simulation}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Building a Bayesian Model for Random Variables}
+\begin{block}{Prior Probability Model}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Discrete Probability Model}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{The Binomial Data Model}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Conditional Probability Model of Data $Y$}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{The Binomial Model}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{The Binomial Likelihood Function}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Probability Mass Functions vs Likelihood Functions}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Normalizing Constant}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Posterior Probability Model}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Bayes’ Rule for Variables}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Posterior Shortcut}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Proportionality}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Posterior Simulation}
 \begin{itemize}
 \item 
 \item 
@@ -203,9 +442,84 @@ fake_news %>%
 
 %------------------------------------------------
 \begin{frame}{Homework}
+\begin{block}{Question 1}
+Define the following events for a resident of a fictional town as:
+\begin{itemize}
+\item $A =$ drives 10 miles per hour above the speed limit,  
+\item $B =$ gets a speeding ticket,  
+\item $C =$ took statistics at the local college,  
+\item $D =$ has used R,  
+\item $E =$ likes the music of Prince, and  
+\item $F =$ is a Texan.
+\end{itemize}
+Several facts about these events are listed next.
+\end{block}
+\end{frame}
 
-\begin{block}{Question 1
-}
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 1, cont.}
+Specify each of these facts using probability notation, paying special attention to whether it’s a marginal, conditional, or joint probability.
+\begin{itemize}
+\item 73\% of people that drive 10 miles per hour above the speed limit get a speeding ticket.
+\item 20\% of residents drive 10 miles per hour above the speed limit.
+\item 15\% of residents have used R.
+\item 91\% of statistics students at the local college have used R.
+\item 38\% of residents are Texans that like the music of Prince.
+\item 95\% of the Texans like the music of Prince.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 2}
+Edward is trying to prove to Bella that vampires exist.
+Bella thinks there is a 0.05 probability that vampires exist.
+She also believes that the probability that someone can sparkle like a diamond if vampires exist is 0.7, and the probability that someone can sparkle like a diamond if vampires don’t exist is 0.03.
+Edward then goes into a meadow and shows Bella that he can sparkle like a diamond.
+Given that Edward sparkled like a diamond, what is the probability that vampires exist?
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 3}
+The probability that Sandra will like a restaurant is 0.7.
+Among the restaurants that she likes, 20\% have five stars on Yelp, 50\% have four stars, and 30\% have fewer than four stars.
+What other information do we need if we want to find the posterior probability that Sandra likes a restaurant given that it has fewer than four stars on Yelp?
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 4}
+Robin applies for six equally competitive data science internships. He has the following prior model for his chances of getting into any given internship, $\pi$:
+
+\[
+\begin{array}{c|ccc|c}
+\pi & 0.3 & 0.4 & 0.5 & \text{Total} \\
+\hline
+f(\pi) & 0.25 & 0.60 & 0.15 & 1
+\end{array}
+\]
+
+\begin{enumerate}
+    \item[(a)] Let $Y$ be the number of internship offers that Robin gets. Specify the model for the dependence of $Y$ on $\pi$ and the corresponding pmf, $f(y \mid \pi)$.
+    \item[(b)] Robin got some pretty amazing news. He was offered four of the six internships! How likely would this be if $\pi = 0.3$?
+    \item[(c)] Construct the posterior model of $\pi$ in light of Robin's internship news.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Homework}
+\begin{block}{Question 5}
+Whether you like it or not, cats have taken over the internet.
+Joining the craze, Michael has written an algorithm to detect cat images.
+It correctly identifies 80\% of cat images as cats, but falsely identifies 50\% of non-cat images as cats.
+Michael tests her algorithm with a new set of images, 8\% of which are cats. What’s the probability that an image is actually a cat if the algorithm identifies it as a cat?
+Answer this question by simulating data for 10,000 images.
 \end{block}
 \end{frame}
 }
@@ -243,7 +557,7 @@ a. Let's suppose that the first bag from your flight to enter the luggage carous
     So even though the first bag matches, it is probably not yours.
 
     }
-    \end{frame}
+\end{frame}
 
 %------------------------------------------------
 \begin{frame}{}
@@ -272,3 +586,14 @@ b. Now suppose that we continue to wait for our bag to appear, failing to see it
 \end{frame}
 
 \end{document}
+
+%------------------------------------------------
+%\begin{frame}{}
+%\begin{block}{}
+%\begin{itemize}
+%\item 
+%\item 
+%\item 
+%\end{itemize}
+%\end{block}
+%\end{frame}
