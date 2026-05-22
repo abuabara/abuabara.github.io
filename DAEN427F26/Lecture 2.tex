@@ -138,18 +138,29 @@ Fall 2026
 \end{block}
 \begin{block}{R}
 \begin{itemize}
-\item Literally for statistics: \texttt{lm(y \textasciitilde{} x)} and move on with your life
-\item Excellent, open-source, keeps us focused on data analysis,\\and I enjoy sleeping at night!
+\item Literally for statistics; \texttt{lm(y \textasciitilde{} x)} and move on with your life
+\item Excellent, open-source, keeps us focused on data analysis,\\... and I enjoy sleeping at night!
 \end{itemize}
 \end{block}
-\textbf{What I Need From You:} learn concepts, analyze data, pass the class.\\
+\mbox{\textbf{What I Need From You:} learn concepts, analyze data, pass the class!}\\
 \textbf{What I Do Not Need:} a 2-hour debate about virtual environments.
+\end{frame}
 
+%------------------------------------------------
+\begin{frame}{Data}
+Bayesian reasoning to estimate whether a news article is fake.
+\begin{block}{Dataset structure}
+\begin{itemize}
+    \item 150 news articles: 60 fake, 90 real
+    \item $P(\text{Fake}) = \frac{60}{150} = 0.40$.
+          Before looking at the headline, the prior probability that an article is fake is 40\%.
+\end{itemize}
+\vspace{0.4em}
+\end{block}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}[fragile]{}
-
 \begin{minted}[fontsize=\footnotesize, linenos]{r}
 # Load packages
 library(bayesrules)
@@ -167,7 +178,61 @@ fake_news %>%
 #  real  90     0.6
 # Total 150     1.0
 \end{minted}
+\end{frame}
 
+%------------------------------------------------
+\begin{frame}[fragile]{}
+Observed headline pattern:
+
+\begin{minted}[fontsize=\footnotesize, linenos]{r}
+# Tabulate exclamation usage and article type
+fake_news %>% 
+  tabyl(title_has_excl, type) %>% 
+  adorn_totals("row")
+# title_has_excl fake real
+#          FALSE   44   88
+#           TRUE   16    2
+#          Total   60   90
+\end{minted}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Exclamation Points as Evidence}
+\begin{table}
+\centering
+\begin{tabular}{lrrr}
+\toprule
+\textbf{Title Has ``!''} & \textbf{Fake} & \textbf{Real} & \textbf{Total} \\
+\midrule
+Yes & 16 & 2  & 18 \\
+No  & 44 & 88 & 132 \\
+\midrule
+Total & 60 & 90 & 150 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{center}
+$P(! \mid \text{Fake}) = \frac{16}{60} \approx 0.267$,
+$P(! \mid \text{Real}) = \frac{2}{90} \approx 0.022$
+\end{center}
+
+\vspace{0.4em}
+
+An exclamation point increases the probability that an article is fake.
+\[
+P(\text{Fake} \mid !) =
+\frac{P(! \mid \text{Fake})P(\text{Fake})}{P(!)}
+\]
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+
+\end{block}
 \end{frame}
 
 %------------------------------------------------
@@ -417,15 +482,116 @@ fake_news %>%
 %------------------------------------------------
 \begin{frame}{}
 \begin{block}{Quiz 1}
-
+A medical test correctly detects a disease 95\% of the time when the disease is present.
+This value represents:
 \begin{itemize}
-\item[a.] 
-\item[b.] 
-\item[c.] 
+\item[a.] Prior probability
+\item[b.] Posterior probability
+\item[c.] False positive rate
+\item[d.] Likelihood
 \end{itemize}
 \end{block}
 \end{frame}
 }
+
+{
+\setbeamercolor{background canvas}{bg=blue!10}
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz 2}
+A university uses an AI system to detect plagiarism.
+\begin{itemize}
+\item 5\% of assignments are actually plagiarized.
+\item The AI flags plagiarized assignments 92\% of the time.
+\item The AI incorrectly flags honest assignments 8\% of the time.
+\end{itemize}
+If an assignment is flagged, what is the probability it was actually plagiarized?
+Briefly discuss whether the AI system seems reliable.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz 2}
+\vspace{0.2cm}
+\textbf{Answer:}
+{\color{blue}
+\[
+\begin{aligned}
+P(P\mid F)
+=\frac{0.92\cdot 0.05}
+       {0.92\cdot 0.05 + 0.08\cdot 0.95} \approx 0.377
+\end{aligned}
+\]
+
+\vspace{0.2cm}
+Approximately 37.7\% chance that it is actually plagiarism.\\
+The system catches most plagiarism cases, but because plagiarism is rare, many flagged assignments are false positives.
+}
+\end{block}
+\end{frame}
+}
+
+%------------------------------------------------
+\begin{frame}{}
+a. Let's suppose that the first bag from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
+   Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
+
+   \vspace{0.2cm}
+
+    \textbf{Answer:}
+    {\color{blue}
+    \footnotesize
+    Let \(Y\) = first bag is yours, and \(M\) = first bag matches.
+    
+    \[
+    \begin{aligned}
+    &P(Y)=\frac{1}{100}\\
+    &\mathcal{L}(Y^c\mid M)=P(M\mid Y^c)=0.05\\
+    &\mathcal{L}(Y\mid M)=P(M\mid Y)=1\\
+    \end{aligned}
+    \]
+    
+    \[
+    \begin{aligned}
+    P(Y\mid M)&=\frac{P(M\mid Y)P(Y)}{P(M)}
+              =\frac{P(M\mid Y)P(Y)}
+                     {P(M\mid Y)P(Y)+P(M\mid Y^c)P(Y^c)}=\\
+    &=\frac{1\cdot 0.01}{1\cdot 0.01+0.05\cdot 0.99}
+    =\frac{0.01}{0.0595}\approx 0.168
+    \end{aligned}
+    \]
+    
+    So even though the first bag matches, it is probably not yours.
+
+    }
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+b. Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
+   Calculate the posterior probability that the 99th bag, which also matches ours in shape, size, and color, is our own.
+
+   \vspace{0.2cm}
+
+    \textbf{Answer:}
+    {\color{blue}
+    \footnotesize
+    \[
+    \begin{aligned}
+    P(Y\mid M)
+    &=\frac{1\cdot \tfrac{1}{\text{total of bags remaining}}}
+           {1\cdot \tfrac{1}{\text{total of bags remaining}} + 0.05\cdot \tfrac{\text{total of bags remaining} - 1}{\text{total of bags remaining}}}\\
+    &\text{(if 2 bags remain)}\\
+    &=\frac{1\cdot \tfrac{1}{2}}
+           {1\cdot \tfrac{1}{2} + 0.05\cdot \tfrac{1}{2}}=\frac{1}{1+0.05} \approx 0.9524
+    \end{aligned}
+    \]
+    
+    There is a 95\% chance that the 99th bag is yours, given that it looks like yours.\\
+    Or, \hl{it is \textbf{19 times more likely} to be yours than not yours $^{(0.95/0.05 = 19)}$.}
+    }
+\end{frame}
 
 {
 \setbeamercolor{background canvas}{bg=orange!10}
@@ -523,67 +689,6 @@ Answer this question by simulating data for 10,000 images.
 \end{block}
 \end{frame}
 }
-
-%------------------------------------------------
-\begin{frame}{}
-a. Let's suppose that the first bag from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
-   Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
-
-   \vspace{0.2cm}
-
-    \textbf{Answer:}
-    {\color{blue}
-    \footnotesize
-    Let \(Y\) = first bag is yours, and \(M\) = first bag matches.
-    
-    \[
-    \begin{aligned}
-    &P(Y)=\frac{1}{100}\\
-    &\mathcal{L}(Y^c\mid M)=P(M\mid Y^c)=0.05\\
-    &\mathcal{L}(Y\mid M)=P(M\mid Y)=1\\
-    \end{aligned}
-    \]
-    
-    \[
-    \begin{aligned}
-    P(Y\mid M)&=\frac{P(M\mid Y)P(Y)}{P(M)}
-              =\frac{P(M\mid Y)P(Y)}
-                     {P(M\mid Y)P(Y)+P(M\mid Y^c)P(Y^c)}=\\
-    &=\frac{1\cdot 0.01}{1\cdot 0.01+0.05\cdot 0.99}
-    =\frac{0.01}{0.0595}\approx 0.168
-    \end{aligned}
-    \]
-    
-    So even though the first bag matches, it is probably not yours.
-
-    }
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{}
-b. Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
-   Calculate the posterior probability that the 99th bag, which also matches ours in shape, size, and color, is our own.
-
-   \vspace{0.2cm}
-
-    \textbf{Answer:}
-    {\color{blue}
-    \footnotesize
-    \[
-    \begin{aligned}
-    P(Y\mid M)
-    &=\frac{1\cdot \tfrac{1}{\text{total of bags remaining}}}
-           {1\cdot \tfrac{1}{\text{total of bags remaining}} + 0.05\cdot \tfrac{\text{total of bags remaining} - 1}{\text{total of bags remaining}}}\\
-    &\text{(if 2 bags remain)}\\
-    &=\frac{1\cdot \tfrac{1}{2}}
-           {1\cdot \tfrac{1}{2} + 0.05\cdot \tfrac{1}{2}}=\frac{1}{1+0.05} \approx 0.9524
-    \end{aligned}
-    \]
-    
-    There is a 95\% chance that the 99th bag is yours, given that it looks like yours.\\
-    Or, \hl{it is \textbf{19 times more likely} to be yours than not yours $^{(0.95/0.05 = 19)}$.}
-    }
-\end{frame}
 
 \end{document}
 
