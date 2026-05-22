@@ -34,7 +34,6 @@ Scale           = MatchLowercase
 \setbeamertemplate{itemize items}{•}
 \setbeamertemplate{itemize subitem}[•]
 \setbeamertemplate{itemize subsubitem}[•]
-\renewcommand{\UrlFont}{\ttfamily\small}
 
 %  HYPERLINKS -----------------------------------
 \usepackage{hyperref}
@@ -44,6 +43,9 @@ linkcolor=aggiemaroon,
 urlcolor=aggiemaroon,
 citecolor=aggiemaroon
 }
+\usepackage{url}
+\renewcommand{\UrlFont}{\footnotesize}
+\renewcommand{\UrlFont}{\ttfamily\footnotesize}
 
 %  BEAMER TEMPLATES -----------------------------
 \setbeamertemplate{caption}[numbered]
@@ -88,44 +90,18 @@ Fall 2026
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{columns}[c]
-% Left column: image
-    \begin{column}{0.32\textwidth}
-    \centering
-    \includegraphics[width=3.75cm]{Bags.jpg}
-    \end{column}
-% Right column: text
-    \begin{column}{0.66\textwidth}
-    \small
-    Let's suppose that you are an air traveler along with 99 other passengers from your flight, each of whom, like you, checked one item of luggage.
-    
-    \vspace{0.2cm}
-    
-    A recording piped through the speakers reminds you that:
-    \emph{``Many bags look alike. Please check your bag carefully before exiting the terminal.''}
-    
-    \vspace{0.2cm}
-    
-    Indeed, your bag is one of the most popular models on the market, a medium-sized black rectangular case \textbf{used by 5\% of all travelers}.
-    
-    \vspace{0.2cm}
-    
-    Given your distance from the luggage chute, you can discern only the shape, size, and color of the bags that emerge, not any detailed markings on the bags.
-    \end{column}
-\end{columns}
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{}
-\begin{itemize}
-\item[a.] Let's suppose that the \textbf{first bag} from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
-          Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
-
-\vspace{0.4cm}
-    
-\item[b.] Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
-          Calculate the posterior probability that the \textbf{99th} bag, which also matches ours in shape, size, and color, is our own.
-\end{itemize}
+\centering
+\includegraphics[height=8.5cm]{Fake News Detection on Social Media.jpg}
+{\footnotesize \url{https://arxiv.org/abs/1708.01967} for details.}
+%\begin{columns}[t]
+%\begin{column}{0.35\textwidth}
+%\includegraphics[height=3.5cm]{FakeNews.jpg}
+%\end{column}
+%
+%\begin{column}{0.55\textwidth}
+%\includegraphics[height=8.cm]{Fake News Detection on Social Media.jpg}
+%\end{column}
+%\end{columns}
 \end{frame}
 
 {
@@ -148,6 +124,17 @@ Fall 2026
 \textbf{What I Do Not Need:} a 2-hour debate about virtual environments.
 \end{frame}
 }
+
+%------------------------------------------------
+\begin{frame}{Building a Bayesian Model for Events}
+\begin{block}{Prior Probability Model}
+\begin{itemize}
+\item 
+\item 
+\item 
+\end{itemize}
+\end{block}
+\end{frame}
 
 %------------------------------------------------
 \begin{frame}[fragile]{}
@@ -280,17 +267,6 @@ P(\text{Fake} \mid !) =
 \begin{frame}{}
 \begin{block}{}
 
-\end{block}
-\end{frame}
-
-%------------------------------------------------
-\begin{frame}{Building a Bayesian Model for Events}
-\begin{block}{Prior Probability Model}
-\begin{itemize}
-\item 
-\item 
-\item 
-\end{itemize}
 \end{block}
 \end{frame}
 
@@ -540,10 +516,24 @@ This value represents:
 \end{itemize}
 \end{block}
 \end{frame}
-}
 
-{
-\setbeamercolor{background canvas}{bg=blue!10}
+%------------------------------------------------
+\begin{frame}{}
+\textbf{Answer:}
+{\color{blue}
+d. Likelihood\\
+
+The statement describes: $P(\text{Test positive} \mid \text{Disease present}) = 0.95$\\
+
+This is the probability of observing the test result given that the disease is present, 
+which represents the \ul{likelihood} (also called \textbf{sensitivity} or \textbf{true positive rate}).\\
+
+- \textbf{Prior}: Probability of disease before observing the test result.\\
+- \textbf{Posterior}: Probability of disease after observing the test result.\\
+- \textbf{False positive rate}: Probability that the test is positive when the disease is absent.
+}
+\end{frame}
+
 %------------------------------------------------
 \begin{frame}{}
 \begin{block}{Quiz 2}
@@ -560,7 +550,7 @@ Briefly discuss whether the AI system seems reliable.
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{block}{Quiz 2}
+\begin{block}{}
 \vspace{0.2cm}
 \textbf{Answer:}
 {\color{blue}
@@ -578,68 +568,103 @@ The system catches most plagiarism cases, but because plagiarism is rare, many f
 }
 \end{block}
 \end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz 3}
+\begin{columns}[c]
+% Left column: image
+    \begin{column}{0.32\textwidth}
+    \centering
+    \includegraphics[width=3.75cm]{Bags.jpg}
+    \end{column}
+% Right column: text
+    \begin{column}{0.66\textwidth}
+    \small
+    Let's suppose that you are an air traveler along with 99 other passengers from your flight, each of whom, like you, checked one item of luggage.
+    
+    \vspace{0.2cm}
+    
+    A recording piped through the speakers reminds you that:
+    \emph{``Many bags look alike. Please check your bag carefully before exiting the terminal.''}
+    
+    \vspace{0.2cm}
+    
+    Indeed, your bag is one of the most popular models on the market, a medium-sized black rectangular case \textbf{used by 5\% of all travelers}.
+    
+    \vspace{0.2cm}
+    
+    Given your distance from the luggage chute, you can discern only the shape, size, and color of the bags that emerge, not any detailed markings on the bags.
+    \end{column}
+\end{columns}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz 3, cont.}
+\begin{itemize}
+\item[a.] Let's suppose that the \textbf{first bag} from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
+          Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
+
+\vspace{0.4cm}
+    
+\item[b.] Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
+          Calculate the posterior probability that the \textbf{99th} bag, which also matches ours in shape, size, and color, is our own.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\textbf{Answer: a.}
+{\color{blue}
+\footnotesize
+Let \(Y\) = first bag is yours, and \(M\) = first bag matches.
+
+\[
+\begin{aligned}
+&P(Y)=\frac{1}{100}\\
+&\mathcal{L}(Y^c\mid M)=P(M\mid Y^c)=0.05\\
+&\mathcal{L}(Y\mid M)=P(M\mid Y)=1\\
+\end{aligned}
+\]
+
+\[
+\begin{aligned}
+P(Y\mid M)&=\frac{P(M\mid Y)P(Y)}{P(M)}
+          =\frac{P(M\mid Y)P(Y)}
+                 {P(M\mid Y)P(Y)+P(M\mid Y^c)P(Y^c)}=\\
+&=\frac{1\cdot 0.01}{1\cdot 0.01+0.05\cdot 0.99}
+=\frac{0.01}{0.0595}\approx 0.168
+\end{aligned}
+\]
+
+So even though the first bag matches, it is probably not yours.
 }
-
-%------------------------------------------------
-\begin{frame}{}
-a. Let's suppose that the first bag from your flight to enter the luggage carousel indeed has the same shape, size, and color as yours.
-   Is it yours? Explain (i.e., calculate the posterior probability that the 1st bag is yours).
-
-   \vspace{0.2cm}
-
-    \textbf{Answer:}
-    {\color{blue}
-    \footnotesize
-    Let \(Y\) = first bag is yours, and \(M\) = first bag matches.
-    
-    \[
-    \begin{aligned}
-    &P(Y)=\frac{1}{100}\\
-    &\mathcal{L}(Y^c\mid M)=P(M\mid Y^c)=0.05\\
-    &\mathcal{L}(Y\mid M)=P(M\mid Y)=1\\
-    \end{aligned}
-    \]
-    
-    \[
-    \begin{aligned}
-    P(Y\mid M)&=\frac{P(M\mid Y)P(Y)}{P(M)}
-              =\frac{P(M\mid Y)P(Y)}
-                     {P(M\mid Y)P(Y)+P(M\mid Y^c)P(Y^c)}=\\
-    &=\frac{1\cdot 0.01}{1\cdot 0.01+0.05\cdot 0.99}
-    =\frac{0.01}{0.0595}\approx 0.168
-    \end{aligned}
-    \]
-    
-    So even though the first bag matches, it is probably not yours.
-
-    }
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}{}
-b. Now suppose that we continue to wait for our bag to appear, failing to see it among the first 98 bags to enter the carousel (i.e., only 2 bags are left to come off the airplane).
-   Calculate the posterior probability that the 99th bag, which also matches ours in shape, size, and color, is our own.
+\textbf{Answer: b.}
+{\color{blue}
+\footnotesize
+\[
+\begin{aligned}
+P(Y\mid M)
+&=\frac{1\cdot \tfrac{1}{\text{total of bags remaining}}}
+       {1\cdot \tfrac{1}{\text{total of bags remaining}} + 0.05\cdot \tfrac{\text{total of bags remaining} - 1}{\text{total of bags remaining}}}\\
+&\text{(if 2 bags remain)}\\
+&=\frac{1\cdot \tfrac{1}{2}}
+       {1\cdot \tfrac{1}{2} + 0.05\cdot \tfrac{1}{2}}=\frac{1}{1+0.05} \approx 0.9524
+\end{aligned}
+\]
 
-   \vspace{0.2cm}
-
-    \textbf{Answer:}
-    {\color{blue}
-    \footnotesize
-    \[
-    \begin{aligned}
-    P(Y\mid M)
-    &=\frac{1\cdot \tfrac{1}{\text{total of bags remaining}}}
-           {1\cdot \tfrac{1}{\text{total of bags remaining}} + 0.05\cdot \tfrac{\text{total of bags remaining} - 1}{\text{total of bags remaining}}}\\
-    &\text{(if 2 bags remain)}\\
-    &=\frac{1\cdot \tfrac{1}{2}}
-           {1\cdot \tfrac{1}{2} + 0.05\cdot \tfrac{1}{2}}=\frac{1}{1+0.05} \approx 0.9524
-    \end{aligned}
-    \]
-    
-    There is a 95\% chance that the 99th bag is yours, given that it looks like yours.\\
-    Or, \hl{it is \textbf{19 times more likely} to be yours than not yours $^{(0.95/0.05 = 19)}$.}
-    }
+There is a 95\% chance that the 99th bag is yours, given that it looks like yours.\\
+Or, \hl{it is \textbf{19 times more likely} to be yours than not yours $^{(0.95/0.05 = 19)}$.}
+}
 \end{frame}
+}
 
 {
 \setbeamercolor{background canvas}{bg=orange!10}
@@ -655,7 +680,7 @@ b. Now suppose that we continue to wait for our bag to appear, failing to see it
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Homework}
+\begin{frame}{}
 \begin{block}{Question 1}
 Define the following events for a resident of a fictional town as:
 \begin{itemize}
@@ -671,7 +696,7 @@ Several facts about these events are listed next.
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Homework}
+\begin{frame}{}
 \begin{block}{Question 1, cont.}
 Specify each of these facts using probability notation, paying special attention to whether it’s a marginal, conditional, or joint probability.
 \begin{itemize}
@@ -686,7 +711,7 @@ Specify each of these facts using probability notation, paying special attention
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Homework}
+\begin{frame}{}
 \begin{block}{Question 2}
 Edward is trying to prove to Bella that vampires exist.
 Bella thinks there is a 0.05 probability that vampires exist.
@@ -697,7 +722,7 @@ Given that Edward sparkled like a diamond, what is the probability that vampires
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Homework}
+\begin{frame}{}
 \begin{block}{Question 3}
 The probability that Sandra will like a restaurant is 0.7.
 Among the restaurants that she likes, 20\% have five stars on Yelp, 50\% have four stars, and 30\% have fewer than four stars.
@@ -706,7 +731,7 @@ What other information do we need if we want to find the posterior probability t
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Homework}
+\begin{frame}{}
 \begin{block}{Question 4}
 Robin applies for six equally competitive data science internships. He has the following prior model for his chances of getting into any given internship, $\pi$:
 
@@ -719,15 +744,15 @@ f(\pi) & 0.25 & 0.60 & 0.15 & 1
 \]
 
 \begin{enumerate}
-    \item[(a)] Let $Y$ be the number of internship offers that Robin gets. Specify the model for the dependence of $Y$ on $\pi$ and the corresponding pmf, $f(y \mid \pi)$.
-    \item[(b)] Robin got some pretty amazing news. He was offered four of the six internships! How likely would this be if $\pi = 0.3$?
-    \item[(c)] Construct the posterior model of $\pi$ in light of Robin's internship news.
+\item[(a)] Let $Y$ be the number of internship offers that Robin gets. Specify the model for the dependence of $Y$ on $\pi$ and the corresponding pmf, $f(y \mid \pi)$.
+\item[(b)] Robin got some pretty amazing news. He was offered four of the six internships! How likely would this be if $\pi = 0.3$?
+\item[(c)] Construct the posterior model of $\pi$ in light of Robin's internship news.
 \end{enumerate}
 \end{block}
 \end{frame}
 
 %------------------------------------------------
-\begin{frame}{Homework}
+\begin{frame}{}
 \begin{block}{Question 5}
 Whether you like it or not, cats have taken over the internet.
 Joining the craze, Michael has written an algorithm to detect cat images.
