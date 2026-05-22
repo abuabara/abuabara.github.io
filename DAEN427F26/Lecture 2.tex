@@ -91,7 +91,8 @@ Fall 2026
 %------------------------------------------------
 \begin{frame}{}
 \centering
-\includegraphics[height=8.5cm]{Fake News Detection on Social Media.jpg}
+%\includegraphics[height=8.2cm]{Fake News Detection on Social Media.jpg}
+\includegraphics[height=.75\textheight]{Screenshot 2026-05-22 at 5.13.47 PM}
 {\footnotesize \url{https://arxiv.org/abs/1708.01967} for details.}
 %\begin{columns}[t]
 %\begin{column}{0.35\textwidth}
@@ -124,6 +125,22 @@ Fall 2026
 \end{block}
 \end{frame}
 
+%------------------------------------------------
+\begin{frame}{Building a Bayesian Model for Events}
+Before reading, we can use prior knowledge from historical data.
+
+\vspace{0.4cm}
+
+\begin{block}{Valid Probability Model}
+A probability model must satisfy:
+\begin{enumerate}
+    \item Cover all possible events
+    \item Assign probabilities to each event
+    \item Probabilities sum to one
+\end{enumerate}
+\end{block}
+\end{frame}
+
 {
 \setbeamercolor{background canvas}{bg=green!10}
 %------------------------------------------------
@@ -146,20 +163,9 @@ Fall 2026
 }
 
 %------------------------------------------------
-\begin{frame}{Building a Bayesian Model for Events}
-\begin{block}{Prior Probability Model}
-\begin{itemize}
-\item 
-\item 
-\item 
-\end{itemize}
-\end{block}
-\end{frame}
-
-%------------------------------------------------
 \begin{frame}[fragile]{}
 
-\begin{columns}
+\begin{columns}[t]
 \begin{column}{0.285\textwidth}
 \begin{block}{Dataset}
 \begin{minted}[fontsize=\footnotesize, linenos]{r}
@@ -183,15 +189,39 @@ fake_news %>%
 \end{column}
 
 \begin{column}{0.53\textwidth}
+\begin{block}{Prior Probability Model}
 \begin{itemize}
     \item 150 news articles:\\60 fake, 90 real
     \item $P(\text{Fake}) = \frac{60}{150} = 0.40$.\\
           Before looking at the headline, the prior probability that an article is fake is 40\%.
 \end{itemize}
+\end{block}
 \end{column}
 \end{columns}
+\end{frame}
 
-%\vspace{0.4em}
+%------------------------------------------------
+\begin{frame}{}
+\textbf{Prior Belief}: there is a 40\% chance an article is fake before observing any evidence.
+\[
+P(B)=0.40 \quad \rightarrow \quad P(B^c)=0.60
+\]
+where \(B\): article is \textbf{fake}, \(B^c\): article is \textbf{real}.
+
+\vspace{0.2cm}
+
+\[
+P(B) + P(B^c) = 0.40 + 0.60 = 1
+\]
+
+\begin{center}
+\begin{tabular}{c|ccc}
+\textbf{Event} & \(B\) & \(B^c\) & Total \\
+\hline
+Probability & 0.4 & 0.6 & 1
+\end{tabular}
+
+\end{center}
 
 \end{frame}
 
