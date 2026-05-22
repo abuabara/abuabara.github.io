@@ -128,15 +128,17 @@ Fall 2026
 \end{itemize}
 \end{frame}
 
+{
+\setbeamercolor{background canvas}{bg=green!10}
 %------------------------------------------------
-\begin{frame}{We’re Using R Instead of Python}
+\begin{frame}{We’re Using \texttt{R} Instead of Python}
 \begin{block}{Python}
 \begin{itemize}
 \item "Can do everything" ... installs $n$ packages, breaks after update
 \item Stack Overflow becomes your TA
 \end{itemize}
 \end{block}
-\begin{block}{R}
+\begin{block}{\texttt{R} \quad \rightarrow \quad \url{https://cran.r-project.org}}
 \begin{itemize}
 \item Literally for statistics; \texttt{lm(y \textasciitilde{} x)} and move on with your life
 \item Excellent, open-source, keeps us focused on data analysis,\\... and I enjoy sleeping at night!
@@ -145,10 +147,14 @@ Fall 2026
 \mbox{\textbf{What I Need From You:} learn concepts, analyze data, pass the class!}\\
 \textbf{What I Do Not Need:} a 2-hour debate about virtual environments.
 \end{frame}
+}
 
 %------------------------------------------------
 \begin{frame}[fragile]{}
-\begin{block}{Dataset structure}
+
+\begin{columns}
+\begin{column}{0.285\textwidth}
+\begin{block}{Dataset}
 \begin{minted}[fontsize=\footnotesize, linenos]{r}
 # Load packages
 library(bayesrules)
@@ -166,13 +172,20 @@ fake_news %>%
 #  real  90     0.6
 # Total 150     1.0
 \end{minted}
+\end{block}
+\end{column}
+
+\begin{column}{0.53\textwidth}
 \begin{itemize}
-    \item 150 news articles: 60 fake, 90 real
-    \item $P(\text{Fake}) = \frac{60}{150} = 0.40$.
+    \item 150 news articles:\\60 fake, 90 real
+    \item $P(\text{Fake}) = \frac{60}{150} = 0.40$.\\
           Before looking at the headline, the prior probability that an article is fake is 40\%.
 \end{itemize}
-\vspace{0.4em}
-\end{block}
+\end{column}
+\end{columns}
+
+%\vspace{0.4em}
+
 \end{frame}
 
 %------------------------------------------------
@@ -188,6 +201,14 @@ Bayesian reasoning to estimate whether a news article is fake:
 
 %------------------------------------------------
 \begin{frame}[fragile]{}
+\begin{minted}[fontsize=\footnotesize, linenos]{r}
+# Transposed version of head()
+# ... makes possible to see all columns in a data frame
+glimpse(fake_news)
+\end{minted}
+
+\vspace{0.8em}
+
 Observed headline pattern:
 
 \begin{minted}[fontsize=\footnotesize, linenos]{r}
