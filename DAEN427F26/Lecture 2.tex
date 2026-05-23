@@ -204,7 +204,7 @@ fake_news %>%
 \begin{frame}{}
 \textbf{Prior Belief}: there is a 40\% chance an article is fake before observing any evidence.
 \[
-P(B)=0.40 \quad \rightarrow \quad P(B^c)=0.60
+P(B)=0.40 \quad \leftrightarrow \quad P(B^c)=0.60
 \]
 where \(B\): article is \textbf{fake}, \(B^c\): article is \textbf{real}.
 
@@ -229,10 +229,59 @@ Probability & 0.4 & 0.6 & 1
 \begin{frame}{}
 \begin{block}{}
 Bayesian reasoning to estimate whether a news article is fake:
-
 \vspace{0.4em}
-
 \includegraphics[height=3.3cm]{fake_news_diagram.png}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{DAG: Directed Acyclic Graph}
+\begin{center}
+\begin{tikzpicture}[
+    node distance=3cm,
+    every node/.style={circle, draw, thick, minimum size=1.3cm}
+]
+\node (A) {\(A\)};
+\node[right of=A] (B) {\(B\)};
+\draw[-Triangle, thick] (A) -- (B);
+\end{tikzpicture}
+$
+A = \text{exclamation points}
+\quad
+\quad
+B = \text{fake status}$
+\end{center}
+
+\begin{itemize}
+    \item A \textbf{DAG} shows how variables are connected.
+    \item The arrow means \(A\) may be associate with \(B\).
+    \item \textbf{Acyclic} means the arrows do not loop back.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{DAGs and Conditional Probability}
+\begin{itemize}
+    \item The DAG suggests that the chance of \(B\) may depend on \(A\).
+    \[
+    P(B \mid A)
+    \]
+    \item[] In words: the probability of article is fake \textbf{given}\\
+            \hspace{4cm}the exclamation point in the title.
+    \item If \(A\) changes the probability of \(B\),\\
+          \hspace{2cm}then the events are \textbf{dependent}.
+    \[
+    P(B \mid A) \neq P(B)
+    \]
+    \item If knowing \(A\) does not change the probability of \(B\),\\
+          \hspace{5cm}then they are \textbf{independent}.
+    \[
+    P(B \mid A) = P(B)
+    \]
+\end{itemize}
 \end{block}
 \end{frame}
 
@@ -244,7 +293,7 @@ Bayesian reasoning to estimate whether a news article is fake:
 glimpse(fake_news)
 \end{minted}
 
-\vspace{0.8em}
+\vspace{1.em}
 
 Observed headline pattern:
 
@@ -365,7 +414,7 @@ Fake news articles are much more likely to use exclamation points than real news
     P(A \mid B) = P(A)
     \]
 
-    \item \emph{Example}: rolling a die and flipping a coin are independent, because the die result does not affect the coin flip.
+    \item \textcolor{aggiemaroon!60}{\emph{Example}: rolling a die and flipping a coin are independent, because the die result \textbf{does not} affect the coin flip.}
 \end{itemize}
 \end{block}
 \end{frame}

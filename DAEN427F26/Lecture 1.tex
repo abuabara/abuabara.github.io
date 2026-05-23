@@ -263,8 +263,8 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \node[fill=cyan!30, below=\vsep of $(prior1)!0.5!(data1)$] (post1) {Posterior};
 
 % Arrows to first posterior
-\draw[->, thick] (prior1) -- (post1);
-\draw[->, thick] (data1) -- (post1);
+\draw[-Triangle, thick] (prior1) -- (post1);
+\draw[-Triangle, thick] (data1) -- (post1);
 
 \end{tikzpicture}
 
@@ -300,8 +300,8 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \node[fill=cyan!30, below=\vsep of $(prior1)!0.5!(data1)$] (post1) {Posterior};
 
 % Arrows to first posterior
-\draw[->, thick] (prior1) -- (post1);
-\draw[->, thick] (data1) -- (post1);
+\draw[-Triangle, thick] (prior1) -- (post1);
+\draw[-Triangle, thick] (data1) -- (post1);
 
 % Second row
 \node[right=\hsep of post1] (data2) {New data};
@@ -310,15 +310,15 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \node[below=\vsep of $(post1)!0.5!(data2)$] (post2) {Posterior};
 
 % Arrows to second posterior
-\draw[->, thick] (post1) -- (post2);
-\draw[->, thick] (data2) -- (post2);
+\draw[-Triangle, thick] (post1) -- (post2);
+\draw[-Triangle, thick] (data2) -- (post2);
 
 % Third new data
 \node[right=\hsep of post2] (data3) {New data};
 
 % Dashed continuation arrows
-\draw[->, dashed, thick] (post2) -- ++(1.5,-1.5);
-\draw[->, dashed, thick] (data3) -- ++(-1.5,-1.5);
+\draw[-Triangle, dashed, thick] (post2) -- ++(1.5,-1.5);
+\draw[-Triangle, dashed, thick] (data3) -- ++(-1.5,-1.5);
 
 \end{tikzpicture}
 
