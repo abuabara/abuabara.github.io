@@ -398,7 +398,7 @@ Fake news articles are \textbf{much more likely} to use exclamation points than 
     \[
     P(A \mid B) = P(A)
     \]
-    \item \textcolor{aggiemaroon!60}{\emph{Example}: rolling a die and flipping a coin are independent, because the die result \textbf{does not} affect the coin flip.}
+    \item \textcolor{aggiemaroon!70}{\emph{Example}: rolling a die and flipping a coin are independent, because the die result \textbf{does not} affect the coin flip.}
 \end{itemize}
 \end{block}
 \end{frame}
@@ -750,8 +750,8 @@ P(A^c \cap B^c)=0.5867
 \begin{array}{c|ccc}
  & B & B^c & \text{Total} \\
 \hline
-A & 0.1067 & 0.0133 & 0.1200 \\
-A^c & 0.2933 & 0.5867 & 0.8800 \\
+A   & 0.107 & 0.013 & 0.12 \\
+A^c & 0.293 & 0.587 & 0.88 \\
 \hline
 \text{Total} & 0.4 & 0.6 & 1
 \end{array}
@@ -759,10 +759,7 @@ A^c & 0.2933 & 0.5867 & 0.8800 \\
 
 The row total for \(A\) gives the \textbf{normalizing constant}:
 \[
-P(A)=0.1067+0.0133
-\]
-\[
-\boxed{P(A)=0.12}
+P(A) = 0.107 + 0.013 = \boxed{0.12}
 \]
 
 So, 12\% of all articles use exclamation points.
@@ -771,6 +768,7 @@ So, 12\% of all articles use exclamation points.
 
 %------------------------------------------------
 \begin{frame}{}
+\begin{block}{Joint Probability}
 The calculations use the relationship
 \[
 P(A \cap B)=P(A\mid B)P(B)
@@ -784,22 +782,117 @@ Rearranging gives the conditional probability formula:
 \[
 P(A\mid B)=\frac{P(A \cap B)}{P(B)}
 \]
+
+\textcolor{aggiemaroon!70}{
+PS. If \(A\) and \(B\) are \textbf{independent}, then:
+$P(A \cap B) = P(A) ~ P(B)$
+}
+\end{block}
 \end{frame}
 
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Conditional Probability}
+Conditional probability answers the question:
+\[
+\textit{“What is the probability of } A \textit{ given that } B \textit{ has occurred?”}
+\]
 
+The definition is:
+\[
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}
+\qquad \text{where } P(B) \neq 0
+\]
 
+\begin{itemize}
+    \item Start with the probability that both \(A\) and \(B\) occur
+    \item Restrict attention only to situations where \(B\) occurs
+    \item Measure how often \(A\) also occurs
+\end{itemize}
+\vspace{0.4cm}
 
+\textcolor{aggiemaroon!70}{
+\textbf{Example:}
+$
+P(\text{Rain} \mid \text{Cloudy})
+=
+\frac{
+P(\text{Rain and Cloudy})
+}{
+P(\text{Cloudy})
+}
+$
+}
+\end{block}
+\end{frame}
 
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Law of Total Probability}
+Suppose event \(A\) can happen in two distinct ways:
+\[
+A \cap B
+\qquad \text{or} \qquad
+A \cap B^c
+\]
 
+Since \(B\) and \(B^c\) cover all possibilities, we can write:
+\[
+P(A) = P(A \cap B) + P(A \cap B^c)
+\]
 
+Using the joint probability rule:
+\[
+P(A \cap B) = P(A \mid B)P(B)
+\]
 
+we get the \textbf{Law of Total Probability}:
+\[
+P(A)
+=
+P(A \mid B)P(B)
++
+P(A \mid B^c)P(B^c)
+\]
+\end{block}
+\end{frame}
 
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Exclamation Points in News Articles}
+\[
+\begin{aligned}
+A &= \text{article uses an exclamation point}\\
+B &= \text{article is fake news}
+\end{aligned}
+\]
 
-
-
-
-
-
+\[
+P(A \mid B)=0.2667,
+\qquad
+P(B)=0.4
+\]
+\[
+P(A \mid B^c)=0.0222,
+\qquad
+P(B^c)=0.6
+\]
+Then:
+\[
+P(A)
+=
+0.2667~(0.4) + 0.0222~(0.6)
+\]
+\[
+P(A)
+=
+0.1067 + 0.0133
+=
+0.12
+\]\\
+So, about \textbf{12\% of all articles} use exclamation points.
+\end{block}
+\end{frame}
 
 %------------------------------------------------
 \begin{frame}{}
@@ -815,6 +908,13 @@ P(A\mid B)=\frac{P(A \cap B)}{P(B)}
 P(\text{Fake} \mid !) =
 \frac{P(\text{Fake}) ~ P(! \mid \text{Fake})}{P(!)}
 \]
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+
 \end{block}
 \end{frame}
 
@@ -1234,9 +1334,9 @@ Given that Edward sparkled like a diamond, what is the probability that vampires
 %------------------------------------------------
 \begin{frame}{}
 \begin{block}{Question 3}
-The probability that Sandra will like a restaurant is 0.7.
+The probability that Gabby will like a restaurant is 0.7.
 Among the restaurants that she likes, 20\% have five stars on Yelp, 50\% have four stars, and 30\% have fewer than four stars.
-What other information do we need if we want to find the posterior probability that Sandra likes a restaurant given that it has fewer than four stars on Yelp?
+What other information do we need if we want to find the posterior probability that Gabby likes a restaurant given that it has fewer than four stars on Yelp?
 \end{block}
 \end{frame}
 
