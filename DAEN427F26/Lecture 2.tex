@@ -128,15 +128,13 @@ Fall 2026
 %------------------------------------------------
 \begin{frame}{Building a Bayesian Model for Events}
 Before reading, we can use prior knowledge from historical data.
-
-\vspace{0.4cm}
-
+\vspace{0.8cm}
 \begin{block}{Valid Probability Model}
 A probability model must satisfy:
 \begin{enumerate}
-    \item Cover all possible events
-    \item Assign probabilities to each event
-    \item Probabilities sum to one
+    \item Cover all possible events.
+    \item Assign probabilities to each event.
+    \item Probabilities sum to one.
 \end{enumerate}
 \end{block}
 \end{frame}
@@ -207,29 +205,25 @@ fake_news %>%
 P(B)=0.40 \quad \leftrightarrow \quad P(B^c)=0.60
 \]
 where \(B\): article is \textbf{fake}, \(B^c\): article is \textbf{real}.
-
 \vspace{0.2cm}
-
 \[
 P(B) + P(B^c) = 0.40 + 0.60 = 1
 \]
-
 \begin{center}
 \begin{tabular}{c|ccc}
 \textbf{Event} & \(B\) & \(B^c\) & Total \\
 \hline
 Probability & 0.4 & 0.6 & 1
 \end{tabular}
-
 \end{center}
-
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 Bayesian reasoning to estimate whether a news article is fake:
-\vspace{0.4em}
+\vspace{0.8em}
+
 \includegraphics[height=3.3cm]{fake_news_diagram.png}
 \end{block}
 \end{frame}
@@ -252,7 +246,6 @@ A = \text{exclamation points}
 \quad
 B = \text{fake status}$
 \end{center}
-
 \begin{itemize}
     \item A \textbf{DAG} shows how variables are connected.
     \item The arrow means \(A\) may be associate with \(B\).
@@ -312,7 +305,7 @@ fake_news %>%
 %------------------------------------------------
 \begin{frame}{}
 \begin{block}{Exclamation Points as Evidence}
-\vspace{0.2em}
+\vspace{0.4em}
 \includegraphics[height=3.4cm]{fake_news_diagram.png}
 \begin{table}
 \centering
@@ -346,14 +339,11 @@ Total & 60 & 90 & 150 \\
 \bottomrule
 \end{tabular}
 \end{table}
-
 \begin{center}
 $P(! \mid \text{Fake}) = \frac{16}{60} \approx 0.267$,
 $P(! \mid \text{Real}) = \frac{2}{90} \approx 0.022$
 \end{center}
-
 \vspace{0.4em}
-
 An exclamation point increases the probability that an article is fake.
 \end{block}
 \end{frame}
@@ -373,13 +363,11 @@ A &: \text{article uses exclamation points} \\
 A^c &: \text{article does not use exclamation points}
 \end{aligned}
 \]
-
 From the data:
 \[
 P(A \mid B)=0.267 \qquad P(A \mid B^c)=0.022
 \]
-
-Fake news articles are much more likely to use exclamation points than real news articles.
+Fake news articles are \textbf{much more likely} to use exclamation points than real news articles.
 \end{block}
 \end{frame}
 
@@ -392,12 +380,10 @@ Fake news articles are much more likely to use exclamation points than real news
     \[
     P(A)
     \]
-
     \item \textbf{Conditional probability} is the chance something happens given that something else is already known.
     \[
     P(A \mid B)
     \]
-
     \item Comparing \(P(A)\) and \(P(A \mid B)\) tells us whether knowing \(B\) changes how likely \(A\) is.
 \end{itemize}
 \end{block}
@@ -408,12 +394,10 @@ Fake news articles are much more likely to use exclamation points than real news
 \begin{block}{Independent Events}
 \begin{itemize}
     \item Two events are \textbf{independent} if knowing one happens does not change the probability of the other.
-
     \item In symbols:
     \[
     P(A \mid B) = P(A)
     \]
-
     \item \textcolor{aggiemaroon!60}{\emph{Example}: rolling a die and flipping a coin are independent, because the die result \textbf{does not} affect the coin flip.}
 \end{itemize}
 \end{block}
@@ -430,7 +414,7 @@ Fake news articles are much more likely to use exclamation points than real news
     P(A \mid B^c)=0.0222
     \]
     \item Fake articles are much more likely to use exclamation points.
-    \item Suppose we already observed an article with exclamation points.
+    \item Suppose we already observed an article with exclamations.
     \item Now the question becomes:\\
           \centering \textit{Is the article more likely fake or real?}
 \end{itemize}
@@ -445,12 +429,10 @@ Fake news articles are much more likely to use exclamation points than real news
     \[
     P(A \mid B)
     \]
-
     \item \textbf{Likelihood} starts with observed data and compares possible causes.
     \[
     \mathcal{L}(B \mid A)=P(A \mid B)
     \]
-
     \item In our example:
     \begin{itemize}
         \item \(A\): article uses exclamation points
@@ -498,27 +480,326 @@ P(A \mid B)
 \centering
 \begin{tabular}{lccc}
 \hline
-\textbf{Event} & \(B\) & \(B^c\) & \textbf{Total} \\
+\textbf{Event}              & \(B\)  & \(B^c\) & \textbf{Total} \\
 \hline
-Prior probability & 0.4   & 0.6   & 1      \\[0.1cm]
-Likelihood $(\cdot \mid A)$ & 0.267 & 0.022 & \hl{0.289} \\
+Prior probability           & 0.4    & 0.6     & 1              \\[0.1cm]
+Likelihood $(\cdot \mid A)$ & 0.2667 & 0.0232  & \hl{0.2889}    \\
 \hline
 \end{tabular}
 \end{table}
 \end{block}
 \end{frame}
 
+{
+\setbeamercolor{background canvas}{bg=blue!10}
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Quiz}
+Two boxes are available:
+
+\begin{itemize}
+    \item Box 1 contains 4 red and 2 green balls.
+    \item Box 2 contains 2 red and 4 green balls.
+    \item The probability of choosing either box is equal:
+    \[
+    P(E_1)=P(E_2)=\frac12.
+    \]
+    \item A box is selected at random, and one ball is drawn.
+    \item Study the \textbf{likelihood} of observing a red ball under each box.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+\begin{center}
+\begin{tikzpicture}[scale=1]
+
+    % Outer rectangle
+    \draw[thick] (0,0) rectangle (10,5);
+
+    % Divider
+    \draw[thick] (5.,0) -- (5.,5);
+
+    % Labels
+    % \node at (2.3,5.4) {$B1$};
+    % \node at (7.7,5.4) {$B2$};
+
+    % Left side label
+    \node at (0.8,4.2) {$B_1$};
+
+    % Right side label
+    \node at (9.2,4.2) {$B_2$};
+
+    % Red ellipse
+    \draw[red, thick] (4.75,2.5) ellipse (3.2 and 1.2);
+    \node[red] at (6.9,2.0) {$R$};
+
+    % Left box red balls
+    \fill[red] (2.7,3.0) circle (0.12);
+    \fill[red] (3.8,3.0) circle (0.12);
+    \fill[red] (2.1,2.2) circle (0.12);
+    \fill[red] (3.3,1.7) circle (0.12);
+
+    % Left box green balls
+    \fill[green!70!black] (1.4,3.8) circle (0.12);
+    \fill[green!70!black] (0.7,2.5) circle (0.12);
+
+    % Right box red balls
+    \fill[red] (6.5,2.7) circle (0.12);
+    \fill[red] (5.9,1.8) circle (0.12);
+
+    % Right box green balls
+    \fill[green!70!black] (7.4,3.9) circle (0.12);
+    \fill[green!70!black] (8.8,3.2) circle (0.12);
+    \fill[green!70!black] (8.9,1.5) circle (0.12);
+    \fill[green!70!black] (6.7,0.9) circle (0.12);
+
+\end{tikzpicture}
+\end{center}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+\small
+\textbf{Answer:}
+{\color{blue}
+A red ball is more consistent with Box 1 than with Box 2.\\[.1cm]
+
+The likelihoods are:
+$P(R\mid B_1)=\frac46=\frac23$
+and
+$P(R\mid B_2)=\frac26=\frac13.$\\[.1cm]
+
+So, if Box 1 had been selected, observing a red ball would be more likely.
+
+\begin{center}
+$P(R\mid B_1) > P(R\mid B_2)$
+\end{center}
+
+Therefore, the red ball provides stronger evidence for Box 1 than for Box 2.
+\[
+\frac{P(R\mid B_1)}{P(R\mid B_2)} = \frac{\frac23}{\frac13} = 2
+\]
+The observed red ball is \textbf{twice} as likely under Box 1 as under Box 2. Since the boxes were equally likely before the draw, the red ball favors Box 1.
+}
+\end{block}
+\end{frame}
+}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Recap}
+\[
+\begin{aligned}
+&A   = \text{article uses exclamation points}\\
+&A^c = \text{article does not use exclamation points}\\
+&B    = \text{article is fake news}\\
+&B^c  = \text{article is real news}
+\end{aligned}
+\]
+\vspace{0.2cm}
+
+From the prior model:
+\[
+P(B)=0.4
+\qquad
+P(B^c)=0.6
+\]
+
+So, 40\% of articles are fake and 60\% are real.
+\end{block}
+\end{frame}
 
 %------------------------------------------------
 \begin{frame}{}
 \begin{block}{Normalizing Constants}
 \begin{itemize}
-\item 
-\item 
-\item 
+    \item The marginal probability of observing exclamation points across all articles is $P(A)$.
+    \item This is called the \textbf{normalizing constant}.
+    \item To calculate it, we split articles into two groups:\\
+          \hspace{2cm}$P(A)=P(A \cap B)+P(A \cap B^c)$
+    \item That is,\\ \mbox{$\text{Exclamations} = \text{fake with exclamations} + \text{real with exclamations}$}
 \end{itemize}
 \end{block}
 \end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Joint Probability Table}
+\[
+\begin{array}{c|ccc}
+ & B & B^c & \text{Total} \\
+\hline
+A & P(A \cap B) & P(A \cap B^c) & P(A) \\
+A^c & P(A^c \cap B) & P(A^c \cap B^c) & P(A^c) \\
+\hline
+\text{Total} & 0.4 & 0.6 & 1
+\end{array}
+\]
+\vspace{0.2cm}
+\begin{itemize}
+    \item Each inside cell is a \textbf{joint probability}.
+    \item For example: $P(A \cap B)$ means the probability that an article is fake and uses exclamation points.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Fake Articles \textbf{with} Exclamation Points}
+\begin{itemize}
+    \item To determine the probabilities of these joint events, note that 40\% of articles are fake and 26.67\% of fake articles use exclamation points, $P(B) = 0.4$ and $P(A \mid B) = 0.2667$. 
+    \item The joint probability is
+    $P(A \cap B) = P(A \mid B) ~ P(B) = 0.2667 \cdot 0.4 = 0.1067$
+    \item So, 10.67\% of all articles are fake and use exclamation points.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Fake Articles \textbf{without} Exclamation Points}
+\begin{itemize}
+    \item Since 26.67\% of fake articles use exclamation points, $1 - 0.2667 = 73.33\%$ do not use exclamation points.
+    \item Then, $P(A^c \cap B) = P(A^c\mid B)~P(B) = 0.7333 \cdot 0.4 = 0.2933$
+    \item So, 29.33\% of all articles are fake and do not use exclamation.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Checking the Fake Article Total}
+The fake-news column is split into two parts:
+
+\[P(A \cap B) \quad \text{and} \quad P(A^c \cap B)\]
+
+Therefore,
+\[
+P(B)=P(A \cap B)+P(A^c \cap B)
+\]
+\[
+P(B)=0.1067+0.2933
+\]
+\[
+P(B)=0.4
+\]
+
+This matches the prior probability that an article is fake.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Real Articles}
+From the likelihood function: $P(A\mid B^c)=0.0222$\\
+
+So only 2.22\% of real articles use exclamation points.\\
+
+The joint probability is
+\[
+P(A \cap B^c)=P(A\mid B^c)P(B^c)
+\]
+\[
+P(A \cap B^c)=0.0222 \cdot 0.6
+\]
+\[
+P(A \cap B^c)=0.0133
+\]
+
+So, 1.33\% of all articles are real and use exclamation points.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Real Articles without Exclamation Points}
+Since
+\[
+P(A\mid B^c)=0.0222
+\]
+we have
+\[
+P(A^c\mid B^c)=1-0.0222
+\]
+\[
+P(A^c\mid B^c)=0.9778
+\]
+
+Then
+\[
+P(A^c \cap B^c)=P(A^c\mid B^c) ~ P(B^c)
+\]
+\[
+P(A^c \cap B^c)=0.9778 \cdot 0.6
+\]
+\[
+P(A^c \cap B^c)=0.5867
+\]
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Completed Joint Probability Table}
+\[
+\begin{array}{c|ccc}
+ & B & B^c & \text{Total} \\
+\hline
+A & 0.1067 & 0.0133 & 0.1200 \\
+A^c & 0.2933 & 0.5867 & 0.8800 \\
+\hline
+\text{Total} & 0.4 & 0.6 & 1
+\end{array}
+\]
+
+The row total for \(A\) gives the \textbf{normalizing constant}:
+\[
+P(A)=0.1067+0.0133
+\]
+\[
+\boxed{P(A)=0.12}
+\]
+
+So, 12\% of all articles use exclamation points.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+The calculations use the relationship
+\[
+P(A \cap B)=P(A\mid B)P(B)
+\]
+
+This connects: $~ \text{joint probability}$\\
+
+with: $~ \text{conditional probability} \times \text{prior probability}$\\
+
+Rearranging gives the conditional probability formula:
+\[
+P(A\mid B)=\frac{P(A \cap B)}{P(B)}
+\]
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %------------------------------------------------
 \begin{frame}{}
