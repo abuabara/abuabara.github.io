@@ -29,12 +29,19 @@ Scale           = MatchLowercase
 %  COLORS & THEMES ------------------------------
 \definecolor{aggiemaroon}{RGB}{80,0,0}
 \definecolor{beamer@blendedblue}{RGB}{80,0,0}
+\definecolor{AggieMaroon}{HTML}{500000}
+\definecolor{SoftGray}{HTML}{F5F5F5}
+\definecolor{DarkGray}{HTML}{333333}
+\definecolor{AccentBlue}{HTML}{2F5597}
 \usecolortheme{default}
 
 \setbeamertemplate{itemize items}{•}
 \setbeamertemplate{itemize subitem}[•]
 \setbeamertemplate{itemize subsubitem}[•]
 \renewcommand{\UrlFont}{\ttfamily\small}
+\newcommand{\vocab}[1]{\textcolor{AggieMaroon}{\textbf{#1}}}
+\newcommand{\question}[1]{\begin{block}{Question}#1\end{block}}
+\newcommand{\smallnote}[1]{{\footnotesize\textcolor{DarkGray}{#1}}}
 
 %  HYPERLINKS -----------------------------------
 \usepackage{hyperref}
@@ -89,12 +96,12 @@ Fall 2026
 %------------------------------------------------
 \begin{frame}{}
 %\begin{block}{Risk and Uncertainty}
-There are \textbf{three doors} for you to choose between:\\
-\textbf{two} contained \textbf{nothing} of value and \textbf{one} contained a \textbf{prize}.
+There are \vocab{three doors} for you to choose between:\\
+\vocab{two} contained \vocab{nothing} of value and \vocab{one} contained a \vocab{prize}.
 
 \includegraphics[height=4.cm]{montydoors.png}
 
-You \textbf{pick one} of three closed doors,\\
+You \vocab{pick one} of three closed doors,\\
 making your guess as which door contained the prize.
 %\end{block}
 \end{frame}
@@ -102,16 +109,16 @@ making your guess as which door contained the prize.
 %------------------------------------------------
 \begin{frame}{}
 %\begin{block}{Risk and Uncertainty}
-%Monty Hall would then reveal a door you did not choose that \textbf{did not contain the prize}.
-Then, a door you \textbf{did not} choose is revealed,\\
-and it \textbf{does not} contain the prize.
+%Monty Hall would then reveal a door you did not choose that \vocab{did not contain the prize}.
+Then, a door you \vocab{did not} choose is revealed,\\
+and it \vocab{does not} contain the prize.
 
 \includegraphics[height=4.cm]{montehalldoorproblems2.png}
 
 With two doors still closed (including the one you originally picked),\\
 you are given the choice:\\
-- do you want to \textbf{swap doors},\\
-- or \textbf{stay} with the one you picked?
+- do you want to \vocab{swap doors},\\
+- or \vocab{stay} with the one you picked?
 %\end{block}
 \end{frame}
 
@@ -124,12 +131,12 @@ you are given the choice:\\
 
 %------------------------------------------------
 \begin{frame}{}
-A decision problem begins with a \textbf{choice to be made}\\
-under certain \textbf{objectives} and \textbf{constraints}.\\
+A decision problem begins with a \vocab{choice to be made}\\
+under certain \vocab{objectives} and \vocab{constraints}.\\
 \begin{block}{Risk and Uncertainty}
 \begin{itemize}
-\item \textbf{Choice under risk}: Outcome probabilities are known\\(or can be estimated reliably).
-\item \textbf{Choice under uncertainty}: Outcome probabilities are unknown (or difficult to estimate).
+\item \vocab{Choice under risk}: Outcome probabilities are known\\(or can be estimated reliably).
+\item \vocab{Choice under uncertainty}: Outcome probabilities are unknown (or difficult to estimate).
 \end{itemize}
 \end{block}
 \end{frame}
@@ -141,10 +148,10 @@ under certain \textbf{objectives} and \textbf{constraints}.\\
 \begin{frame}{}
 \begin{block}{Decision and Risk Analysis}
 \begin{enumerate}
-\item \textbf{Modeling Decisions}: Define the available choices or actions.
-\item \textbf{Modeling Risk}: Analyze situations where outcome probabilities are known.
-\item \textbf{Modeling Uncertainty}: Analyze situations where outcome probabilities are unknown (or difficult to estimate).
-\item \textbf{Modeling Preferences}: Represent how decision makers value outcomes and trade-offs.
+\item \vocab{Modeling Decisions}: Define the available choices or actions.
+\item \vocab{Modeling Risk}: Analyze situations where outcome probabilities are known.
+\item \vocab{Modeling Uncertainty}: Analyze situations where outcome probabilities are unknown (or difficult to estimate).
+\item \vocab{Modeling Preferences}: Represent how decision makers value outcomes and trade-offs.
 \end{enumerate}
 \end{block}
 \end{frame}
@@ -153,12 +160,435 @@ under certain \textbf{objectives} and \textbf{constraints}.\\
 \begin{frame}{}
 \begin{block}{Decision and Risk Analysis, Examples}
 \begin{enumerate}
-\item \textbf{Modeling Decisions}\\A student chooses between studying for an exam tonight\\or attending a social event.
-\item \textbf{Modeling Risk}\\A company launches a new product knowing there is a 70\% chance of high demand and a 30\% chance of low demand.
-\item \textbf{Modeling Uncertainty}\\A farmer decides what crop to plant without knowing how much rain will fall this season.
-\item \textbf{Modeling Preferences}\\A traveler chooses between a cheaper flight with a long layover and a more expensive direct flight.
+\item \vocab{Modeling Decisions}\\A student chooses between studying for an exam tonight\\or attending a social event.
+\item \vocab{Modeling Risk}\\A company launches a new product knowing there is a 70\% chance of high demand and a 30\% chance of low demand.
+\item \vocab{Modeling Uncertainty}\\A farmer decides what crop to plant without knowing how much rain will fall this season.
+\item \vocab{Modeling Preferences}\\A traveler chooses between a cheaper flight with a long layover and a more expensive direct flight.
 \end{enumerate}
 \end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Review}
+\begin{block}{Exploratory data analysis}
+\begin{enumerate}
+\item Exploratory data analysis, or EDA, is an initial data analysis that summarizes main characteristics. It often is done through visual means or in basic summary statistics.
+\item Data visualization can be done through many ways, and helps us see patterns and identify potential issues or interesting patterns.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Categorical data}
+\vocab{Nominal data}
+\begin{enumerate}
+\item Named categories with no inherent order or numeric meaning.
+\item When there are only two categories, the variable is often called binary or dichotomous
+\item Examples: Material type (steel, aluminum, concrete), Model outcome (approved, rejected), Class label (spam, not spam)
+\end{enumerate}
+\vocab{Ordinal data}
+\begin{enumerate}
+\item Categories with a natural order, but where the spacing between levels is not necessarily measurable or equal.
+\item Examples: Risk level (low, medium, high), Damage severity (minor, moderate, severe), Rating (poor, fair, good, excellent)
+\end{enumerate}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Numeric data}
+\vocab{Count or rank data}
+\begin{enumerate}
+\item (hopefully self-explanatory)
+\item Examples: number of defects, number of clicks, number of missing values.
+\end{enumerate}
+\vocab{Continuous data}
+\begin{enumerate}
+\item Measurable quantities where difference between possible values can be arbitrarily small.
+\item Data might lie within a range or be unbounded (in either direction)
+\item Examples: temperature, pressure, time spent, latency, model error.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Some complications}
+Suppose you're designing a study and want to measure smoking exposure. We might treat it as:
+\begin{enumerate}
+\item Nominal: yes/no
+\item Ordinal: current vs. former vs. never smoker
+\item Count: number of cigarettes smoked in past week
+\item Continuous: calculation of lifetime pack-years smoked
+\end{enumerate}
+In the real world, decisions are made based on statistical considerations such as modeling interpretations, likelihood of measurement error, or simply convenience and real-world burden of collecting such data.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{The population vs. a sample}
+\begin{enumerate}
+\item A population is the entire group that you want to draw conclusions about.
+\item A sample is the specific group that you will collect data from. The size of the sample is always less than the total size of the population.
+\item In research, a population doesn’t always refer to people. It can mean a group containing elements of anything you want to study, such as objects, events, organizations, countries, etc.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+%\begin{block}{Parameters and statistics}
+%A parameter is a number describing a whole population (e.g., population mean),
+%while a statistic is a number describing a sample (e.g., sample mean).
+
+\vocab{Parameters}
+\begin{enumerate}
+\item Attribute of the population of interest.
+\item Not computable directly.\\(unless entire population is perfectly measured)
+\item Usually written in Greek letters.
+\end{enumerate}
+
+\vspace{.4cm}
+\vocab{Statistics}
+\begin{enumerate}
+\item Attribute of a sample.
+\item Function of the observed values at hand.
+\item Usually written in Roman letters.
+\end{enumerate}
+%\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\centering
+\includegraphics[height=7.5cm]{hurricane.png}\\
+Are point estimates of location enough?
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Interpretations of probability}
+\centering
+\includegraphics[height=5cm]{Smallwoodencrate.jpg}\\
+"There is a 1 in 3 chance of selecting a white ball"
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+\centering
+\includegraphics[height=7.5cm]{1890s-the-agnew-clinic-painting-vintage-images.jpg}\\
+"The surgery has a 50\% probability of success"
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Interpretations of probability}
+\vocab{Long-run frequency}
+\begin{itemize}
+\item A probability describes what would happen over many repetitions of the same random process.
+\end{itemize}
+\vocab{Degree of belief}
+\begin{itemize}
+\item A probability describes uncertainty about a single event, given available information.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{A simple random experiment}
+\vspace{0.2cm}
+\centering
+\begin{tikzpicture}[scale=1.0]
+  \draw[rounded corners, thick, fill=SoftGray] (0,0) rectangle (6,3.2);
+  \foreach \x/\y/\c in {1/1/red,2/2/blue,3.1/1.5/red,4.3/2.3/blue,5/0.9/red,1.4/2.5/blue,4.8/1.7/red} {
+    \fill[\c!65] (\x,\y) circle (0.28);
+    \draw (\x,\y) circle (0.28);
+  }
+\end{tikzpicture}
+
+If one ball is selected at random, what is the probability it is \textcolor{blue}{\textbf{red}}?
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+\vocab{Probability spaces} are objects that model random experiments - real-world processes involving states that occur "randomly".
+
+\vspace{0.2cm}
+A probability space consists of three components:
+\begin{enumerate}
+  \item A \vocab{sample space}, containing all possible outcomes.
+  \item Subsets of the sample space, called \vocab{events}, which comprise any number of possible outcomes (including none of them!).
+  \item A function that assigns \vocab{probabilities} to events.
+\end{enumerate}
+
+\vspace{0.2cm}
+An event is said to \vocab{occur} if the outcome of the random experiment is contained in that event.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Sample space}
+Depends on what we observe.
+
+\vspace{0.3cm}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.45\textwidth} >{\raggedright\arraybackslash}p{0.45\textwidth}}
+\toprule
+Random experiment & Sample space \\
+\midrule
+Toss one coin & $\{H,T\}$ \\
+Toss two coins & $\{HH, HT, TH, TT\}$ \\
+Roll two dice and sum & $\{2,3,4,\ldots,12\}$ \\
+Time until component failure & $[0,\infty)$ \\
+Classify an email & $\{\text{spam},\text{not spam}\}$ \\
+\bottomrule
+\end{tabular}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Events}
+Are subsets of the sample space.
+
+They are the statements to which we assign probabilities.
+
+\vspace{0.3cm}
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.45\textwidth} >{\raggedright\arraybackslash}p{0.45\textwidth}}
+\toprule
+Sample space & Example event \\
+\midrule
+$\{H,T\}$ & The coin lands heads \\
+$\{HH, HT, TH, TT\}$ & At least one head occurs \\
+$\{2,3,4,\ldots,12\}$ & The sum is odd or equal to 8 \\
+$[0,\infty)$ & Failure occurs after one year \\
+Defect categories & The part is classified as defective \\
+\bottomrule
+\end{tabular}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Probability}
+Is a number between 0 and 1 assigned to an event.
+
+\vspace{0.4cm}
+\begin{itemize}
+  \item $P(\text{heads in one fair coin toss}) = 0.5$
+  \item $P(\text{at least one head in two fair coin tosses}) = 0.75$
+  \item $P(\text{sum is 8 when rolling two dice}) = 5/36$
+  \item $P(\text{machine fails before inspection})$ may be estimated from data or a model
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Events as subsets}
+Remember, events are subsets of the entire sample space.
+Let's take for now the example of tossing a single fair coin and recording the outcome.
+For one fair coin toss, the sample space is $S = \{H,T\}$.
+
+\vspace{0.2cm}
+We can define the simple events $A$ and $B$ in the outcome space:
+\begin{itemize}
+  \item $A$: getting a head, $A = \{H\}$.
+  \item $B$: getting a tail, $B = \{T\}$.
+\end{itemize}
+
+\vspace{0.2cm}
+Other possible events include: $\emptyset, \{H,T\}$.
+\emph{What do the empty event and the full sample space mean in words?}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Set operations for events}
+For two events $A$ and $B$:
+
+\begin{itemize}
+  \item \vocab{Intersection}: $A \cap B$ means $A$ and $B$ both occur.
+  \item \vocab{Union}: $A \cup B$ means $A$ or $B$ occurs, including both.
+  \item \vocab{Complement}: $A^c$ means $A$ does not occur.
+  \item \vocab{Set difference}: $A \setminus B$ means $A$ occurs but $B$ does not.
+\end{itemize}
+
+\vspace{0.3cm}
+Events $A$ and $B$ are \vocab{disjoint} or \vocab{mutually exclusive} if
+\[
+A \cap B = \emptyset.
+\]
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\centering
+\begin{tikzpicture}[scale=0.85]
+  \node at (-2.3,2.1) {Intersection: $A\cap B$};
+  \draw[thick] (-3,0) circle (1.2);
+  \draw[thick] (-1.7,0) circle (1.2);
+  \begin{scope}
+    \clip (-3,0) circle (1.2);
+    \fill[AggieMaroon!55] (-1.7,0) circle (1.2);
+  \end{scope}
+  \node at (-3.4,0) {$A$};
+  \node at (-1.3,0) {$B$};
+
+  \node at (2.4,2.1) {Union: $A\cup B$};
+  \fill[AggieMaroon!35] (1.7,0) circle (1.2);
+  \fill[AggieMaroon!35] (3.0,0) circle (1.2);
+  \draw[thick] (1.7,0) circle (1.2);
+  \draw[thick] (3.0,0) circle (1.2);
+  \node at (1.3,0) {$A$};
+  \node at (3.4,0) {$B$};
+\end{tikzpicture}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Kolmogorov axioms}
+A probability rule $P(\cdot)$ must satisfy three basic axioms.
+
+\begin{enumerate}
+  \item For every event $A$, $P(A) \geq 0$.
+  \item The probability of the entire sample space is $P(S)=1$.
+  \item If $A$ and $B$ are disjoint, then
+  \[
+  P(A\cup B)=P(A)+P(B).
+  \]
+\end{enumerate}
+
+\vspace{0.2cm}
+These axioms are enough to derive many useful probability rules.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Two useful rules ...}
+From the axioms, we obtain two rules used constantly.
+
+\vspace{0.4cm}
+\vocab{Complement rule}
+\[
+P(A^c)=1-P(A).
+\]
+
+\vocab{Inclusion-exclusion}
+\[
+P(A\cup B)=P(A)+P(B)-P(A\cap B).
+\]
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Why subtract the intersection?}
+\vspace{0.4cm}
+\centering
+\begin{tikzpicture}[scale=0.9]
+  \fill[AccentBlue!25] (-0.7,0) circle (1.5);
+  \fill[AccentBlue!25] (0.7,0) circle (1.5);
+  \begin{scope}
+    \clip (-0.7,0) circle (1.5);
+    \fill[AggieMaroon!40] (0.7,0) circle (1.5);
+  \end{scope}
+  \draw[thick] (-0.7,0) circle (1.5);
+  \draw[thick] (0.7,0) circle (1.5);
+  \node at (-1.5,0) {$A$};
+  \node at (1.5,0) {$B$};
+  \node at (0,-0.1) {$A\cap B$};
+\end{tikzpicture}
+
+\vspace{0.4cm}
+When we add $P(A)+P(B)$, the overlap is counted twice. Inclusion-exclusion subtracts one copy of the overlap.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{De Morgan's laws}
+Complements, unions, and intersections can be combined.
+
+\vspace{0.4cm}
+\vocab{Complement of a union}
+\[
+(A\cup B)^c = A^c \cap B^c
+\]
+
+\vspace{0.4cm}
+\vocab{Complement of an intersection}
+\[
+(A\cap B)^c = A^c \cup B^c
+\]
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Example: engineering reliability}
+A manufacturing line classifies parts using two screening tests.
+
+\begin{itemize}
+  \item $A$: a part fails the visual inspection.
+  \item $B$: a part fails the sensor-based inspection.
+\end{itemize}
+
+Suppose
+\[
+P(A)=0.08, \qquad P(B)=0.12, \qquad P(A\cap B)=0.03.
+\]
+
+\vspace{0.2cm}
+Then the probability that a part fails at least one inspection is
+\[
+P(A\cup B)=0.08+0.12-0.03=0.17.
+\]
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{Example: data science classification}
+A model flags observations for review.
+
+\begin{itemize}
+  \item $A$: the observation is truly anomalous.
+  \item $B$: the model flags the observation.
+\end{itemize}
+
+Important event statements include:
+\begin{itemize}
+  \item $A\cap B$: true positive.
+  \item $A^c\cap B$: false positive.
+  \item $A\cap B^c$: false negative.
+  \item $A^c\cap B^c$: true negative.
+\end{itemize}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{itemize}
+  \item Probability gives a formal language for \vocab{uncertainty}.
+\begin{itemize}
+  \item A probability space consists of outcomes, events, and probabilities.
+  \item Events are sets, so set operations matter.
+  \item The complement rule and inclusion-exclusion are basic tools for probability calculations.
+\end{itemize}
+  \item These ideas support inference, modeling, and risk analysis.
+\end{itemize}
 \end{frame}
 
 {
@@ -224,9 +654,9 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \item Bayesian modeling provides a way to update beliefs as new information becomes available.
 \item It combines:
 \begin{enumerate}
-\item \textbf{Prior beliefs}: what we know / assume before seeing new data.
-\item \textbf{Evidence/data}: new information relevant to the decision.
-\item \textbf{Posterior beliefs}: updated probabilities after incorporating the evidence.
+\item \vocab{Prior beliefs}: what we know / assume before seeing new data.
+\item \vocab{Evidence/data}: new information relevant to the decision.
+\item \vocab{Posterior beliefs}: updated probabilities after incorporating the evidence.
 \end{enumerate}
 \item Bayesian modeling helps decision makers revise risk estimates and make better choices under uncertainty.
 \item Supporting learning from evidence and improving decisions over time.
@@ -335,9 +765,9 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \end{block}
 
 \begin{itemize}
-\item[] \textbf{Is this coin fair?}
-\item \textbf{Frequentist:} ``If the coin were fair, how surprising would these flips be?''
-\item \textbf{Bayesian:} ``Given these flips, how much should I believe the coin is fair?''
+\item[] \vocab{Is this coin fair?}
+\item \vocab{Frequentist:} ``If the coin were fair, how surprising would these flips be?''
+\item \vocab{Bayesian:} ``Given these flips, how much should I believe the coin is fair?''
 \end{itemize}
 
 \end{frame}
@@ -352,8 +782,8 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \item[] Big Bang, elections, weather and climate change, ...
 \end{itemize}
 
-\item \textbf{Frequentist} probability can be awkward for one-time events because there is no long-run repetition.
-\item \textbf{Bayesian} probability is more flexible:
+\item \vocab{Frequentist} probability can be awkward for one-time events because there is no long-run repetition.
+\item \vocab{Bayesian} probability is more flexible:
 
 \begin{itemize}
 \item It expresses degree of belief.
@@ -374,8 +804,8 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \begin{itemize}
 \item Bayesian and frequentist approaches interpret the same evidence differently:
 \begin{itemize}
-\item \textbf{Frequentist:} Treats "10 out of 10" identically in all cases.
-\item \textbf{Bayesian:} Plausibility on observed evidence given prior beliefs.
+\item \vocab{Frequentist:} Treats "10 out of 10" identically in all cases.
+\item \vocab{Bayesian:} Plausibility on observed evidence given prior beliefs.
 \end{itemize}
 \end{itemize}
 \end{block}
@@ -394,18 +824,18 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \begin{frame}{}
 \begin{block}{Ask Questions!}
 \begin{itemize}
-\item A \textbf{frequentist} analysis assesses the uncertainty of the observed data in light of an assumed hypothesis.
-\item A \textbf{Bayesian} analysis assesses the uncertainty of the hypothesis in light of the observed data.
+\item A \vocab{frequentist} analysis assesses the uncertainty of the observed data in light of an assumed hypothesis.
+\item A \vocab{Bayesian} analysis assesses the uncertainty of the hypothesis in light of the observed data.
 \end{itemize}
 \end{block}
 
 \vspace{.2cm}
 
-\textbf{Scenario:} Population 100 people, 4 have the disease, 96 do not.
+\vocab{Scenario:} Population 100 people, 4 have the disease, 96 do not.
         \begin{center}
         \begin{tabular}{lccc}
         \hline
-         & \textbf{Test +} & \textbf{Test --} & \textbf{Total} \\
+         & \vocab{Test +} & \vocab{Test --} & \vocab{Total} \\
         \hline
         Disease & 3 & 1 & 4 \\
         No disease & 9 & 87 & 96 \\
@@ -418,7 +848,7 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 
 
 \begin{frame}{}
-\textbf{Frequentist question:} $P(\text{Positive Test} \mid \text{No Disease})$
+\vocab{Frequentist question:} $P(\text{Positive Test} \mid \text{No Disease})$
 \begin{itemize}
     \item Among the 96 healthy people, 9 tested positive
     \begin{itemize}
@@ -431,7 +861,7 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 
 \vspace{.2cm}
 
-\textbf{Bayesian question:} $P(\text{Disease} \mid \text{Positive Test})$
+\vocab{Bayesian question:} $P(\text{Disease} \mid \text{Positive Test})$
 \begin{itemize}
     \item Only 3 of the 12 positive tests are true positives.
     \begin{itemize}
@@ -449,22 +879,22 @@ Suppose that during a recent doctor’s visit, you tested positive for a rare di
 \begin{frame}{}
 \begin{block}{The Meaning of Probability}
 
-\textbf{Probability describes uncertainty.}
+\vocab{Probability describes uncertainty.}
 \vspace{0.2cm}
 
 \begin{columns}[t]
 \begin{column}{0.45\textwidth}
-\textbf{Frequentist:}
+\vocab{Frequentist:}
 \begin{itemize}
-    \item Probability is\\a \textbf{long-run frequency}.
+    \item Probability is\\a \vocab{long-run frequency}.
     \item Describes what happens over many repeated trials.
 \end{itemize}
 \end{column}
 
 \begin{column}{0.45\textwidth}
-\textbf{Bayesian:}
+\vocab{Bayesian:}
 \begin{itemize}
-    \item Probability is\\a \textbf{degree of belief}.
+    \item Probability is\\a \vocab{degree of belief}.
     \item Measures how plausible something is given current information.
 \end{itemize}
 \end{column}
@@ -590,7 +1020,7 @@ Explain the following to them:
 %------------------------------------------------
 \begin{frame}{The Monty Hall Problem}
 \begin{center}
-SWITCHING \textbf{Doubles} Your Chance of Winning!
+SWITCHING \vocab{Doubles} Your Chance of Winning!
 
 \includegraphics[height=6.2cm]{Monty_Hall_problem_game_theory.png}
 \end{center}

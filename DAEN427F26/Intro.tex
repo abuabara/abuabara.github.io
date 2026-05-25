@@ -28,6 +28,7 @@ Scale           = MatchLowercase
 
 %  COLORS & THEMES ------------------------------
 \definecolor{aggiemaroon}{RGB}{80,0,0}
+\definecolor{AggieMaroon}{HTML}{500000}
 \definecolor{beamer@blendedblue}{RGB}{80,0,0}
 \usecolortheme{default}
 
@@ -35,6 +36,7 @@ Scale           = MatchLowercase
 \setbeamertemplate{itemize subitem}[•]
 \setbeamertemplate{itemize subsubitem}[•]
 \renewcommand{\UrlFont}{\ttfamily\small}
+\newcommand{\vocab}[1]{\textcolor{AggieMaroon}{\textbf{#1}}}
 
 %  HYPERLINKS -----------------------------------
 \usepackage{hyperref}
@@ -88,10 +90,36 @@ Fall 2026
 
 % -----------------------------------------------
 \begin{frame}{}
+\begin{block}{What have I gotten myself into?}
+\textbf{DAEN/ISEN 427/627} is a rigorous introduction to decision and risk analysis.
+The course:
+\begin{itemize}
+    \item \textbf{Introduces core Bayesian statistical methods} used in data science and engineering research;
+    \item \textbf{Emphasizes understanding}, data-driven decision-making, clear communication of results, and critical evaluation of evidence;
+    \item \textbf{Draws on relevant examples} from engineering, psychology, economics, and public health policy; and
+    \item \textbf{Uses modern software} to reproducibly analyze and interpret data in support of sound scientific conclusions.
+\end{itemize}
+\end{block}
+\end{frame}
+
+% -----------------------------------------------
+\begin{frame}{}
+\begin{block}{Alexander Abuabara, PhD}
+\begin{itemize}
+    \item About me: \url{https://abuabara.github.io}
+    \item To be a great teacher ...
+\end{itemize}
+\end{block}
+\centering
+\includegraphics[height=5cm]{abuabara.jpg}
+\end{frame}
+
+% -----------------------------------------------
+\begin{frame}{}
 \begin{block}{\emph{Yo, I'll tell you what I want, what I really really want}$^*$}
 \begin{itemize}
-    \item To be a great teacher and that means always learning, adapting, and getting better each and every day.
-    \item That you learn concepts, analyze data, pass the class!
+    \item \textbf{To be a great teacher} ... that means always learning, adapting, and getting better each and every day.
+    \item \textbf{That you learn} concepts, analyze data, pass the class!
 \end{itemize}
 \end{block}
 \centering
@@ -103,9 +131,13 @@ Fall 2026
 \begin{frame}{}
 \begin{itemize}
     \item At first, it may seem that answers are the most important.
-    \item The real goal is to learn how to \textbf{ASK questions}.
+    \item The real goal is \textbf{to learn how to ASK questions}.
+    \item[] \qquad \qquad \qquad \includegraphics[height=4cm]{Meme-face-thumbs-up.png}
     \item When you can create thoughtful questions about a topic means you truly understand it.
 \end{itemize}
+
+\vspace{0.2cm}
+Next: \vocab{syllabus}!
 \end{frame}
 
 \end{document}
