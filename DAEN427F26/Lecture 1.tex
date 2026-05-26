@@ -38,7 +38,7 @@ Scale           = MatchLowercase
 \setbeamertemplate{itemize items}{•}
 \setbeamertemplate{itemize subitem}[•]
 \setbeamertemplate{itemize subsubitem}[•]
-\renewcommand{\UrlFont}{\ttfamily\small}
+\renewcommand{\UrlFont}{\ttfamily\footnotesize}
 \newcommand{\vocab}[1]{\textcolor{AggieMaroon}{\textbf{#1}}}
 \newcommand{\question}[1]{\begin{block}{Question}#1\end{block}}
 \newcommand{\smallnote}[1]{{\footnotesize\textcolor{DarkGray}{#1}}}
@@ -272,7 +272,7 @@ Are point estimates of location enough?
 \begin{block}{Interpretations of probability}
 \centering
 \includegraphics[height=5cm]{Smallwoodencrate.jpg}\\
-"There is a 1 in 3 chance of selecting a white ball"
+\emph{There is a 1 in 3 chance of selecting a white ball}
 \end{block}
 \end{frame}
 
@@ -281,7 +281,7 @@ Are point estimates of location enough?
 \begin{block}{}
 \centering
 \includegraphics[height=7.5cm]{1890s-the-agnew-clinic-painting-vintage-images.jpg}\\
-"The surgery has a 50\% probability of success"
+\emph{The surgery has a 50\% probability of success}
 \end{block}
 \end{frame}
 
@@ -472,6 +472,7 @@ A probability rule $P(\cdot)$ must satisfy three basic axioms.
 \vspace{0.2cm}
 These axioms are enough to derive many useful probability rules.
 \end{block}
+\url{https://en.wikipedia.org/wiki/Probability_axioms}
 \end{frame}
 
 %------------------------------------------------
@@ -519,20 +520,27 @@ When we add $P(A)+P(B)$, the overlap is counted twice. Inclusion-exclusion subtr
 %------------------------------------------------
 \begin{frame}{}
 \begin{block}{De Morgan's laws}
-Complements, unions, and intersections can be combined.
+Complements, unions, and intersections can be combined:
 
-\vspace{0.4cm}
+\vspace{0.2cm}
 \vocab{Complement of a union}
 \[
 (A\cup B)^c = A^c \cap B^c
 \]
 
-\vspace{0.4cm}
+\vspace{0.2cm}
 \vocab{Complement of an intersection}
 \[
 (A\cap B)^c = A^c \cup B^c
 \]
 \end{block}
+
+The rules can be expressed in English as:
+\begin{itemize}
+  \item The negation of "A or B" is the same as "not A and not B".
+  \item The negation of "A and B" is the same as "not A or not B".
+\end{itemize}
+%{\footnotesize \url{https://en.wikipedia.org/wiki/De_Morgan\%27s_laws}}
 \end{frame}
 
 %------------------------------------------------
@@ -580,15 +588,13 @@ Important event statements include:
 
 %------------------------------------------------
 \begin{frame}{}
-\begin{itemize}
-  \item Probability gives a formal language for \vocab{uncertainty}.
+Probability gives a formal language for \vocab{uncertainty}.
 \begin{itemize}
   \item A probability space consists of outcomes, events, and probabilities.
   \item Events are sets, so set operations matter.
   \item The complement rule and inclusion-exclusion are basic tools for probability calculations.
 \end{itemize}
-  \item These ideas support inference, modeling, and risk analysis.
-\end{itemize}
+These ideas support inference, modeling, and risk analysis.
 \end{frame}
 
 {
