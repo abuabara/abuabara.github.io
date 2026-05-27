@@ -1,6 +1,6 @@
 \documentclass[12pt]{beamer}
 
-%  CORE PACKAGES --------------------------------
+%CORE PACKAGES---------------------------------
 \usepackage{amsmath, amssymb, graphicx, booktabs, tabularx, setspace, soul}
 \usepackage{subcaption}
 \usepackage{tikz, pgfplots}
@@ -10,7 +10,7 @@
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{minted}
 
-%  FONTS & STYLING ------------------------------
+%FONTS & STYLING-------------------------------
 \usepackage{fontspec}
 \usefonttheme{professionalfonts}
 \setsansfont[
@@ -26,16 +26,24 @@ Scale           = MatchLowercase
 \hyphenpenalty=10000
 \exhyphenpenalty=10000
 
-%  COLORS & THEMES ------------------------------
+%COLORS & THEMES-------------------------------
 \definecolor{aggiemaroon}{RGB}{80,0,0}
 \definecolor{beamer@blendedblue}{RGB}{80,0,0}
+\definecolor{AggieMaroon}{HTML}{500000}
+\definecolor{SoftGray}{HTML}{F5F5F5}
+\definecolor{DarkGray}{HTML}{333333}
+\definecolor{AccentBlue}{HTML}{2F5597}
 \usecolortheme{default}
 
 \setbeamertemplate{itemize items}{•}
 \setbeamertemplate{itemize subitem}[•]
 \setbeamertemplate{itemize subsubitem}[•]
+\renewcommand{\UrlFont}{\ttfamily\footnotesize}
+\newcommand{\vocab}[1]{\textcolor{AggieMaroon}{\textbf{#1}}}
+\newcommand{\question}[1]{\begin{block}{Question}#1\end{block}}
+\newcommand{\smallnote}[1]{{\footnotesize\textcolor{DarkGray}{#1}}}
 
-%  HYPERLINKS -----------------------------------
+%HYPERLINKS------------------------------------
 \usepackage{hyperref}
 \hypersetup{
 colorlinks=true,
@@ -43,17 +51,15 @@ linkcolor=aggiemaroon,
 urlcolor=aggiemaroon,
 citecolor=aggiemaroon
 }
-\usepackage{url}
-\renewcommand{\UrlFont}{\ttfamily\footnotesize}
 
-%  BEAMER TEMPLATES -----------------------------
+%BEAMER TEMPLATES------------------------------
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{
 \color{aggiemaroon}{\hfill \insertframenumber/\inserttotalframenumber \hspace{2pt} \vskip2pt}
 }
 
-%  CUSTOM ENVIRONMENTS --------------------------
+%CUSTOM ENVIRONMENTS---------------------------
 \newenvironment{stepenumerate}{
 \begin{enumerate}[<+->]
 }{\end{enumerate}}
@@ -70,7 +76,7 @@ citecolor=aggiemaroon
 \begin{itemize}[<+-| alert@+>]
 }{\end{itemize}}
 
-% DOCUMENT INFO ---------------------------------
+%DOCUMENT INFO----------------------------------
 \title{Decision and Risk Analysis}
 \subtitle{Lecture 2: \textbf{Bayes’ Rule}}
 \author{\emph{}}
@@ -81,20 +87,20 @@ Fall 2026
 }}
 \titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
 
-% -----------------------------------------------
+%-----------------------------------------------
 \begin{document}
 
-% -----------------------------------------------
+%-----------------------------------------------
 \maketitle
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \centering
 \includegraphics[height=.75\textheight]{Screenshot 2026-05-22 at 5.13.47 PM}
 {\footnotesize \url{https://arxiv.org/abs/1708.01967} for details.}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Framework}
 \vspace{.4cm}
@@ -104,7 +110,7 @@ Fall 2026
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Future Directions}
 \vspace{.4cm}
@@ -114,7 +120,7 @@ Fall 2026
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{Building a Bayesian Model for Events}
 Before reading, we can use prior knowledge from historical data.
 \vspace{0.8cm}
@@ -130,7 +136,7 @@ A probability model must satisfy:
 
 {
 \setbeamercolor{background canvas}{bg=green!10}
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{We’re Using \texttt{R} Instead of Python}
 \begin{block}{Python}
 \begin{itemize}
@@ -149,7 +155,7 @@ A probability model must satisfy:
 \end{frame}
 }
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}[fragile]{}
 
 \begin{columns}[t]
@@ -187,7 +193,7 @@ fake_news %>%
 \end{columns}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \textbf{Prior Belief}: there is a 40\% chance an article is fake before observing any evidence.
 \[
@@ -207,7 +213,7 @@ Probability & 0.4 & 0.6 & 1
 \end{center}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 Bayesian reasoning to estimate whether a news article is fake:
@@ -217,7 +223,7 @@ Bayesian reasoning to estimate whether a news article is fake:
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{DAG: Directed Acyclic Graph}
 \begin{center}
@@ -243,7 +249,7 @@ B = \text{fake status}$
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{DAGs and Conditional Probability}
 \begin{itemize}
@@ -267,7 +273,7 @@ B = \text{fake status}$
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}[fragile]{}
 \begin{minted}[fontsize=\footnotesize, linenos]{r}
 # Transposed version of head()
@@ -291,7 +297,7 @@ fake_news %>%
 \end{minted}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Exclamation Points as Evidence}
 \vspace{0.4em}
@@ -312,7 +318,7 @@ Total & 60 & 90 & 150 \\
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Conditional Probability \& Likelihood}
 \begin{table}
@@ -337,7 +343,7 @@ An exclamation point increases the probability that an article is fake.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Conditional Probability \& Likelihood}
 \[
@@ -361,7 +367,7 @@ Fake news articles are \textbf{much more likely} to use exclamation points than 
 \end{frame}
 
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Conditional vs Unconditional Probability}
 \begin{itemize}
@@ -378,7 +384,7 @@ Fake news articles are \textbf{much more likely} to use exclamation points than 
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Independent Events}
 \begin{itemize}
@@ -392,7 +398,7 @@ Fake news articles are \textbf{much more likely} to use exclamation points than 
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{From Probability to Likelihood}
 \begin{itemize}
@@ -410,7 +416,7 @@ Fake news articles are \textbf{much more likely} to use exclamation points than 
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{What is Likelihood?}
 \begin{itemize}
@@ -436,7 +442,7 @@ Fake news articles are \textbf{much more likely} to use exclamation points than 
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{center}
 \begin{tabular}{p{4cm}|p{4cm}}
@@ -459,7 +465,7 @@ P(A \mid B)
 \end{itemize}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 \begin{itemize}
@@ -481,7 +487,7 @@ Likelihood $(\cdot \mid A)$ & 0.2667 & 0.0232  & \hl{0.2889}    \\
 
 {
 \setbeamercolor{background canvas}{bg=blue!10}
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Quiz}
 Two boxes are available:
@@ -499,7 +505,7 @@ Two boxes are available:
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 \begin{center}
@@ -550,7 +556,7 @@ Two boxes are available:
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 \small
@@ -579,7 +585,7 @@ The observed red ball is \textbf{twice} as likely under Box 1 as under Box 2. Si
 \end{frame}
 }
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Recap}
 \[
@@ -603,7 +609,7 @@ So, 40\% of articles are fake and 60\% are real.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Normalizing Constants}
 \begin{itemize}
@@ -616,7 +622,7 @@ So, 40\% of articles are fake and 60\% are real.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Joint Probability Table}
 \[
@@ -637,7 +643,7 @@ A^c & P(A^c \cap B) & P(A^c \cap B^c) & P(A^c) \\
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Fake Articles \textbf{with} Exclamation Points}
 \begin{itemize}
@@ -649,7 +655,7 @@ A^c & P(A^c \cap B) & P(A^c \cap B^c) & P(A^c) \\
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Fake Articles \textbf{without} Exclamation Points}
 \begin{itemize}
@@ -660,7 +666,7 @@ A^c & P(A^c \cap B) & P(A^c \cap B^c) & P(A^c) \\
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Checking the Fake Article Total}
 The fake-news column is split into two parts:
@@ -682,7 +688,7 @@ This matches the prior probability that an article is fake.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Real Articles}
 From the likelihood function: $P(A\mid B^c)=0.0222$\\
@@ -704,7 +710,7 @@ So, 1.33\% of all articles are real and use exclamation points.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Real Articles without Exclamation Points}
 Since
@@ -732,7 +738,7 @@ P(A^c \cap B^c)=0.5867
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Completed Joint Probability Table}
 \[
@@ -755,7 +761,7 @@ So, 12\% of all articles use exclamation points.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Joint Probability}
 The calculations use the relationship
@@ -779,7 +785,7 @@ $P(A \cap B) = P(A) ~ P(B)$
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Conditional Probability}
 Conditional probability answers the question:
@@ -815,7 +821,7 @@ $
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Law of Total Probability}
 Suppose event \(A\) can happen in two distinct ways:
@@ -846,7 +852,7 @@ P(A \mid B^c)P(B^c)
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Exclamation Points in News Articles}
 \[
@@ -883,14 +889,14 @@ So, about \textbf{12\% of all articles} use exclamation points.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 \[
@@ -900,7 +906,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 
@@ -924,7 +930,7 @@ P(\text{Fake} \mid !) =
 
 
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Calculating Joint and Conditional Probabilities}
 \begin{itemize}
@@ -935,7 +941,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Posterior Probability Model via Bayes’ Rule}
 \begin{itemize}
@@ -946,7 +952,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Posterior Simulation}
 \begin{itemize}
@@ -957,7 +963,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{Building a Bayesian Model for Random Variables}
 \begin{block}{Prior Probability Model}
 \begin{itemize}
@@ -968,7 +974,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Discrete Probability Model}
 \begin{itemize}
@@ -979,7 +985,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{The Binomial Data Model}
 \begin{itemize}
@@ -990,7 +996,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Conditional Probability Model of Data $Y$}
 \begin{itemize}
@@ -1001,7 +1007,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{The Binomial Model}
 \begin{itemize}
@@ -1012,7 +1018,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{The Binomial Likelihood Function}
 \begin{itemize}
@@ -1023,7 +1029,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Probability Mass Functions vs Likelihood Functions}
 \begin{itemize}
@@ -1034,7 +1040,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Normalizing Constant}
 \begin{itemize}
@@ -1045,7 +1051,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Posterior Probability Model}
 \begin{itemize}
@@ -1056,7 +1062,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Bayes’ Rule for Variables}
 \begin{itemize}
@@ -1067,7 +1073,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Posterior Shortcut}
 \begin{itemize}
@@ -1078,7 +1084,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Proportionality}
 \begin{itemize}
@@ -1089,7 +1095,7 @@ P(\text{Fake} \mid !) =
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Posterior Simulation}
 \begin{itemize}
@@ -1102,7 +1108,7 @@ P(\text{Fake} \mid !) =
 
 {
 \setbeamercolor{background canvas}{bg=blue!10}
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Quiz 1}
 A medical test correctly detects a disease 95\% of the time when the disease is present.
@@ -1116,7 +1122,7 @@ This value represents:
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \textbf{Answer:}
 {\color{blue}
@@ -1133,7 +1139,7 @@ which represents the \ul{likelihood} (also called \textbf{sensitivity} or \textb
 }
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Quiz 2}
 A university uses an AI system to detect plagiarism.
@@ -1147,7 +1153,7 @@ Briefly discuss whether the AI system seems reliable.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
 \vspace{0.2cm}
@@ -1168,7 +1174,7 @@ The system catches most plagiarism cases, but because plagiarism is rare, many f
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Quiz 3}
 \begin{columns}[c]
@@ -1199,7 +1205,7 @@ The system catches most plagiarism cases, but because plagiarism is rare, many f
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Quiz 3, cont.}
 \begin{itemize}
@@ -1214,7 +1220,7 @@ The system catches most plagiarism cases, but because plagiarism is rare, many f
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \textbf{Answer: a.}
 {\color{blue}
@@ -1243,7 +1249,7 @@ So even though the first bag matches, it is probably not yours.
 }
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \textbf{Answer: b.}
 {\color{blue}
@@ -1267,7 +1273,7 @@ Or, \hl{it is \textbf{19 times more likely} to be yours than not yours $^{(0.95/
 
 {
 \setbeamercolor{background canvas}{bg=orange!10}
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{Homework}
 \begin{itemize}
 \color{aggiemaroon}{
@@ -1278,7 +1284,7 @@ Or, \hl{it is \textbf{19 times more likely} to be yours than not yours $^{(0.95/
 \end{itemize}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Question 1}
 Define the following events for a resident of a fictional town as:
@@ -1294,7 +1300,7 @@ Several facts about these events are listed next.
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Question 1, cont.}
 Specify each of these facts using probability notation, paying special attention to whether it’s a marginal, conditional, or joint probability.
@@ -1309,7 +1315,7 @@ Specify each of these facts using probability notation, paying special attention
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Question 2}
 Edward is trying to prove to Bella that vampires exist.
@@ -1320,7 +1326,7 @@ Given that Edward sparkled like a diamond, what is the probability that vampires
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Question 3}
 The probability that Gabby will like a restaurant is 0.7.
@@ -1329,7 +1335,7 @@ What other information do we need if we want to find the posterior probability t
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Question 4}
 Robin applies for six equally competitive data science internships. He has the following prior model for his chances of getting into any given internship, $\pi$:
@@ -1350,7 +1356,7 @@ f(\pi) & 0.25 & 0.60 & 0.15 & 1
 \end{block}
 \end{frame}
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Question 5}
 Whether you like it or not, cats have taken over the internet.

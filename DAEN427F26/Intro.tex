@@ -1,6 +1,6 @@
 \documentclass[12pt]{beamer}
 
-%  CORE PACKAGES --------------------------------
+%CORE PACKAGES---------------------------------
 \usepackage{amsmath, amssymb, graphicx, booktabs, tabularx, setspace, soul}
 \usepackage{subcaption}
 \usepackage{tikz, pgfplots}
@@ -10,7 +10,7 @@
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{minted}
 
-%  FONTS & STYLING ------------------------------
+%FONTS & STYLING-------------------------------
 \usepackage{fontspec}
 \usefonttheme{professionalfonts}
 \setsansfont[
@@ -26,19 +26,24 @@ Scale           = MatchLowercase
 \hyphenpenalty=10000
 \exhyphenpenalty=10000
 
-%  COLORS & THEMES ------------------------------
+%COLORS & THEMES-------------------------------
 \definecolor{aggiemaroon}{RGB}{80,0,0}
-\definecolor{AggieMaroon}{HTML}{500000}
 \definecolor{beamer@blendedblue}{RGB}{80,0,0}
+\definecolor{AggieMaroon}{HTML}{500000}
+\definecolor{SoftGray}{HTML}{F5F5F5}
+\definecolor{DarkGray}{HTML}{333333}
+\definecolor{AccentBlue}{HTML}{2F5597}
 \usecolortheme{default}
 
 \setbeamertemplate{itemize items}{•}
 \setbeamertemplate{itemize subitem}[•]
 \setbeamertemplate{itemize subsubitem}[•]
-\renewcommand{\UrlFont}{\ttfamily\small}
+\renewcommand{\UrlFont}{\ttfamily\footnotesize}
 \newcommand{\vocab}[1]{\textcolor{AggieMaroon}{\textbf{#1}}}
+\newcommand{\question}[1]{\begin{block}{Question}#1\end{block}}
+\newcommand{\smallnote}[1]{{\footnotesize\textcolor{DarkGray}{#1}}}
 
-%  HYPERLINKS -----------------------------------
+%HYPERLINKS------------------------------------
 \usepackage{hyperref}
 \hypersetup{
 colorlinks=true,
@@ -47,14 +52,14 @@ urlcolor=aggiemaroon,
 citecolor=aggiemaroon
 }
 
-%  BEAMER TEMPLATES -----------------------------
+%BEAMER TEMPLATES------------------------------
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{
 \color{aggiemaroon}{\hfill \insertframenumber/\inserttotalframenumber \hspace{2pt} \vskip2pt}
 }
 
-%  CUSTOM ENVIRONMENTS --------------------------
+%CUSTOM ENVIRONMENTS---------------------------
 \newenvironment{stepenumerate}{
 \begin{enumerate}[<+->]
 }{\end{enumerate}}
@@ -71,7 +76,7 @@ citecolor=aggiemaroon
 \begin{itemize}[<+-| alert@+>]
 }{\end{itemize}}
 
-% DOCUMENT INFO ---------------------------------
+%DOCUMENT INFO----------------------------------
 \title{Decision and Risk Analysis}
 \subtitle{\textbf{Introduction}}
 \author{\emph{}}
@@ -82,44 +87,90 @@ Fall 2026
 }}
 \titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
 
-% -----------------------------------------------
+%-----------------------------------------------
 \begin{document}
 
-% -----------------------------------------------
+%-----------------------------------------------
 \maketitle
 
-% -----------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{What have I gotten myself into?}
 \textbf{DAEN/ISEN 427/627} is a rigorous introduction to decision and risk analysis.
 The course:
 \begin{itemize}
-    \item \textbf{Introduces core Bayesian statistical methods} used in data science and engineering research;
-    \item \textbf{Emphasizes understanding}, data-driven decision-making, clear communication of results, and critical evaluation of evidence;
-    \item \textbf{Draws on relevant examples} from engineering, psychology, economics, and public health policy; and
-    \item \textbf{Uses modern software} to reproducibly analyze and interpret data in support of sound scientific conclusions.
+    \item \vocab{Introduces core Bayesian statistical methods} used in data science and engineering research;
+    \item \vocab{Emphasizes understanding}, data-driven decision-making, clear communication of results, and critical evaluation of evidence;
+    \item \vocab{Draws on relevant examples} from engineering, psychology, economics, and public health policy; and
+    \item \vocab{Uses modern software} to reproducibly analyze and interpret data in support of sound scientific conclusions.
 \end{itemize}
 \end{block}
 \end{frame}
 
-% -----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{Decision and Risk Analysis}
+Good decisions require four questions:
+\begin{center}
+\large
+\vocab{Choices $\rightarrow$ Outcomes $\rightarrow$ Uncertainty $\rightarrow$ Preferences}
+\end{center}
+
+\pause
+
+\begin{enumerate}
+\item \vocab{What can we do?}\\Identify our possible choices.
+\item \vocab{What could happen?}\\Think about possible outcomes and probabilities.
+\item \vocab{What if we are unsure?}\\Make decisions even when information is incomplete.
+\item \vocab{What matters most?}\\Compare outcomes, trade-offs, and preferences.
+\end{enumerate}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+\centering
+\emph{500 kg of US dollars or 500 kg of gold.}
+\includegraphics[height=.66\textheight]{DollarGold.jpg}\\
+\emph{What would you choose? What would someone else choose?}
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+\small
+Are we modeling risk itself,\\or merely the aspects of \ul{uncertainty} that are easiest to quantify?
+\begin{center}
+\includegraphics[width=.6\textwidth]{risks.jpg}
+\end{center}
+\pause
+\vocab{Example}:
+A flood risk model might estimate: "There is a 2\% annual probability of flooding, with an expected property loss of \$40,000."\\
+That is mathematically convenient: \emph{probability x expected loss}.
+But it may ignore whether residents trust the model or can afford insurance,
+or political leaders delay action, or infrastructure fails under stress.
+So the question becomes: \vocab{"Are we modeling the full risk of flooding, or just the measurable part: water levels, probabilities, and dollar losses?"}
+\end{frame}
+
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Alexander Abuabara, PhD}
 \begin{itemize}
     \item About me: \url{https://abuabara.github.io}
-    \item To be a great teacher ...
+    \item \textcolor{purple}{\textbf{To be a great teacher ...}}
 \end{itemize}
 \end{block}
 \centering
 \includegraphics[height=5cm]{abuabara.jpg}
 \end{frame}
 
-% -----------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{\emph{Yo, I'll tell you what I want, what I really really want}$^*$}
 \begin{itemize}
-    \item \textcolor{aggiemaroon}{\textbf{To be a great teacher} ... that means always learning, adapting, and getting better each and every day.}
-    \item \textbf{That you \ul{learn}} concepts, analyze data, pass the class!
+    \item \textcolor{purple}{\textbf{To be a great teacher ...} that means always learning, adapting, and getting better each and every day.}
+    \item \textbf{That you \ul{learn}} concepts, analyze data, pass the class ...\\ \hspace{4.6cm}... and go do great things in life!
 \end{itemize}
 \end{block}
 \centering
@@ -127,7 +178,7 @@ The course:
 \tiny{$^*$Wannabe by Spice Girls}
 \end{frame}
 
-% -----------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 \begin{itemize}
     \item At first, it may seem that answers are the most important.
@@ -136,8 +187,5 @@ The course:
     \item When you can create thoughtful questions about a topic means you truly understand it.
     \item \vocab{Syllabus}!
 \end{itemize}
-
-\vspace{0.2cm}
 \end{frame}
-
 \end{document}

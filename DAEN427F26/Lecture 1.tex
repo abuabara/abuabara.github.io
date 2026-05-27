@@ -1,6 +1,6 @@
 \documentclass[12pt]{beamer}
 
-%  CORE PACKAGES --------------------------------
+%CORE PACKAGES---------------------------------
 \usepackage{amsmath, amssymb, graphicx, booktabs, tabularx, setspace, soul}
 \usepackage{subcaption}
 \usepackage{tikz, pgfplots}
@@ -10,7 +10,7 @@
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{minted}
 
-%  FONTS & STYLING ------------------------------
+%FONTS & STYLING-------------------------------
 \usepackage{fontspec}
 \usefonttheme{professionalfonts}
 \setsansfont[
@@ -26,7 +26,7 @@ Scale           = MatchLowercase
 \hyphenpenalty=10000
 \exhyphenpenalty=10000
 
-%  COLORS & THEMES ------------------------------
+%COLORS & THEMES-------------------------------
 \definecolor{aggiemaroon}{RGB}{80,0,0}
 \definecolor{beamer@blendedblue}{RGB}{80,0,0}
 \definecolor{AggieMaroon}{HTML}{500000}
@@ -43,7 +43,7 @@ Scale           = MatchLowercase
 \newcommand{\question}[1]{\begin{block}{Question}#1\end{block}}
 \newcommand{\smallnote}[1]{{\footnotesize\textcolor{DarkGray}{#1}}}
 
-%  HYPERLINKS -----------------------------------
+%HYPERLINKS------------------------------------
 \usepackage{hyperref}
 \hypersetup{
 colorlinks=true,
@@ -52,14 +52,14 @@ urlcolor=aggiemaroon,
 citecolor=aggiemaroon
 }
 
-%  BEAMER TEMPLATES -----------------------------
+%BEAMER TEMPLATES------------------------------
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}{
 \color{aggiemaroon}{\hfill \insertframenumber/\inserttotalframenumber \hspace{2pt} \vskip2pt}
 }
 
-%  CUSTOM ENVIRONMENTS --------------------------
+%CUSTOM ENVIRONMENTS---------------------------
 \newenvironment{stepenumerate}{
 \begin{enumerate}[<+->]
 }{\end{enumerate}}
@@ -76,7 +76,7 @@ citecolor=aggiemaroon
 \begin{itemize}[<+-| alert@+>]
 }{\end{itemize}}
 
-% DOCUMENT INFO ---------------------------------
+%DOCUMENT INFO----------------------------------
 \title{Decision and Risk Analysis}
 \subtitle{Lecture 1: \textbf{Bayesian Thinking for Risk and Decision Analysis}}
 \author{\emph{}}
@@ -87,13 +87,13 @@ Fall 2026
 }}
 \titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
 
-% -----------------------------------------------
+%-----------------------------------------------
 \begin{document}
 
-% -----------------------------------------------
+%-----------------------------------------------
 \maketitle
 
-%------------------------------------------------
+%-----------------------------------------------
 \begin{frame}{}
 %\begin{block}{Risk and Uncertainty}
 There are \vocab{three doors} for you to choose between:\\
