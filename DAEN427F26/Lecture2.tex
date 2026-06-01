@@ -804,6 +804,56 @@ $P(A \cap B) = P(A) ~ P(B)$
 \end{block}
 \end{frame}
 
+
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{
+Representation of Conditional Probability
+}
+\begin{figure}[h]
+\centering
+\[
+P(A\mid B)
+=
+\frac{P(A\cap B)}{P(B)}=
+\frac{
+\begin{tikzpicture}[baseline=-0.5ex,scale=0.8]
+    % Rectangle
+    \draw (0,0) rectangle (4,2);
+
+    % Circles
+    \begin{scope}
+        \clip (1.2,1) circle (0.8);
+        \fill[AggieMaroon!35] (2.4,1) circle (0.8);
+    \end{scope}
+
+    \draw (1.2,1) circle (0.8);
+    \draw (2.4,1) circle (0.8);
+
+    \node at (0.75,1) {$A$};
+    \node at (2.8,1) {$B$};
+\end{tikzpicture}
+}
+{
+\begin{tikzpicture}[baseline=-0.5ex,scale=0.8]
+    % Rectangle
+    \draw (0,0) rectangle (4,2);
+
+    % Event B
+    \fill[AggieMaroon!35] (2.4,1) circle (0.8);
+
+    \draw (1.2,1) circle (0.8);
+    \draw (2.4,1) circle (0.8);
+
+    \node at (0.75,1) {$A$};
+    \node at (2.8,1) {$B$};
+\end{tikzpicture}
+}
+\]
+\end{figure}
+\end{block}
+\end{frame}
+
 %-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Conditional Probability}
