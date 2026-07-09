@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 from scipy import special
 
 #### DATA ####
-# penguins = pd.read_csv('/Users/alexander/Library/Mobile Documents/com~apple~CloudDocs/Python/BMCP/data/penguins.csv')
-penguins = pd.read_csv('/Users/abuabara/Library/Mobile Documents/com~apple~CloudDocs/TAMU/DAEN/Fall 2025/427/My_files/Code/data/penguins.csv')
+penguins = pd.read_csv('/Users/alexander/Library/Mobile Documents/com~apple~CloudDocs/Python/BMCP/data/penguins.csv')
+# penguins = pd.read_csv('/Users/abuabara/Library/Mobile Documents/com~apple~CloudDocs/TAMU/DAEN/Fall 2025/427/My_files/Code/data/penguins.csv')
 missing_data = penguins[[
     'body_mass_g',
     'flipper_length_mm',
@@ -116,8 +116,8 @@ with pm.Model() as model_linear_penguins:
     # sampling
     idata_linear_penguins = pm.sample(5000, chains=2, random_seed=0, idata_kwargs={'log_likelihood': True})
     # prior and posterior predictive checks
-    idata_linear_penguins.extend(pm.sample_prior_predictive(samples=1000))
-    idata_linear_penguins.extend(pm.sample_posterior_predictive(idata_linear_penguins))
+    # idata_linear_penguins.extend(pm.sample_prior_predictive(samples=1000))
+    idata_linear_penguins.update(pm.sample_posterior_predictive(idata_linear_penguins))
 
 graphviz = pm.model_to_graphviz(model_linear_penguins, )
 graphviz
@@ -181,8 +181,8 @@ with pm.Model() as model_logistic_penguins_bill_length:
     # note the change in likelihood
     yl = pm.Bernoulli('yl', p=θ, observed=species.codes)
     idata_logistic_penguins_bill_length = pm.sample(5000, chains=2, random_seed=0, idata_kwargs={'log_likelihood':True})
-    idata_logistic_penguins_bill_length.extend(pm.sample_prior_predictive(samples=10000))
-    idata_logistic_penguins_bill_length.extend(pm.sample_posterior_predictive(idata_logistic_penguins_bill_length))
+    # idata_logistic_penguins_bill_length.extend(pm.sample_prior_predictive(samples=10000))
+    idata_logistic_penguins_bill_length.update(pm.sample_posterior_predictive(idata_logistic_penguins_bill_length))
 
 graphviz = pm.model_to_graphviz(model_logistic_penguins_bill_length)
 graphviz
