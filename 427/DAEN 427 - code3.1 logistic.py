@@ -145,6 +145,7 @@ mean_β0 = β_0_samples.mean()
 mean_β1 = β_1_samples.mean()
 fig, ax = plt.subplots(figsize=(6, 4))
 plt.ylim(-0.075, 1.075)
+
 # plot observed data
 for i, (label, marker) in enumerate(zip(species.categories, ('.', 's'))):
     _filter = (species.codes == i)
@@ -152,17 +153,19 @@ for i, (label, marker) in enumerate(zip(species.categories, ('.', 's'))):
     np.random.seed(42)
     y = np.random.normal(i, 0.02, size=_filter.sum(), )
     ax.scatter(bill_length_obs[_filter], y, label=label, alpha=.5, s = 20, color=colors[i])
+
 # plot a few posterior predictive regression lines
 for i in range(100): # random draws
     y_vals = β_0_samples[i] + β_1_samples[i] * x_vals
     plt.plot(x_vals, y_vals, color='purple', alpha=0.1, lw=.3)
+
 # plot the mean regression line
 plt.plot(x_vals, mean_β0 + mean_β1 * x_vals, color='black', lw=1.5, linestyle='--', label='linear model')
 plt.xlabel('Bill length (mm)')
 ax.set_ylabel('θ', rotation=0)
 ax.legend(loc=5)
 
-plt.savefig('/Users/alexander/Desktop/plot_linear4_specie_bill_lenght.png', dpi=300, bbox_inches='tight')
+# plt.savefig('/Users/alexander/Desktop/plot_linear4_specie_bill_lenght.png', dpi=300, bbox_inches='tight')
 
 #### LOGISTIC REGRESSION ####
 # 1 - simple logistic regression - penguins bill length
@@ -180,17 +183,20 @@ with pm.Model() as model_logistic_penguins_bill_length:
     bd = pm.Deterministic('bd', -β_0/β_1)
     # note the change in likelihood
     yl = pm.Bernoulli('yl', p=θ, observed=species.codes)
-    idata_logistic_penguins_bill_length = pm.sample(5000, chains=2, random_seed=0, idata_kwargs={'log_likelihood':True})
+    idata_logistic_penguins_bill_length = pm.sample(5000, chains=4, random_seed=0, idata_kwargs={'log_likelihood':True})
     # idata_logistic_penguins_bill_length.extend(pm.sample_prior_predictive(samples=10000))
     idata_logistic_penguins_bill_length.update(pm.sample_posterior_predictive(idata_logistic_penguins_bill_length))
 
 graphviz = pm.model_to_graphviz(model_logistic_penguins_bill_length)
 graphviz
 graphviz.graph_attr.update(dpi='300')
-graphviz.render('/Users/alexander/Desktop/Logistic_model_2', format='png')
+# graphviz.render('/Users/alexander/Desktop/Logistic_model_2', format='png')
 
 fig, ax = plt.subplots(figsize=(6, 3))
-az.plot_dist(idata_logistic_penguins_bill_length.prior_predictive['yl'], ax=ax, color='grey')
+# az.plot_dist(idata_logistic_penguins_bill_length.prior_predictive['yl'], ax=ax, color='grey')
+az.plot_dist(idata_logistic_penguins_bill_length.posterior_predictive['yl'], ax=ax, color='grey')
+
+az.plot_dist(idata_logistic_penguins_bill_length.posterior_predictive['yl'], ax=ax, color='grey')
 ax.set_xticklabels(['Adelie: 0', 'Chinstrap: 1'] )
 
 az.plot_trace(idata_logistic_penguins_bill_length, var_names=['β_0', 'β_1'], kind='rank_bars', figsize=(6, 4))
