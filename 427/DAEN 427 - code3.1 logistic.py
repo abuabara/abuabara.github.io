@@ -114,7 +114,7 @@ with pm.Model() as model_linear_penguins:
     # likelihood: species code is modeled as continuous (even though it's 0/1)
     yl = pm.Normal('yl', mu=μ, sigma=σ, observed=species.codes)
     # sampling
-    idata_linear_penguins = pm.sample(5000, chains=2, random_seed=0, idata_kwargs={'log_likelihood': True})
+    idata_linear_penguins = pm.sample(5000, chains=4, random_seed=0, idata_kwargs={'log_likelihood': True})
     # prior and posterior predictive checks
     # idata_linear_penguins.extend(pm.sample_prior_predictive(samples=1000))
     idata_linear_penguins.update(pm.sample_posterior_predictive(idata_linear_penguins))
@@ -125,7 +125,6 @@ graphviz
 # graphviz.render('/Users/alexander/Desktop/Logistic_model_1', format='png')
 
 az.summary(idata_linear_penguins, round_to=2)
-
 #        mean	  sd	hdi_3%	hdi_97%	mcse_mean	mcse_sd	ess_bulk	ess_tail	r_hat
 # β_0	-2.72	0.13	-2.97	-2.48	0.0	         0.0	3678.44	     4054.28	1.0
 # β_1	0.07	0.00	0.07	0.08	0.0	         0.0	3738.58	     4001.34	1.0
@@ -195,11 +194,87 @@ graphviz.graph_attr.update(dpi='300')
 fig, ax = plt.subplots(figsize=(6, 3))
 # az.plot_dist(idata_logistic_penguins_bill_length.prior_predictive['yl'], ax=ax, color='grey')
 az.plot_dist(idata_logistic_penguins_bill_length.posterior_predictive['yl'], ax=ax, color='grey')
-
-az.plot_dist(idata_logistic_penguins_bill_length.posterior_predictive['yl'], ax=ax, color='grey')
 ax.set_xticklabels(['Adelie: 0', 'Chinstrap: 1'] )
-
 az.plot_trace(idata_logistic_penguins_bill_length, var_names=['β_0', 'β_1'], kind='rank_bars', figsize=(6, 4))
+
+with pm.Model() as model_logistic_penguins_bill_length:
+    β_0 = pm.Normal("β_0", mu=0, sigma=10)
+    β_1 = pm.Normal("β_1", mu=0, sigma=10)
+
+    μ = β_0 + β_1 * bill_length_obs
+    θ = pm.Deterministic("θ", pm.math.sigmoid(μ))
+    bd = pm.Deterministic("bd", -β_0 / β_1)
+
+    yl = pm.Bernoulli(
+        "yl",
+        p=θ,
+        observed=species.codes,
+    )
+
+    # Draw posterior samples
+    idata_logistic_penguins_bill_length = pm.sample(
+        draws=5000,
+        tune=1000,
+        chains=4,
+        cores=4,
+        random_seed=0,
+    )
+
+    # Current method for computing the log likelihood
+    pm.compute_log_likelihood(
+        idata_logistic_penguins_bill_length,
+        extend_inferencedata=True,
+    )
+
+    # Add posterior predictive samples directly to idata
+    pm.sample_posterior_predictive(
+        idata_logistic_penguins_bill_length,
+        var_names=["yl"],
+        random_seed=0,
+        extend_inferencedata=True,
+    )
+
+# Extract posterior-predictive Bernoulli draws
+yl_pp = idata_logistic_penguins_bill_length.posterior_predictive["yl"]
+
+# Predictive probabilities averaged over chains, draws, and observations
+p_chinstrap = float(yl_pp.mean())
+class_probabilities = [1 - p_chinstrap, p_chinstrap]
+
+fig, ax = plt.subplots(figsize=(6, 3))
+
+bars = ax.bar(
+    [0, 1],
+    class_probabilities,
+    color="grey",
+    edgecolor="black",
+)
+
+ax.set_xticks(
+    [0, 1],
+    labels=["Adelie: 0", "Chinstrap: 1"],
+)
+ax.set_ylabel("Posterior predictive probability")
+ax.set_ylim(0, 1)
+ax.bar_label(bars, fmt="%.3f")
+
+plt.tight_layout()
+plt.show()
+
+# Modern replacement for plot_trace(..., kind="rank_bars")
+az.plot_rank_dist(
+    idata_logistic_penguins_bill_length,
+    var_names=["β_0", "β_1"],
+    backend="matplotlib",
+    figure_kwargs={"figsize": (6, 4)},
+)
+
+az.plot_trace(
+    idata_logistic_penguins_bill_length,
+    var_names=["β_0", "β_1"],
+    backend="matplotlib",
+    figure_kwargs={"figsize": (6, 4)},
+)
 
 # summary stats
 az.summary(idata_logistic_penguins_bill_length, var_names=['β_0', 'β_1'], kind='stats')
@@ -225,12 +300,12 @@ ax.set_xlabel('Bill Length (mm)')
 ax.set_ylabel('θ', rotation=0)
 ax.legend(loc=5)
 
-plt.savefig('/Users/alexander/Desktop/plot_logit1_specie_bill_lenght.png', dpi=300, bbox_inches='tight')
+# plt.savefig('/Users/alexander/Desktop/plot_logit1_specie_bill_lenght.png', dpi=300, bbox_inches='tight')
 
 plt.plot(x_vals, mean_β0 + mean_β1 * x_vals, color='black', lw=.5, linestyle='--', label='linear model')
 ax.legend(loc=5)
 
-plt.savefig('/Users/alexander/Desktop/plot_logit2_specie_bill_lenght.png', dpi=300, bbox_inches='tight')
+# plt.savefig('/Users/alexander/Desktop/plot_logit2_specie_bill_lenght.png', dpi=300, bbox_inches='tight')
 
 # 2 - simple logistic regression - body mass
 mass_obs = penguins.loc[data, 'body_mass_g'].values
