@@ -57,7 +57,9 @@
 
 % -------------------------------------------------
 \begin{document}
-\title{\color{aggiemaroon}{\textbf{DAEN 427 Decision and Risk Analysis}\\[-4pt]
+\title{\color{aggiemaroon}{
+\textbf{DAEN 300/301 Data Engineering Coding Experience I/II}\\
+[-4pt]
 {\normalsize Fall 2026}}}
 \author{} % Alexander Abuabara
 \date{}
@@ -67,40 +69,33 @@
 % -------------------------------------------------
 \section*{Course Information}
 \begin{description}[nosep,leftmargin=0.5in]
-%\item[Time (Location)] Tue-Thu 9:35--10:50 AM \emph{3 credit hours} (ETB 1013)
-\item[Time (Location)] Mon-Wed-Fri 11:30--12:20 AM \emph{3 credit hours} (ZACH 344)
-\item[Prerequisites] Grade of C or better in ISEN 310, DAEN 321, or STAT 212
-\item[Cross listing] ISEN 427 / ISEN 627
+\item[Time (Location)] Fri 12:40--3:30 PM \emph{0 Lecture Hours. 3 Lab Hours.} (ZACH 344)
+%\item[Prerequisites] Grade of C or better in ECEN 360;\\concurrent enrollment in DAEN 321 and DAEN 331; junior or senior classification.
 \item[Instructor] Alexander Abuabara \url{mailto:abuabara@tamu.edu}
 \item[Course office hours (location)] Wed 1-3 PM or by appointment (ETB 4013)
 \end{description}
 
 % -------------------------------------------------
 \subsection*{Description}
-Overview of the state of the art in descriptive and prescriptive theories 
-of decision making under uncertainty with emphasis on the ways in which human 
-decisions depart from normative models of rationality; analytical foundations 
-stemming from several disciplines, economics, psychology, management science; 
-application in engineering systems will be considered.
+\begin{enumerate}[leftmargin=*,nosep]
+\item \textbf{Application of computational tools to model and solve data engineering problems primarily involving machine learning and optimization techniques.} (DAEN 300)
+\item Application of computational tools to model and solve data engineering problems involving stochastic systems, reinforcement learning, ensemble learning and data visualization. (DAEN 301)
+\end{enumerate}
 
 % -------------------------------------------------
-%\subsection*{Learning Outcomes}
 \subsection*{Outcomes}
 \begin{enumerate}[leftmargin=*,nosep]
-\item Apply Bayesian approach to perception and decisions under uncertainty.
-\item Implement computational models for Bayesian inference and strategic decision support.
-\item Use concepts from economics, psychology, and management science to analyze decision-making processes.
+\item \textbf{DAEN 300: problem \rightarrow ~algorithm \rightarrow ~program \rightarrow ~test \rightarrow ~debug \rightarrow ~improve}
+\item DAEN 301: ~question \rightarrow ~model/data \rightarrow ~computation \rightarrow ~visualization \rightarrow ~analysis \rightarrow ~conclusion
 \end{enumerate}
 
 % -------------------------------------------------
 \subsection*{Recommended Resources}
 \begin{itemize}[leftmargin=*,nosep]
-%\item Python \url{https://www.python.org} and Positron (IDE) \url{https://positron.posit.co}.
-%\item {Think Bayes: Bayesian Statistics in Python} \url{https://allendowney.github.io/ThinkBayes2}.
-\item {Bayes Rules! An Introduction to Applied Bayesian Modeling} \url{https://www.bayesrulesbook.com/}.
-\item {... Bayesian Inference, Methods, Computation} \mbox{\url{https://link.springer.com/book/10.1007/978-3-030-82808-0}}.
-\item {A Course in Behavioral Economics} \mbox{\url{https://www.erikangner.com/a-course-in-behavioral-economics}.}
-\item R \url{https://cran.r-project.org/}, RStudio (IDE) \url{https://posit.co/download/rstudio-desktop}.
+\item {Python for Data Analysis} \mbox{\url{https://ebookcentral.proquest.com/lib/tamucs/detail.action?docID=1041908}}.
+\item {Practical Statistics for Data Scientists} \mbox{\url{https://research.ebsco.com/plink/789ad2b8-15e5-3b62-a2c6-b971f3162dcd}}.
+\item {Introduction to Computation and Programming Using Python}\\ \url{https://mitpress.mit.edu/9780262542364/introduction-to-computation-and-programming-using-python/}.
+\item Python \url{https://www.python.org} and Positron (IDE) \url{https://positron.posit.co}.
 \end{itemize}
 
 % -------------------------------------------------
@@ -108,11 +103,10 @@ application in engineering systems will be considered.
 \renewcommand{\arraystretch}{1.025}
 \begin{tabular}{l l l}
 \hline
-\textbf{Assessment}             & \textbf{Weight}    & \textbf{Description} \\
+\textbf{Assessment}         & \textbf{Weight} & \textbf{Description} \\
 \hline
-Exam (2)                        & 58\% (29\% each)   & Content on weeks 1--5 \& 1--11 \\
-Project (report + presentation) & 28\% (groups of 2) & Case study exploring decision and risk analysis in engineering \\
-Participation / Activities      & 14\%               & In-class quizzes and discussions, assignments, practice questions \\
+Weekly Assignments (12--13) & 90\%            & Weekly activities and worksheets; each weighted equally. \\
+In-Class Participation      & 10\%            & In-class quizzes, discussions, participation \\
 \hline
 \end{tabular}
 
@@ -121,37 +115,175 @@ Participation / Activities      & 14\%               & In-class quizzes and disc
 {\footnotesize
 \renewcommand{\arraystretch}{.9}
 Grades are based on total points earned: A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D ≥ 60\%, F < 60\%.
-%\begin{itemize}[leftmargin=*,nosep]
-%\item Grades will be calculated on the basis of total points earned.
-%\item The thresholds for letter grades are: {A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D ≥ 60\%, F < 60\%}.
-%\end{itemize}
 }
 
 % -------------------------------------------------
 \subsection*{Schedule \emph{(\hl{tentative})}}
-\renewcommand{\arraystretch}{1.025}
-\begin{tabular}{l l l}
-\hline
-\textbf{Lecture}  & \textbf{Topic}                                                        & \textbf{Chapter} \\ \hline
-1                 & Bayesian thinking for risk and decision analysis                      & Ch. 1            \\ \hline
-2                 & Bayesian updating and evidence accumulation                           & Ch. 2            \\ \hline
-3                 & Prior modeling and expert knowledge                                   & Ch. 3--4         \\ \hline
-4                 & Bayesian simulation and uncertainty propagation                       & Ch. 5--6         \\ \hline
-5                 & MCMC and computational Bayesian inference                             & Ch. 7            \\ \hline
-\hl{Sep 28}       & \textbf{Exam 1: Bayesian foundations + computation}                   & \hl{Ch. 1--7}    \\ \hline
-6                 & Bayesian workflow and model validation                                & Ch. 8            \\ \hline
-7                 & Bayesian regression for risk modeling                                 & Ch. 9            \\ \hline
-8                 & Bayesian prediction and model comparison                              & Ch. 10           \\ \hline
-9                 & Multiple regression and decision drivers                              & Ch. 11           \\ \hline
-10                & Bayesian count models and rare events                                 & Ch. 12           \\ \hline
-11                & Bayesian classification and logistic risk models                      & Ch. 13--14       \\ \hline
-\hl{Nov 9}        & \textbf{Exam 2: Predictive modeling + risk analysis}                  & \hl{Ch. 1--14}   \\ \hline
-12                & Hierarchical Bayesian models                                          & Ch. 15--16       \\ \hline
-13                & Advanced multilevel and structured uncertainty models                 & Ch. 17--18       \\ \hline
-14                & Bayesian decision analysis and probabilistic forecasting              & Ch. 19           \\ \hline
-\hl{Nov 30/Dec 1} & \textbf{Final project: probabilistic programming, risk communication} & \hl{Ch. 1--19}   \\
-\hline
-\end{tabular}
+
+\renewcommand{\arraystretch}{1.01}
+
+\begin{table}[htbp]
+\begin{tabularx}{\textwidth}{ >{\centering\arraybackslash}p{0.05\textwidth}
+                              >{\raggedright\arraybackslash}p{0.25\textwidth} 
+                              >{\raggedright\arraybackslash}X }
+\toprule
+\textbf{} & \textbf{Topic (DAEN 300)} & \textbf{Main Coding Experience} \\
+\midrule
+
+1 &
+Computational thinking &
+Run programs; use an IDE or notebook; work with expressions; simple scripts\\
+%\hline
+
+2 &
+Variables, types, expressions &
+Numeric calculations, strings, keyboard input, and formatted output\\
+%\hline
+
+3 &
+Decisions and iteration &
+Use \texttt{if}/\texttt{elif}/\texttt{else}, \texttt{while}, \texttt{for}, and \texttt{range}; build small interactive programs\\
+%\hline
+
+4 &
+Computational numerical methods &
+Implement exhaustive enumeration, approximation, bisection search, and Newton--Raphson methods\\
+%\hline
+
+5 &
+Functions and abstraction &
+Parameters, return values, scope, specifications, and func. decomposition\\
+%\hline
+
+6 &
+Lists, tuples, sequences &
+Practice indexing, slicing, mutation, iteration, and list comprehensions\\
+%\hline
+
+7 &
+Dictionaries, sets, data organization &
+Dictionaries and sets for counting, lookup, and structured data organization\\
+%\hline
+
+8 &
+Recursion and problem decomposition &
+Implement recursive algorithms (such as Fibonacci and palindrome-type problems)\\
+%\hline
+
+9 &
+Modules, libraries, files &
+Import modules and packages; read and write files; process real-world data\\
+%\hline
+
+10 &
+Testing, debugging, error handling &
+Design test cases; perform black-box and glass-box testing; debug programs; use exceptions and assertions\\
+%\hline
+
+11 &
+Object-oriented prog. &
+Create classes, objects, and methods; use inheritance and encapsulation\\
+%\hline
+
+12 &
+Algorithms, efficiency, data structures &
+Analyze complexity; implement linear and binary search, sorting, merge sort, and hash-table concepts\\
+%\hline
+
+13 &
+Data visualization &
+Combine files, classes, algorithms, and visualization\\
+
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\begin{tabularx}{\textwidth}{ >{\centering\arraybackslash}p{0.05\textwidth}
+                              >{\raggedright\arraybackslash}p{0.33\textwidth} 
+                              >{\raggedright\arraybackslash}X }
+\toprule
+\textbf{} & \textbf{Topic (DAEN 301)} & \textbf{Main Coding Experience} \\
+\midrule
+
+1 &
+Optimization and greedy algorithms &
+Knapsack problems; implement/compare optimization strategies\\
+%\hline
+
+2 &
+Graphs and graph algorithms &
+Graph representation, DFS, BFS, shortest paths\\
+%\hline
+
+3 &
+Dynamic programming &
+Memorization, Fibonacci, knapsack, divide-and-conquer\\
+%\hline
+
+4 &
+Random walks, comp. models &
+Build classes/models representing random movement\\
+%\hline
+
+5 &
+Probability through programming &
+Randomness, probability experiments, distributions\\
+%\hline
+
+6 &
+Monte Carlo simulation &
+Repeated trials, estimation, simulation design and performance\\
+%\hline
+
+7 &
+Sampling, confidence, uncertainty &
+Sampling experiments, CLT, standard error, confidence\\
+%\hline
+
+8 &
+Experimental data, regression &
+Fit models, linear regression, R$^2$, model evaluation\\
+%\hline
+
+9 &
+Hypothesis testing, Bayesian reason. &
+Randomized trials, significance, conditional probability, Bayes\\
+%\hline
+
+10 &
+Responsible interpretation of data &
+Misleading graphs, bias, extrapolation and statistical mistakes\\
+%\hline
+
+11 &
+Practical data analysis with Pandas &
+CSV, series, data-frames, filtering, grouping, manipulation\\
+%\hline
+
+12 &
+ML fundamentals, clustering &
+Feature vectors, distance metrics, k-means, unsupervised learning\\
+%\hline
+
+13 &
+Classification &
+k-NN, regression classifiers, classifier evaluation\\
+
+\bottomrule
+\end{tabularx}
+\end{table}
+
+%\begin{tabular}{l l l}
+%\hline
+%\textbf{}         & \textbf{Topic}                                     \\ \hline
+%1                 & Introduction to the Course and to Python           \\ \hline
+%2                 & Simple Linear Regression        \\ \hline
+%3                 & Prior modeling and expert knowledge                \\ \hline
+%4                 & Bayesian simulation and uncertainty propagation    \\ \hline
+%5                 & MCMC and computational Bayesian inference          \\
+%\hline
+%\end{tabular}
 
 % -------------------------------------------------
 \subsection*{Policies}
