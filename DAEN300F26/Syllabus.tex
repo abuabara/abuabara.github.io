@@ -58,7 +58,7 @@
 % -------------------------------------------------
 \begin{document}
 \title{\color{aggiemaroon}{
-\textbf{DAEN 300/301 Data Engineering Coding Experience I/II}\\
+\textbf{DAEN 300 Data Engineering Coding Experience I}\\
 [-4pt]
 {\normalsize Fall 2026}}}
 \author{} % Alexander Abuabara
@@ -77,24 +77,24 @@
 
 % -------------------------------------------------
 \subsection*{Description}
-\begin{enumerate}[leftmargin=*,nosep]
-\item \textbf{Application of computational tools to model and solve data engineering problems primarily involving machine learning and optimization techniques.} (DAEN 300)
-\item Application of computational tools to model and solve data engineering problems involving stochastic systems, reinforcement learning, ensemble learning and data visualization. (DAEN 301)
-\end{enumerate}
+Application of computational tools to model and solve data engineering problems primarily involving machine learning and optimization techniques.
 
 % -------------------------------------------------
 \subsection*{Outcomes}
 \begin{enumerate}[leftmargin=*,nosep]
-\item \textbf{DAEN 300: problem \rightarrow ~algorithm \rightarrow ~program \rightarrow ~test \rightarrow ~debug \rightarrow ~improve}
-\item DAEN 301: ~question \rightarrow ~model/data \rightarrow ~computation \rightarrow ~visualization \rightarrow ~analysis \rightarrow ~conclusion
+\item Use Python and Jupyter to solve data engineering problems.
+\item Clean, transform, and analyze data using NumPy and pandas.
+\item Apply basic algorithms, including recursion, searching, and sorting.
+\item Build and evaluate basic machine learning models.
+\item Use optimization techniques to improve computational solutions.
+\item Create and explain an end-to-end data analysis and machine learning workflow.
 \end{enumerate}
 
 % -------------------------------------------------
 \subsection*{Recommended Resources}
 \begin{itemize}[leftmargin=*,nosep]
-\item {Introduction to Computation and Programming Using Python}\\ \url{https://mitpress.mit.edu/9780262542364/introduction-to-computation-and-programming-using-python/}.
-\item {Practical Statistics for Data Scientists} \mbox{\url{https://research.ebsco.com/plink/789ad2b8-15e5-3b62-a2c6-b971f3162dcd}}.
-\item {Python for Data Analysis} \mbox{\url{https://ebookcentral.proquest.com/lib/tamucs/detail.action?docID=1041908}}.
+\item {Python Data Science Handbook (PDSH)} \url{https://jakevdp.github.io/PythonDataScienceHandbook/}.
+\item {The Recursive Book of Recursion (RBR)} \url{https://inventwithpython.com/recursion/}.
 \item Python \url{https://www.python.org} and Positron (IDE) \url{https://positron.posit.co}.
 \end{itemize}
 
@@ -120,176 +120,111 @@ Grades are based on total points earned: A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D �
 % -------------------------------------------------
 \subsection*{Schedule \emph{(\hl{tentative})}}
 
-\renewcommand{\arraystretch}{1.01}
-
 \begin{table}[htbp]
-\begin{tabularx}{\textwidth}{ >{\centering\arraybackslash}p{0.05\textwidth}
-                              >{\raggedright\arraybackslash}p{0.25\textwidth} 
-                              >{\raggedright\arraybackslash}X }
-\toprule
-\textbf{} & \textbf{Topic (DAEN 300)} & \textbf{Main Coding Experience} \\
-\midrule
+\centering
+\small
+\renewcommand{\arraystretch}{1.05}
+\begin{tabular}{
+|c|
+>{\raggedright\arraybackslash}p{0.35\textwidth}|
+>{\raggedright\arraybackslash}p{0.20\textwidth}|
+>{\raggedright\arraybackslash}p{0.35\textwidth}|
+}
+\hline
+\textbf{Week} & \textbf{Topics} & \textbf{Reading} & \textbf{Lab/Coding} \\
+\hline
 
 1 &
-Computational thinking &
-Run programs; use an IDE or notebook; work with expressions; simple scripts\\
-%\hline
+Python and Jupyter: functions, debugging, profiling. &
+\textit{PDSH} Ch.1, \textit{RBR} Ch.1 &
+Load / explore a dataset in Jupyter. \\
+\hline
 
 2 &
-Variables, types, expressions &
-Numeric calculations, strings, keyboard input, and formatted output\\
-%\hline
+(NumPy) Arrays, indexing, vectorization, aggregation. &
+\textit{PDSH} Ch.2 &
+Process numerical data. \\
+\hline
 
 3 &
-Decisions and iteration &
-Use \texttt{if}/\texttt{elif}/\texttt{else}, \texttt{while}, \texttt{for}, and \texttt{range}; build small interactive programs\\
-%\hline
+(pandas) DataFrames, filtering, missing data, joins. &
+\textit{PDSH} Ch.3 &
+Clean and combine datasets. \\
+\hline
 
 4 &
-Computational numerical methods &
-Implement exhaustive enumeration, approximation, bisection search, and Newton--Raphson methods\\
-%\hline
+Data transformation: grouping, pivot tables, strings, time series. &
+\textit{PDSH} Ch.3 &
+Summarize and transform data. \\
+\hline
 
 5 &
-Functions and abstraction &
-Parameters, return values, scope, specifications, and func. decomposition\\
-%\hline
+Recursion: recursive and iterative solutions, base cases, call stacks. &
+\textit{RBR} Chs.1--2 &
+Compare recursive and iterative programs. \\
+\hline
 
 6 &
-Lists, tuples, sequences &
-Practice indexing, slicing, mutation, iteration, and list comprehensions\\
-%\hline
+Algorithms: binary search, merge sort, quicksort, efficiency. &
+\textit{RBR} Chs.3+5 &
+Implement searching and sorting algorithms. \\
+\hline
 
 7 &
-Dictionaries, sets, data organization &
-Dictionaries and sets for counting, lookup, and structured data organization\\
-%\hline
+Data visualization, exploratory data analysis. &
+\textit{PDSH} Ch.4 &
+Mini-Project: Explore and visualize a real dataset. \\
+\hline
 
 8 &
-Recursion and problem decomposition &
-Implement recursive algorithms (such as Fibonacci and palindrome-type problems)\\
-%\hline
+(Scikit-Learn) Machine learning basics: training, testing, and evaluation. &
+\textit{PDSH} Ch.5 &
+Build a basic machine learning pipeline. \\
+\hline
 
 9 &
-Modules, libraries, files &
-Import modules and packages; read and write files; process real-world data\\
-%\hline
+Linear regression. &
+\textit{PDSH} Ch.5 &
+Build and evaluate a regression model. \\
+\hline
 
 10 &
-Testing, debugging, error handling &
-Design test cases; perform black-box and glass-box testing; debug programs; use exceptions and assertions\\
-%\hline
+Classification, model evaluation. &
+\textit{PDSH} Ch.5 &
+Train and compare classification models. \\
+\hline
 
 11 &
-Object-oriented prog. &
-Create classes, objects, and methods; use inheritance and encapsulation\\
-%\hline
+Decision trees, random forests, tree traversal. &
+\textit{PDSH} Ch.5, \textit{RBR} Ch.4 &
+Build tree-based models. \\
+\hline
 
 12 &
-Algorithms, efficiency, data structures &
-Analyze complexity; implement linear and binary search, sorting, merge sort, and hash-table concepts\\
-%\hline
+Clustering, PCA, and model selection. &
+\textit{PDSH} Ch.5 &
+Apply clustering, dimensionality reduction. \\
+\hline
 
 13 &
-Data visualization &
-Combine files, classes, algorithms, and visualization\\
+Optimization: backtracking, memoization, dynamic programming. &
+\textit{RBR} Chs.6--8 &
+Solve and improve an optimization problem. \\
+\hline
 
-\bottomrule
-\end{tabularx}
+14 &
+(Final project) Data preparation, machine learning, optimization. &
+Review &
+Build an end-to-end data engineering solution. \\
+\hline
+
+\end{tabular}
 \end{table}
-
-\begin{table}[htbp]
-\begin{tabularx}{\textwidth}{ >{\centering\arraybackslash}p{0.05\textwidth}
-                              >{\raggedright\arraybackslash}p{0.33\textwidth} 
-                              >{\raggedright\arraybackslash}X }
-\toprule
-\textbf{} & \textbf{Topic (DAEN 301)} & \textbf{Main Coding Experience} \\
-\midrule
-
-1 &
-Optimization and greedy algorithms &
-Knapsack problems; implement/compare optimization strategies\\
-%\hline
-
-2 &
-Graphs and graph algorithms &
-Graph representation, DFS, BFS, shortest paths\\
-%\hline
-
-3 &
-Dynamic programming &
-Memorization, Fibonacci, knapsack, divide-and-conquer\\
-%\hline
-
-4 &
-Random walks, comp. models &
-Build classes/models representing random movement\\
-%\hline
-
-5 &
-Probability through programming &
-Randomness, probability experiments, distributions\\
-%\hline
-
-6 &
-Monte Carlo simulation &
-Repeated trials, estimation, simulation design and performance\\
-%\hline
-
-7 &
-Sampling, confidence, uncertainty &
-Sampling experiments, CLT, standard error, confidence\\
-%\hline
-
-8 &
-Experimental data, regression &
-Fit models, linear regression, R$^2$, model evaluation\\
-%\hline
-
-9 &
-Hypothesis testing, Bayesian reason. &
-Randomized trials, significance, conditional probability, Bayes\\
-%\hline
-
-10 &
-Responsible interpretation of data &
-Misleading graphs, bias, extrapolation and statistical mistakes\\
-%\hline
-
-11 &
-Practical data analysis with Pandas &
-CSV, series, data-frames, filtering, grouping, manipulation\\
-%\hline
-
-12 &
-ML fundamentals, clustering &
-Feature vectors, distance metrics, k-means, unsupervised learning\\
-%\hline
-
-13 &
-Classification &
-k-NN, regression classifiers, classifier evaluation\\
-
-\bottomrule
-\end{tabularx}
-\end{table}
-
-%\begin{tabular}{l l l}
-%\hline
-%\textbf{}         & \textbf{Topic}                                     \\ \hline
-%1                 & Introduction to the Course and to Python           \\ \hline
-%2                 & Simple Linear Regression        \\ \hline
-%3                 & Prior modeling and expert knowledge                \\ \hline
-%4                 & Bayesian simulation and uncertainty propagation    \\ \hline
-%5                 & MCMC and computational Bayesian inference          \\
-%\hline
-%\end{tabular}
 
 % -------------------------------------------------
 \subsection*{Policies}
 \begin{itemize}[leftmargin=*,nosep]
 \item Be nice. Be honest. Don’t cheat. Adhere to all University Policies.
-%\item Students should engage actively, stay current with readings, participate, and seek help early.
 \item Course material is cumulative and requires consistent effort. All assignments must be completed carefully and on time.
       Presentation quality (organization, clarity, tables, graphs, and discussion) is part of grading.
 \item Excused absences apply only to attendance and in-class activities and do not extend assignment deadlines.
@@ -303,20 +238,19 @@ k-NN, regression classifiers, classifier evaluation\\
       Late work is not accepted and will receive a grade of zero.
 \item Audio or video recording of lectures or any portion of the course is prohibited without written instructor permission. Unauthorized recording constitutes a violation of student conduct.
 \item Headphones and non-class-related browsing are not permitted during class.
+\item Use of others’ ideas is encouraged as part of scholarly work, but all sources must be properly cited. Proper attribution is required for all coursework and projects.
 \end{itemize}
 
 %\begin{itemize}[leftmargin=*,nosep]
-%\item Be nice. Be honest. Don’t cheat. We will also follow University Policies.
-%\item Late work is not accepted (zero).~Excused absences apply to attendance and in-class work only and do not extend assignment deadlines, including project components.~Alternatives must be arranged before deadlines.
-%\item Regrades apply to the full work; to ensure fairness and timely feedback, no changes after one week.
 
 %\item E-mail is the primary method of communication. Always include the course number in the subject line. Responses should not be expected after 5:00 PM, on weekends, or on holidays.
 %\item All assignments must be submitted through Canvas. If technical issues prevent submission, send your assignment from your \texttt{@tamu.edu} email to the instructor’s \texttt{@tamu.edu} email as a backup. The subject line must include the course number and assignment name.
 %\item Course material is cumulative and requires consistent effort. All assignments must be completed carefully and on time. Presentation quality (organization, clarity, tables, charts, graphs, maps, and technical discussion) is considered part of grading. Students are expected to actively engage, keep up with readings, participate, and seek help early when difficulties arise.
 %\item Electronic devices may be used only for class-related activities as directed by the instructor. Headphones and non-class-related browsing are not permitted during class without explicit approval.
 %\item Audio or video recording of lectures or any portion of the course is prohibited without written instructor permission. Unauthorized recording constitutes a violation of student conduct.
-%\item Use of others’ ideas is encouraged as part of scholarly work, but all sources must be properly cited. Proper attribution is required for all coursework and projects.
 %\end{itemize}
+
+\newpage
 
 \small
 
