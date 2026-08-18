@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 
 % Page Layout & Formatting
 \usepackage{geometry}
@@ -120,106 +120,91 @@ Grades are based on total points earned: A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D �
 % -------------------------------------------------
 \subsection*{Schedule \emph{(\hl{tentative})}}
 
-\begin{table}[htbp]
-\centering
-\small
-\renewcommand{\arraystretch}{1.05}
+{
+\renewcommand{\arraystretch}{1.025}
 \begin{tabular}{
-|c|
->{\raggedright\arraybackslash}p{0.44\textwidth}|
->{\raggedright\arraybackslash}p{0.12\textwidth}|
->{\raggedright\arraybackslash}p{0.38\textwidth}|
+c
+>{\raggedright\arraybackslash}p{0.43\textwidth}
+>{\raggedright\arraybackslash}p{0.12\textwidth}
+>{\raggedright\arraybackslash}p{0.37\textwidth}
 }
 \hline
 \textbf{Week} & \textbf{Topic} & \textbf{Reading} & \textbf{Lab/Coding} \\
 \hline
 
 1 &
-Python and Jupyter: functions, debugging, profiling. &
+(Python and Jupyter) Functions, debugging, profiling &
 \textit{PDSH} 1, \textit{RBR} 1 &
-Load / explore a dataset in Jupyter. \\
-\hline
+Load and explore a dataset in Jupyter \\
 
 2 &
-(NumPy) Arrays, indexing, vectorization, aggregation. &
+(NumPy) Arrays, indexing, vectorization, aggregation &
 \textit{PDSH} 2 &
-Process numerical data. \\
-\hline
+Process numerical data \\
 
 3 &
-(pandas) DataFrames, filtering, missing data, joins. &
+(pandas) DataFrames, filtering, missing data, joins &
 \textit{PDSH} 3 &
-Clean and combine datasets. \\
-\hline
+Clean and combine datasets \\
 
 4 &
-Data transformation: grouping, pivot tables, strings. &
+Data transformation: grouping, pivot tables, strings &
 \textit{PDSH} 3 &
-Summarize and transform data. \\
-\hline
+Summarize and transform data \\
 
 5 &
-Recursive + iterative solutions, base cases, call stacks. &
-\textit{RBR} 1--2 &
-Compare recursive and iterative programs. \\
-\hline
+Recursive + iterative solutions, base cases, call stacks &
+\textit{RBR} 1+2 &
+Compare recursive and iterative programs \\
 
 6 &
-Algorithms: binary search, merge sort, quick sort. &
+Algorithms: binary search, merge sort, quick sort &
 \textit{RBR} 3+5 &
-Implement searching and sorting algorithms. \\
-\hline
+Implement searching and sorting algorithms \\
 
 7 &
-Data visualization, exploratory data analysis. &
+(Matplotlib) Visualization and exploratory analysis &
 \textit{PDSH} 4 &
-(Mini-Project) Explore, visualize a dataset. \\
-\hline
+Explore and visualize a dataset \\
 
 8 &
-(Scikit-Learn) Machine learning basics. &
+(Scikit-Learn) Machine learning basics &
 \textit{PDSH} 5 &
-Build a basic machine learning pipeline. \\
-\hline
+Build a basic machine learning pipeline \\
 
 9 &
-Linear regression. &
+Linear regression &
 \textit{PDSH} 5 &
-Build, evaluate a regression model. \\
-\hline
+Build, evaluate a regression model \\
 
 10 &
-Classification, model evaluation. &
+Classification, model evaluation &
 \textit{PDSH} 5 &
-Train and compare classification models. \\
-\hline
+Train and compare classification models \\
 
 11 &
-Decision trees, random forests, tree traversal. &
+Decision trees, random forests, tree traversal &
 \textit{PDSH} 5, \textit{RBR} 4 &
-Build tree-based models. \\
-\hline
+Build tree-based models \\
 
 12 &
-Clustering, PCA, model selection. &
+Clustering, PCA, model selection &
 \textit{PDSH} 5 &
-Apply clustering, dimensionality reduction. \\
-\hline
+Apply clustering, dimensionality reduction \\
 
 13 &
-Optimization: backtracking, dynamic programming. &
-\textit{RBR} 6--8 &
-Solve, improve an optimization problem. \\
-\hline
+Optimization: backtracking, dynamic programming &
+\textit{RBR} 6-7-8 &
+Solve, improve an optimization problem \\
 
 14 &
-(Project) Data prep, machine learning, optimization. &
-All &
-Build an end-to-end data engineering solution. \\
+(Mini-project) Data prep \rightarrow ~ML \rightarrow ~optimization &
+-- &
+An end-to-end data engineering solution \\
 \hline
 
 \end{tabular}
-\end{table}
+}
 
 % -------------------------------------------------
 \subsection*{Policies}
@@ -230,13 +215,14 @@ Build an end-to-end data engineering solution. \\
 \item Excused absences apply only to attendance and in-class activities and do not extend assignment deadlines.
       Alternative arrangements must be made prior to the deadline.
 \item Regrade applies to the entire submission. To ensure fairness and timely feedback, no changes after one week.
-\item Email is the primary form of communication; include the course number in the subject line.
-      Responses should not be expected after 5:00 PM, on weekends, or on holidays.
+%\item Email is the primary form of communication; include the course number in the subject line.
+%      Responses should not be expected after 5:00 PM, on weekends, or on holidays.
 \item All assignments must be submitted through Canvas.
       If technical issues prevent submission, send your assignment from your \texttt{@tamu.edu} email to the instructor’s \texttt{@tamu.edu} email as a backup.
       The subject line must include the course number and assignment name.
       Late work is not accepted and will receive a grade of zero.
-\item Audio or video recording of lectures or any portion of the course is prohibited without written instructor permission. Unauthorized recording constitutes a violation of student conduct.
+\item Audio or video recording of lectures or any portion of the course is prohibited without written instructor permission.
+%      Unauthorized recording constitutes a violation of student conduct.
 \item Headphones and non-class-related browsing are not permitted during class.
 \item Use of others’ ideas is encouraged as part of scholarly work, but all sources must be properly cited. Proper attribution is required for all coursework and projects.
 \end{itemize}
