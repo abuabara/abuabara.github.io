@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 
 % Page Layout & Formatting
 \usepackage{geometry}
@@ -110,8 +110,8 @@ application in engineering systems will be considered.
 \hline
 \textbf{Assessment}             & \textbf{Weight}    & \textbf{Description} \\
 \hline
-Exam (2)                        & 58\% (29\% each)   & Content on weeks 1--5 \& 1--11 \\
-Project (report + presentation) & 28\% (groups of 2) & Case study exploring decision and risk analysis in engineering \\
+Exam (2)                        & 58\% (29\% each)   & Content on lectures 1--5 \& 1--11 \\ \hline
+Project (report + presentation) & 28\% (groups of 2) & Case study exploring decision and risk analysis in engineering \\ \hline
 Participation / Activities      & 14\%               & In-class quizzes and discussions, assignments, practice questions \\
 \hline
 \end{tabular}
@@ -132,7 +132,7 @@ Grades are based on total points earned: A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D �
 \renewcommand{\arraystretch}{1.025}
 \begin{tabular}{l l l}
 \hline
-\textbf{Lecture}  & \textbf{Topic}                                                        & \textbf{Chapter} \\ \hline
+\textbf{Week}     & \textbf{Topic}                                                        & \textbf{Reading} \\ \hline
 1                 & Bayesian thinking for risk and decision analysis                      & Ch. 1            \\ \hline
 2                 & Bayesian updating and evidence accumulation                           & Ch. 2            \\ \hline
 3                 & Prior modeling and expert knowledge                                   & Ch. 3--4         \\ \hline
@@ -149,7 +149,7 @@ Grades are based on total points earned: A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D �
 12                & Hierarchical Bayesian models                                          & Ch. 15--16       \\ \hline
 13                & Advanced multilevel and structured uncertainty models                 & Ch. 17--18       \\ \hline
 14                & Bayesian decision analysis and probabilistic forecasting              & Ch. 19           \\ \hline
-\hl{Nov 30/Dec 1} & \textbf{Final project: probabilistic programming, risk communication} & \hl{Ch. 1--19}   \\
+\hl{Nov 30/Dec 1} & \textbf{Project on decision, risk analysis, and probabilistic programming} & \hl{Ch. 1--19}   \\
 \hline
 \end{tabular}
 
@@ -169,81 +169,73 @@ Grades are based on total points earned: A ≥ 90\%, B ≥ 80\%, C ≥ 70\%, D �
       If technical issues prevent submission, send your assignment from your \texttt{@tamu.edu} email to the instructor’s \texttt{@tamu.edu} email as a backup.
       The subject line must include the course number and assignment name.
       Late work is not accepted and will receive a grade of zero.
+\item Make-up exams will be administered orally on a date set by the professor, as soon as the student is cleared to return to class following a documented absence.
+      Documentation for excused absences must be verifiable.
 \item Audio or video recording of lectures or any portion of the course is prohibited without written instructor permission. Unauthorized recording constitutes a violation of student conduct.
 \item Headphones and non-class-related browsing are not permitted during class.
+\item Use of others’ ideas is encouraged as part of scholarly work, but all sources must be properly cited. Proper attribution is required for all coursework and projects.
 \end{itemize}
 
-%\begin{itemize}[leftmargin=*,nosep]
-%\item Be nice. Be honest. Don’t cheat. We will also follow University Policies.
-%\item Late work is not accepted (zero).~Excused absences apply to attendance and in-class work only and do not extend assignment deadlines, including project components.~Alternatives must be arranged before deadlines.
-%\item Regrades apply to the full work; to ensure fairness and timely feedback, no changes after one week.
-
-%\item E-mail is the primary method of communication. Always include the course number in the subject line. Responses should not be expected after 5:00 PM, on weekends, or on holidays.
-%\item All assignments must be submitted through Canvas. If technical issues prevent submission, send your assignment from your \texttt{@tamu.edu} email to the instructor’s \texttt{@tamu.edu} email as a backup. The subject line must include the course number and assignment name.
-%\item Course material is cumulative and requires consistent effort. All assignments must be completed carefully and on time. Presentation quality (organization, clarity, tables, charts, graphs, maps, and technical discussion) is considered part of grading. Students are expected to actively engage, keep up with readings, participate, and seek help early when difficulties arise.
-%\item Electronic devices may be used only for class-related activities as directed by the instructor. Headphones and non-class-related browsing are not permitted during class without explicit approval.
-%\item Audio or video recording of lectures or any portion of the course is prohibited without written instructor permission. Unauthorized recording constitutes a violation of student conduct.
-%\item Use of others’ ideas is encouraged as part of scholarly work, but all sources must be properly cited. Proper attribution is required for all coursework and projects.
-%\end{itemize}
-
-\small
-
-% -------------------------------------------------
-\section*{University Policies}
-
-% -------------------------------------------------
-\subsection*{Attendance}
-The university views class attendance and participation as an individual student responsibility. Students are expected to attend class and to complete all assignments. Please refer to Student Rule 7 in its entirety for information about excused absences, including definitions, and related documentation and timelines.
-
-% -------------------------------------------------
-\subsection*{Student Observances for Religious Holy Days}
-In accordance with Texas Education Code \S51.911(b) and Texas A\&M Student Rule 7: Attendance, students shall be excused from attending classes or other required activities, including examinations, for the observance of a religious holy day, including travel for that purpose. For more information about excused absences due to religious holy days, please visit the Faculty Affairs website (under Other University Guidelines).
-
-% -------------------------------------------------
-\subsection*{Makeup Work}
-Students will be excused from attending class on the day of a graded activity or when attendance contributes to a student’s grade, for the reasons stated in Student Rule 7, or other reason deemed appropriate by the instructor. Please refer to Student Rule 7 in its entirety for information about makeup work, including definitions, and related documentation and timelines.
-Absences related to Title IX of the Education Amendments of 1972 may necessitate a period of more than 30 days for make-up work, and the timeframe for make-up work should be agreed upon by the student and instructor (Student Rule 7, Section 7.4.1).
-``The instructor is under no obligation to provide an opportunity for the student to make up work missed because of an unexcused absence'' (Student Rule 7, Section 7.4.2).
-Students who request an excused absence are expected to uphold the Aggie Honor Code and Student Conduct Code. (See Student Rule 24.)
-
-% -------------------------------------------------
-\subsection*{Academic Integrity Statement}
-\hl{``An Aggie does not lie, cheat or steal, or tolerate those who do.''}
-``Texas A\&M University students are responsible for authenticating all work submitted to an instructor. If asked, students must be able to produce proof that the item submitted is indeed the work of that student. Students must keep appropriate records at all times. The inability to authenticate one’s work, should the instructor request it, may be sufficient grounds to initiate an academic misconduct case'' (Section 20.1.2.3, Student Rule 20).
-You can learn more about the Aggie Honor System Office Rules and Procedures, academic integrity, and your rights and responsibilities at aggiehonor.tamu.edu.
-
-% -------------------------------------------------
-\subsection*{Plagiarism}
-According to the Texas A\&M University Definitions of Academic Misconduct, plagiarism is the appropriation of another person's ideas, processes, results or words without giving appropriate credit (aggiehonor.tamu.edu). You should credit your use of anyone else's words, graphic images, or ideas using standard citation styles. AI text generators (ChatGPT, Google Bard, etc.) should not be used for any work for this class without explicit permission of the instructor and appropriate attribution. This includes, but is not limited to:
-(\emph{i}) creating or revising drafts, (\emph{ii}) editing your work, (\emph{iii}) reviewing a peer's work.
-This excludes pre-existing software additions such as spelling and grammar checkers, which are acceptable.
-Such use of AI text generators in this manner could be considered plagiarism and cheating according to Student Rule 20. More information may also be found at \url{https://aggiehonor.tamu.edu} or you may contact your instructor if you have questions.
-
-% -------------------------------------------------
-\subsection*{Americans with Disabilities Act (ADA)}
-Texas A\&M University is committed to providing equitable access to learning opportunities for all students. If you experience barriers to your education due to a disability or think you may have a disability, please contact the Disability Resources office on your campus. Disabilities may include, but are not limited to attentional, learning, mental health, sensory, physical, or chronic health conditions. All students are encouraged to discuss their disability related needs with Disability Resources and their instructors as soon as possible.
-Disability Resources is in the Student Services Building or at (979) 845-1637 or visit \url{https://disability.tamu.edu}.
-
-% -------------------------------------------------
-\subsection*{Title IX and Statement on Limits to Confidentiality}
-Texas A\&M University is committed to fostering a learning environment that is safe and productive for all. University policies and federal and state laws prohibit gender-based discrimination and sexual harassment, including sexual assault, sexual exploitation, domestic violence, dating violence, and stalking.
-With the exception of some medical and mental health providers, all university employees (including full and part-time faculty, staff, paid graduate assistants, student workers, etc.) are Mandatory Reporters and must report to the Title IX Office if the employee experiences, observes, or becomes aware of an incident that meets the following conditions (see University Rule 08.01.01.M1):
-(\emph{i}) the incident is reasonably believed to be discrimination or harassment,
-(\emph{ii}) the incident is alleged to have been committed by or against a person who, at the time of the incident, was a student or employee of the University.
-\\[.5ex]
-Mandatory Reporters must file a report regardless of how the information comes to their attention – including but not limited to face-to-face conversations, a written class assignment or paper, class discussion, email, text, or social media post.
-Students wishing to discuss concerns related to mental and/or physical health in a confidential setting are encouraged to make an appointment with University Health Services or download the TELUS Health Student Support app for 24/7 access to professional counseling in multiple languages. Walk-in services for urgent, non-emergency needs are available during normal business hours at University Health Services locations; call 979.458.4584 for details.
-Students can learn more about filing a report, accessing supportive resources, and navigating the Title IX investigation and resolution process on the University’s Title IX webpage.
-
-% -------------------------------------------------
-\subsection*{Statement on Mental Health and Wellness}
-Texas A\&M University recognizes that mental health and wellness are critical factors influencing a student’s academic success and overall wellbeing. Students are encouraged to engage in healthy self-care practices by utilizing the resources and services available through University Health Services. The TELUS Health Student Support app provides access to professional counseling in multiple languages anytime, anywhere by phone or chat, and the 988 Suicide \& Crisis Lifeline offers 24-hour emergency support at 988 or \url{https://988lifeline.org}.
-
-% -------------------------------------------------
-\subsection*{Pregnancy Accommodations}
-Texas A\&M provides reasonable accommodations to students due to pregnancy and/or related conditions, such as childbirth, recovery and lactation. Students should contact the University’s Pregnancy Coordinator as soon as they become aware of the need for accommodation. Depending on the circumstances, accommodations could include extended time to complete assignments or exams, changes in course sequence, or modifications to the physical classroom environment. Texas A\&M will also allow a voluntary leave of absence, ensure the availability of lactation space, and maintain grievance procedures to provide for the prompt and equitable resolution of complaints of sex discrimination. For information regarding pregnancy accommodations, email \url{TIX.Pregnancy@tamu.edu}.
-
 \end{document}
+
+%\small
+%
+%% -------------------------------------------------
+%\section*{University Policies}
+%
+%% -------------------------------------------------
+%\subsection*{Attendance}
+%The university views class attendance and participation as an individual student responsibility. Students are expected to attend class and to complete all assignments. Please refer to Student Rule 7 in its entirety for information about excused absences, including definitions, and related documentation and timelines.
+%
+%% -------------------------------------------------
+%\subsection*{Student Observances for Religious Holy Days}
+%In accordance with Texas Education Code \S51.911(b) and Texas A\&M Student Rule 7: Attendance, students shall be excused from attending classes or other required activities, including examinations, for the observance of a religious holy day, including travel for that purpose. For more information about excused absences due to religious holy days, please visit the Faculty Affairs website (under Other University Guidelines).
+%
+%% -------------------------------------------------
+%\subsection*{Makeup Work}
+%Students will be excused from attending class on the day of a graded activity or when attendance contributes to a student’s grade, for the reasons stated in Student Rule 7, or other reason deemed appropriate by the instructor. Please refer to Student Rule 7 in its entirety for information about makeup work, including definitions, and related documentation and timelines.
+%Absences related to Title IX of the Education Amendments of 1972 may necessitate a period of more than 30 days for make-up work, and the timeframe for make-up work should be agreed upon by the student and instructor (Student Rule 7, Section 7.4.1).
+%``The instructor is under no obligation to provide an opportunity for the student to make up work missed because of an unexcused absence'' (Student Rule 7, Section 7.4.2).
+%Students who request an excused absence are expected to uphold the Aggie Honor Code and Student Conduct Code. (See Student Rule 24.)
+%
+%% -------------------------------------------------
+%\subsection*{Academic Integrity Statement}
+%\hl{``An Aggie does not lie, cheat or steal, or tolerate those who do.''}
+%``Texas A\&M University students are responsible for authenticating all work submitted to an instructor. If asked, students must be able to produce proof that the item submitted is indeed the work of that student. Students must keep appropriate records at all times. The inability to authenticate one’s work, should the instructor request it, may be sufficient grounds to initiate an academic misconduct case'' (Section 20.1.2.3, Student Rule 20).
+%You can learn more about the Aggie Honor System Office Rules and Procedures, academic integrity, and your rights and responsibilities at aggiehonor.tamu.edu.
+%
+%% -------------------------------------------------
+%\subsection*{Plagiarism}
+%According to the Texas A\&M University Definitions of Academic Misconduct, plagiarism is the appropriation of another person's ideas, processes, results or words without giving appropriate credit (aggiehonor.tamu.edu). You should credit your use of anyone else's words, graphic images, or ideas using standard citation styles. AI text generators (ChatGPT, Google Bard, etc.) should not be used for any work for this class without explicit permission of the instructor and appropriate attribution. This includes, but is not limited to:
+%(\emph{i}) creating or revising drafts, (\emph{ii}) editing your work, (\emph{iii}) reviewing a peer's work.
+%This excludes pre-existing software additions such as spelling and grammar checkers, which are acceptable.
+%Such use of AI text generators in this manner could be considered plagiarism and cheating according to Student Rule 20. More information may also be found at \url{https://aggiehonor.tamu.edu} or you may contact your instructor if you have questions.
+%
+%% -------------------------------------------------
+%\subsection*{Americans with Disabilities Act (ADA)}
+%Texas A\&M University is committed to providing equitable access to learning opportunities for all students. If you experience barriers to your education due to a disability or think you may have a disability, please contact the Disability Resources office on your campus. Disabilities may include, but are not limited to attentional, learning, mental health, sensory, physical, or chronic health conditions. All students are encouraged to discuss their disability related needs with Disability Resources and their instructors as soon as possible.
+%Disability Resources is in the Student Services Building or at (979) 845-1637 or visit \url{https://disability.tamu.edu}.
+%
+%% -------------------------------------------------
+%\subsection*{Title IX and Statement on Limits to Confidentiality}
+%Texas A\&M University is committed to fostering a learning environment that is safe and productive for all. University policies and federal and state laws prohibit gender-based discrimination and sexual harassment, including sexual assault, sexual exploitation, domestic violence, dating violence, and stalking.
+%With the exception of some medical and mental health providers, all university employees (including full and part-time faculty, staff, paid graduate assistants, student workers, etc.) are Mandatory Reporters and must report to the Title IX Office if the employee experiences, observes, or becomes aware of an incident that meets the following conditions (see University Rule 08.01.01.M1):
+%(\emph{i}) the incident is reasonably believed to be discrimination or harassment,
+%(\emph{ii}) the incident is alleged to have been committed by or against a person who, at the time of the incident, was a student or employee of the University.
+%\\[.5ex]
+%Mandatory Reporters must file a report regardless of how the information comes to their attention – including but not limited to face-to-face conversations, a written class assignment or paper, class discussion, email, text, or social media post.
+%Students wishing to discuss concerns related to mental and/or physical health in a confidential setting are encouraged to make an appointment with University Health Services or download the TELUS Health Student Support app for 24/7 access to professional counseling in multiple languages. Walk-in services for urgent, non-emergency needs are available during normal business hours at University Health Services locations; call 979.458.4584 for details.
+%Students can learn more about filing a report, accessing supportive resources, and navigating the Title IX investigation and resolution process on the University’s Title IX webpage.
+%
+%% -------------------------------------------------
+%\subsection*{Statement on Mental Health and Wellness}
+%Texas A\&M University recognizes that mental health and wellness are critical factors influencing a student’s academic success and overall wellbeing. Students are encouraged to engage in healthy self-care practices by utilizing the resources and services available through University Health Services. The TELUS Health Student Support app provides access to professional counseling in multiple languages anytime, anywhere by phone or chat, and the 988 Suicide \& Crisis Lifeline offers 24-hour emergency support at 988 or \url{https://988lifeline.org}.
+%
+%% -------------------------------------------------
+%\subsection*{Pregnancy Accommodations}
+%Texas A\&M provides reasonable accommodations to students due to pregnancy and/or related conditions, such as childbirth, recovery and lactation. Students should contact the University’s Pregnancy Coordinator as soon as they become aware of the need for accommodation. Depending on the circumstances, accommodations could include extended time to complete assignments or exams, changes in course sequence, or modifications to the physical classroom environment. Texas A\&M will also allow a voluntary leave of absence, ensure the availability of lactation space, and maintain grievance procedures to provide for the prompt and equitable resolution of complaints of sex discrimination. For information regarding pregnancy accommodations, email \url{TIX.Pregnancy@tamu.edu}.
+
+
 
 %\item Johnson et al. \textit{Bayes Rules! An Introduction to Applied Bayesian Modeling}. \url{https://www.bayesrulesbook.com}
 
