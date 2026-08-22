@@ -32,11 +32,11 @@ class: center middle main-title section-title-4
 .class-info[
 <span style="font-size: 64pt;">🎓</span>
 
-DAEN 640 Capstone Senior Design
+DAEN 649 Capstone Senior Design Planning
 
 .light[
 Alexander Abuabara<br>
-Jan 2026]
+Aug 2026]
 ]
 
 ---
@@ -69,26 +69,11 @@ class: center middle section-title section-title-2 animated fadeIn
 
 layout: false
 
-.pull-left-3.center[
 .box-inv-2[Alexander<br>Abuabara]
-<figure class="zoom-figure">
-<img src="images/Alexander.png" alt="Alexander" title="Alexander" width="100%">
-</zoom-figure>
-]
 
-.pull-middle-3[
-.box-inv-2[Jose<br>Vazquez]
 <figure class="zoom-figure">
-<img src="images/Vazquez.png" alt="Jose" title="Jose" width="100%">
-</zoom-figure>
-]
-
-.pull-right-3[
-.box-inv-2[Jon<br>Elizondo]
-<figure class="zoom-figure">
-<img src="images/Jon.png" alt="JP" title="JP" width="100%">
-</zoom-figure>
-]
+  <img src="images/Alexander.png" alt="Alexander" title="Alexander">
+</figure>
 
 ---
 
@@ -364,94 +349,9 @@ Outcome: A complete, defensible project ready for deployment and assessment
 
 ---
 
-# Weekly Schedule
-
-<div class="rose-table">
-
-.small[
-| Week | Date | Topic |
-|------|------|-------|
-| 1    | 1/13 | Introductions + Comm Requirements |
-| 2    | 1/20 | Integrate Engineering Design (*The Toaster Project*) |
-]
-
-</div>
-
-&nbsp;
-
-.center[
-<figure>
-<img src="images/today.jpg" alt="Today calendar" title="Today!" width="17%">
-</figure>
-]
-
----
-
-# Weekly Schedule
-
-<div class="rose-table">
-
-.small[
-| Week | Date | Topic |
-|:-----|:----:|-------|
-| 3    | 1/27 | Phase 1 Kickoff |
-| 4    | 2/3  | Phase 1 Presentations - Groups BH & COE |
-| 5    | 2/10 | Phase 1 Presentations - Groups ML |
-|      |      |       |
-| 6    | 2/17 | Phase 2 Kickoff |
-| 7    | 2/24 | Phase 2 Presentations - Groups BH & COE |
-| 8    | 3/3  | Phase 2 Presentations - Groups ML |
-]
-
-</div>
-
----
-
-layout: false
-
-.box-4.normal.sp-after-short[
-March 7-15
-]
-
-.center[
-<figure>
-<img src="images/SpringBreak3.png" alt="Spring Break" title="Spring Break" width="60%">
-</figure>
-]
-
----
-
-layout: true
-class: title title-4
-
----
-
-# Weekly Schedule
-
-<div class="rose-table">
-
-.small[
-| Week | Date | Topic |
-|:-----|:----:|-------|
-| 9    | 3/17 | Phase 3 Kickoff |
-| 10   | 3/24 | Phase 3 Presentations - Groups BH & COE |
-| 11   | 3/31 | Phase 3 Presentations - Groups ML |
-|      |      |   |
-| 12   | 4/7  | Phase 4 Kickoff |
-| 13   | 4/14 | Phase 4 Presentations - Groups BH & COE |
-| 14   | 4/21 | Phase 4 Presentations - Groups ML |
-]
-
-</div>
-
----
-
 # Attendance
 
-* Mandatory attendance for everyone:
-
-  * First two weeks of class
-  * Phase kick-offs
+* Mandatory attendance for everyone!
 
 * Team presentation days:
 
@@ -580,8 +480,6 @@ class: center middle section-title section-title-5 animated fadeIn
 ---
 
 layout: false
-
-<!-- # Grading -->
 
 <div class="coral-table">
 
@@ -969,24 +867,3 @@ background-image: url("images/minecraft.jpeg")
 <span style="color: red; font-size: 44pt;">
 <b>Make it a GREAT semester! ツ</b>
 </span>
-
-
-<!-- ## Mini Project Packet -->
-
-<!-- ## Purpose -->
-
-<!-- <img src="images/Purpose.png" width="65%"/> -->
-
-<!-- ## SE and PM Integration -->
-
-<!-- <img src="images/SE_PM_Integration.jpg" width="90%"/> -->
-
-<!-- ## Gantt Chart -->
-
-<!-- Gantt Chart -->
-
-<!-- ## SE Standards -->
-
-<!-- <img src="images/SE_Standards.jpg" width="100%"/> -->
-
-<!-- remotes::install_github("yihui/xaringan") -->
