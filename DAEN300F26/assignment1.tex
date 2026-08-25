@@ -1,0 +1,205 @@
+\documentclass[10pt]{article}
+\usepackage[margin=.75in]{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\setlength{\parskip}{.4em}
+\setlength{\parindent}{0pt}
+
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  frame=single,
+  breaklines=true,
+  showstringspaces=false
+}
+
+\title{\textbf{Assignment 1}\\
+       Building a Reliable Mini Data Pipeline in Jupyter}
+\author{}
+\date{Fri Aug 28 2026}
+
+\begin{document}
+\maketitle
+
+\section*{Scenario}
+You are a junior data engineer supporting an e-commerce analytics pipeline.
+A CSV file containing customer events arrives from several systems. Before
+the data can be used by analysts, it must be validated, cleaned, transformed,
+and checked for performance problems.
+
+The file \texttt{events.csv} intentionally contains realistic
+data-quality problems such as duplicate records, missing identifiers,
+malformed timestamps, inconsistent text categories, and invalid numeric values.
+
+\section*{Learning Goals}
+By completing this assignment, you will practice:
+\begin{itemize}
+    \item writing reusable Python functions;
+    \item debugging errors and interpreting tracebacks in Jupyter;
+    \item building basic data-quality checks;
+    \item timing and profiling Python code;
+    \item organizing a small ETL-style workflow.
+\end{itemize}
+
+\section*{Dataset}
+The dataset contains the following columns:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Column & Meaning \\
+\midrule
+\texttt{event\_id} & Unique identifier for an event \\
+\texttt{event\_timestamp} & Time at which the event occurred \\
+\texttt{customer\_id} & Customer identifier \\
+\texttt{product\_id} & Product identifier \\
+\texttt{event\_type} & view, add\_to\_cart, purchase, or refund \\
+\texttt{quantity} & Number of units \\
+\texttt{unit\_price} & Price per unit \\
+\texttt{country} & Customer country code \\
+\texttt{source} & web, mobile, or partner\_api \\
+\texttt{status} & Processing status \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{Tasks}
+
+\subsection*{1. Build reusable cleaning functions (3 pts)}
+Load the CSV into a Jupyter notebook using pandas. Create and use at least
+\textbf{three functions}. Your functions should collectively:
+
+\begin{enumerate}[label=\alph*)]
+    \item standardize \texttt{event\_type} and \texttt{status} by trimming
+    whitespace and converting text to a consistent case;
+    \item convert \texttt{event\_timestamp}, \texttt{quantity}, and
+    \texttt{unit\_price} to appropriate data types;
+    \item remove exact duplicates and identify invalid or missing values.
+\end{enumerate}
+
+For invalid numeric or timestamp values, convert them to missing values
+rather than allowing the entire pipeline to fail.
+
+\textbf{Rubric:} 1 point for function design, 1 point for correct cleaning,
+and 1 point for clear function calls/docstrings or comments.
+
+\subsection*{2. Debug a broken transformation (3 pts)}
+Start with the following intentionally broken function:
+
+\begin{lstlisting}
+def calculate_revenue(df):
+    df["revenue"] = df["quantity"] * df["unit_price"]
+    purchases = df[df["event_type"] == "Purchase"]
+    return purchases.groupby("country")["reveneu"].sum()
+\end{lstlisting}
+
+Run it on your cleaned data and use the traceback to debug it.
+
+\begin{enumerate}[label=\alph*)]
+    \item Explain at least \textbf{two problems} in the original function.
+    \item Correct the function.
+    \item Show the resulting purchase revenue by country.
+\end{enumerate}
+
+Use at least one Jupyter/IPython debugging feature such as
+\texttt{\%xmode Context}, \texttt{\%xmode Verbose}, or \texttt{\%debug}.
+Include a short Markdown note describing how the traceback helped you.
+
+\textbf{Rubric:} 1 point for identifying problems, 1 point for a working
+correction, and 1 point for demonstrating/debugging explanation.
+
+\subsection*{3. Profile two implementations (2 pts)}
+Create two implementations that calculate revenue by country:
+
+\begin{itemize}
+    \item \textbf{Version A:} a Python loop over records or rows;
+    \item \textbf{Version B:} a pandas/vectorized solution using filtering,
+    column arithmetic, and \texttt{groupby}.
+\end{itemize}
+
+Use \texttt{\%timeit} to compare them. Then use \texttt{\%prun} on at least
+one implementation.
+
+Answer in 2--4 sentences:
+\begin{itemize}
+    \item Which version is faster?
+    \item What did the profiler show?
+    \item Why does profiling matter in a data-engineering pipeline?
+\end{itemize}
+
+\textbf{Rubric:} 1 point for correct timing/profiling and 1 point for
+interpretation.
+
+\subsection*{4. Produce a pipeline quality summary (2 pts)}
+Create a final function called:
+
+\begin{lstlisting}
+def pipeline_summary(raw_df, clean_df):
+    ...
+\end{lstlisting}
+
+It should return or display at least:
+
+\begin{itemize}
+    \item number of raw rows;
+    \item number of cleaned rows;
+    \item number of duplicate rows removed;
+    \item number of records with unusable timestamps;
+    \item number of records with missing customer or product IDs;
+    \item total valid purchase revenue.
+\end{itemize}
+
+Add a final Markdown paragraph explaining whether you would allow this
+dataset to continue to a production analytics table and why.
+
+\textbf{Rubric:} 1 point for the summary metrics and 1 point for the
+data-engineering judgment.
+
+\section*{Submission}
+Submit one Jupyter notebook (\texttt{.ipynb}) containing:
+\begin{itemize}
+    \item executable code;
+    \item outputs from the major steps;
+    \item timing/profiling output;
+    \item short Markdown explanations;
+    \item a final cleaned-data and pipeline-quality summary.
+\end{itemize}
+
+Your notebook should run from top to bottom without manual fixes.
+
+%\section*{Dataset Generation}
+%The provided dataset was generated synthetically with a fixed random seed
+%so that it is reproducible. The generator first creates valid e-commerce
+%events, then deliberately injects data-quality problems and duplicate rows.
+%
+%To regenerate the dataset, run:
+%\begin{lstlisting}
+%python events.py
+%\end{lstlisting}
+%
+%In a Jupyter notebook, you may also run:
+%\begin{lstlisting}
+%%run events.py
+%\end{lstlisting}
+
+\section*{Point Summary}
+\begin{center}
+\begin{tabular}{lr}
+\toprule
+Task & Points \\
+\midrule
+Reusable cleaning functions & 3 \\
+Debugging a broken transformation & 3 \\
+Timing and profiling & 2 \\
+Pipeline quality summary & 2 \\
+\midrule
+\textbf{Total} & \textbf{10} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{document}
