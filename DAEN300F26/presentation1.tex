@@ -1,0 +1,475 @@
+\documentclass[aspectratio=169]{beamer}
+
+%\usetheme{Madrid}
+%\usecolortheme{default}
+
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\definecolor{beamer@blendedblue}{RGB}{80,0,0}
+\definecolor{AggieMaroon}{HTML}{500000}
+\definecolor{SoftGray}{HTML}{F5F5F5}
+\definecolor{DarkGray}{HTML}{333333}
+\definecolor{AccentBlue}{HTML}{2F5597}
+\usecolortheme{default}
+
+\setbeamertemplate{itemize items}{•}
+\setbeamertemplate{itemize subitem}[•]
+\setbeamertemplate{itemize subsubitem}[•]
+\renewcommand{\UrlFont}{\ttfamily\footnotesize}
+\newcommand{\vocab}[1]{\textcolor{AggieMaroon}{\textbf{#1}}}
+\newcommand{\question}[1]{\begin{block}{Question}#1\end{block}}
+\newcommand{\smallnote}[1]{{\footnotesize\textcolor{DarkGray}{#1}}}
+
+%BEAMER TEMPLATES------------------------------
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{
+\color{aggiemaroon}{\hfill \insertframenumber/\inserttotalframenumber \hspace{2pt} \vskip2pt}
+}
+
+
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\title{Python and Jupyter}
+\subtitle{Functions, Debugging, and Profiling}
+\author{}
+\date{\color{aggiemaroon}{
+DAEN 300\\
+\textbf{Alexander Abuabara}\\
+Fall 2026
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+% Python code formatting
+\lstset{
+    language=Python,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{teal},
+    showstringspaces=false,
+    frame=single,
+    breaklines=true
+}
+
+\begin{document}
+
+%------------------------------------------------
+\begin{frame}
+    \titlepage
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{} % Learning Objectives
+By the end of this presentation, you should be able to:
+\begin{itemize}
+    \item Define and use Python functions.
+    \item Use Jupyter/IPython tools to investigate errors.
+    \item Read and interpret Python tracebacks.
+    \item Measure execution time using \texttt{\%time} and \texttt{\%timeit}.
+    \item Use profiling tools to identify performance bottlenecks.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Why Jupyter and IPython?}
+Jupyter provides an interactive environment for working with Python.
+
+\begin{itemize}
+    \item Execute code one cell at a time.
+    \item Immediately inspect results.
+    \item Combine code, text, equations, and visualizations.
+    \item Experiment without repeatedly running an entire program.
+    \item Use special IPython ``magic'' commands.
+\end{itemize}
+
+\vspace{0.3cm}
+
+Examples of magic commands:
+\begin{center}
+\texttt{\%run \qquad \%timeit \qquad \%prun \qquad \%xmode}
+\end{center}
+\end{frame}
+
+%------------------------------------------------
+\section{Functions}
+
+\begin{frame}[fragile]{Python Functions}
+A function packages reusable code into a named block.
+
+\begin{lstlisting}
+def square(x):
+    return x ** 2
+
+result = square(5)
+print(result)
+\end{lstlisting}
+
+Output:
+\begin{verbatim}
+25
+\end{verbatim}
+
+Functions help make programs:
+\begin{itemize}
+    \item reusable,
+    \item easier to understand,
+    \item easier to test,
+    \item easier to debug.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Functions with Multiple Inputs}
+Functions can accept multiple arguments.
+
+\begin{lstlisting}
+def average(a, b):
+    return (a + b) / 2
+
+print(average(10, 20))
+\end{lstlisting}
+
+Output:
+\begin{verbatim}
+15.0
+\end{verbatim}
+
+\vspace{0.2cm}
+
+A good function should generally perform one clearly defined task.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Why Functions Help}
+Without a function:
+
+\begin{lstlisting}
+result1 = 5 ** 2
+result2 = 8 ** 2
+result3 = 12 ** 2
+\end{lstlisting}
+
+With a function:
+
+\begin{lstlisting}
+def square(x):
+    return x ** 2
+
+result1 = square(5)
+result2 = square(8)
+result3 = square(12)
+\end{lstlisting}
+
+The second version is easier to reuse and modify.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Running Python Files with \texttt{\%run}}
+IPython allows Python scripts to be executed directly.
+
+\begin{lstlisting}
+%run my_script.py
+\end{lstlisting}
+
+If \texttt{my\_script.py} defines functions or variables, they can then
+be available in the interactive IPython session.
+
+\vspace{0.3cm}
+
+This is useful when:
+\begin{itemize}
+    \item developing functions in separate Python files,
+    \item testing scripts interactively,
+    \item combining scripts with notebook analysis.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Debugging}
+
+\begin{frame}{What Is Debugging?}
+Debugging is the process of finding and correcting errors in a program.
+
+\vspace{0.3cm}
+
+Common Python errors include:
+
+\begin{itemize}
+    \item \texttt{SyntaxError}
+    \item \texttt{NameError}
+    \item \texttt{TypeError}
+    \item \texttt{IndexError}
+    \item \texttt{KeyError}
+    \item \texttt{ZeroDivisionError}
+\end{itemize}
+
+\vspace{0.3cm}
+
+Python error messages provide information about where and why the
+program failed.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Example: A Bug}
+Consider the following function:
+
+\begin{lstlisting}
+def divide(a, b):
+    return a / b
+
+divide(10, 0)
+\end{lstlisting}
+
+Python produces a traceback ending with:
+
+\begin{verbatim}
+ZeroDivisionError: division by zero
+\end{verbatim}
+
+The traceback tells us:
+\begin{enumerate}
+    \item what type of error occurred,
+    \item where it occurred,
+    \item which function calls led to it.
+\end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Reading a Traceback}
+A useful strategy is to read a traceback from the bottom upward.
+
+\begin{enumerate}
+    \item Identify the exception type.
+    \item Read the error message.
+    \item Find the line where the error occurred.
+    \item Follow the function-call chain if necessary.
+    \item Inspect the values involved.
+\end{enumerate}
+
+\vspace{0.3cm}
+
+The final line often provides the most important clue.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{IPython Traceback Modes}
+IPython provides the \texttt{\%xmode} magic command.
+
+\begin{lstlisting}
+%xmode Plain
+%xmode Context
+%xmode Verbose
+\end{lstlisting}
+
+The modes control how much information appears when an exception occurs.
+
+\begin{itemize}
+    \item \textbf{Plain}: minimal traceback.
+    \item \textbf{Context}: includes surrounding context.
+    \item \textbf{Verbose}: displays additional variable information.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Interactive Debugging}
+IPython also supports interactive debugging.
+
+After an exception:
+
+\begin{lstlisting}
+%debug
+\end{lstlisting}
+
+This allows you to inspect the program state near the point of failure.
+
+Useful debugger commands can include:
+\begin{itemize}
+    \item inspecting variable values,
+    \item moving through the call stack,
+    \item identifying which inputs caused the error.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\section{Profiling}
+
+\begin{frame}{What Is Profiling?}
+A program may be correct but still be slow.
+
+\vspace{0.3cm}
+
+\textbf{Profiling} means measuring where a program spends its time
+or memory.
+
+\vspace{0.3cm}
+
+The goal is to answer questions such as:
+\begin{itemize}
+    \item Which function is slow?
+    \item Which line takes the most time?
+    \item Which operation uses the most memory?
+    \item Where should optimization effort be focused?
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Measure first; optimize second.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Timing with \texttt{\%time}}
+The \texttt{\%time} magic measures one execution.
+
+\begin{lstlisting}
+%time sum(range(1000000))
+\end{lstlisting}
+
+It reports information such as:
+\begin{itemize}
+    \item CPU time,
+    \item system time,
+    \item total execution time.
+\end{itemize}
+
+\vspace{0.3cm}
+
+It is useful for obtaining a quick timing estimate.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Timing with \texttt{\%timeit}}
+For more reliable measurements, use:
+
+\begin{lstlisting}
+%timeit sum(range(1000000))
+\end{lstlisting}
+
+\texttt{\%timeit} runs the statement repeatedly.
+
+\vspace{0.3cm}
+
+Advantages:
+\begin{itemize}
+    \item reduces the effect of random timing variation,
+    \item automatically chooses an appropriate number of repetitions,
+    \item makes it easier to compare different approaches.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Line Magic vs. Cell Magic}
+A single percent sign applies to one line:
+
+\begin{lstlisting}
+%timeit sum(range(1000))
+\end{lstlisting}
+
+Two percent signs apply to an entire cell:
+
+\begin{lstlisting}
+%%timeit
+
+total = 0
+for i in range(1000):
+    total += i
+\end{lstlisting}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Function Profiling with \texttt{\%prun}}
+Suppose we have:
+
+\begin{lstlisting}
+def calculate():
+    total = 0
+    for i in range(100000):
+        total += i ** 2
+    return total
+\end{lstlisting}
+
+Profile it with:
+
+\begin{lstlisting}
+%prun calculate()
+\end{lstlisting}
+
+\texttt{\%prun} reports which function calls consume the most time.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{More Profiling Tools}
+The Python Data Science Handbook also introduces more detailed
+profiling tools.
+
+\begin{description}
+    \item[\texttt{\%lprun}] Line-by-line execution profiling.
+    \item[\texttt{\%memit}] Memory usage of a statement.
+    \item[\texttt{\%mprun}] Line-by-line memory profiling.
+\end{description}
+
+\vspace{0.4cm}
+
+These tools can help identify a specific line of code responsible for
+poor performance.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Recommended Workflow}
+A practical Jupyter development workflow:
+
+\begin{enumerate}
+    \item Write a small function.
+    \item Run and test the function.
+    \item Inspect any traceback.
+    \item Debug the problem.
+    \item Confirm that the function is correct.
+    \item Measure its performance.
+    \item Profile slow sections.
+    \item Optimize only the important bottlenecks.
+\end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Key Takeaways}
+\begin{itemize}
+    \item Functions organize Python code into reusable components.
+    \item Jupyter makes experimentation and testing interactive.
+    \item Tracebacks provide useful debugging information.
+    \item IPython provides debugging tools such as \texttt{\%xmode}
+          and \texttt{\%debug}.
+    \item \texttt{\%time} and \texttt{\%timeit} measure execution time.
+    \item Profiling reveals where optimization will have the greatest impact.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Reference}
+Primary reference:
+
+\vspace{0.3cm}
+
+Jake VanderPlas, \textit{Python Data Science Handbook}
+
+\vspace{0.2cm}
+
+\url{https://jakevdp.github.io/PythonDataScienceHandbook/01.00-ipython-beyond-normal-python.html}
+
+\vspace{0.4cm}
+
+Relevant sections:
+\begin{itemize}
+    \item IPython magic commands
+    \item Errors and debugging
+    \item Profiling and timing code
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}
+\centering
+\Huge Questions?
+\end{frame}
+
+\end{document}
