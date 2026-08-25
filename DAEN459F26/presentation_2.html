@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>week2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Alexander Abuabara" />
+    <meta name="date" content="2026-08-25" />
+    <script src="libs/header-attrs-2.31/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="libs/ath-slides.css" type="text/css" />
+    <link rel="stylesheet" href="libs/ath-inferno-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs/animate.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: center middle main-title section-title-4
+
+# Integrate&lt;br&gt;Engineering&lt;br&gt;Design
+
+.class-info[
+&lt;span style="font-size: 64pt;"&gt;👨‍🎨 👩‍🎨&lt;/span&gt;
+
+DAEN 459 Capstone Senior Design Planning
+
+.light[
+Alexander Abuabara&lt;br&gt;
+Aug 2026]
+]
+
+---
+
+class: title title-1
+
+# Updates
+
+.box-inv-1.medium.sp-after-veryshort[**Today**: questions?, design]
+.box-inv-1.medium.sp-after-veryshort[**Friday**: teams, responsibilities, projects]
+.box-inv-1.medium.sp-after-veryshort[**Next week**: sponsor engagement, stakeholder analysis, effective interviewing]
+
+---
+
+class: title title-inv-1
+
+# Plan for today
+
+.box-2.medium.sp-after-veryshort[Engineering Design Process]
+.box-4.medium.sp-after-veryshort[Integrated Engineering Design Process]
+.box-5.medium.sp-after-veryshort[System Architecture, Data Pipeline]
+.box-6.medium.sp-after-veryshort[*The Toaster Project*]
+.box-7.medium.sp-after-veryshort[Challenges, Solutions]
+
+---
+
+class: title title-1
+
+# Learning Goals
+
+.box-inv-1.medium.sp-after-veryshort[Map the V-Model]
+.box-inv-1.medium.sp-after-veryshort[Identify Configuration Items]
+.box-inv-1.medium.sp-after-veryshort[Understand Traceability]
+.box-inv-1.medium.sp-after-veryshort[Connect Tests to Artifacts]
+.box-inv-1.medium.sp-after-veryshort[Evaluate Change Impact]
+
+---
+
+.center[*Descriptions*]
+
+.pequeno[
+* **&lt;span style="color: black;"&gt;Map the V-Model&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;See how requirements, design, and implementation connect to testing and validation.&lt;/span&gt;
+* **&lt;span style="color: black;"&gt;Identify Configuration Items&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;Recognize key items (requirements, schemas, code, pipelines, infrastructure) and how they are versioned.&lt;/span&gt;
+* **&lt;span style="color: black;"&gt;Understand Traceability&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;Follow how requirements link to system components, data pipelines, and tests.&lt;/span&gt;
+* **&lt;span style="color: black;"&gt;Connect Tests to Artifacts&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;Identify what is tested or validated for each major configuration item.&lt;/span&gt;
+* **&lt;span style="color: black;"&gt;Evaluate Change Impact&lt;/span&gt;**&lt;br&gt;&lt;span style="color: gray;"&gt;Understand how changes ripple across design, implementation, and testing.&lt;/span&gt;
+]
+
+---
+
+layout: false
+class: center middle section-title section-title-2 animated fadeIn
+
+# Engineering Design Process
+
+---
+
+layout: false
+
+.center[
+&lt;figure class="figure"&gt;
+&lt;img src="images/Engineering_Design_Process3.png" alt="Engineering Design Process" title="Engineering Design Process" width="40%"&gt;
+&lt;/figure&gt;
+]
+.small[A step-by-step approach engineers use to identify problems, brainstorm solutions, build and test prototypes, and improve designs to create effective, practical solutions.]
+
+
+---
+
+class: title title-2
+
+# Engineering Design Process
+
+.box-inv-2.medium.sp-after-veryshort[Similarities to the scientific method]
+
+* .small[Begin with existing knowledge, gradually become more specific]
+
+.box-inv-2.medium.sp-after-veryshort[Key difference?]
+
+--
+
+* .small[The scientific process emphasizes &lt;u&gt;explanation&lt;/u&gt;, &lt;u&gt;prediction&lt;/u&gt;, and &lt;u&gt;discovery&lt;/u&gt;.]
+* .small[The engineering process focuses on &lt;u&gt;&lt;span style="color: red;"&gt;application of systematic thinking&lt;/span&gt;&lt;/u&gt; to leverage technology in service of &lt;u&gt;&lt;span class="highlight" style="color: red;"&gt;human needs&lt;/span&gt;&lt;/u&gt;!]
+
+---
+
+layout: false
+
+.center[
+&lt;figure class="figure"&gt;
+&lt;img src="images/TraditionalPencils.jpg" alt="Traditional Pencils" title="Traditional Pencils" width="50%"&gt;
+&lt;/figure&gt;
+]
+.center[https://www.youtube.com/watch?v=qqs3fxfmWr4]
+
+---
+
+.box-3.large[&lt;span style="color: yellow;"&gt;Life Lessons from a Pencil&lt;/span&gt;]
+
+.box-inv-3.sp-after-veryshort[*What matters is what’s inside*]
+.box-inv-3.sp-after-veryshort[*Keep yourself sharp*]
+.box-inv-3.sp-after-veryshort[*Mistakes are part of the process*]
+.box-inv-3.sp-after-veryshort[*Pressure creates output*]
+.box-inv-3.sp-after-veryshort[*Collaboration matters*]
+.box-inv-3.sp-after-veryshort[*Durability comes from design*]
+
+&lt;!-- * What matters is what’s inside: Just as the graphite core defines a pencil’s function, your knowledge, skills, and values define your potential. Focus on strengthening your "core." --&gt;
+&lt;!-- * Keep yourself sharp: Pencils must be sharpened to perform well; similarly, continuous learning, practice, and self-improvement keep you ready to tackle challenges. --&gt;
+&lt;!-- * Mistakes are part of the process: Pencils leave marks that can be erased. Mistakes are natural in learning and life; they are opportunities to correct, adapt, and grow. --&gt;
+&lt;!-- * Pressure creates output: Just as the pencil requires controlled pressure to write, challenges in life and studies can produce meaningful results if approached with care and persistence. --&gt;
+&lt;!-- * Collaboration matters: A pencil is made of multiple components—wood, graphite, clay, paint—working together to create a functional product. Success often comes from teamwork and combining diverse strengths. --&gt;
+&lt;!-- * Durability comes from design: Thoughtful planning and preparation in pencils prevent breakage. Similarly, careful goal-setting and consistent effort build resilience and long-term success. --&gt;
+
+---
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+.box-2.medium.sp-after-short[Imagine a pencil journey as a metaphor]
+
+.box-inv-2.normal.sp-after-veryshort[Raw Materials → Shaping → Testing → Final Pencil]
+
+---
+
+.box-2.large[Engineering Design Process]
+
+1. &lt;u&gt;Define&lt;/u&gt; the problem (*Why make a pencil?*)
+2. &lt;u&gt;Research&lt;/u&gt; &amp; &lt;u&gt;brainstorm&lt;/u&gt; (*What materials &amp; designs?*)
+3. &lt;u&gt;Develop&lt;/u&gt; concepts (*Sketch ideas, pick the best*)
+4. &lt;u&gt;Build&lt;/u&gt; &amp; prototype (*Make a sample pencil*)
+5. &lt;u&gt;Test&lt;/u&gt; &amp; &lt;u&gt;evaluate&lt;/u&gt; (*Does it write? Break?*)
+6. &lt;u&gt;Redesign/refine&lt;/u&gt; (*Improve core, casing, process*)
+
+---
+
+.box-2.large[Engineering Design Process]
+
+.pull-left-3.center[
+.box-inv-2[Material Selection and Functionality]]
+
+.pull-middle-3[
+.box-inv-2[Mapping Process to Design Stages]]
+
+.pull-right-3[
+.box-inv-2[Balancing Constraints]]
+
+---
+
+.box-2.large[Engineering Design Process]
+
+.pull-left-3[
+.box-inv-2[Material Selection and Functionality]
+.pequeno[
+&lt;u&gt;Multiple cycles of design thinking&lt;/u&gt;.
+Define the problem, explore materials and methods, prototype, test, and refine.
+]]
+
+.pull-middle-3[
+.box-inv-2[Mapping Process to Design Stages]
+.pequeno[
+Engineering design is &lt;u&gt;not linear&lt;/u&gt;.
+Feedback from testing and production continually informs improvements.
+]]
+
+.pull-right-3[
+.box-inv-2[Balancing Constraints]
+.pequeno[
+Deliberate choice that balances functional requirements, "manufacturability", cost, and sustainability.
+How engineers translate &lt;u&gt;design goals&lt;/u&gt; into real-world material and process &lt;u&gt;decisions&lt;/u&gt;.
+]]
+
+---
+
+layout: false
+
+class: bg-full
+
+background-image: url("images/Engineering_Design_Process2.jpg")
+
+---
+
+layout: false
+class: center middle section-title section-title-4 animated fadeIn
+
+# Integrated&lt;br&gt;Engineering Design Process
+
+---
+
+layout: false
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+.box-4.medium.sp-after-veryshort[Integrated Engineering Design Process]
+
+.box-inv-4.small.sp-after-short[&lt;span style="color: red;"&gt;(multiple disciplines and feedback loops)&lt;/span&gt;]
+
+.box-inv-4.normal.sp-after-veryshort[Materials + Mechanical + Environmental + Economics]
+
+.center[📝💡🔧🔬♻️💰]
+
+---
+
+layout: false
+
+.box-inv-4.normal.sp-after-short[Integrating engineering design means:&lt;br&gt;Combining different subjects, ideas, and people with the Engineering Design Process to solve problems together]
+
+.box-inv-4.small.sp-after-short[&lt;span style="color: purple;"&gt;Instead of working in separate steps, this approach encourages teamwork and big-picture thinking to create complete solutions&lt;/span&gt;]
+
+--
+
+.box-inv-4.normal.sp-after-short[It helps us build skills in STEM, critical thinking, and practical problem-solving, from the first idea all the way through testing and improving designs]
+
+.box-inv-4.small.sp-after-short[&lt;span style="color: purple;"&gt;You see this approach in schools and in big projects&lt;/span&gt;&lt;br&gt;&lt;span style="color: red;"&gt;(like designing buildings :)&lt;/span&gt;]
+
+---
+
+layout: false
+class: center middle section-title section-title-5 animated fadeIn
+
+# System Architecture,&lt;br&gt; Data Pipeline
+
+---
+
+.box-5.large.sp-after-short[System Architecture&lt;br&gt;&lt;span style="color: yellow;"&gt;(V-Model Aligned)&lt;/span&gt;]
+
+.box-inv-5.normal.sp-after-short[**Objective:** Provide a modular, testable architecture that supports traceability from requirements through validation]
+
+.box-inv-5.normal.sp-after-short[High-Level Architecture]
+
+.small[
+* Presentation Layer: Dashboards, APIs, reporting interfaces
+* Application / Processing Layer: Business logic, analytics services, orchestration
+* Data Layer: Raw, curated, and analytics-ready data stores
+* Infrastructure Layer: Compute, storage, networking, security controls]
+
+---
+
+.box-5.large.sp-after-short[V-Model Mapping]
+
+.box-inv-5.sp-after-veryshort[Decomposition &amp; Design *(Left Side)*]
+.center[
+System Requirements → System Architecture&lt;br&gt;
+Subsystem Design → Component Design]
+
+.box-inv-5.sp-after-veryshort[Integration &amp; Verification *(Right Side)*]
+.center[
+Component Testing → Subsystem Integration&lt;br&gt;
+System Verification → User Acceptance Validation]
+
+---
+
+.box-5.large.sp-after-short[Configuration Items]
+
+.box-inv-5.normal.sp-after-short[Architecture design documents]
+
+.box-inv-5.normal.sp-after-short[Interface control documents]
+
+.box-inv-5.normal.sp-after-short[Infrastructure-as-Code templates]
+
+.box-inv-5.normal.sp-after-short[Versioned service definitions and APIs]
+
+---
+
+.box-5.large.sp-after-short[End-to-End Data Pipeline]
+
+.small[
+* **Data Ingestion**
+  * Batch and streaming sources
+  * Schema validation and data quality checks
+* **Data Processing**
+  * Transformation, aggregation
+  * Business rule enforcement
+* **Data Storage**
+  * Raw (immutable), curated, and analytics layers
+* **Data Consumption**
+  * BI tools, ML models, downstream services
+]
+
+---
+
+.box-5.large.sp-after-short[V-Model Alignment]
+
+.center[
+**Requirements** → Data definitions, quality rules
+
+**Design** → Pipeline workflows, storage schemas
+
+**Implementation** → ETL/ELT jobs, orchestration logic
+
+**Verification &amp; Validation**&lt;br&gt;
+.small[Data quality tests, Pipeline integration tests, End-user data validation]
+]
+
+---
+
+.box-5.large.sp-after-veryshort[Key Configuration Items]
+
+.center[
+Data schemas and metadata definitions&lt;br&gt;
+Pipeline code (ETL/ELT, orchestration)&lt;br&gt;
+Data quality rules and test cases&lt;br&gt;
+Versioned datasets and lineage artifacts]
+
+.box-5.large.sp-after-veryshort[Outcome]
+
+.center[
+Full traceability from data requirements to validated outputs&lt;br&gt;
+Controlled change management and audit readiness]
+
+---
+
+layout: true
+class: title title-5
+
+---
+
+# Project Alignment Questions
+
+.small[
+1. *V-Model Mapping:* &lt;span style="color: red;"&gt;How does your project diagram map requirements → design → implementation (left side) to testing → integration → validation (right side)?&lt;/span&gt;
+
+1. *Configuration Items:* &lt;span style="color: red;"&gt;What are the key configuration items (e.g., requirements, schemas, code, pipelines, infrastructure), and how are they identified and versioned?&lt;/span&gt;
+
+1. *Traceability:* &lt;span style="color: red;"&gt;How does the diagram show traceability between requirements, system components, data pipelines, and verification activities?&lt;/span&gt;
+
+1. *Verification &amp; Validation:* &lt;span style="color: red;"&gt;For each major CI, what test or validation activity is defined and where is it represented on the right side of the V-Model?&lt;/span&gt;
+
+1. *Change Impact:* &lt;span style="color: red;"&gt;How does the diagram communicate the impact of changes to requirements or data definitions across design, implementation, and testing?&lt;/span&gt;
+]
+
+---
+
+layout: false
+class: center middle section-title section-title-6 animated fadeIn
+
+# *The Toaster Project*
+
+---
+
+class: bg-full
+
+background-image: url("images/toaster-project.jpg")
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+&amp;nbsp;
+
+.center[&lt;span style="font-size: 32px;"&gt;https://www.thomasthwaites.com/the-toaster-project/&lt;/span&gt;]
+
+---
+
+layout: false
+
+.center[
+&lt;figure class="figure"&gt;
+&lt;img src="images/Deconstruction.png" alt="Deconstruction" title="Deconstruction" width="70%"&gt;
+&lt;/figure&gt;
+]
+
+
+---
+
+layout: false
+
+.center[
+&lt;figure class="figure"&gt;
+&lt;img src="images/Construction2.jpg" alt="Construction" title="Construction" width="70%"&gt;
+&lt;/figure&gt;
+]
+
+---
+
+layout: false
+
+.center[
+&lt;figure class="figure"&gt;
+&lt;img src="images/Construction3.jpg" alt="Construction" title="Construction" width="70%"&gt;
+&lt;/figure&gt;
+]
+
+---
+
+layout: false
+class: center middle section-title section-title-7 animated fadeIn
+
+# Challenges, Solutions
+
+---
+
+### Q1. Feasibility &amp; Hidden Complexity  
+What assumptions are we making about the simplicity, availability of resources, and manufacturability of our design, and how will we validate or challenge them early?
+
+*&lt;span style="color: gray;"&gt;Expose hidden complexity and prevent unrealistic scope definition.&lt;/span&gt;*
+
+---
+
+### Q2. Materials, Supply Chains, and Constraints  
+What critical materials, tools, and external resources does our project depend on, and what are the risks if they are unavailable or delayed?
+
+*&lt;span style="color: gray;"&gt;Early supply-chain awareness and contingency planning.&lt;/span&gt;*
+
+---
+
+### Q3. Cost and Schedule Realism  
+How will we estimate cost and schedule realistically, and where do we expect uncertainty, rework, or iteration to occur?
+
+*&lt;span style="color: gray;"&gt;Encourage defensible planning with buffers and explicit risk acknowledgment.&lt;/span&gt;*
+
+---
+
+### Q4. Performance Definition &amp; Validation  
+What does “success” mean for our system, and how will we verify and validate performance throughout the project rather than only at the end?
+
+*&lt;span style="color: gray;"&gt;Link requirements to measurable, testable outcomes.&lt;/span&gt;*
+
+---
+
+### Q5. Process Choices &amp; Tradeoffs  
+How will we evaluate alternative technical approaches, and what criteria will justify simplifying, changing, or abandoning a design when constraints arise?
+
+*&lt;span style="color: gray;"&gt;Promote pragmatic, evidence-based engineering decisions.&lt;/span&gt;*
+
+---
+
+### Q6. Documentation &amp; Learning from Failure  
+How will we document decisions, failures, and lessons learned in real time, and how will this knowledge be used to improve subsequent design choices?
+
+*&lt;span style="color: gray;"&gt;Reinforce engineering as an iterative, learning-driven process.&lt;/span&gt;*
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": false,
+  "ratio": "16:9",
+  "navigation": {
+    "scroll": false
+  }
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

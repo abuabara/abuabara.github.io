@@ -32,11 +32,11 @@ class: center middle main-title section-title-4
 .class-info[
 <span style="font-size: 64pt;">👨‍🎨 👩‍🎨</span>
 
-DAEN 640 Capstone Senior Design
+DAEN 459 Capstone Senior Design Planning
 
 .light[
 Alexander Abuabara<br>
-Jan 2026]
+Aug 2026]
 ]
 
 ---
@@ -45,11 +45,9 @@ class: title title-1
 
 # Updates
 
-.box-inv-1.medium.sp-after-veryshort[**BH**: reach out for data access]
-.box-inv-1.medium.sp-after-veryshort[**COE**: data/modelling/prototyping]
-.box-inv-1.medium.sp-after-veryshort[**ML**: simulation models/data generation]
-.box-inv-1.medium.sp-after-veryshort[**Next week**: PM, revised goals, Questions]
-.box-inv-1.medium.sp-after-veryshort[Check **Canvas**]
+.box-inv-1.medium.sp-after-veryshort[**Today**: questions?, design]
+.box-inv-1.medium.sp-after-veryshort[**Friday**: teams, responsibilities, projects]
+.box-inv-1.medium.sp-after-veryshort[**Next week**: sponsor engagement, stakeholder analysis, effective interviewing]
 
 ---
 
@@ -370,30 +368,6 @@ class: title title-5
 1. *Verification & Validation:* <span style="color: red;">For each major CI, what test or validation activity is defined and where is it represented on the right side of the V-Model?</span>
 
 1. *Change Impact:* <span style="color: red;">How does the diagram communicate the impact of changes to requirements or data definitions across design, implementation, and testing?</span>
-]
-
----
-
-# Mini Project Packet
-
-&nbsp;
-
-.box-inv-5.normal.sp-after[
-Please be sure to include these answers in your submission
-]
-
-.center[
-On Canvas - Due 2/16 at 5 PM
-]
-
-.center[
-<span style="font-size: 32px;">https://canvas.tamu.edu/courses/431435/assignments/2873361</span>
-]
-
-.center[
-<figure>
-<img src="images/doc.png" alt="doc" title="doc" width="10%">
-</figure>
 ]
 
 ---
