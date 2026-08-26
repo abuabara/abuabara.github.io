@@ -269,10 +269,10 @@ Are point estimates of location enough?
 
 %------------------------------------------------
 \begin{frame}[t]
-\frametitle{Are point estimates of location enough?}
 
-\small
+\vfill
 
+\begin{block}{}
 \textcolor{blue}{
 \textbf{Point estimates hide uncertainty}
 }
@@ -286,13 +286,23 @@ is only a summary of a full posterior predictive distribution:
 p(X_t \mid D).
 \]
 
+The probability distribution of the storm's location $X_t$
+at time $t$,\\
+given the observed data $D$.
+
+\vspace{1em}
+
 As the forecast horizon increases, uncertainty about the storm's future
 location typically increases as well.
+\end{block}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}[t]
 
+\vfill
+
+\begin{block}{}
 \textcolor{red}{
 \textbf{Location uncertainty is not the same as risk}
 }
@@ -305,12 +315,15 @@ p(\text{wind, rain, surge, flooding at location } s \mid D).
 
 Risk can therefore remain substantial even when a location is outside
 the most probable storm track.
-
+\end{block}
 \end{frame}
 
 %------------------------------------------------
 \begin{frame}[t]
 
+\vfill
+
+\begin{block}{}
 \textcolor{blue}{
 \textbf{Bayesian decisions combine probability and consequence}
 }
@@ -325,21 +338,22 @@ For an action $a$, evaluate posterior expected loss:
 A low-probability outcome may still justify precaution if its
 consequences are sufficiently severe.
 
-\vspace{4em}
+\vspace{1em}
 
 \begin{center}
-\color{red}
-\textbf{
-Point estimate
+\color{red}\small
+\makebox[\textwidth][c]{%
+\textbf{\scriptsize Point estimate}
 $\rightarrow$
-posterior uncertainty
+\textbf{\scriptsize Posterior uncertainty}
 $\rightarrow$
-hazard distribution
+\textbf{\scriptsize Hazard distribution}
 $\rightarrow$
-risk-informed decision
+\textbf{\scriptsize Risk-informed decision}%
 }
 \end{center}
 
+\end{block}
 \end{frame}
 
 %------------------------------------------------
@@ -678,6 +692,26 @@ Probability gives a formal language for \vocab{uncertainty}.
 \end{itemize}
 These ideas support inference, modeling, and risk analysis.
 \end{frame}
+
+
+%------------------------------------------------
+\begin{frame}{The Monty Hall Problem}
+\begin{center}
+Switching \vocab{Doubles} Your Chance of Winning!
+
+\includegraphics[height=6.2cm]{Monty_Hall_problem_game_theory.png}
+\end{center}
+
+\footnotesize Refs.:
+\href{https://en.wikipedia.org/wiki/Monty_Hall_problem}{Wikipedia}
+and 
+\href{https://discovery.cs.illinois.edu/learn/Prediction-and-Probability/The-Monty-Hall-Problem/}{University of Illinois}
+
+%\url{https://discovery.cs.illinois.edu/learn/Prediction-and-Probability/The-Monty-Hall-Problem/}
+%\url{https://en.wikipedia.org/wiki/Monty_Hall_problem}
+\end{frame}
+
+\end{document}
 
 {
 \setbeamercolor{background canvas}{bg=blue!10}
@@ -1105,22 +1139,3 @@ Explain the following to them:
 \end{block}
 \end{frame}
 }
-
-%------------------------------------------------
-\begin{frame}{The Monty Hall Problem}
-\begin{center}
-Switching \vocab{Doubles} Your Chance of Winning!
-
-\includegraphics[height=6.2cm]{Monty_Hall_problem_game_theory.png}
-\end{center}
-
-\footnotesize Refs.:
-\href{https://en.wikipedia.org/wiki/Monty_Hall_problem}{Wikipedia}
-and 
-\href{https://discovery.cs.illinois.edu/learn/Prediction-and-Probability/The-Monty-Hall-Problem/}{University of Illinois}
-
-%\url{https://discovery.cs.illinois.edu/learn/Prediction-and-Probability/The-Monty-Hall-Problem/}
-%\url{https://en.wikipedia.org/wiki/Monty_Hall_problem}
-\end{frame}
-
-\end{document}
