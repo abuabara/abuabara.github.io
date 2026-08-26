@@ -1,5 +1,5 @@
 ---
-title: "week2"
+title: "presentation 2"
 author: "Alexander Abuabara"
 date: "`r Sys.Date()`"
 output:
