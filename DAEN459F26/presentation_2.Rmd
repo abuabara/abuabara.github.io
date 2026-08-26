@@ -219,6 +219,22 @@ background-image: url("images/Engineering_Design_Process2.jpg")
 
 ---
 
+.box-2.large[Engineering Design Process]
+
+.pequeno[
+- **Identify the problem** – Define the need, challenge, or design goal.
+- **Establish criteria and constraints** – Determine requirements, limitations, cost, safety, and performance expectations.
+- **Research and analyze** – Gather relevant scientific, mathematical, and technical information.
+- **Generate possible solutions** – Brainstorm and compare multiple design approaches.
+- **Develop a prototype or model** – Build, simulate, or represent a proposed solution.
+- **Test and evaluate** – Measure how well the design satisfies the criteria.
+- **Iterate and improve** – Use test results and feedback to refine the design.
+- **Communicate the solution** – Document and present the design process, decisions, and results.
+- **Connect disciplines** – Integrate mathematics, science, technology, computing, and engineering concepts.
+]
+
+---
+
 layout: false
 class: center middle section-title section-title-4 animated fadeIn
 
