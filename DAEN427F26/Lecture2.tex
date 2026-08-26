@@ -961,6 +961,197 @@ So, about \textbf{12\% of all articles} use exclamation points.
 %-----------------------------------------------
 \begin{frame}{}
 \begin{block}{}
+\[
+\begin{array}{c|ccc}
+ & B & B^c & \text{Total} \\
+\hline
+A   & 0.107 & 0.013 & 0.12 \\
+A^c & 0.293 & 0.587 & 0.88 \\
+\hline
+\text{Total} & 0.4 & 0.6 & 1
+\end{array}
+\]
+
+\[
+P(A) = 0.107 + 0.013 = \boxed{0.12}
+\]
+
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{Posterior probability model via Bayes’ rule}
+What is the probability that the latest article is fake, given that it uses an exclamation point?
+\end{block}
+
+%\begin{block}{Posterior probability}
+%\[
+%P(B\mid A)
+%\]
+%
+%\begin{itemize}
+%    \item $B$: the article is fake.
+%    \item $A$: the article uses an exclamation point.
+%    \item Goal: update the probability of $B$ after observing $A$.
+%\end{itemize}
+%
+%
+%\end{block}
+\end{frame}
+
+%------------------------------------------------
+% Slide 2
+%------------------------------------------------
+%\begin{frame}{Intuition from the News Example}
+%
+%\begin{columns}[T,onlytextwidth]
+%
+%\column{0.52\textwidth}
+%
+%\begin{itemize}
+%    \item Among all articles, 12\% use exclamation points.
+%
+%    \item Within that 12\%, the proportions are:
+%    \begin{itemize}
+%        \item 88.9\% fake news.
+%        \item 11.1\% real news.
+%    \end{itemize}
+%
+%    \item Therefore, after seeing an exclamation point,
+%    the posterior probability that the article is fake is 88.9\%.
+%\end{itemize}
+%
+%\column{0.43\textwidth}
+%
+%\begin{block}{Interpretation}
+%\[
+%P(B\mid A)=0.889
+%\]
+%
+%\small
+%The exclamation point is evidence because it is more common
+%among fake articles than real articles.
+%\end{block}
+%
+%\end{columns}
+%
+%\end{frame}
+
+%------------------------------------------------
+% Slide 3
+%------------------------------------------------
+%\begin{frame}{Bayes' Rule for Events}
+%
+%\begin{block}{Posterior probability of $B$ given $A$}
+%
+%For events $A$ and $B$, Bayes' Rule combines a prior probability
+%with a likelihood:
+%
+%\[
+%P(B\mid A)
+%=
+%\frac{P(A\cap B)}{P(A)}
+%=
+%\frac{P(B)L(B\mid A)}{P(A)}.
+%\]
+%
+%\end{block}
+%
+%\vspace{0.25cm}
+%
+%The normalizing constant is found using the Law of Total Probability:
+%
+%\[
+%P(A)
+%=
+%P(B)L(B\mid A)
+%+
+%P(B^c)L(B^c\mid A).
+%\]
+%
+%\vspace{0.25cm}
+%
+%\begin{center}
+%\Large
+%\[
+%\text{posterior}
+%=
+%\frac{\text{prior}\cdot\text{likelihood}}
+%     {\text{normalizing constant}}
+%\]
+%\end{center}
+%
+%\end{frame}
+
+%------------------------------------------------
+% Slide 4
+%------------------------------------------------
+%\begin{frame}{Applying Bayes' Rule to the Article}
+%
+%\begin{block}{Calculation}
+%
+%\[
+%P(B\mid A)
+%=
+%\frac{P(B)L(B\mid A)}{P(A)}
+%=
+%\frac{0.4\cdot 0.2667}{0.12}
+%=
+%0.889.
+%\]
+%
+%\end{block}
+%
+%\vspace{0.25cm}
+%
+%\begin{center}
+%
+%\begin{tabular}{lccc}
+%\hline
+%\textbf{Event} & $B$ & $B^c$ & \textbf{Total} \\
+%\hline
+%Prior probability     & 0.400 & 0.600 & 1 \\
+%Posterior probability & 0.889 & 0.111 & 1 \\
+%\hline
+%\end{tabular}
+%
+%\end{center}
+%
+%\vspace{0.25cm}
+%
+%\begin{itemize}
+%    \item Prior belief: 40\% chance the incoming article is fake.
+%    \item Observation: the title contains an exclamation point.
+%    \item Updated belief: the chance the article is fake rises to 88.9\%.
+%\end{itemize}
+%
+%\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{}
+
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{}
 
 \end{block}
 \end{frame}
