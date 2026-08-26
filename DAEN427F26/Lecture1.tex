@@ -268,6 +268,84 @@ Are point estimates of location enough?
 \end{frame}
 
 %------------------------------------------------
+\begin{frame}[t]
+\frametitle{Are point estimates of location enough?}
+
+\small
+
+\textcolor{blue}{
+\textbf{Point estimates hide uncertainty}
+}
+
+A forecast location such as
+\[
+\hat{x}_t
+\]
+is only a summary of a full posterior predictive distribution:
+\[
+p(X_t \mid D).
+\]
+
+As the forecast horizon increases, uncertainty about the storm's future
+location typically increases as well.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[t]
+
+\textcolor{red}{
+\textbf{Location uncertainty is not the same as risk}
+}
+
+The quantity relevant for risk analysis is broader than the probability
+distribution of the storm center:
+\[
+p(\text{wind, rain, surge, flooding at location } s \mid D).
+\]
+
+Risk can therefore remain substantial even when a location is outside
+the most probable storm track.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[t]
+
+\textcolor{blue}{
+\textbf{Bayesian decisions combine probability and consequence}
+}
+
+For an action $a$, evaluate posterior expected loss:
+\[
+\mathbb{E}[L(a,\theta)\mid D]
+=
+\int L(a,\theta)\,p(\theta\mid D)\,d\theta.
+\]
+
+A low-probability outcome may still justify precaution if its
+consequences are sufficiently severe.
+
+\vspace{4em}
+
+\begin{center}
+\color{red}
+\textbf{
+Point estimate
+$\rightarrow$
+posterior uncertainty
+$\rightarrow$
+hazard distribution
+$\rightarrow$
+risk-informed decision
+}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+
 \begin{frame}{}
 \begin{block}{Interpretations of probability}
 \centering
@@ -352,6 +430,10 @@ Classify an email & $\{\text{spam},\text{not spam}\}$ \\
 \bottomrule
 \end{tabular}
 \end{block}
+
+\vspace{2em}
+
+\tiny{\url{https://www.reddit.com/r/learnmath/comments/qp7ulb/what_does_0_infinity_mean_is_it_r_numbers_from/}}
 \end{frame}
 
 %------------------------------------------------
