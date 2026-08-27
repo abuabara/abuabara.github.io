@@ -1,0 +1,121 @@
+\documentclass[12pt]{article}
+
+% ------------------------------------------------------------
+% PAGE LAYOUT & GEOMETRY
+\usepackage[letterpaper, margin=2cm]{geometry}
+
+% ------------------------------------------------------------
+% FONTS & TYPOGRAPHY
+\usepackage{fontspec} % For custom fonts (XeLaTeX or LuaLaTeX required)
+\setsansfont[
+  UprightFont     = *Light,
+  BoldFont        = *Bold,
+  ItalicFont      = *Light Italic,
+  BoldItalicFont  = *Bold Italic,
+  Ligatures       = TeX,
+  Scale           = 1 % MatchLowercase
+]{Frutiger LT Pro}
+\renewcommand{\familydefault}{\sfdefault} % Use sans-serif as main font
+
+% ------------------------------------------------------------
+% SPACING & INDENTATION
+\setlength{\parindent}{0pt} % Remove paragraph indentation
+\setlength{\parskip}{0em} % Add vertical space between paragraphs
+\usepackage{setspace}
+\setstretch{1.1} % Line spacing
+
+% ------------------------------------------------------------
+% SECTION FORMATTING
+\usepackage{titlesec}
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{1em}{}
+
+% Adjust spacing before/after section titles
+\titlespacing*{\section}
+  {0pt}   % Left margin
+  {2ex plus 1ex minus .5ex}   % Space before
+  {0.75em}   % Space after
+
+\titlespacing*{\subsection}
+  {0pt}   % Left margin
+  {2ex plus 1ex minus .5ex}   % Space before
+  {0.75em}   % Space after
+
+% ------------------------------------------------------------
+% LISTS & TABLES
+\usepackage{enumitem} % For custom list spacing
+\usepackage{longtable} % For multipage tables
+\usepackage{booktabs} % For professional table lines
+
+% ------------------------------------------------------------
+% LINKS & REFERENCES
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks = true,
+  urlcolor   = blue,
+  linkcolor  = black,
+  citecolor  = black
+}
+
+\title{Technical Objectives for Open-Ended Projects}
+\author{DAEN 459 Fall 2026}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Technical Objectives for Open-Ended/Research Projects}
+
+In many capstone projects, defining technical objectives is straightforward when working on process improvement or system optimization. For instance, projects that focus on operational efficiency may set objectives like ``reduce cycle time by 10\%'' or ``increase throughput by 15\%.'' However, if your project is more research-focused, your objectives may not align with these types of quantifiable performance improvements. Instead, your goals should center around developing knowledge, frameworks, and methodologies that help answer key questions or inform decision-making.
+
+\subsection*{For research-driven projects, technical objectives should:}
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Define Key Questions} – What are you trying to discover, validate, or understand?
+    \item \textbf{Establish Analytical Frameworks} – What methods, models, or simulations will you develop?
+    \item \textbf{Characterize System Relationships} – How do the key factors of your problem/system interact?
+    \item \textbf{Develop Conceptual or Qualitative Deliverables} – What frameworks, decision support tools, methodologies, or documentation will your team generate?
+\end{itemize}
+
+Instead of focusing on specific numerical improvements, research-based objectives should emphasize knowledge generation and structured analysis that contribute to solving an open-ended problem.
+
+\subsection*{Examples of Technical Objectives}
+
+Here are some examples to illustrate how technical objectives might be structured in research-driven projects, compared to a traditional ``process improvement'' approach:
+
+\subsubsection*{Supply Chain Analysis}
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Process improvement objective:} ``Reduce supply chain lead time by 12\% through optimized inventory levels.''
+    \item \textbf{Research-based alternative:} ``Develop a decision-support framework for selecting optimal inventory policies under demand uncertainty.''
+\end{itemize}
+
+\subsubsection*{Healthcare Process Evaluation}
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Process improvement objective:} ``Decrease patient wait time by 20\% through optimized appointment scheduling.''
+    \item \textbf{Research-based alternative:} ``Analyze the impact of various scheduling policies on patient wait times.''
+\end{itemize}
+
+\subsubsection*{Human Factors and Ergonomics}
+\begin{itemize}[leftmargin=1.5cm]
+    \item \textbf{Process improvement objective:} ``Reduce musculoskeletal injury rates in assembly workers by 20\%.''
+    \item \textbf{Research-based alternative:} ``Investigate the relationship between workstation design and worker fatigue to inform ergonomic best practices.''
+\end{itemize}
+
+\section*{Structuring Your Technical Objectives}
+
+When writing research-focused technical objectives, consider framing them as:
+
+\begin{itemize}[leftmargin=1.5cm]
+    \item A question to explore: ``Investigate how [Factor A] impacts [Factor B] in [System]?''
+    \item A framework to develop: ``Create a model/methodology to analyze [Problem X].''
+    \item A relationship to characterize: ``Explore the effect of [Variable Y] on [Outcome Z].''
+\end{itemize}
+
+Even if your project does not have a clear numerical target, your objectives should still be concrete and actionable—a well-documented framework, a decision-support tool, a systematic evaluation, or a validated hypothesis that informs future work.\\
+
+In traditional project settings, technical objectives describe desired system outcomes rather than specific actions, ensuring they remain independent of implementation details. However, in research-focused projects, technical objectives often take the form of actions because the primary goal is to explore, analyze, or develop new knowledge—making the method itself a key deliverable.\\
+
+In these cases, it is acceptable for a technical objective to specify an action (e.g., ``Develop a simulation model to evaluate scheduling policies'') as long as it contributes to answering a broader research question or fulfilling the project’s overarching purpose without specifying the solution or exact approach.
+
+\end{document}
