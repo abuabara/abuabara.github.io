@@ -1,0 +1,1275 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usecolortheme{seahorse}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{zi4}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+
+% Color palette
+\definecolor{AggieMaroon}{HTML}{500000}
+\definecolor{CodeBackground}{HTML}{F3F3F3}
+\definecolor{CodeBorder}{HTML}{BFBFBF}
+\definecolor{CodeComment}{HTML}{666666}
+\definecolor{CodeKeyword}{HTML}{2F5597}
+\definecolor{Accent}{RGB}{31,78,121}
+\definecolor{Good}{RGB}{46,125,50}
+\definecolor{Warn}{RGB}{183,91,0}
+\definecolor{PythonBlue}{HTML}{2F5597}
+\definecolor{PythonGreen}{HTML}{2E7D32}
+\definecolor{SoftBackground}{HTML}{F5F7F8}
+
+% Beamer theme and layout
+\setbeamercolor{structure}{fg=AggieMaroon}
+\setbeamercolor{frametitle}{fg=white,bg=AggieMaroon}
+\setbeamercolor{title}{fg=AggieMaroon}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+
+\setbeamercolor{block title}{
+  fg=white,
+  bg=AggieMaroon
+}
+
+\setbeamercolor{block body}{
+  fg=black,
+  bg=AggieMaroon!8
+}
+
+\setbeamercolor{block title alerted}{
+  fg=white,
+  bg=red!70!black
+}
+
+\setbeamercolor{block body alerted}{
+  fg=black,
+  bg=red!8
+}
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{\textbullet}
+\setbeamertemplate{itemize subsubitem}{\textbullet}
+
+\setbeamertemplate{footline}{%
+  \hfill
+  \textcolor{AggieMaroon}{\insertframenumber/\inserttotalframenumber}
+  \hspace{4pt}\vskip2pt
+}
+
+% Source-code and pseudocode styles
+\lstdefinestyle{classcode}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{CodeBackground},
+  frame=single,
+  rulecolor=\color{CodeBorder},
+  keywordstyle=\color{PythonBlue}\bfseries,
+  commentstyle=\color{CodeComment},
+  stringstyle=\color{PythonGreen},
+  showstringspaces=false,
+  keepspaces=true,
+  columns=fullflexible,
+  breaklines=true,
+  tabsize=4
+}
+
+% Pseudocode style
+\lstdefinestyle{pseudo}{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{CodeBackground},
+  frame=single,
+  rulecolor=\color{CodeBorder},
+  columns=fullflexible,
+  keepspaces=true,
+  showstringspaces=false,
+  keywordstyle=\bfseries\color{Accent},
+  commentstyle=\itshape\color{Good},
+  morecomment=[l]{//},
+  morekeywords={
+    Algorithm,Input,Output,for,while,if,else,return,
+    then,to,do,not,and,or,true,false
+  }
+}
+
+
+\lstdefinestyle{py}{style=classcode}
+\newcommand{\code}[1]{\colorbox{SoftBackground}{\texttt{#1}}}
+\newcommand{\takeaway}[1]{%
+  \begin{beamercolorbox}[rounded=true,sep=0.55em]{block body}%
+    \textbf{#1} 
+  \end{beamercolorbox}%
+}
+
+% Section divider slides
+\AtBeginSection[]{%
+  \begin{frame}
+    \centering
+    \Huge \insertsection
+  \end{frame}
+}
+
+\lstset{style=classcode}
+
+% Document metadata
+\title{Algorithms, Python, and Jupyter}
+\subtitle{Foundations, Functions, Debugging, and Profiling}
+\author{}
+
+\date{%
+  \textcolor{AggieMaroon}{
+    DAEN 300\\
+    \textbf{Alexander Abuabara}\\
+    Fall 2026
+  }
+}
+
+\titlegraphic{
+  \IfFileExists{TAMU_logo.png}{\includegraphics[height=1.2cm]{TAMU_logo.png}}{}
+}
+
+\begin{document}
+
+% ===============================================
+\begin{frame}
+  \titlepage
+\end{frame}
+% ===============================================
+
+%------------------------------------------------
+\begin{frame}{Learning objectives}
+\begin{itemize}
+  \item Explain basic algorithms using precise pseudocode.
+  \item Define and use Python functions.
+  \item Use Jupyter/IPython tools to investigate errors.
+  \item Read and interpret Python tracebacks.
+  \item Measure execution time using \texttt{\%time} and \texttt{\%timeit}.
+  \item Use profiling tools to identify performance bottlenecks.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{The semester goal: explain programs to people}
+\large
+
+\begin{quote}
+Let us change our traditional attitude to the construction of programs.
+Instead of imagining that our main task is to instruct a computer what to do,
+let us concentrate rather on explaining to human beings what we want a computer to do.
+\end{quote}
+
+\hfill 
+\href{https://en.wikipedia.org/wiki/Donald_Knuth}{Donald Knuth}, 
+\href{https://en.wikipedia.org/wiki/Literate_programming}{\emph{Literate Programming}}
+
+\vspace{0.6cm}
+
+\begin{itemize}
+  \item Code is read more often than it is written.
+  \item Good programs explain ideas, not just instructions.
+  \item Names, structure, and comments should guide the reader.
+  \item The compiler is the second audience; humans are the first.
+\end{itemize}
+
+\end{frame}
+
+% ===============================================
+\section{Part 1: Algorithms and Pseudocode}
+% ===============================================
+
+%------------------------------------------------
+\begin{frame}{Before coding, make the logic precise}
+  \begin{itemize}
+    \item Explain what an algorithm is and why precision matters.
+    \item Read and write basic pseudocode using assignment, loops, and conditionals.
+    \item Trace an algorithm by hand on a small input.
+    \item Estimate running time using simple operation counts.
+    \item Recognize common mistakes in algorithm design.
+  \end{itemize}
+\end{frame}
+
+
+\begin{frame}{An algorithm transforms input into output}
+  \begin{block}{Working definition}
+    An \textbf{algorithm} is a finite, precise sequence of steps that transforms input into output.
+  \end{block}
+
+  \vspace{0.5em}
+  \begin{columns}[T]
+    \column{0.52\textwidth}
+      Good algorithms are:
+      \begin{itemize}
+        \item \textbf{Clear}: each step is unambiguous.
+        \item \textbf{Finite}: the process eventually stops.
+        \item \textbf{Correct}: it solves the stated problem.
+        \item \textbf{Efficient}: it uses reasonable time and memory.
+      \end{itemize}
+    \column{0.44\textwidth}
+      \begin{tikzpicture}[node distance=0.9cm]
+        \node[draw, rounded corners, fill=blue!8, minimum width=3.3cm, minimum height=0.8cm] (i) {Input};
+        \node[draw, rounded corners, fill=green!8, minimum width=3.3cm, minimum height=0.8cm, below=of i] (a) {Algorithm};
+        \node[draw, rounded corners, fill=orange!10, minimum width=3.3cm, minimum height=0.8cm, below=of a] (o) {Output};
+        \draw[-{Latex[length=2.5mm]}, thick] (i) -- (a);
+        \draw[-{Latex[length=2.5mm]}, thick] (a) -- (o);
+      \end{tikzpicture}
+  \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Pseudocode separates logic from syntax}
+  \begin{columns}[T]
+    \column{0.49\textwidth}
+      \textbf{Pseudocode} describes logic without worrying about one programming language's syntax.
+      \vspace{0.8em}
+      \begin{itemize}
+        \item Easier to discuss before coding.
+        \item Focuses on decisions and repetition.
+        \item Makes algorithms easier to compare.
+      \end{itemize}
+    \column{0.47\textwidth}
+      \begin{block}{Rule of thumb}
+        Pseudocode should be detailed enough that a classmate can implement it without guessing the main idea.
+      \end{block}
+      \vspace{0.5em}
+      \begin{alertblock}{Not the goal}
+        Perfect syntax is less important than precise logic.
+      \end{alertblock}
+  \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Basic pseudocode building blocks}
+\begin{lstlisting}[style=pseudo]
+x <- 0                  // assignment
+
+if score >= 70 then     // decision
+    grade <- "pass"
+else
+    grade <- "fail"
+
+for i <- 1 to n do      // counted repetition
+    print(i)
+
+while x < target do     // condition-based repetition
+    x <- x + 1
+\end{lstlisting}
+
+\vspace{-0.4em}
+\begin{itemize}
+  \item Use indentation to show which lines belong together.
+  \item Choose meaningful variable names.
+  \item State inputs and outputs when the algorithm is not obvious.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Example 1: Linear search}
+\begin{block}{Problem}
+Given an array $A$ and a value $x$, return the position of $x$ if it appears. Otherwise return \texttt{NOT-FOUND}.
+\end{block}
+
+\begin{lstlisting}[style=pseudo]
+Algorithm LinearSearch(A, x)
+Input: array A[1..n], target value x
+Output: index of x, or NOT-FOUND
+
+for i <- 1 to n do
+    if A[i] = x then
+        return i
+return NOT-FOUND
+\end{lstlisting}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Tracing linear search}
+  Suppose $A = [12, 7, 25, 4, 19]$ and $x = 4$.
+
+  \vspace{0.6em}
+  \begin{center}
+  \begin{tabular}{cccccc}
+    \toprule
+    Step & $i$ & $A[i]$ & Compare $A[i]=4$? & Result & Continue? \\
+    \midrule
+    1 & 1 & 12 & no & -- & yes \\
+    2 & 2 & 7  & no & -- & yes \\
+    3 & 3 & 25 & no & -- & yes \\
+    4 & 4 & 4  & yes & return 4 & no \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+
+  \vspace{0.8em}
+  \begin{block}{Trace idea}
+    A trace records how variables change while the algorithm runs.
+  \end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Example 2: Binary search}
+\begin{block}{Key requirement}
+Binary search only works when the array is sorted.
+\end{block}
+
+\begin{lstlisting}[style=pseudo,basicstyle=\ttfamily\scriptsize]
+Algorithm BinarySearch(A, x)
+low <- 1
+high <- n
+
+while low <= high do
+    mid <- floor((low + high) / 2)
+    if A[mid] = x then
+        return mid
+    else if A[mid] < x then
+        low <- mid + 1
+    else
+        high <- mid - 1
+return NOT-FOUND
+\end{lstlisting}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Binary search intuition}
+  \begin{center}
+    \begin{tikzpicture}[x=0.95cm,y=0.95cm]
+      \foreach \i/\v in {1/3,2/8,3/12,4/17,5/23,6/31,7/44,8/58} {
+        \node[draw, minimum width=0.75cm, minimum height=0.65cm, fill=blue!5] (n\i) at (\i,0) {\v};
+        \node[font=\scriptsize] at (\i,-0.55) {\i};
+      }
+      \node[above=0.5cm of n4, font=\small\bfseries, color=Accent] {mid};
+      \draw[-{Latex[length=3mm]}, thick, Accent] (4,1) -- (4,0.38);
+      \draw[thick, red!70!black] (1,-0.9) -- node[below=4pt, font=\small] {discard if target $>$ 17} (4,-0.9);
+      \draw[thick, red!70!black] (1,-1.0) -- (4,-1.0);
+    \end{tikzpicture}
+  \end{center}
+
+  \vspace{0.5em}
+  Each comparison removes about half of the remaining candidates.
+
+  \vspace{0.5em}
+  \begin{center}
+    Linear search: $n$ candidates $\rightarrow$ Binary search: $\log_2 n$ rounds
+  \end{center}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Running time: the basic question}
+  \begin{columns}[T]
+    \column{0.52\textwidth}
+      Instead of timing on one computer, we ask:
+      \begin{block}{As input size grows,\\how fast does the work grow?}
+      Count the number of key operations as a function of $n$.
+      \end{block}
+      \begin{itemize}
+        \item Linear search: at most $n$ comparisons.
+        \item Binary search: about $\log_2 n$ comparisons.
+        \item Insertion sort: up to about $n^2/2$ shifts/comparisons.
+      \end{itemize}
+    \column{0.43\textwidth}
+      \begin{center}
+      \begin{tabular}{cc}
+        \toprule
+        Name & Big-O \\
+        \midrule
+        Constant & $O(1)$ \\
+        Logarithmic & $O(\log n)$ \\
+        Linear & $O(n)$ \\
+        Quadratic & $O(n^2)$ \\
+        \bottomrule
+      \end{tabular}
+      \end{center}
+  \end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Correctness: what must be shown?}
+  \begin{enumerate}
+    \item \textbf{Preconditions}: What must be true before the algorithm starts?
+    \item \textbf{Postconditions}: What must be true after it finishes?
+    \item \textbf{Progress}: Why does each loop move toward stopping?
+    \item \textbf{Invariant}: What useful fact stays true through each loop iteration?
+  \end{enumerate}
+
+  \vspace{0.6em}
+  \begin{exampleblock}{Example}
+    Binary search precondition: the input array is sorted. Without this, the algorithm may discard the wrong half.
+  \end{exampleblock}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Common pseudocode mistakes}
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+      \textbf{Avoid:}
+      \begin{itemize}
+        \item Using variables before defining them.
+        \item Forgetting how indexes start: 0 or 1.
+        \item Loops that never update the condition.
+        \item Returning too early or too late.
+      \end{itemize}
+    \column{0.48\textwidth}
+      \textbf{Prefer:}
+      \begin{itemize}
+        \item Clear input and output statements.
+        \item Consistent indentation.
+        \item Small examples to test edge cases.
+        \item Comments for the main idea, not every line.
+      \end{itemize}
+  \end{columns}
+
+  \vspace{0.7em}
+  Edge cases to test: empty input, one element, duplicate values, missing target, already sorted data.
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Mini-assignment}
+  On a piece of paper, write your name or UIN and pseudocode for this task:
+  \begin{block}{Find the maximum value}
+    Given a non-empty array $A[1..n]$, return the largest value in the array.
+  \end{block}
+
+  \vspace{0.5em}
+  Answer:
+  \begin{enumerate}
+    \item What variable stores the best value seen so far?
+    \item How many comparisons are made?
+    \item What happens when $n=1$?
+  \end{enumerate}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{One possible solution}
+\begin{lstlisting}[style=pseudo]
+Algorithm Maximum(A)
+Input: non-empty array A[1..n]
+Output: largest value in A
+
+best <- A[1]
+for i <- 2 to n do
+    if A[i] > best then
+        best <- A[i]
+return best
+\end{lstlisting}
+
+\begin{block}{Running time}
+  The loop performs $n-1$ comparisons, so the algorithm is $O(n)$.
+\end{block}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Algorithm design combines clarity, correctness, and efficiency}
+  \begin{itemize}
+    \item Algorithms are precise recipes for transforming inputs into outputs.
+    \item Pseudocode lets us focus on logic before programming syntax.
+    \item Tracing helps catch mistakes and explain behavior.
+    \item Big-O describes growth, not exact runtime on one machine.
+    \item Correctness depends on assumptions, progress, and invariants.
+  \end{itemize}
+
+  \vspace{0.8em}
+  \begin{center}
+    \large Algorithm design = clarity + correctness + efficiency
+  \end{center}
+\end{frame}
+
+% ===============================================
+\section{Part 2: Python, Jupyter, and Functions}
+% ===============================================
+
+%------------------------------------------------
+\begin{frame}{Jupyter supports an interactive development cycle}
+
+\href{https://jupyter.org}{Jupyter} provides an interactive environment for working with Python.
+
+\begin{itemize}
+  \item Execute code one cell at a time.
+  \item Immediately inspect results.
+  \item Combine code, text, equations, and visualizations.
+  \item Experiment without repeatedly running an entire program.
+  \item Use special \href{https://ipython.org}{IPython} ``magic'' commands.
+\end{itemize}
+
+\vspace{0.3cm}
+
+Examples of magic commands:
+
+\begin{center}
+  \texttt{\%run \qquad \%timeit \qquad \%prun \qquad \%xmode}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Check and install Python packages}
+
+Make sure a package is available before using it in Python.
+
+\vspace{0.4em}
+
+\textbf{In a terminal or command prompt:}
+
+\begin{lstlisting}[language=bash]
+# Show all installed packages
+pip list
+
+# Check one package
+pip show pandas
+
+# Install pandas if needed
+pip install pandas
+\end{lstlisting}
+
+\vspace{0.3em}
+
+\textbf{In Jupyter Notebook:}
+
+\begin{lstlisting}[language=Python]
+%pip install pandas
+\end{lstlisting}
+
+\vspace{0.3em}
+
+If installation fails, check that Python and pip are using the same environment.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Load pandas and read a CSV file}
+
+\textbf{Goal:} Import pandas, load a CSV file, and preview the data.
+
+\vspace{0.4em}
+
+\begin{lstlisting}[language=Python]
+# Load the pandas package
+import pandas as pd
+
+# Read a CSV file
+df = pd.read_csv("data.csv")
+
+# View the first five rows
+df.head()
+\end{lstlisting}
+
+\vspace{0.4em}
+
+\textbf{If the file is inside a folder:}
+
+\begin{lstlisting}[language=Python]
+df = pd.read_csv("data/myfile.csv")
+\end{lstlisting}
+
+\vspace{0.3em}
+
+Replace \texttt{data.csv} with your own file name.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Functions package reusable behavior}
+
+A function packages reusable code into a named block.
+
+\begin{lstlisting}[language=Python]
+def square(x):
+    return x ** 2
+
+result = square(5)
+print(result)
+\end{lstlisting}
+
+\textbf{Output:}
+
+\begin{lstlisting}
+25
+\end{lstlisting}
+
+Functions help make programs:
+
+\begin{itemize}
+  \item reusable,
+  \item easier to understand,
+  \item easier to test,
+  \item easier to debug.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Functions can accept multiple inputs}
+
+Functions can accept multiple arguments.
+
+\begin{lstlisting}[language=Python]
+def average(a, b):
+    return (a + b) / 2
+
+print(average(10, 20))
+\end{lstlisting}
+
+\textbf{Output:}
+
+\begin{lstlisting}
+15.0
+\end{lstlisting}
+
+\vspace{0.2cm}
+
+A good function should generally perform one clearly defined task.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Functions reduce repetition}
+
+\textbf{Without a function:}
+
+\begin{lstlisting}[language=Python]
+result1 = 5 ** 2
+result2 = 8 ** 2
+result3 = 12 ** 2
+\end{lstlisting}
+
+\textbf{With a function:}
+
+\begin{lstlisting}[language=Python]
+def square(x):
+    return x ** 2
+
+result1 = square(5)
+result2 = square(8)
+result3 = square(12)
+\end{lstlisting}
+
+The second version is easier to reuse and modify.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Running Python Files with \texttt{\%run}}
+
+IPython allows Python scripts to be executed directly.
+
+\begin{lstlisting}[language=Python]
+%run my_script.py
+\end{lstlisting}
+
+If \texttt{my\_script.py} defines functions or variables, they can then
+be available in the interactive IPython session.
+
+\vspace{0.3cm}
+
+This is useful when:
+
+\begin{itemize}
+  \item developing functions in separate Python files,
+  \item testing scripts interactively,
+  \item combining scripts with notebook analysis.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\section{Part 3: Debugging and Profiling}
+
+\begin{frame}{Debugging turns failures into evidence}
+
+Debugging is the process of finding and correcting errors in a program.
+
+\vspace{0.3cm}
+
+Common Python errors include:
+
+\begin{itemize}
+  \item \texttt{SyntaxError}
+  \item \texttt{NameError}
+  \item \texttt{TypeError}
+  \item \texttt{IndexError}
+  \item \texttt{KeyError}
+  \item \texttt{ZeroDivisionError}
+\end{itemize}
+
+\vspace{0.3cm}
+
+Python error messages provide information about where and why the program failed.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Example: A Bug}
+
+Consider the following function:
+
+\begin{lstlisting}[language=Python]
+def divide(a, b):
+    return a / b
+
+divide(10, 0)
+\end{lstlisting}
+
+Python produces a traceback ending with:
+
+\begin{lstlisting}
+ZeroDivisionError: division by zero
+\end{lstlisting}
+
+The traceback tells us:
+
+\begin{enumerate}
+  \item what type of error occurred,
+  \item where it occurred,
+  \item which function calls led to it.
+\end{enumerate}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Read a traceback from the bottom upward}
+
+A useful strategy is to read a traceback from the bottom upward.
+
+\begin{enumerate}
+  \item Identify the exception type.
+  \item Read the error message.
+  \item Find the line where the error occurred.
+  \item Follow the function-call chain if necessary.
+  \item Inspect the values involved.
+\end{enumerate}
+
+\vspace{0.3cm}
+
+The final line often provides the most important clue.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{IPython Traceback Modes}
+
+IPython provides the \texttt{\%xmode} magic command.
+
+\begin{lstlisting}[language=Python]
+%xmode Plain
+%xmode Context
+%xmode Verbose
+\end{lstlisting}
+
+The modes control how much information appears when an exception occurs.
+
+\begin{itemize}
+  \item \textbf{Plain}: minimal traceback.
+  \item \textbf{Context}: includes surrounding context.
+  \item \textbf{Verbose}: displays additional variable information.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Interactive Debugging}
+
+IPython also supports interactive debugging.
+
+After an exception:
+
+\begin{lstlisting}[language=Python]
+%debug
+\end{lstlisting}
+
+This allows you to inspect the program state near the point of failure.
+
+Useful debugger commands can include:
+
+\begin{itemize}
+  \item inspecting variable values,
+  \item moving through the call stack,
+  \item identifying which inputs caused the error.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Debugger Commands}
+
+\texttt{ipdb>} is the debugger prompt.
+
+At that prompt, you can use commands such as:
+
+\begin{lstlisting}
+n       # next line
+s       # step into function
+c       # continue execution
+p x     # print x
+pp x    # pretty-print x
+u       # move up one stack frame
+d       # move down one stack frame
+q       # quit debugger
+\end{lstlisting}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Profiling shows where computation is expensive}
+
+A program may be correct but still be slow.
+
+\vspace{0.3cm}
+
+\textbf{Profiling} means measuring where a program spends its time or memory.
+
+\vspace{0.3cm}
+
+The goal is to answer questions such as:
+
+\begin{itemize}
+  \item Which function is slow?
+  \item Which line takes the most time?
+  \item Which operation uses the most memory?
+  \item Where should optimization effort be focused?
+\end{itemize}
+
+\vspace{0.3cm}
+
+\textbf{Measure first; optimize second.}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Timing with \texttt{\%time}}
+
+The \texttt{\%time} magic measures one execution.
+
+\begin{lstlisting}[language=Python]
+%time sum(range(1000000))
+\end{lstlisting}
+
+It reports information such as:
+
+\begin{itemize}
+  \item CPU time,
+  \item system time,
+  \item total execution time.
+\end{itemize}
+
+\vspace{0.3cm}
+
+It is useful for obtaining a quick timing estimate.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Timing with \texttt{\%timeit}}
+
+For more reliable measurements, use:
+
+\begin{lstlisting}[language=Python]
+%timeit sum(range(1000000))
+\end{lstlisting}
+
+\texttt{\%timeit} runs the statement repeatedly.
+
+\vspace{0.3cm}
+
+Advantages:
+
+\begin{itemize}
+  \item reduces the effect of random timing variation,
+  \item automatically chooses an appropriate number of repetitions,
+  \item makes it easier to compare different approaches.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Line Magic vs. Cell Magic}
+
+A single percent sign applies to one line:
+
+\begin{lstlisting}[language=Python]
+%timeit sum(range(1000))
+\end{lstlisting}
+
+Two percent signs apply to an entire cell:
+
+\begin{lstlisting}[language=Python]
+%%timeit
+
+total = 0
+for i in range(1000):
+    total += i
+\end{lstlisting}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Function Profiling with \texttt{\%prun}}
+
+Suppose we have:
+
+\begin{lstlisting}[language=Python]
+def calculate():
+    total = 0
+    for i in range(100000):
+        total += i ** 2
+    return total
+\end{lstlisting}
+
+Profile it with:
+
+\begin{lstlisting}[language=Python]
+%prun calculate()
+\end{lstlisting}
+
+\texttt{\%prun} reports which function calls consume the most time.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{More Profiling Tools}
+
+The Python Data Science Handbook also introduces more detailed profiling tools.
+
+\begin{description}
+  \item[\texttt{\%lprun}] Line-by-line execution profiling.
+  \item[\texttt{\%memit}] Memory usage of a statement.
+  \item[\texttt{\%mprun}] Line-by-line memory profiling.
+\end{description}
+
+\vspace{0.4cm}
+
+These tools can help identify a specific line of code responsible for poor performance.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{A reliable development workflow}
+
+A practical Jupyter development workflow:
+
+\begin{enumerate}
+  \item Write a small function.
+  \item Run and test the function.
+  \item Inspect any traceback.
+  \item Debug the problem.
+  \item Confirm that the function is correct.
+  \item Measure its performance.
+  \item Profile slow sections.
+  \item Optimize only the important bottlenecks.
+\end{enumerate}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Functions, debugging, and profiling reinforce one another}
+
+\begin{itemize}
+  \item Functions organize Python code into reusable components.
+  \item Jupyter makes experimentation and testing interactive.
+  \item Tracebacks provide useful debugging information.
+  \item IPython provides debugging tools such as \texttt{\%xmode} and \texttt{\%debug}.
+  \item \texttt{\%time} and \texttt{\%timeit} measure execution time.
+  \item Profiling reveals where optimization will have the greatest impact.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Reference}
+
+\IfFileExists{PDSH-cover.png}{\includegraphics[height=3cm]{PDSH-cover.png}\\[0.4em]}{}
+
+Jake VanderPlas, \textbf{Python Data Science Handbook}
+
+\tiny
+\url{https://jakevdp.github.io/PythonDataScienceHandbook/01.00-ipython-beyond-normal-python.html}
+
+\end{frame}
+
+% ===============================================
+\section{Part 4: Assignment 1 (and Tips!)}
+% ===============================================
+%------------------------------------------------
+\begin{frame}{Assignment 1}
+
+Submit your Jupyter Notebook on Canvas!
+
+\begin{itemize}
+  \item \href{https://canvas.tamu.edu/courses/475969/assignments/3208733}{Assignment 1 on Canvas}
+  \item \href{https://abuabara.github.io/DAEN300F26/events.csv}{Data: \texttt{events.csv}}
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Start by loading and inspecting the data}
+\begin{lstlisting}[style=py]
+raw_df = pd.read_csv("events.csv")
+raw_df.head()
+\end{lstlisting}
+\begin{itemize}
+  \item \code{pd.read\_csv()} reads a CSV file into a DataFrame.
+  \item \code{.head()} previews the first five rows by default.
+  \item Initial inspection reveals column names, sample values, and obvious formatting problems.
+\end{itemize}
+\takeaway{Inspect before converting types; raw data often violates expectations.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{\texttt{.copy()} prevents accidental side effects}
+\begin{lstlisting}[style=py]
+def standardize_text(df):
+    result = df.copy()
+    # modify result, not df
+    return result
+\end{lstlisting}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\textbf{Without a copy}
+\begin{itemize}
+  \item A function may mutate its input.
+  \item Later cells can receive surprising data.
+\end{itemize}
+\column{0.48\textwidth}
+\textbf{With a copy}
+\begin{itemize}
+  \item Input and output remain conceptually separate.
+  \item Pipeline steps are easier to test and debug.
+\end{itemize}
+\end{columns}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Normalize text with a chain of string methods}
+\begin{lstlisting}[style=py]
+result[column] = (
+    result[column]
+        .astype("string")
+        .str.strip()
+        .str.lower()
+)
+\end{lstlisting}
+\begin{description}
+  \item[\texttt{.astype("string")}] uses pandas' nullable string dtype; missing values remain missing.
+  \item[\texttt{.str.strip()}] removes leading and trailing whitespace.
+  \item[\texttt{.str.lower()}] converts letters to lowercase.
+\end{description}
+\takeaway{After normalization, values such as \texttt{" Purchase "} and \texttt{"purchase"} match.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Convert dates and numbers without stopping the pipeline}
+\begin{lstlisting}[style=py]
+result["event_timestamp"] = pd.to_datetime(
+    result["event_timestamp"], errors="coerce"
+)
+result["quantity"] = pd.to_numeric(
+    result["quantity"], errors="coerce"
+)
+\end{lstlisting}
+\begin{itemize}
+  \item \code{pd.to\_datetime()} parses dates and timestamps.
+  \item \code{pd.to\_numeric()} parses numeric values.
+  \item \code{errors="coerce"} turns invalid input into \code{NaT} or \code{NaN} instead of raising an exception.
+\end{itemize}
+\takeaway{Coercion preserves the row and makes the quality problem measurable.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Use \texttt{.mask()} to invalidate values by a rule}
+\begin{lstlisting}[style=py]
+result["quantity"] = result["quantity"].mask(
+    result["quantity"] <= 0
+)
+result["unit_price"] = result["unit_price"].mask(
+    result["unit_price"] < 0
+)
+\end{lstlisting}
+\begin{itemize}
+  \item \code{Series.mask(condition)} replaces values where the condition is \code{True}.
+  \item With no replacement supplied, pandas inserts a missing value.
+  \item The original row remains available for auditing.
+\end{itemize}
+\takeaway{A value can be syntactically numeric but still invalid under business rules.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Detect missing values and combine Boolean conditions}
+\begin{lstlisting}[style=py]
+invalid_mask = (
+    clean_df["event_timestamp"].isna()
+    | clean_df["quantity"].isna()
+    | clean_df["unit_price"].isna()
+)
+invalid_rows = invalid_mask.sum()
+\end{lstlisting}
+\begin{itemize}
+  \item \code{.isna()} returns \code{True} for each missing value.
+  \item \code{|} means elementwise OR; \code{\&} means elementwise AND.
+  \item Parenthesize every comparison in a compound pandas condition.
+  \item Because \code{True == 1}, \code{.sum()} counts matching rows.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Remove exact duplicate rows}
+\begin{lstlisting}[style=py]
+clean_df = result.drop_duplicates().copy()
+
+removed = len(raw_df) - len(clean_df)
+\end{lstlisting}
+\begin{itemize}
+  \item \code{.drop\_duplicates()} keeps the first occurrence of each exact row by default.
+  \item \code{len(df)} returns the number of rows.
+  \item A second \code{.copy()} makes the returned object independent and explicit.
+\end{itemize}
+\takeaway{Define what “duplicate” means; exact-row duplication is only one possible rule.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Select rows safely with \texttt{.loc}}
+\begin{lstlisting}[style=py]
+purchases = result.loc[
+    result["event_type"].eq("purchase")
+    & result["country"].notna()
+    & result["revenue"].notna()
+]
+\end{lstlisting}
+\begin{itemize}
+  \item \code{.loc[row\_condition]} selects rows by labels or a Boolean mask.
+  \item \code{.eq("purchase")} is an explicit elementwise equality test.
+  \item \code{.notna()} keeps values that are present.
+\end{itemize}
+\takeaway{Build the mask from named business requirements, then pass it to \texttt{.loc}.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Vectorized arithmetic computes an entire column}
+\begin{lstlisting}[style=py]
+result["revenue"] = (
+    result["quantity"] * result["unit_price"]
+)
+\end{lstlisting}
+\begin{itemize}
+  \item pandas aligns the two Series by index and multiplies element by element.
+  \item Missing quantity or price naturally produces missing revenue.
+  \item No explicit Python loop is required.
+\end{itemize}
+\takeaway{Prefer column operations when the same calculation applies to every row.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{\texttt{.groupby()} implements split--apply--combine}
+\begin{lstlisting}[style=py]
+country_revenue = (
+    purchases
+      .groupby("country")["revenue"]
+      .sum()
+      .sort_index()
+)
+\end{lstlisting}
+\begin{enumerate}
+  \item \textbf{Split} rows into one group per country.
+  \item \textbf{Apply} \code{.sum()} to the revenue in each group.
+  \item \textbf{Combine} the results into a Series.
+  \item \code{.sort\_index()} produces stable country ordering.
+\end{enumerate}
+\takeaway{Filter first, group second, aggregate last.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{The loop version exposes what vectorization replaces}
+\begin{lstlisting}[style=py]
+totals = {}
+for row in df.itertuples(index=False):
+    revenue = row.quantity * row.unit_price
+    totals[row.country] = (
+        totals.get(row.country, 0) + revenue
+    )
+pd.Series(totals, dtype=float).sort_index()
+\end{lstlisting}
+\begin{itemize}
+  \item \code{.itertuples()} iterates through rows as named tuples.
+  \item \code{dict.get(key, 0)} supplies zero for a country not yet seen.
+  \item \code{pd.Series()} converts the dictionary back to pandas.
+\end{itemize}
+\takeaway{The loop is readable logic; the vectorized version delegates iteration to pandas.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Test correctness before comparing performance}
+\begin{lstlisting}[style=py]
+pd.testing.assert_series_equal(
+    revenue_by_country_loop(clean_df),
+    revenue_by_country_vectorized(clean_df),
+    check_names=False,
+)
+
+%timeit revenue_by_country_vectorized(clean_df)
+%prun revenue_by_country_vectorized(clean_df)
+\end{lstlisting}
+\begin{itemize}
+  \item \code{assert\_series\_equal()} checks values, indexes, dtypes, and metadata.
+  \item \code{\%timeit} repeats execution to estimate runtime reliably.
+  \item \code{\%prun} profiles where one execution spends its time.
+\end{itemize}
+\takeaway{A faster answer matters only after it is shown to be the same answer.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Small summary functions turn quality into metrics}
+\begin{lstlisting}[style=py]
+summary = {
+    "raw_rows": len(raw_df),
+    "unusable_timestamps": int(
+        clean_df["event_timestamp"].isna().sum()
+    ),
+    "total_valid_purchase_revenue": float(
+        purchase_revenue.sum()
+    ),
+}
+pd.Series(summary, name="value")
+\end{lstlisting}
+\begin{itemize}
+  \item \code{int()} and \code{float()} produce ordinary Python scalars.
+  \item A dictionary gives each metric a clear name.
+  \item \code{pd.Series(..., name="value")} creates a compact report.
+\end{itemize}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{Read the broken function as a debugging checklist}
+\begin{lstlisting}[style=py]
+df[" revenue "] = df[" quantity "] * df[" unit_price "]
+purchases = df[df[" event_type "] == " Purchase "]
+return purchases.groupby(" country ")[" reveneu "].sum()
+\end{lstlisting}
+\begin{itemize}
+  \item Column labels contain unintended spaces.
+  \item The value \code{" Purchase "} was not normalized.
+  \item \code{"reveneu"} is misspelled.
+  \item The traceback identifies the failing expression; inspect exact labels before changing logic.
+\end{itemize}
+\takeaway{Cleaning values does not clean column names; exact spelling still matters.}
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{A reliable pandas pattern: copy, transform, validate}
+\large
+\begin{enumerate}
+  \item Copy the input when a function should not mutate it.
+  \item Normalize text before testing categories.
+  \item Coerce malformed dates and numbers into measurable missing values.
+  \item Encode business rules with masks.
+  \item Filter with \texttt{.loc}, calculate by columns, and aggregate with \texttt{.groupby()}.
+  \item Assert equal results before timing or profiling.
+\end{enumerate}
+\vfill
+\centering\color{red}\Large One clear transformation per step makes the pipeline explainable.
+\end{frame}
+
+\end{document}
