@@ -14,33 +14,38 @@ head(fake_news)
 # makes possible to see all columns in a data frame
 glimpse(fake_news)
 
-fake_news %>%
-  glimpse()
+addmargins(table(fake_news$type))
 
-fake_news %>% 
+fake_news %>%
+  select(type) %>%
+  table() %>%
+  addmargins()
+
+fake_news %>%
   tabyl(type)
 
 ?adorn_totals
 
-fake_news %>% 
-  tabyl(type) %>% 
-  adorn_totals("row")
-#  type   n percent
-#  fake  60     0.4
-#  real  90     0.6
-# Total 150     1.0
-
-fake_news %>% 
-  tabyl(type) %>% 
+fake_news %>%
+  tabyl(type) %>%
   adorn_totals("row")
 
 # Tabulate exclamation usage and article type
-fake_news %>% 
-  tabyl(title_has_excl, type) %>% 
-  adorn_totals("row", "col")
+fake_news %>%
+  select(title_has_excl, type) %>%
+  table() %>%
+  addmargins()
+
+fake_news %>%
+  tabyl(title_has_excl, type) %>%
+  adorn_totals("row")
 
 ?adorn_totals
 
-fake_news %>% 
-  tabyl(title_has_excl, type) %>% 
+fake_news %>%
+  tabyl(title_has_excl, type) %>%
   adorn_totals(c("row", "col"))
+# title_has_excl fake real Total
+#          FALSE   44   88   132
+#           TRUE   16    2    18
+#          Total   60   90   150
