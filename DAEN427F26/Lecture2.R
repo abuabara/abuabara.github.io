@@ -6,6 +6,22 @@ library(janitor)
 # Import article data
 data(fake_news)
 
+fake_news
+
+head(fake_news)
+
+# Transposed version of head()
+# makes possible to see all columns in a data frame
+glimpse(fake_news)
+
+fake_news %>%
+  glimpse()
+
+fake_news %>% 
+  tabyl(type)
+
+?adorn_totals
+
 fake_news %>% 
   tabyl(type) %>% 
   adorn_totals("row")
@@ -14,15 +30,17 @@ fake_news %>%
 #  real  90     0.6
 # Total 150     1.0
 
-# Transposed version of head()
-# makes possible to see all columns in a data frame
-glimpse(fake_news)
+fake_news %>% 
+  tabyl(type) %>% 
+  adorn_totals("row")
 
 # Tabulate exclamation usage and article type
 fake_news %>% 
   tabyl(title_has_excl, type) %>% 
-  adorn_totals("row")
-# title_has_excl fake real
-#          FALSE   44   88
-#           TRUE   16    2
-#          Total   60   90
+  adorn_totals("row", "col")
+
+?adorn_totals
+
+fake_news %>% 
+  tabyl(title_has_excl, type) %>% 
+  adorn_totals(c("row", "col"))
