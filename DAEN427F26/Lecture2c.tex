@@ -6,6 +6,7 @@
 \usepackage{subcaption}
 \usepackage{tikz, pgfplots}
 \pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
 \usetikzlibrary{positioning, arrows.meta, arrows.meta, positioning, shapes, calc}
 \usepackage[many]{tcolorbox}
 \usepackage[ruled,vlined]{algorithm2e}
@@ -26,6 +27,9 @@ Scale          = MatchLowercase
 \linespread{1.}\selectfont
 \hyphenpenalty=10000
 \exhyphenpenalty=10000
+\newcommand{\prob}{\mathsf{P}}
+\newcommand{\lik}{\mathcal{L}}
+\newcommand{\fixed}[1]{\textcolor{orange}{#1}}
 
 %COLORS & THEMES-------------------------------
 \definecolor{aggiemaroon}{RGB}{80,0,0}
@@ -1104,6 +1108,305 @@ which represents the \ul{likelihood} (also called \textbf{sensitivity} or \textb
 \end{frame}
 }
 
+
+%-----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{}
+\begin{textblock*}{2cm}(11cm,0.3cm)
+
+\includegraphics[width=1.5cm]{bookmark.png}
+\end{textblock*}
+
+\begin{columns}[T,onlytextwidth]
+
+\column{0.48\textwidth}
+\begin{block}{Probability}
+The model is known.\\
+Ask which data could occur.
+\[
+  \prob(X\in A\mid \fixed{\theta})
+\]
+\centering\small Model fixed; outcomes vary.
+\end{block}
+\column{0.48\textwidth}
+\begin{block}{Likelihood}
+The data are observed.\\
+Ask which parameter values fit.
+\[
+  \lik(\theta\mid \fixed{x}) \propto f(\fixed{x}\mid\theta)
+\]
+\centering\small Data fixed; models vary.
+\end{block}
+\end{columns}
+
+\vspace{0.5cm}
+\centering\large\bfseries The distinction is what we hold fixed.
+\end{frame}
+
+%-----------------------------------------------
+%-----------------------------------------------
+{
+\setbeamercolor{background canvas}{bg=blue!15}
+
+\begin{frame}{}
+\begin{block}{Quiz: Cow Weight}
+  \begin{figure}[h]
+  \href{https://en.wikipedia.org/wiki/Fleckvieh}{\includegraphics[width=.75\textwidth]{Cow_(Fleckvieh_breed)_Oeschinensee_Slaunger_2009-07-07.jpg}}
+  \end{figure}
+  \end{block}
+\end{frame}
+}
+
+%-----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{Probability can predict a cow weight from a known model}
+\footnotesize
+
+\begin{columns}[c,onlytextwidth]
+
+\column{0.55\textwidth}
+
+\begin{tikzpicture}
+\begin{axis}[
+  width=\linewidth,
+  height=5cm,
+  axis lines=left,
+  font=\scriptsize,
+  xmin=420,
+  xmax=780,
+  ymin=0,
+  ymax=.009,
+  xlabel={weight $x$ (kg)},
+  ylabel={density},
+  xtick={500,600,640,700},
+  ytick={0,0.002,0.004,0.006,0.008},%\empty,
+  domain=420:780,
+  samples=150
+]
+\addplot[name path=curve,very thick,blue]{1/(50*sqrt(2*pi))*exp(-((x-600)^2)/(2*50^2))};
+\path[name path=axis] (axis cs:600,0)--(axis cs:640,0);
+\addplot[orange!45] fill between[of=curve and axis,soft clip={domain=600:640}];
+\draw[dashed,orange] (axis cs:600,0)--(axis cs:600,.00798);
+\draw[dashed,orange] (axis cs:640,0)--(axis cs:640,.00579);
+\end{axis}
+\end{tikzpicture}
+
+\column{0.5\textwidth}
+
+Assume $\boxed{X\sim\mathcal N(600,50^2)}$
+
+Then
+\[
+\begin{aligned}
+&\prob(600\le X\le640) =\\
+&=\int_{600}^{640}f(x\mid600,50)\,dx \approx\alert{0.288}
+\end{aligned}
+\]
+
+\small Probability is an \textbf{area}!
+
+\vspace{0.2cm}
+For a continuous variable, $\prob(X=640)=0$.
+\end{columns}
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{Likelihood scores models after 640 kg is observed}
+\footnotesize
+
+\begin{columns}[c,onlytextwidth]
+
+\column{0.55\textwidth}
+
+\begin{tikzpicture}
+\begin{axis}[
+  width=\linewidth,
+  height=5cm,
+  axis lines=left,
+  font=\scriptsize,
+  xmin=420,
+  xmax=780,
+  ymin=0,
+  ymax=.009,
+  xlabel={weight $x$ (kg)},
+  ylabel={likelihood},
+  xtick={500,600,640,700},
+  ytick={0,0.002,0.004,0.00579,0.008},%\empty,
+  domain=420:780,
+  samples=150
+]
+\addplot[name path=curve,very thick,blue]{1/(50*sqrt(2*pi))*exp(-((x-600)^2)/(2*50^2))};
+\path[name path=axis] (axis cs:600,0)--(axis cs:640,0);
+\addplot[only marks,mark=*,red] coordinates {(640,.00579)};
+\draw[dashed,orange, thick] (axis cs:600,0)--(axis cs:600,.00798);
+\draw[->, red, thick] (axis cs:640,0)--(axis cs:640,.005);
+\draw[->, red, thick]
+  (axis cs:620,0.00579) --
+  (axis cs:425,0.00579);
+\end{axis}
+\end{tikzpicture}
+
+\column{0.5\textwidth}
+
+\textbf{Observed data}
+
+The cow weighs \(x=640\) kg.
+
+\vspace{0.2cm}
+
+\textbf{Candidate model}
+
+\[
+X\sim\mathcal N(600,50^2)
+\]
+
+Evaluating the model at the observed weight gives
+\[
+\begin{aligned}
+\mathcal L(600\mid640)
+  &= f(640\mid600,50) \\
+  &= 5.79\times10^{-3}
+\end{aligned}
+\]
+
+This density height is the model's
+\alert{likelihood score} for the observation.
+
+\end{columns}
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{}
+\footnotesize
+
+\begin{block}{}
+\small
+\begin{columns}[c,onlytextwidth]
+\column{0.55\textwidth}
+\begin{tikzpicture}
+\begin{axis}[
+ width=\linewidth,height=5.1cm,axis lines=left,
+ font=\scriptsize,
+ xmin=460,xmax=740,ymin=0,ymax=.009,
+ xlabel={possible mean $\mu$ (kg)},ylabel={likelihood},
+ xtick={500,560,600,640,680,720},ytick=\empty,
+ ytick={0.00579,0.00798},
+ domain=460:740,samples=150]
+\addplot[very thick,orange]{1/(50*sqrt(2*pi))*exp(-((640-x)^2)/(2*50^2))};
+\addplot[only marks,mark=*,blue] coordinates {(600,.00579) (640,.00798)};
+\draw[dashed,blue] (axis cs:640,0)--(axis cs:640,.00798);
+% Arrow from the 600 kg dot to the y-axis
+\draw[->, blue, thick]
+  (axis cs:600,0.00579) --
+  (axis cs:460,0.00579);
+\draw[->, blue, thick]
+  (axis cs:640,0.00798) --
+  (axis cs:460,0.00798);
+\end{axis}
+\end{tikzpicture}
+
+\column{0.41\textwidth}
+
+Observe \fixed{$x=640$ kg};\\
+keep $\sigma=50$ kg fixed.
+\[
+\lik(\mu\mid640)=f(640\mid\mu,50).
+\]
+The model with $\mu=640$ assigns the observation a higher density than the model with $\mu=600$.
+\[
+\hat\mu_{\text{MLE}}=640\text{ kg}.
+\]
+\end{columns}
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{}
+
+\begin{block}{}
+
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\textbf{A probability distribution must normalize}
+\[
+\int f(x\mid\theta)\,dx=1
+\quad\text{for fixed }\theta.
+\]
+It compares possible outcomes under one model.
+\column{0.48\textwidth}
+\textbf{A likelihood need not normalize}
+\[
+\int \lik(\theta\mid x)\,d\theta
+\quad\text{need not equal }1.
+\]
+It compares parameter values using the same observed data.
+\end{columns}
+\vspace{0.55cm}
+\begin{block}{}
+The likelihood is not a probability distribution over parameters.
+
+Likelihood values are meaningful through \textbf{comparisons}: ratios, rankings, and maxima (not as probabilities that a parameter is true).
+\end{block}
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{A coin makes the reversal unmistakable}
+\small
+Suppose $X$ is the number of heads in $n=10$ flips.
+\vspace{0.25cm}
+\begin{columns}[T,onlytextwidth]
+\column{0.48\textwidth}
+\textbf{Before observing the flips}
+\[
+X\mid\fixed{p=0.5}\sim\mathrm{Bin}(10,0.5)
+\]
+\[
+\prob(X=8\mid p=0.5)=\binom{10}{8}(0.5)^{10}
+\]
+Possible values of $X$ vary.
+\column{0.48\textwidth}
+\textbf{After observing $x=8$ heads}
+\[
+\lik(p\mid\fixed{x=8})\propto p^8(1-p)^2
+\]
+\[
+\hat p_{\mathrm{MLE}}=\frac{8}{10}=0.8
+\]
+Possible values of $p$ vary.
+\end{columns}
+\end{block}
+\end{frame}
+
+%-----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{}
+\begin{block}{Likelihood ratios express relative support}
+For the observed result $x=8$ heads in $10$ flips:
+\[
+\frac{\lik(0.8\mid x=8)}{\lik(0.5\mid x=8)}
+=\frac{0.8^8(0.2)^2}{0.5^{10}}
+\approx\alert{6.87}.
+\]
+
+\begin{block}{}
+The observed data are about 6.9 times as likely under $p=0.8$ as under $p=0.5$.
+\end{block}
+\vspace{0.25cm}
+\centering
+\textbf{Do not say:} ``There is a 6.9 probability that $p=0.8$.''
+\end{block}
+\end{frame}
+
 %-----------------------------------------------
 \begin{frame}{}
 \small
@@ -1971,12 +2274,12 @@ prop.table(table(pi[y == 5]))
 
 %-----------------------------------------------
 \begin{frame}{}
-\begin{block}{Takeaways}
+\begin{block}{Remember}
 \begin{enumerate}
 \item A Bayesian model can treat an unknown numerical parameter as a random variable.
-\item The prior PMF describes what parameter values were plausible before seeing data.
+\item The prior pmf describes what parameter values were plausible before seeing data.
 \item The likelihood describes how compatible the observed data are with each parameter value.
-\item The posterior PMF updates the prior by multiplying by the likelihood and normalizing.
+\item The posterior pmf updates the prior by multiplying by the likelihood and normalizing.
 \end{enumerate}
 \end{block}
 \end{frame}
@@ -2029,8 +2332,8 @@ P(y\mid\pi)\,P(\pi).
 
 In the chess example, the prior probabilities are
 \[
-P(\pi=0.2)=0.10,\qquad
-P(\pi=0.5)=0.25,\qquad
+P(\pi=0.2)=0.10,\quad
+P(\pi=0.5)=0.25,\quad
 P(\pi=0.8)=0.65.
 \]
 
@@ -2047,6 +2350,7 @@ Therefore, $\boxed{\hat{\pi}_{\text{MAP}} = 0.2}$
 \end{block}
 \end{frame}
 
+%-----------------------------------------------
 \begin{frame}{}
 \begin{block}{Key Difference}
 \[
