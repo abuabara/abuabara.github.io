@@ -14,11 +14,14 @@ head(fake_news)
 # makes possible to see all columns in a data frame
 glimpse(fake_news)
 
-addmargins(table(fake_news$type))
+fake_news$type
+
+addmargins(prop.table(table(fake_news$type)))
 
 fake_news %>%
   select(type) %>%
   table() %>%
+  prop.table %>%
   addmargins()
 
 fake_news %>%
@@ -34,13 +37,9 @@ fake_news %>%
 fake_news %>%
   select(title_has_excl, type) %>%
   table() %>%
-  addmargins()
-
-fake_news %>%
-  tabyl(title_has_excl, type) %>%
-  adorn_totals("row")
-
-?adorn_totals
+  prop.table %>%
+  addmargins() %>%
+  round(4)
 
 fake_news %>%
   tabyl(title_has_excl, type) %>%
