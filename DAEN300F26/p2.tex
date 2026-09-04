@@ -1,0 +1,922 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usecolortheme{seahorse}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{zi4}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+
+% Color palette
+\definecolor{AggieMaroon}{HTML}{500000}
+\definecolor{CodeBackground}{HTML}{F3F3F3}
+\definecolor{CodeBorder}{HTML}{BFBFBF}
+\definecolor{CodeComment}{HTML}{666666}
+\definecolor{CodeKeyword}{HTML}{2F5597}
+\definecolor{Accent}{RGB}{31,78,121}
+\definecolor{Good}{RGB}{46,125,50}
+\definecolor{Warn}{RGB}{183,91,0}
+\definecolor{PythonBlue}{HTML}{2F5597}
+\definecolor{PythonGreen}{HTML}{2E7D32}
+\definecolor{SoftBackground}{HTML}{F5F7F8}
+
+% Beamer theme and layout
+\setbeamercolor{structure}{fg=AggieMaroon}
+\setbeamercolor{frametitle}{fg=white,bg=AggieMaroon}
+\setbeamercolor{title}{fg=AggieMaroon}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{caption}[numbered]
+
+\setbeamercolor{block title}{
+fg=white,
+bg=AggieMaroon
+}
+
+\setbeamercolor{block body}{
+fg=black,
+bg=AggieMaroon!8
+}
+
+\setbeamercolor{block title alerted}{
+fg=white,
+bg=red!70!black
+}
+
+\setbeamercolor{block body alerted}{
+fg=black,
+bg=red!8
+}
+
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{itemize item}{\textbullet}
+\setbeamertemplate{itemize subitem}{\textbullet}
+\setbeamertemplate{itemize subsubitem}{\textbullet}
+
+\setbeamertemplate{footline}{%
+\hfill
+\textcolor{AggieMaroon}{\insertframenumber/\inserttotalframenumber}
+\hspace{4pt}\vskip2pt
+}
+
+% Source-code and pseudocode styles
+\lstdefinestyle{classcode}{
+language=Python,
+basicstyle=\ttfamily\small,
+backgroundcolor=\color{CodeBackground},
+frame=single,
+rulecolor=\color{CodeBorder},
+keywordstyle=\color{PythonBlue}\bfseries,
+commentstyle=\color{CodeComment},
+stringstyle=\color{PythonGreen},
+showstringspaces=false,
+keepspaces=true,
+columns=fullflexible,
+breaklines=true,
+tabsize=4
+}
+
+% Pseudocode style
+\lstdefinestyle{pseudo}{
+basicstyle=\ttfamily\small,
+backgroundcolor=\color{CodeBackground},
+frame=single,
+rulecolor=\color{CodeBorder},
+columns=fullflexible,
+keepspaces=true,
+showstringspaces=false,
+keywordstyle=\bfseries\color{Accent},
+commentstyle=\itshape\color{Good},
+morecomment=[l]{//},
+morekeywords={
+Algorithm,Input,Output,for,while,if,else,return,
+then,to,do,not,and,or,true,false
+}
+}
+
+\lstdefinestyle{py}{style=classcode}
+\newcommand{\code}[1]{\colorbox{SoftBackground}{\texttt{#1}}}
+\newcommand{\takeaway}[1]{%
+\begin{beamercolorbox}[rounded=true,sep=0.55em]{block body}%
+\textbf{#1} 
+\end{beamercolorbox}%
+}
+
+% Section divider slides
+\AtBeginSection[]{%
+\begin{frame}
+\centering
+\Huge \insertsection
+\end{frame}
+}
+
+\lstset{style=classcode}
+
+% Document metadata
+\title{Algorithms, Python, and Jupyter}
+\subtitle{Foundations, Functions, Debugging, and Profiling}
+\author{}
+
+\date{%
+\textcolor{AggieMaroon}{
+DAEN 300\\
+\textbf{Alexander Abuabara}\\
+Fall 2026
+}
+}
+
+\titlegraphic{
+\IfFileExists{TAMU_logo.png}{\includegraphics[height=1.2cm]{TAMU_logo.png}}{}
+}
+
+\begin{document}
+
+% ===============================================
+\begin{frame}
+\titlepage
+\end{frame}
+
+% ===============================================
+\begin{frame}{Reference}
+
+\url{https://numpy.org/doc/stable/user/absolute_beginners.html}
+\end{frame}
+
+% ==================================================
+\begin{frame}{Learning Objectives}
+
+\begin{enumerate}
+\item Explain why NumPy arrays are useful for data analysis.
+\item Create and inspect one- and multi-dimensional arrays.
+\item Access data using indexing and slicing.
+\item Perform vectorized computations on arrays.
+\item Compute summary statistics along different axes.
+\item Explain the basic idea of broadcasting.
+\item Use Boolean masks to select data.
+\end{enumerate}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}{Why Do We Need Numerical Arrays?}
+
+Many datasets can be represented as arrays of numbers.
+
+\begin{columns}
+
+\column{0.48\textwidth}
+
+\textbf{Examples}
+
+\begin{itemize}
+\item Sensor measurements
+\item Images
+\item Audio signals
+\item Financial observations
+\item Experimental measurements
+\item Machine-learning features
+\end{itemize}
+
+\column{0.48\textwidth}
+
+\[
+X =
+\begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1p}\\
+x_{21} & x_{22} & \cdots & x_{2p}\\
+\vdots & \vdots & \ddots & \vdots\\
+x_{n1} & x_{n2} & \cdots & x_{np}
+\end{bmatrix}
+\]
+
+Rows often represent observations.
+
+Columns often represent variables.
+
+\end{columns}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Python Lists vs.\ NumPy Arrays}
+
+A Python list is extremely flexible:
+
+\begin{lstlisting}
+values = [10, "hello", 3.14, True]
+\end{lstlisting}
+
+A NumPy array normally stores elements of a common data type:
+
+\begin{lstlisting}
+import numpy as np
+
+x = np.array([10, 20, 30, 40])
+\end{lstlisting}
+
+\begin{block}{}
+NumPy sacrifices some of the flexibility of Python lists in exchange
+for efficient storage and fast numerical computation.
+\end{block}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{The NumPy \texttt{ndarray}}
+
+The central NumPy object is the multidimensional array:
+
+\[
+\texttt{numpy.ndarray}
+\]
+
+\begin{lstlisting}
+import numpy as np
+
+x = np.array([5, 10, 15, 20])
+\end{lstlisting}
+
+Useful attributes include:
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+Attribute & Meaning \\
+\midrule
+\texttt{x.ndim}  & Number of dimensions \\
+\texttt{x.shape} & Size of each dimension \\
+\texttt{x.size}  & Total number of elements \\
+\texttt{x.dtype} & Data type of elements \\
+\texttt{x.nbytes}& Memory used by array data \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Creating NumPy Arrays}
+
+\begin{lstlisting}
+import numpy as np
+
+a = np.array([1, 2, 3, 4])
+
+zeros = np.zeros(5)
+
+ones = np.ones((2, 3))
+
+sequence = np.arange(0, 10, 2)
+
+grid = np.linspace(0, 1, 6)
+
+identity = np.eye(3)
+\end{lstlisting}
+
+\pause
+
+\begin{block}{Question}
+What are the shapes of \texttt{ones} and \texttt{identity}?
+\end{block}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Dimensions and Shapes}
+
+Consider:
+\begin{lstlisting}
+A = np.array([
+[10, 20, 30],
+[40, 50, 60]
+])
+
+print(A.ndim)
+print(A.shape)
+print(A.size)
+\end{lstlisting}
+
+The result is conceptually:
+\[
+A =
+\begin{bmatrix}
+10 & 20 & 30\\
+40 & 50 & 60
+\end{bmatrix}
+\]
+
+Therefore,
+\[
+\texttt{ndim}=2,\qquad
+\texttt{shape}=(2,3),\qquad
+\texttt{size}=6.
+\]
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Indexing Arrays}
+
+For a one-dimensional array:
+\begin{lstlisting}
+x = np.array([10, 20, 30, 40])
+x[0]     # 10
+x[2]     # 30
+x[-1]    # 40
+\end{lstlisting}
+
+For a two-dimensional array:
+\begin{lstlisting}
+A = np.array([
+[10, 20, 30],
+[40, 50, 60]
+])
+A[0, 1]   # 20
+A[1, 2]   # 60
+\end{lstlisting}
+
+\begin{alertblock}{}
+Python and NumPy use zero-based indexing.
+\end{alertblock}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Slicing Arrays}
+
+The general slicing pattern is $\texttt{x[start:stop:step]}.$
+
+Example:
+\begin{lstlisting}
+x = np.arange(10)
+x[:4]       # first four values
+x[4:]       # values beginning at index 4
+x[2:7]      # indices 2 through 6
+x[::2]      # every second value
+x[::-1]     # reverse
+\end{lstlisting}
+
+For matrices:
+\begin{lstlisting}
+A[:2, :3]
+\end{lstlisting}
+
+means: first two rows, first three columns.
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Reshaping Arrays}
+
+Arrays often need to be reorganized.
+
+\begin{lstlisting}
+x = np.arange(12)
+A = x.reshape(3, 4)
+print(A)
+\end{lstlisting}
+
+Conceptually,
+\[
+[0,1,2,\ldots,11]
+\quad\longrightarrow\quad
+\begin{bmatrix}
+0&1&2&3\\
+4&5&6&7\\
+8&9&10&11
+\end{bmatrix}
+\]
+
+\begin{block}{Requirement}
+The total number of elements cannot change.
+\end{block}
+
+\[
+12 = 3 \times 4
+\]
+
+\end{frame}
+
+% ==================================================
+\begin{frame}{The Big Idea: Vectorization}
+
+Suppose we want to square every value.
+
+\textbf{Loop-oriented thinking:}
+
+\[
+y_i = x_i^2
+\]
+
+for every individual $i$.
+
+\vspace{0.5cm}
+
+\textbf{Array-oriented thinking:}
+
+\[
+\mathbf{y} = \mathbf{x}^2
+\]
+
+\begin{block}{Vectorization}
+Describe the computation using operations on entire arrays rather
+than manually iterating through individual elements.
+\end{block}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Loop vs.\ Vectorized Computation}
+
+Python loop:
+
+\begin{lstlisting}
+x = np.array([1, 2, 3, 4])
+
+result = np.empty(len(x))
+
+for i in range(len(x)):
+result[i] = x[i] ** 2
+\end{lstlisting}
+
+NumPy:
+
+\begin{lstlisting}
+result = x ** 2
+\end{lstlisting}
+
+Both implement
+$
+[1,2,3,4]
+\longrightarrow
+[1,4,9,16].
+$
+
+\begin{block}{}
+Vectorized NumPy operations move repetitive numerical work into
+optimized compiled routines.
+\end{block}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Universal Functions}
+
+NumPy calls many vectorized element-wise operations
+\textbf{universal functions}, or \textbf{ufuncs}.
+
+\begin{lstlisting}
+x = np.array([1, 2, 3, 4])
+
+x + 10
+x * 2
+x ** 2
+
+np.sqrt(x)
+np.exp(x)
+np.log(x)
+np.sin(x)
+\end{lstlisting}
+
+For example,
+\[
+\begin{bmatrix}
+1&2&3&4
+\end{bmatrix}
++10
+=
+\begin{bmatrix}
+11&12&13&14
+\end{bmatrix}.
+\]
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Aggregations}
+
+Often we want to summarize an entire dataset.
+
+\begin{lstlisting}
+x = np.array([5, 10, 15, 20])
+
+x.sum()
+x.mean()
+x.min()
+x.max()
+x.std()
+\end{lstlisting}
+
+Common functions include:
+\[
+\text{sum},\quad
+\text{mean},\quad
+\text{median},\quad
+\text{min},\quad
+\text{max},\quad
+\text{variance},\quad
+\text{standard deviation}.
+\]
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Understanding \texttt{axis}}
+
+Consider:
+
+\[
+A =
+\begin{bmatrix}
+10 & 20 & 30\\
+40 & 50 & 60
+\end{bmatrix}
+\]
+
+\begin{lstlisting}
+A.sum()
+\end{lstlisting}
+
+adds every value.
+
+\pause
+
+\begin{lstlisting}
+A.sum(axis=0)
+\end{lstlisting}
+
+produces column sums:
+\[
+[50,\ 70,\ 90].
+\]
+
+\pause
+
+\begin{lstlisting}
+A.sum(axis=1)
+\end{lstlisting}
+
+produces row sums:
+\[
+[60,\ 150].
+\]
+
+\end{frame}
+
+% ==================================================
+\begin{frame}{Broadcasting}
+
+Broadcasting allows NumPy to perform operations involving
+arrays with different, but compatible, shapes.
+
+For example,
+\[
+\begin{bmatrix}
+1 & 2 & 3
+\end{bmatrix}
++
+10
+=
+\begin{bmatrix}
+11 & 12 & 13
+\end{bmatrix}.
+\]
+
+Conceptually, NumPy treats the scalar as though it were
+\[
+\begin{bmatrix}
+10 & 10 & 10
+\end{bmatrix}.
+\]
+
+\begin{block}{}
+NumPy does not necessarily create all of these duplicated values
+in memory. Broadcasting describes how the operation behaves.
+\end{block}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Broadcasting a Vector Across a Matrix}
+
+Let
+\[
+A =
+\begin{bmatrix}
+1&1&1\\
+1&1&1\\
+1&1&1
+\end{bmatrix}
+,\qquad
+b =
+\begin{bmatrix}
+0&10&20
+\end{bmatrix}.
+\]
+
+Then:
+\begin{lstlisting}
+A = np.ones((3, 3))
+b = np.array([0, 10, 20])
+
+A + b
+\end{lstlisting}
+
+produces
+\[
+\begin{bmatrix}
+1&11&21\\
+1&11&21\\
+1&11&21
+\end{bmatrix}.
+\]
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Boolean Comparisons}
+
+Comparisons can be applied to an entire array.
+
+\begin{lstlisting}
+scores = np.array([62, 91, 75, 48, 88])
+
+scores >= 70
+\end{lstlisting}
+
+Result:
+\[
+[
+\text{False},
+\text{True},
+\text{True},
+\text{False},
+\text{True}
+]
+\]
+
+This Boolean array is called a \textbf{mask}.
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Boolean Masking}
+
+A mask can select values satisfying a condition.
+
+\begin{lstlisting}
+scores = np.array([62, 91, 75, 48, 88])
+
+passing = scores[scores >= 70]
+
+print(passing)
+\end{lstlisting}
+
+Result:
+\[
+[91,\ 75,\ 88]
+\]
+
+We can also count observations satisfying a condition:
+\begin{lstlisting}
+np.sum(scores >= 70)
+\end{lstlisting}
+
+Result:
+\[
+3
+\]
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Worked Example: Student Scores}
+
+Suppose each row is a student and each column is an exam.
+
+\begin{lstlisting}
+scores = np.array([
+[80, 72, 91],
+[65, 70, 68],
+[92, 88, 95],
+[75, 81, 78]
+])
+\end{lstlisting}
+
+Question 1: What is each student's mean score?
+
+\begin{lstlisting}
+student_means = scores.mean(axis=1)
+\end{lstlisting}
+
+Question 2: What is the mean for each exam?
+
+\begin{lstlisting}
+exam_means = scores.mean(axis=0)
+\end{lstlisting}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Worked Example: Centering the Data}
+
+Suppose we want to measure each score relative to its exam mean.
+
+\begin{lstlisting}
+exam_means = scores.mean(axis=0)
+
+centered = scores - exam_means
+\end{lstlisting}
+
+Mathematically,
+\[
+x_{ij}^{*} = x_{ij} - \bar{x}_{j}.
+\]
+
+What made this simple?
+\begin{enumerate}
+\item Aggregation with \texttt{mean(axis=0)}
+\item Vectorized subtraction
+\item Broadcasting
+\end{enumerate}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}{Common NumPy Mistakes}
+
+\begin{enumerate}
+
+\item \textbf{Confusing shape and size}
+\[
+(100,5)\neq500
+\]
+
+\item \textbf{Using the wrong axis}
+
+\item \textbf{Forgetting that array elements have a fixed dtype}
+
+\item \textbf{Writing unnecessary Python loops}
+
+\item \textbf{Assuming every pair of shapes can broadcast}
+
+\item \textbf{Forgetting zero-based indexing}
+
+\end{enumerate}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{In-Class Exercise}
+
+Create the following matrix:
+\[
+X =
+\begin{bmatrix}
+2&4&6\\
+8&10&12\\
+14&16&18
+\end{bmatrix}.
+\]
+
+Using NumPy:
+
+\begin{enumerate}
+\item Find its shape.
+\item Extract the second row.
+\item Extract the third column.
+\item Compute the mean of each column.
+\item Select all values greater than 10.
+\item Multiply every value by 2 without using a loop.
+\item Subtract each column's mean from that column.
+\end{enumerate}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}[fragile]{Solution}
+
+\begin{lstlisting}
+X = np.array([
+[2, 4, 6],
+[8, 10, 12],
+[14, 16, 18]
+])
+X.shape
+X[1, :]
+X[:, 2]
+X.mean(axis=0)
+X[X > 10]
+2 * X
+X - X.mean(axis=0)
+\end{lstlisting}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}{NumPy in Data Science}
+
+\begin{block}{}
+Understanding arrays makes many higher-level Python data tools easier to understand.
+\end{block}
+
+\begin{center}
+
+Python
+
+\vspace{0.3cm}
+
+$\downarrow$
+
+\vspace{0.3cm}
+
+\textbf{NumPy: numerical arrays}
+
+\vspace{0.3cm}
+
+$\downarrow$
+
+\vspace{0.3cm}
+
+Pandas \qquad SciPy \qquad Matplotlib
+
+\vspace{0.3cm}
+
+$\downarrow$
+
+\vspace{0.3cm}
+
+Scikit-learn and other data-science tools
+
+\end{center}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}{Key Points}
+
+\begin{enumerate}
+\item NumPy's basic data structure is the \texttt{ndarray}.
+\item Arrays have dimensions, shapes, and fixed data types.
+\item Indexing and slicing provide efficient access to subsets.
+\item Vectorization replaces many explicit Python loops.
+\item Aggregations summarize data efficiently.
+\item The \texttt{axis} argument controls which dimension is reduced.
+\item Broadcasting enables operations across compatible shapes.
+\item Boolean masks provide concise conditional data selection.
+\end{enumerate}
+
+\end{frame}
+
+% ==================================================
+\begin{frame}{Discussion}
+
+\begin{enumerate}
+\item Why might a NumPy array use less memory than a Python list?
+\item Why can vectorized operations outperform Python loops?
+\item What does \texttt{axis=0} mean for a two-dimensional array?
+\item When might broadcasting be useful?
+\item How could Boolean masking replace an explicit loop?
+\end{enumerate}
+
+\end{frame}
+
+% ==================================================
+%\begin{frame}{Reference}
+%
+%Primary reading:
+%
+%\vspace{0.3cm}
+%
+%Jake VanderPlas, \emph{Python Data Science Handbook},
+%Chapter 2: Introduction to NumPy.
+%
+%\vspace{0.5cm}
+%
+%Topics emphasized in this lecture:
+%
+%\begin{itemize}
+%    \item NumPy arrays and data types
+%    \item Array indexing and slicing
+%    \item Universal functions and vectorization
+%    \item Aggregations
+%    \item Broadcasting
+%\end{itemize}
+%
+%\vfill
+%
+%\small
+%Lecture examples and explanations are original adaptations for
+%undergraduate instruction.
+%
+%\end{frame}
+
+% ==================================================
+\end{document}
