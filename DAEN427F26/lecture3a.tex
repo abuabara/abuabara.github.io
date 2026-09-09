@@ -1,0 +1,1388 @@
+\documentclass[aspectratio=43,11pt]{beamer}
+
+% ----------------------------------------------------------------------------
+% Mathematics and tables
+% ----------------------------------------------------------------------------
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs, tabularx}
+
+% ----------------------------------------------------------------------------
+% Graphics and positioning
+% ----------------------------------------------------------------------------
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage[absolute, overlay]{textpos}
+\usepackage{tikz, pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{arrows.meta, calc, positioning, shapes}
+
+% ----------------------------------------------------------------------------
+% Content and utility packages
+% ----------------------------------------------------------------------------
+\usepackage{setspace, soul}
+\usepackage[many]{tcolorbox}
+\usepackage[ruled, vlined]{algorithm2e}
+\usepackage{minted}
+
+% ----------------------------------------------------------------------------
+% Fonts and typography
+% ----------------------------------------------------------------------------
+\usepackage{fontspec, emoji, tikzsymbols}
+\usefonttheme{professionalfonts}
+\setsansfont[
+UprightFont    = *Light,
+BoldFont       = *Bold,
+ItalicFont     = *Light Italic,
+BoldItalicFont = *Bold Italic,
+Ligatures      = TeX,
+Scale          = MatchLowercase
+]{Frutiger LT Pro}
+\renewcommand{\familydefault}{\sfdefault}
+\linespread{1.}\selectfont
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\newcommand{\prob}{\mathsf{P}}
+\newcommand{\lik}{\mathcal{L}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\fixed}[1]{\textcolor{orange}{#1}}
+\newcommand{\BetaDist}{\operatorname{Beta}}
+\newcommand{\Bin}{\operatorname{Binomial}}
+\newcommand{\BB}{\operatorname{BetaBinomial}}
+\newcommand{\Bern}{\operatorname{Bernoulli}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\given}{\,\mid\,}
+
+% ----------------------------------------------------------------------------
+% Colors and theme
+% ----------------------------------------------------------------------------
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\definecolor{beamer@blendedblue}{RGB}{80,0,0}
+\definecolor{AggieMaroon}{HTML}{500000}
+
+\usecolortheme{default}
+
+\setbeamertemplate{itemize items}{•}
+\setbeamertemplate{itemize subitem}[•]
+\setbeamertemplate{itemize subsubitem}[•]
+\renewcommand{\UrlFont}{\ttfamily\footnotesize}
+\newcommand{\vocab}[1]{\textcolor{AggieMaroon}{\textbf{#1}}}
+\newcommand{\question}[1]{\begin{block}{Question}#1\end{block}}
+\newcommand{\smallnote}[1]{{\footnotesize\textcolor{DarkGray}{#1}}}
+
+% ----------------------------------------------------------------------------
+% Hyperlinks
+% ----------------------------------------------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+colorlinks=true,
+linkcolor=aggiemaroon,
+urlcolor=aggiemaroon,
+citecolor=aggiemaroon
+}
+
+% ----------------------------------------------------------------------------
+% Beamer templates
+% ----------------------------------------------------------------------------
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{
+\color{aggiemaroon}{\hfill \insertframenumber/\inserttotalframenumber \hspace{2pt} \vskip2pt}
+}
+
+% ----------------------------------------------------------------------------
+% Custom commands and environments
+% ----------------------------------------------------------------------------
+\newenvironment{stepenumerate}{
+\begin{enumerate}[<+->]
+}{\end{enumerate}}
+
+\newenvironment{stepitemize}{
+\begin{itemize}[<+->]
+}{\end{itemize}}
+
+\newenvironment{stepenumeratewithalert}{
+\begin{enumerate}[<+-| alert@+>]
+}{\end{enumerate}}
+
+\newenvironment{stepitemizewithalert}{
+\begin{itemize}[<+-| alert@+>]
+}{\end{itemize}}
+
+% ----------------------------------------------------------------------------
+% Document information
+% ----------------------------------------------------------------------------
+\title{Decision and Risk Analysis}
+\subtitle{Lecture 3: \textbf{The Beta-Binomial Bayesian Model}}
+\author{\emph{}}
+\date{\color{aggiemaroon}{
+DAEN 427 / ISEN 427 / ISEN 627\\
+\textbf{Alexander Abuabara}\\
+Fall 2026
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+  %-----------------------------------------------
+  \begin{frame}[plain]
+    \titlepage
+  \end{frame}
+
+  {
+    \setbeamercolor{background canvas}{bg=green!10}
+    %-----------------------------------------------
+    \begin{frame}{The Decision Begins Before the Calculation}
+      \large
+      Michelle's historical support is near 45\%.\\
+      A new poll reports 30 supporters among 50 voters.\\
+      {\bf Decision Question:} Should the campaign allocate scarce field resources to Michelle's state if winning requires support above 50\%?
+    \end{frame}
+  }
+
+  %-----------------------------------------------
+  \begin{frame}{Learning Objectives}
+    \begin{itemize}
+      \item Encode prior knowledge about an unknown proportion\\(with a Beta model);
+      \item Distinguish a Binomial data model from its likelihood function;
+      \item Update Beta prior parameters after observing Binomial data;
+      \item Translate a posterior into probabilities relevant to a decision;
+      \item Choose an action by minimizing posterior expected loss;
+      \item Test whether the recommendation is robust to prior assumptions.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Four Ingredients Organize the Analysis}
+    \begin{center}
+      \begin{tikzpicture}[node distance=0.75cm, every node/.style={align=center}]
+        \node[draw,rounded corners,minimum width=2.25cm,minimum height=1.0cm] (p) {Prior\\$\pi\sim\mathrm{Beta}(\alpha,\beta)$};
+        \node[draw,rounded corners,minimum width=2.25cm,minimum height=1.0cm,right=of p] (d) {Data model\\$Y\mid\pi\sim\mathrm{Bin}(n,\pi)$};
+        \node[draw,rounded corners,minimum width=2.25cm,minimum height=1.0cm,below=of d] (post) {Posterior\\$\pi\mid y$};
+        \node[draw,rounded corners,minimum width=2.25cm,minimum height=1.0cm,left=of post] (a) {Action\\minimize expected loss};
+        \draw[->,thick,black] (p)--(d);
+        \draw[->,thick,black] (d)--(post);
+        \draw[->,thick,black] (post)--(a);
+        \draw[->,thick,black] (p)--(post);
+      \end{tikzpicture}
+    \end{center}
+    \begin{block}{Separation Principle}
+      The \textbf{probability model} describes uncertainty;\\
+      the \textbf{loss model} describes preferences and consequences.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}
+    \begin{block}{Beta-Binomial Conjugacy}
+      \begin{center}
+        \begin{tikzpicture}[node distance=0.7cm]
+          \node[draw, rounded corners, fill=blue!8, minimum width=2.7cm, minimum height=0.7cm] (prior) {Beta prior};
+          \node[draw, rounded corners, fill=green!10, right=of prior, minimum width=3.0cm, minimum height=0.7cm] (data) {Binomial data};
+          \node[draw, rounded corners, fill=orange!12, right=of data, minimum width=3.0cm, minimum height=0.7cm] (post) {Beta posterior};
+          \draw[-{Latex[length=2mm]}, thick] (prior) -- (data);
+          \draw[-{Latex[length=2mm]}, thick] (data) -- (post);
+        \end{tikzpicture}
+      \end{center}
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Conjugate}
+    \begin{itemize}
+      \item \textbf{General Definition:} joined together, coupled, or connected (especially in pairs).
+      \item \textbf{Grammar and Linguistics:} changing a verb's form to show tense, person, number, or mood; for example, \emph{run}, \emph{runs}, \emph{ran}, and \emph{running}.
+      \item \textbf{Mathematics:} paired expressions with a related form.
+      \begin{itemize}
+        \item The conjugate of $x+3$ is $x-3$.
+        \item The conjugate of $a+bi$ is $a-bi$.
+      \end{itemize}
+      \item \textbf{Chemistry:} linked substances, including acid--base pairs related by proton gain or loss.
+      \item \textbf{Biology:} temporary pairing or fusion of single-celled organisms to exchange genetic material.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    In Bayesian statistics, conjugacy refers to a special mathematical relationship between a \ul{prior probability distribution} and a \ul{likelihood function}.
+    \begin{itemize}
+      \item When a prior distribution is combined with a likelihood to calculate the posterior distribution, it is called a \textbf{conjugate prior} \ul{if the resulting posterior belongs to the exact same probability distribution family as the prior}.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \begin{itemize}
+      \item \textbf{Simplifies Mathematics}\\Bayesian updates usually require complex calculus (integration) to solve.
+      With a conjugate prior, the mathematics simplifies to basic algebra. You can calculate the posterior distribution simply by updating the parameters of the prior distribution. {\it (You will see!)}
+      \item \textbf{Saves Computing Power}\\Because conjugacy bypasses intensive calculations, it allows instant updating without requiring computationally demanding simulation algorithms, such as Markov chain Monte Carlo (MCMC).
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    In practice, certain likelihoods pair perfectly with specific priors:
+    \begin{itemize}
+      \item \textbf{Beta-Binomial Conjugacy:} Used for binary (yes/no) outcomes like coin flips or click-through rates. If your prior is a Beta distribution and your data is Binomial, your posterior will also be a Beta distribution.
+      \item \textbf{Normal-Normal Conjugacy:} Used for continuous data (like heights or temperatures). If your prior is a Normal (Gaussian) distribution and your data is normally distributed, your posterior will also be a Normal distribution.
+      \item \textbf{Dirichlet-Multinomial Conjugacy:} Used for outcomes with multiple categories (like rolling a 6-sided die or text categorization). It is the multi-category extension of the Beta-Binomial pair.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    To understand conjugate priors mathematically, we use Bayes' rule.
+    It states that the posterior probability is proportional to the prior multiplied by the likelihood:
+    \[
+    \text{Posterior} \propto \text{Likelihood}\times\text{Prior}
+    \]
+    \[
+    P(\theta\mid x)\propto P(x\mid\theta)P(\theta)
+    \]
+
+    \pause
+    \vspace{.5cm}
+    This framework models binary outcomes; for instance, it can be used to predict a coin's true probability of landing heads $(e)$ after observing a series of flips $(x)$.
+  \end{frame}
+
+  {
+    \setbeamercolor{background canvas}{bg=gray!30}
+    %-----------------------------------------------
+    \begin{frame}{The Beta Distribution ...}
+      \footnotesize
+      \begin{description}
+        \item[1730s] \textbf{Leonhard Euler} investigated the integral behind
+        the Beta function while generalizing factorials.
+
+        \item[1763] \textbf{Thomas Bayes} studied \emph{inverse probability}:
+        inferring an unknown Bernoulli success probability from observed trials.
+        His posterior had the structure now associated with a Beta distribution.
+
+        \item[1839] \textbf{Jacques Binet} formalized the integral and used the
+        notation $B$:
+        \[
+        B(\alpha,\beta)
+        =\int_0^1 x^{\alpha-1}(1-x)^{\beta-1}\,dx.
+        \]
+
+        \item[1895] \textbf{Karl Pearson} included the curve in his system as the
+        \emph{Pearson~Type~I~distribution}, useful for bounded, skewed data.
+      \end{description}
+
+      \begin{alertblock}{}
+        By the mid-20th century, \emph{Beta distribution} became the standard name.
+      \end{alertblock}
+    \end{frame}
+
+    %-----------------------------------------------
+    \begin{frame}{The Beta Distribution ... Intuition}
+      \footnotesize
+      The Beta numerator is very similar to the Binomial distribution pmf:
+      \[
+      f(x)
+      =
+      \frac{x^{\alpha-1}(1-x)^{\beta-1}}{B(\alpha,\beta)}
+      \qquad \longrightarrow \qquad
+      \text{Binomial pmf}
+      =
+      \binom{n}{x}p^x(1-p)^{n-x}.
+      \]
+
+      The Binomial and Beta distributions are very similar apart from \ul{one key thing}:
+
+      \begin{itemize}
+        \item For the {\bf Beta distribution}, \hl{the probability is a random variable} that we are trying to estimate.
+
+        \item For the {\bf Binomial distribution}, \hl{the probability is a fixed parameter} that we use to infer the probability of \(n\) successes.
+      \end{itemize}
+
+      Therefore, we can use the Beta distribution to estimate the probability of an event if we know the number of {\it successes} ($\alpha+1$) and the number of {\it failures} ($\beta-1$).
+    \end{frame}
+
+    %-----------------------------------------------
+    \begin{frame}{The Beta Distribution ... Flexible and Easy to Update}
+      \footnotesize
+      \begin{columns}[T,onlytextwidth]
+        \begin{column}{0.46\textwidth}
+          \vspace{1cm}
+          The Beta distribution is a family of continuous probability distributions defined on $[0,1]$:
+          \[
+          f(x\mid\alpha,\beta)
+          =\frac{x^{\alpha-1}(1-x)^{\beta-1}}
+          {B(\alpha,\beta)}
+          \]
+          The parameters ($\alpha,\beta>0$) produce symmetric, skewed, U-shaped, or nearly uniform densities on $[0,1]$.
+          This makes it well suited for percentages, proportions, and probabilities.
+        \end{column}
+
+        \begin{column}{0.48\textwidth}
+          \begin{block}{Applications}
+            \begin{itemize}
+              \item \textbf{A/B Testing:} conversion / click-through rates.
+              \item \textbf{Project Management (PERT Analysis):} uncertain task durations from optimistic, likely, and pessimistic estimates.
+              \item \textbf{Glicko Rating System:} uncertainty about an unknown probability, used in competitive chess and video games to model a player's underlying skill level along with the system's current uncertainty about that skill.
+              \item \textbf{Reliability:} failure or success rates updated as evidence arrives.
+            \end{itemize}
+          \end{block}
+        \end{column}
+      \end{columns}
+    \end{frame}
+  
+  %-----------------------------------------------
+  \begin{frame}{Beta Standard Deviation Measures Prior Uncertainty}
+    For \(\pi\sim\BetaDist(\alpha,\beta)\),
+    \[
+      \Var(\pi)
+      =\frac{\alpha\beta}
+      {(\alpha+\beta)^2(\alpha+\beta+1)},
+      \qquad
+      \operatorname{SD}(\pi)
+      =\sqrt{\frac{\alpha\beta}
+      {(\alpha+\beta)^2(\alpha+\beta+1)}}.
+    \]
+
+    \textbf{Example:} If \(\pi\sim\BetaDist(3,2)\), then
+    \begin{align*}
+      \operatorname{SD}(\pi)
+        &=\sqrt{\frac{(3)(2)}{(3+2)^2(3+2+1)}}\\
+        &=\sqrt{\frac{6}{25\cdot6}}
+         =\sqrt{0.04}=0.20.
+    \end{align*}
+
+    \begin{block}{}
+      The prior mean is 0.60, while an SD of 0.20 indicates substantial prior
+      uncertainty around that center.
+    \end{block}
+  \end{frame}
+  }
+
+  %-----------------------------------------------
+  \begin{frame}{Step 1: Define the Prior $P(\theta)$}
+    We model our initial belief about $\theta$ using a Beta distribution.
+
+    It is defined by two shape parameters, $\alpha$ and $\beta$, which act like "pseudo-counts" for successes and failures:
+    \[
+    \theta\sim\operatorname{Beta}(\alpha,\beta),\qquad
+    p(\theta)=\frac{1}{B(\alpha,\beta)}\theta^{\alpha-1}(1-\theta)^{\beta-1}
+    \]
+
+    \pause
+    \vspace{.75cm}
+    Since the denominator $B(\alpha,\beta)$ is just a normalizing constant (a fixed number to make the total probability equal 1), we can ignore it during the calculation and focus on the core variables:
+    \[
+    p(\theta)\propto\theta^{\alpha-1}(1-\theta)^{\beta-1}
+    \]
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Step 2: Define the Likelihood $P(x\mid\theta)$}
+    Suppose a coin is flipped $n$ times and $k$ heads are observed.
+    The probability of getting this exact result follows a Binomial distribution:
+    \[
+    P(x\mid\theta)=\binom{n}{k}\theta^k(1-\theta)^{n-k}
+    \]
+
+    \pause
+    \vspace{.75cm}
+    Again, the combination formula $\binom{n}{k}$ is a constant relative to $\theta$, so we drop it for the proportional calculation:
+    \[
+    P(x\mid\theta)\propto\theta^k(1-\theta)^{n-k}
+    \]
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Step 3: Multiply the Likelihood by the Prior}
+    Multiply the core terms of the likelihood and the prior to find the shape of the posterior:
+    \begin{align*}
+      P(\theta\mid x)
+      &\propto P(x\mid\theta)P(\theta)\\
+      &\propto [\theta^k(1-\theta)^{n-k}]
+      [\theta^{\alpha-1}(1-\theta)^{\beta-1}]
+    \end{align*}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Step 4: Combine Exponents}
+    Multiply likelihood and prior:
+    \begin{align*}
+      P(\theta\mid x)
+      &\propto P(x\mid\theta)P(\theta)\\
+      &\propto [\theta^k(1-\theta)^{n-k}]
+      [\theta^{\alpha-1}(1-\theta)^{\beta-1}]\\
+      &\propto \theta^{k+\alpha-1}(1-\theta)^{n-k+\beta-1}\\
+      &=\theta^{(\alpha+k)-1}(1-\theta)^{[\beta+(n-k)]-1}
+    \end{align*}
+    \tiny P.S. Remember the algebraic rule $x^a x^b=x^{a+b}$.
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Step 5: Identify the Posterior}
+    The result has the same form as the original Beta distribution, but with updated parameters:
+    \[
+    \theta\mid x\sim\operatorname{Beta}\bigl(\alpha+k,\;\beta+n-k\bigr).
+    \]
+    \begin{center}
+      \begin{tabular}{>{\bfseries}lll}
+        \toprule
+        Parameter &  & Posterior update\\
+        \midrule
+        $\alpha$ & {\footnotesize \it Successes (heads)} & $\alpha_{\text{post}}=\alpha_{\text{prior}}+k$\\
+        $\beta$  & {\footnotesize \it Failures (tails)}  & $\beta_{\text{post}}=\beta_{\text{prior}}+(n-k)$\\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Example: Testing a Coin}
+    \small
+    Let's say you want to estimate the true probability $\theta$ that a coin lands on heads.
+    \begin{enumerate}
+      \item \textbf{Prior:} choose $\operatorname{Beta}(2,2)$, representing a slightly uncertain belief in a fair coin.
+      This acts as though you have already seen 2 heads ($\alpha$) and 2 tails ($\beta$).
+      \item \textbf{Data:} flip the coin $n=10$ times and observe $k=7$ heads and $3$ tails.
+      \item \textbf{Posterior update:}
+      \[
+      \alpha_{\text{post}}=2+7=9,
+      \qquad
+      \beta_{\text{post}}=2+3=5.
+      \]
+    \end{enumerate}
+    Your updated belief about the coin is now captured by a $\operatorname{Beta}(9,5)$ distribution.
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}[fragile]{}
+    \begin{minted}[fontsize=\scriptsize, linenos]{r}
+      # 1. Define prior parameters: Beta(2, 2)
+      alpha_prior <- 2
+      beta_prior  <- 2
+      
+      # 2. Enter observed data: 7 heads in 10 flips
+      n_flips <- 10
+      heads <- 7
+      tails <- n_flips - heads
+      
+      # 3. Compute posterior parameters: Beta(9, 5)
+      alpha_posterior <- alpha_prior + heads
+      beta_posterior  <- beta_prior + tails
+      
+      # 4. Create theta values
+      x <- seq(0, 1, length.out = 500)
+    \end{minted}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}[fragile]{}
+    \begin{minted}[fontsize=\scriptsize, linenos]{r}
+      # Prior density
+      prior_curve <- dbeta(x,
+                           shape1 = alpha_prior,
+                           shape2 = beta_prior)
+      
+      # Binomial likelihood as a function of theta
+      likelihood_curve <- dbinom(heads,
+                                 size = n_flips,
+                                 prob = x)
+      
+      # Normalize likelihood for comparison with the densities
+      dx <- x[2] - x[1]
+      likelihood_curve <- likelihood_curve / sum(likelihood_curve * dx)
+      
+      # Posterior density
+      posterior_curve <- dbeta(x,
+                               shape1 = alpha_posterior,
+                               shape2 = beta_posterior)
+    \end{minted}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}[fragile]{}
+    \begin{minted}[fontsize=\scriptsize, linenos]{r}
+      # 5. Plot all three curves
+      y_max <- max(prior_curve, likelihood_curve, posterior_curve)
+      
+      plot(x, prior_curve,
+           type = "l", col = "red",
+           lwd = 3, lty = 2,
+           ylim = c(0, y_max),
+           main = "Bayesian Update",
+           xlab = expression("Probability of Heads (" * theta * ")"),
+           ylab = "Normalized Density")
+      
+      lines(x, likelihood_curve, col = "darkgreen", lwd = 3, lty = 3)
+      
+      lines(x, posterior_curve, col = "blue", lwd = 3, lty = 1)
+      
+      legend("topleft",
+        legend = c(
+          "Prior: Beta(2, 2)",
+          "Likelihood: 7 heads in 10 flips",
+          "Posterior: Beta(9, 5)"),
+        col = c("red", "darkgreen", "blue"), lty = c(2, 3, 1), lwd = 3, bty = "n")
+    \end{minted}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \begin{center}
+      \includegraphics[height=.9\textheight]{plot_1_beta_binomial.png}
+    \end{center}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \begin{itemize}
+      \item The red prior is low and spread out, representing initial uncertainty.
+      \item The blue posterior shifts right and becomes taller and narrower.
+      \item Its mean is $9/(9+5)\approx0.64$, indicating support for a heads-biased coin.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{What If Prior Knowledge Is a Proportion?}
+    \small
+    Suppose prior knowledge says the success rate is about $60\%$. A single value such as $0.60$ is not a distribution; by itself it implies absolute certainty.
+
+    Represent both the center and the strength of the belief with a Beta distribution. Its expected value is
+    \[
+    \mu=E(\theta)=\frac{\alpha}{\alpha+\beta}.
+    \]
+
+    Choose a pseudo-sample size $N$ to express certainty:
+    \begin{itemize}
+      \item A small $N$ means the rate is believed to be near $60\%$, but with high uncertainty.
+      \item A large $N$ expresses strong confidence, as if many prior trials had already been observed.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Convert a Proportion to Beta Parameters}
+    For expected proportion $\mu$ and prior certainty $N$,
+    \[
+    \alpha_{\text{prior}}=\mu N,
+    \qquad
+    \beta_{\text{prior}}=N-\alpha_{\text{prior}}=(1-\mu)N.
+    \]
+
+    \textbf{For $\mu=0.60$:}
+    \begin{itemize}
+      \item \textbf{Weak prior, $N=5$}\\$\alpha=0.60(5)=3$, $\beta=5-3=2$; hence $\operatorname{Beta}(3,2)$.
+      \item \textbf{Strong prior, $N=50$}\\$\alpha=0.60(50)=30$, $\beta=50-30=20$; $\operatorname{Beta}(30,20)$.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \begin{center}
+      \includegraphics[height=.9\textheight]{plot_2_beta_beta.png}
+    \end{center}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \footnotesize
+    The plot compares the probability density functions of two Beta distributions for the parameter $\theta$:
+    $\operatorname{Beta}(3,2)$ and $\operatorname{Beta}(30,20)$.
+
+    For a Beta distribution with parameters $\alpha$ and $\beta$, the mean is
+
+    \[
+    \mathbb{E}[\theta]
+    =
+    \frac{\alpha}{\alpha+\beta}.
+    \]
+
+    Therefore,
+
+    \[
+    \mathbb{E}[\theta \mid \theta \sim \operatorname{Beta}(3,2)]
+    =
+    \frac{3}{3+2}
+    =
+    0.60,
+    \]
+
+    and
+
+    \[
+    \mathbb{E}[\theta \mid \theta \sim \operatorname{Beta}(30,20)]
+    =
+    \frac{30}{30+20}
+    =
+    0.60.
+    \]
+
+    Thus, both distributions have the same mean. This explains why the two
+    vertical mean lines coincide at $\theta=0.60$.
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \footnotesize
+    The principal difference is their degree of concentration.
+
+    \begin{itemize}
+      \item The $\operatorname{Beta}(3,2)$ distribution is broad and
+      assigns substantial probability density to a relatively wide range of
+      values of $\theta$. It represents greater uncertainty about $\theta$.
+      \item The $\operatorname{Beta}(30,20)$ distribution is narrow and sharply concentrated near $0.60$, representing substantially greater certainty.\\
+    \end{itemize}
+
+    The variance of a Beta distribution is
+
+    \[
+    \operatorname{Var}(\theta)
+    =
+    \frac{\alpha\beta}
+    {(\alpha+\beta)^2(\alpha+\beta+1)}
+    \]
+
+    \[
+    \operatorname{Var}(\theta \mid \theta \sim \operatorname{Beta}(3,2))
+    =
+    \frac{3 \cdot 2}{(3+2)^2(3+2+1)}
+    =
+    0.04
+    \]
+
+    \[
+    \operatorname{Var}(\theta \mid
+    \theta \sim \operatorname{Beta}(30,20))
+    =
+    \frac{30 \cdot 20}{(30+20)^2(30+20+1)}
+    \approx
+    0.0047
+    \]
+
+    The variance of $\operatorname{Beta}(30,20)$ is approximately one-ninth that of
+    $\operatorname{Beta}(3,2)$!
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \footnotesize
+    The highest point of a distribution is its mode, which does not
+    necessarily coincide with its mean. When $\alpha>1$ and $\beta>1$, the
+    mode of a Beta distribution is
+
+    \[
+    \operatorname{Mode}(\theta)
+    =
+    \frac{\alpha-1}{\alpha+\beta-2}
+    \]
+
+    \[
+    \operatorname{Mode}(\theta \mid
+    \theta \sim \operatorname{Beta}(3,2))
+    =
+    \frac{3-1}{3+2-2}
+    =
+    \frac{2}{3}
+    \approx
+    0.667
+    \]
+
+    \[
+    \operatorname{Mode}(\theta \mid
+    \theta \sim \operatorname{Beta}(30,20))
+    =
+    \frac{30-1}{30+20-2}
+    =
+    \frac{29}{48}
+    \approx
+    0.604
+    \]
+    
+    \begin{itemize}
+    \item The blue curve reaches its maximum to the right of its mean,
+    whereas the peak of the red curve is nearly aligned with its mean.
+    \item From a Bayesian perspective, the two distributions express the same
+    central prior belief, namely that $\theta$ is approximately $0.60$.
+    \item However, $\operatorname{Beta}(30,20)$ represents much stronger prior
+    information (or greater confidence in that belief) than
+    $\operatorname{Beta}(3,2)$.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Problem}
+    \begin{textblock*}{2cm}(11cm,0.3cm)
+      \includegraphics[width=1.5cm]{bookmark.png}
+    \end{textblock*}
+
+    \begin{block}{Unknown Success Probability}
+      We observe binary outcomes, such as success/failure, yes/no, heads/tails.
+    \end{block}
+
+    \vspace{0.2cm}
+    Let $\theta$ be the unknown probability of success.
+
+    \begin{align*}
+      Y_i \given \theta &\sim \Bern(\theta), \qquad i=1,\dots,n, \\
+      X = \sum_{i=1}^n Y_i \given \theta &\sim \Bin(n,\theta).
+    \end{align*}
+
+    \begin{block}{}
+      Use observed successes $X=x$ out of $n$ trials to update beliefs about $\theta$.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Prior: the Beta distribution}
+    A natural prior for a probability $\theta \in (0,1)$ is
+    \[
+    \theta \sim \BetaDist(\alpha,\beta), \qquad \alpha>0,\; \beta>0.
+    \]
+
+    Its density is
+    \[
+    p(\theta)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\,\theta^{\alpha-1}(1-\theta)^{\beta-1}.
+    \]
+
+    For conjugacy, we focus on the kernel:
+    \[
+    p(\theta) \propto \theta^{\alpha-1}(1-\theta)^{\beta-1}.
+    \]
+
+    \begin{block}{Interpretation}
+      $\alpha-1$ acts like prior successes; $\beta-1$ acts like prior failures.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Likelihood: the Binomial model}
+    If $X=x$ successes are observed in $n$ independent trials, then
+    \[
+    X \given \theta \sim \Bin(n,\theta).
+    \]
+
+    The likelihood is
+    \[
+    p(x \given \theta)=\binom{n}{x}\theta^x(1-\theta)^{n-x}.
+    \]
+
+    As a function of $\theta$, constants not involving $\theta$ can be dropped:
+    \[
+    L(\theta \given x) \propto \theta^x(1-\theta)^{n-x}.
+    \]
+
+    \begin{block}{Data contribution}
+      The data contribute $x$ successes and $n-x$ failures.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Bayes' Rule: Multiply Prior and Likelihood}
+    Bayes' rule says
+    \[
+    p(\theta \given x)=\frac{p(x \given \theta)p(\theta)}{p(x)}
+    \quad \Longrightarrow \quad
+    p(\theta \given x) \propto p(x \given \theta)p(\theta).
+    \]
+
+    Substitute the likelihood and prior kernels:
+    \begin{align*}
+      p(\theta \given x)
+      &\propto \Big[\theta^x(1-\theta)^{n-x}\Big]
+      \Big[\theta^{\alpha-1}(1-\theta)^{\beta-1}\Big] \\
+      &= \theta^{x+\alpha-1}(1-\theta)^{n-x+\beta-1}.
+    \end{align*}
+
+    \begin{block}{}
+      The posterior has the same functional form as the prior.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Recognize the Posterior Distribution}
+    Compare the posterior kernel
+    \[
+    p(\theta \given x) \propto
+    \theta^{x+\alpha-1}(1-\theta)^{n-x+\beta-1}
+    \]
+    with the Beta kernel
+    \[
+    \BetaDist(a,b): \qquad \theta^{a-1}(1-\theta)^{b-1}.
+    \]
+
+    Therefore,
+    \[
+    \boxed{\theta \given X=x \sim \BetaDist(\alpha+x,\; \beta+n-x)}.
+    \]
+
+    \begin{center}
+      \begin{tabular}{lll}
+        \toprule
+        Quantity & Prior & Posterior \\
+        \midrule
+        Success parameter & $\alpha$ & $\alpha+x$ \\
+        Failure parameter & $\beta$ & $\beta+n-x$ \\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Why is it Called Conjugacy?}
+    \begin{block}{Definition}
+      A prior is \alert{conjugate} to a likelihood when the posterior belongs to the same family as the prior.
+    \end{block}
+
+    For the beta-binomial case:
+    \[
+    \underbrace{\BetaDist(\alpha,\beta)}_{\text{prior for }\theta}
+    \quad + \quad
+    \underbrace{\Bin(n,\theta)}_{\text{likelihood for }x}
+    \quad \Longrightarrow \quad
+    \underbrace{\BetaDist(\alpha+x,\beta+n-x)}_{\text{posterior for }\theta}.
+    \]
+
+    \vspace{0.25cm}
+    This works because both prior and likelihood are powers of
+    \[
+    \theta \quad \text{and} \quad 1-\theta.
+    \]
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Step-by-Step Numeric Example}
+    \small
+    Suppose a prior belief is
+    \[
+    \theta \sim \BetaDist(2,3),
+    \]
+    and we observe $x=7$ successes in $n=10$ trials.
+
+    \begin{align*}
+      \alpha' &= \alpha+x = 2+7 = 9\\
+      \beta'  &= \beta+n-x = 3+10-7 = 6
+    \end{align*}
+
+    So the posterior is
+    \[
+    \boxed{\theta \given X=7 \sim \BetaDist(9,6)}
+    \]
+
+    Posterior mean:
+    \[
+    \E[\theta \given x] = \frac{\alpha+x}{\alpha+\beta+n}
+    = \frac{9}{15}=0.60
+    \]
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Posterior Predictive: the Beta-Binomial Distribution}
+    \small
+    For future data $\widetilde{X}$ from $m$ new trials, integrate over uncertainty in $\theta$:
+    \[
+    p(\widetilde{x} \given x)
+    = \int_0^1 p(\widetilde{x} \given \theta) p(\theta \given x)\,d\theta
+    \]
+
+    Using $\theta \given x \sim \BetaDist(\alpha+x,\beta+n-x)$:
+    \[
+    \boxed{
+    \widetilde{X}\given x \sim \BB\big(m,\alpha+x,\beta+n-x\big)
+  }
+  \]
+
+  with probability mass function
+  \[
+  p(\widetilde{x}\given x)
+  = \binom{m}{\widetilde{x}}
+  \frac{B(\widetilde{x}+\alpha+x,\; m-\widetilde{x}+\beta+n-x)}
+  {B(\alpha+x,\; \beta+n-x)}
+  \]
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{Complete Derivation in One Line :)}
+  \begin{align*}
+    p(\theta \given x)
+    &\propto p(x\given\theta)p(\theta) \\
+    &\propto \theta^x(1-\theta)^{n-x}\,\theta^{\alpha-1}(1-\theta)^{\beta-1} \\
+    &= \theta^{\alpha+x-1}(1-\theta)^{\beta+n-x-1} \\
+    &\Rightarrow \theta \given x \sim \BetaDist(\alpha+x,\beta+n-x).
+  \end{align*}
+
+  \begin{block}{}
+    Posterior parameters = prior counts + observed counts.
+    \[
+    (\alpha,\beta) \mapsto (\alpha + \text{successes},\; \beta + \text{failures}).
+    \]
+  \end{block}
+\end{frame}
+
+%-----------------------------------------------
+%-----------------------------------------------
+%-----------------------------------------------
+\begin{frame}{A Beta Prior Separates Location from Strength}
+  For $0<\pi<1$,
+  \[
+  f(\pi)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}
+  \pi^{\alpha-1}(1-\pi)^{\beta-1}
+  \]
+  \begin{columns}[T]
+    \column{0.48\textwidth}
+    \textbf{Prior center}
+    \[
+    \E(\pi)=\frac{\alpha}{\alpha+\beta}
+    \]
+    \column{0.48\textwidth}
+    \textbf{Prior concentration}
+    \[
+    \kappa=\alpha+\beta
+    \]
+    Larger $\kappa$ means less prior dispersion at a fixed mean.
+  \end{columns}
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{Equal Means Can Hide Very Different Prior Commitments}
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[width=.88\textwidth,height=.55\textheight,xmin=0,xmax=1,ymin=0,
+        axis lines=left,xlabel={$\pi$},ylabel={density},ytick=\empty,
+        legend style={draw=none,at={(.5,-.27)},anchor=north,legend columns=3}]
+        \addplot[red,thick,domain=.001:.999,samples=150] {6*x*(1-x)};
+        \addlegendentry{Beta(2,2)}
+        \addplot[black,thick,dashed,domain=.001:.999,samples=150] {630*x^4*(1-x)^4};
+        \addlegendentry{Beta(5,5)}
+        \addplot[blue,thick,dotted,domain=.001:.999,samples=150] {7.976*x^19*(1-x)^19/((0.5)^38)};
+        \addlegendentry{Beta(20,20)} % , schematic
+
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
+  All three center at 0.5; their effective prior information differs sharply.
+\end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=green!10}
+  %-----------------------------------------------
+  \begin{frame}{The Historical Polls Suggest Beta(45,55)}
+    \begin{textblock*}{2cm}(11cm,0.3cm)
+      \includegraphics[width=1.5cm]{bookmark.png}
+    \end{textblock*}
+    \begin{columns}[T]
+      \column{0.52\textwidth}
+      \[
+      \pi\sim\mathrm{Beta}(45,55)
+      \]
+      \begin{align*}
+        \E(\pi)&=0.45,\\
+        \operatorname{Mode}(\pi)&\approx0.449,\\
+        \operatorname{SD}(\pi)&\approx0.0495.
+      \end{align*}
+      \column{0.44\textwidth}
+      \begin{block}{Interpretation}
+        The prior is centered below the winning threshold and behaves like roughly 100 units of prior concentration.
+      \end{block}
+    \end{columns}
+    \vspace{0.5em}
+    The parameters are assumptions to defend, not counts that were literally observed.
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Check the Binomial Assumptions Before Updating}
+    The data model is
+    \[
+    Y\mid\pi\sim\mathrm{Bin}(n,\pi).
+    \]
+    It requires:
+    \begin{itemize}
+      \item a fixed number $n$ of trials;
+      \item a binary outcome under a clear definition of ``success'';
+      \item a common success probability $\pi$;
+      \item conditional independence across trials.
+    \end{itemize}
+    \begin{block}{Risk}
+      Sampling bias, nonresponse, clustering, and changing support are not repaired by conjugate algebra.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{A Likelihood Ranks Parameter Values;\\
+    It Is Not a Probability Distribution Over Them}
+    After observing $y$ successes in $n$ trials,
+    \[
+    L(\pi\mid y)=\binom{n}{y}\pi^y(1-\pi)^{n-y}.
+    \]
+    For $y=30$, $n=50$:
+    \begin{itemize}
+      \item the likelihood is maximized at $\hat\pi=y/n=0.60$;
+      \item $L(0.60\mid30)\approx0.115$;
+      \item $L(0.50\mid30)\approx0.042$.
+    \end{itemize}
+    \begin{alertblock}{Common error!!}
+      $L(0.60\mid30)$ is the probability of the observed count if $\pi=0.60$; it is not $\prob(\pi=0.60\mid y)$.
+    \end{alertblock}
+  \end{frame}
+}
+
+%-----------------------------------------------
+\begin{frame}{Conjugacy Turns Updating Into Addition}
+  \[
+  \underbrace{\pi\sim\mathrm{Beta}(\alpha,\beta)}_{\text{prior}},\qquad
+  \underbrace{Y\mid\pi\sim\mathrm{Bin}(n,\pi)}_{\text{data model}}
+  \]
+  \[
+  \boxed{\pi\mid(Y=y)\sim\mathrm{Beta}(\alpha+y,\;\beta+n-y)}
+  \]
+  \begin{center}
+    \begin{tabular}{lcc}
+      \toprule
+      & Success parameter & Failure parameter\\
+      \midrule
+      Prior & $\alpha$ & $\beta$\\
+      Data & $y$ & $n-y$\\
+      Posterior & $\alpha+y$ & $\beta+n-y$\\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{}
+  \begin{align*}
+    f(\pi\mid y)
+    &\propto f(\pi)L(\pi\mid y)\\
+    &\propto \pi^{\alpha-1}(1-\pi)^{\beta-1}
+    \pi^{y}(1-\pi)^{n-y}\\
+    &\propto \pi^{(\alpha+y)-1}(1-\pi)^{(\beta+n-y)-1}.
+  \end{align*}
+  \begin{block}{}
+    Constants not involving $\pi$ determine normalization,\\
+    but not the posterior family or its shape.
+  \end{block}
+\end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=green!10}
+  %-----------------------------------------------
+  \begin{frame}{The Poll Moves the Mean Up and Uncertainty Down}
+    \[
+    \mathrm{Beta}(45,55)+\{30\text{ successes},20\text{ failures}\}
+    \Rightarrow\mathrm{Beta}(75,75).
+    \]
+    \begin{center}
+      \begin{tabular}{lcc}
+        \toprule
+        & Prior & Posterior\\
+        \midrule
+        Mean & 0.450 & 0.500\\
+        Mode & 0.449 & 0.500\\
+        Standard deviation & 0.0495 & 0.0407\\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+    \vspace{0.7em}
+    The estimate shifts toward the new sample proportion, while combined information narrows the distribution.
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{The Posterior Mean is a Credibility-Weighted Average}
+    \[
+    \E(\pi\mid y)
+    =\frac{\alpha+\beta}{\alpha+\beta+n}\frac{\alpha}{\alpha+\beta}
+    +\frac{n}{\alpha+\beta+n}\frac{y}{n}.
+    \]
+    For the campaign:
+    \[
+    0.50=\underbrace{\frac{100}{150}}_{2/3}(0.45)
+    +\underbrace{\frac{50}{150}}_{1/3}(0.60).
+    \]
+    \begin{block}{}
+      The prior dominates the average because its concentration is twice the new sample size.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Posterior Probability Answers the Operational Question}
+    Suppose ``viable'' means $\pi>0.50$.
+
+    Then
+    \[
+    q=\prob(\pi>0.50\mid y)
+    =1-F_{\mathrm{Beta}(75,75)}(0.50)=0.50.
+    \]
+    The posterior is symmetric, so the evidence leaves equal probability above and below the threshold.
+    \begin{block}{But this is not yet a decision}
+      A 50\% chance of winning can justify investing or withdrawing, depending on the losses attached to each error.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{A Loss Table Converts Belief Into Action}
+    Let $a_I$ denote ``invest'' and $a_W$ denote ``withdraw.''
+    \begin{center}
+      \begin{tabular}{lcc}
+        \toprule
+        & $\pi>0.50$ & $\pi\le0.50$\\
+        \midrule
+        Invest $a_I$ & $0$ & $C_{FP}$\\
+        Withdraw $a_W$ & $C_{FN}$ & $0$\\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+    With $q=\prob(\pi>0.50\mid y)$,
+    \[
+    \rho(a_I)=C_{FP}(1-q),\qquad \rho(a_W)=C_{FN}q.
+    \]
+    Choose invest when
+    \[
+    \boxed{q>\frac{C_{FP}}{C_{FP}+C_{FN}}}.
+    \]
+
+    \tiny
+    \begin{itemize}
+      \item $C_{FP}$ (false-positive cost): The cost of investing when Michelle’s true support is not above 50\%.
+      \item $C_{FN}$ (false-negative cost): The cost of withdrawing when her true support actually is above 50\%.
+    \end{itemize}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{The Optimal Action Depends On The Cost Ratio}
+    Here $q=0.50$.
+    \begin{center}
+      \begin{tabular}{lccc}
+        \toprule
+        $C_{FP}$ & $C_{FN}$ & Invest threshold & Recommendation\\
+        \midrule
+        1 & 1 & 0.50 & indifferent\\
+        1 & 3 & 0.25 & invest\\
+        3 & 1 & 0.75 & withdraw\\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+    \begin{block}{}
+      If missing a winnable state is three times as costly as investing in a losing state, the same posterior supports investment.
+    \end{block}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{Sensitivity Analysis Asks Whether the Decision is Fragile}
+    Keep the prior mean at 0.45 but vary its concentration $\kappa$:
+    \[
+    \alpha=0.45\kappa,\qquad\beta=0.55\kappa.
+    \]
+    \begin{center}
+      \begin{tabular}{rccc}
+        \toprule
+        $\kappa$ & Prior & Posterior mean & Approx. $\prob(\pi>0.5\mid y)$\\
+        \midrule
+        20 & Beta(9,11) & 0.557 & 0.83\\
+        60 & Beta(27,33) & 0.518 & 0.65\\
+        100 & Beta(45,55) & 0.500 & 0.50\\
+        \bottomrule
+      \end{tabular}
+    \end{center}
+    \begin{block}{Implication}
+      A recommendation near its loss-based threshold should trigger prior and model sensitivity checks.
+    \end{block}
+  \end{frame}
+}
+
+%-----------------------------------------------
+\begin{frame}{Posterior Predictive Risk Concerns What Happens Next}
+  For a future sample of size $m$,
+  \[
+  \tilde Y\mid y\sim\mathrm{BetaBinomial}
+  \bigl(m,\alpha+y,\beta+n-y\bigr).
+  \]
+  \[
+  \prob(\tilde Y=k\mid y)=\binom{m}{k}
+  \frac{B(\alpha+y+k,\,\beta+n-y+m-k)}
+  {B(\alpha+y,\,\beta+n-y)}.
+  \]
+  \begin{block}{Use the right uncertainty}
+    $\pi\mid y$ describes the latent support rate; $\tilde Y\mid y$ describes a future observed count and includes sampling variability.
+  \end{block}
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}[fragile]{A Compact R Workflow}
+  \begin{minted}[fontsize=\scriptsize, linenos]{r}
+    alpha <- 45; beta <- 55
+    y <- 30; n <- 50
+    
+    a_post <- alpha + y
+    b_post <- beta + n - y
+    
+    post_mean <- a_post / (a_post + b_post)
+    p_viable  <- 1 - pbeta(.50, a_post, b_post)
+    ci_95     <- qbeta(c(.025, .975), a_post, b_post)
+    
+    # posterior predictive simulation for m = 100
+    pi_draw <- rbeta(100000, a_post, b_post)
+    y_new   <- rbinom(100000, 100, pi_draw)
+  \end{minted}
+\end{frame}
+
+%-----------------------------------------------
+\begin{frame}{Simulation Gives a Second Route to Posterior Intuition}
+  \begin{enumerate}
+    \item Draw $\pi^{(s)}\sim\mathrm{Beta}(45,55)$.
+    \item Draw $Y^{(s)}\sim\mathrm{Bin}(50,\pi^{(s)})$.
+    \item Retain draws for which $Y^{(s)}=30$.
+    \item The retained $\pi^{(s)}$ values approximate $\mathrm{Beta}(75,75)$.
+  \end{enumerate}
+  \begin{block}{}
+    The algebra is exact and efficient; simulation makes conditioning concrete and extends to models without closed-form updates.
+  \end{block}
+\end{frame}
+
+%-----------------------------------------------
+%\begin{frame}{Model risk can dominate parameter uncertainty}
+%  \footnotesize
+%  \begin{center}
+%    \begin{tabular}{
+%      >{\raggedright\arraybackslash}p{0.27\textwidth}
+%      >{\raggedright\arraybackslash}p{0.28\textwidth}
+%      >{\raggedright\arraybackslash}p{0.34\textwidth}
+%    }
+%    \toprule
+%    Assumption & Failure mode & Response \\
+%    \midrule
+%    Representative sample & Selection/nonresponse bias & Weighting, redesign, bias analysis \\ \hline
+%    Conditional independence & Clustered responses & Hierarchical or overdispersed model \\ \hline
+%    Constant $\pi$ & Time-varying support & Dynamic model; recency weighting \\ \hline
+%    Binary response is meaningful & Undecided voters or measurement error & Richer outcome/measurement model \\ \hline
+%    Prior relevance & Historical regime changed & Skeptical priors; robustness analysis \\
+%    \bottomrule
+%  \end{tabular}
+%\end{center}
+%\end{frame}
+
+%-----------------------------------------------
+%\begin{frame}{Ethics belongs inside the risk register}
+%  Before collecting, modeling, or acting, ask:
+%  \begin{itemize}
+%    \item Who receives benefits, and who bears harms?
+%    \item Who is included, excluded, or made less visible by the sample?
+%    \item Are consent, privacy, and data-use expectations respected?
+%    \item What harms arise when results are generalized beyond the study population?
+%    \item Were affected communities involved in defining the decision and its losses?
+%  \end{itemize}
+%  \begin{block}{Professional responsibility}
+%    Technical validity is necessary,\\but it does not establish that a decision is legitimate or ethical.
+%  \end{block}
+%\end{frame}
+
+{
+  \setbeamercolor{background canvas}{bg=orange!10}
+  %-----------------------------------------------
+  \begin{frame}{In-class Exercise}
+    An inspection system has prior defect rate
+    \[
+    \pi\sim\mathrm{Beta}(2,38).
+    \]
+    A new audit finds $y=4$ defective items among $n=20$.
+    \begin{enumerate}
+      \item Write the posterior distribution.
+      \item Compute its mean.
+      \item Define an action threshold using false-alarm cost $C_{FP}=1$ and missed-defect cost $C_{FN}=9$.
+      \item What posterior probability must be estimated to decide whether to intervene when ``high risk'' means $\pi>0.10$?
+      \item Name one model-risk concern that the calculation omits.
+    \end{enumerate}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \textbf{Answer:}
+    {\color{blue}
+    \[
+    \pi\mid y\sim\mathrm{Beta}(2+4,38+16)=\mathrm{Beta}(6,54),
+    \qquad \E(\pi\mid y)=0.10.
+    \]
+    Let $q=\prob(\pi>0.10\mid y)$. Intervene when
+    \[
+    q>\frac{C_{FP}}{C_{FP}+C_{FN}}=\frac{1}{10}=0.10
+    \]
+    Because the posterior mean equals the risk threshold, $q$ is near one-half, so intervention is likely under this asymmetric loss.
+
+    \vspace{0.5em}
+    Possible model risks: clustered defects, changing production conditions, imperfect detection, or a nonrepresentative audit.
+  }
+\end{frame}
+}
+
+%-----------------------------------------------
+{
+  \setbeamercolor{background canvas}{bg=orange!10}
+  \begin{frame}{Practice Questions}
+    \small
+    \begin{enumerate}
+      \item If prior concentration doubles but its mean stays fixed, what changes?
+      \item Why is $L(\pi\mid y)$ not $\prob(\pi\mid y)$?
+      \item What does conjugacy buy us computationally?
+      \item When can two analysts share a posterior but rationally choose different actions?
+      \item Which assumption would you challenge first in the election-poll example?
+      \item Identify the most decision-sensitive assumption.
+      \item Provide one example where false-positive and false-negative costs differ.
+      % \item Questions in the textbook: Exercise 3.4, Exercise 3.9, Exercise 3.11.
+    \end{enumerate}
+  \end{frame}
+
+  \setbeamercolor{background canvas}{bg=orange!10}
+  \begin{frame}{Practice Questions}
+    \small
+    \begin{enumerate}
+      \item[8.] Six Beta pdfs are plotted below.\\
+      Match each to one of the following models:\\
+      Beta(0.5,0.5), Beta(1,1), Beta(2,2), Beta(6,6), Beta(6,2), Beta(0.5,6).\\
+      \begin{center}
+        \includegraphics[height=4cm]{unnamed-chunk-114-1.png}
+      \end{center}
+    \end{enumerate}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \small
+    \begin{enumerate}
+      \item[9.] What do you call a sweet carbonated drink: pop, soda, coke, or something else?
+      Let $\pi$ be the proportion of U.S. residents that prefer the term "pop." Two different beverage salespeople from different regions of the country have different priors for $\pi$.
+      The first salesperson works in North Dakota and specifies a Beta(8,2) prior. The second works in Louisiana and specifies a Beta(1,20) prior.
+      \begin{enumerate}
+        \item[a.] Calculate the prior mean, mode, and standard deviation of $\pi$ for both salespeople.
+        \item[b.] Plot the prior PDFs for both salespeople.
+        \item[c.] Compare, in words, the salespeople's prior beliefs about the proportion of U.S. residents who say ``pop.''
+      \end{enumerate}
+    \end{enumerate}
+  \end{frame}
+
+  %-----------------------------------------------
+  \begin{frame}{}
+    \small
+    \begin{enumerate}
+      \item[10.] A university wants to know what proportion of students are regular bike riders, $\pi$, so that they can install an appropriate number of bike racks.
+      Since the university is in sunny Texas, staff think that $\pi$ has a mean of 1 in 4 students, and a mode of $5/22$.
+      \begin{enumerate}
+        \item[a.] Specify and plot a Beta model that reflects the staff's prior ideas about $\pi$.
+        \item[b.] Among 50 surveyed students, 15 are regular bike riders. What is the posterior model for $\pi$?
+        \item[c.] What are the mean, mode, and standard deviation of the posterior model?
+        \item[d.] Does the posterior model more closely reflect the prior information or the data? Explain your reasoning.
+      \end{enumerate}
+    \end{enumerate}
+  \end{frame}
+}
+
+%-----------------------------------------------
+%\begin{frame}{The Model Is Simple; Disciplined Use is Not}
+%  \begin{enumerate}
+%    \item Specify $\pi$, the action, and the consequence-relevant threshold.
+%    \item Defend the Beta prior's center and concentration.
+%    \item Check whether the Binomial assumptions fit the data-generating process.
+%    \item Update: $\mathrm{Beta}(\alpha+y,\beta+n-y)$.
+%    \item Compute posterior and predictive quantities tied to the decision.
+%    \item Minimize posterior expected loss.
+%    \item Stress-test prior, likelihood, losses, and ethical impacts.
+%  \end{enumerate}
+%  \begin{block}{}
+%    Bayesian updating quantifies learning; decision analysis makes the consequences explicit.
+%  \end{block}
+%\end{frame}
+
+\end{document}
