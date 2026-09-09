@@ -5,8 +5,8 @@ beta_prior  <- 2
 
 # 2. Enter observed data: 7 heads in 10 flips
 n_flips <- 10
-heads <- 7
-tails <- n_flips - heads
+heads   <- 7
+tails   <- n_flips - heads
 
 # 3. Compute posterior parameters: Beta(9, 5)
 alpha_posterior <- alpha_prior + heads

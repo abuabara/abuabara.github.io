@@ -134,23 +134,62 @@ Fall 2026
     %-----------------------------------------------
     \begin{frame}{The Decision Begins Before the Calculation}
       \large
-      Michelle's historical support is near 45\%.\\
-      A new poll reports 30 supporters among 50 voters.\\
-      {\bf Decision Question:} Should the campaign allocate scarce field resources to Michelle's state if winning requires support above 50\%?
+      \begin{itemize}
+        \item Michelle's historical support is near 45\%.\\
+        \item A new poll reports 30 supporters among 50 voters.\\
+        \item {\bf Decision Question:} Should the campaign allocate scarce field resources to Michelle's state if winning requires support above 50\%?
+      \end{itemize}
     \end{frame}
-  }
+  
+   %-----------------------------------------------
+    \begin{frame}{Why the Decision Begins Before the Calculation?}
+      \large
+      \pause
+      The campaign is not just doing arithmetic ... it is making a decision under uncertainty.\\
+      
+      The poll result matters, but the campaign first has to define the practical question: {\bf Would this state be worth scarce field resources? The 50\% threshold comes from the goal of winning, while the 45\% historical level explains why the new poll is surprising but not automatically conclusive.}\\
+      
+      A new poll reports 30 supporters among 50 voters.
+    \end{frame}
+    
+    \begin{frame}{}
+      \textbf{Bayesian framing:} historical support near \(45\%\) can be incorporated
+      into a prior distribution for Michelle's true support \(p\).
 
-  %-----------------------------------------------
-  \begin{frame}{Learning Objectives}
-    \begin{itemize}
-      \item Encode prior knowledge about an unknown proportion\\(with a Beta model);
-      \item Distinguish a Binomial data model from its likelihood function;
-      \item Update Beta prior parameters after observing Binomial data;
-      \item Translate a posterior into probabilities relevant to a decision;
-      \item Choose an action by minimizing posterior expected loss;
-      \item Test whether the recommendation is robust to prior assumptions.
-    \end{itemize}
+      \[
+      \underbrace{\pi(p)}_{\text{Prior: historical evidence}}
+      \quad + \quad
+      \underbrace{X=30,\; n=50}_{\text{New poll}}
+      \quad \Longrightarrow \quad
+      \underbrace{\pi(p\mid X)}_{\text{Posterior}}
+      \]
+
+      Instead of asking whether we can reject
+      $
+      H_0:p\leq 0.50,
+      $
+
+      the Bayesian decision focuses directly on
+      \[
+      \Pr(p>0.50\mid X=30,n=50).
+      \]
+
+      \begin{block}{Decision Rule}
+      Before computing the posterior, specify how much posterior confidence
+      is required to justify scarce campaign resources:
+      \[
+      \text{Allocate resources if }
+      \Pr(p>0.50\mid \text{data})>\tau,
+      \]
+      where \(\tau\) is chosen from the consequences of a wrong decision.
+      \end{block}
+
+      \centering
+      \small
+      \textbf{Prior information + consequences + action threshold before the calculation}
+
   \end{frame}
+  }
 
   %-----------------------------------------------
   \begin{frame}{Four Ingredients Organize the Analysis}
@@ -172,6 +211,18 @@ Fall 2026
     \end{block}
   \end{frame}
 
+  %-----------------------------------------------
+  \begin{frame}{Learning Objectives}
+    \begin{itemize}
+      \item Encode prior knowledge about an unknown proportion\\(with a Beta model);
+      \item Distinguish a Binomial data model from its likelihood function;
+      \item Update Beta prior parameters after observing Binomial data;
+      \item Translate a posterior into probabilities relevant to a decision;
+      \item Choose an action by minimizing posterior expected loss;
+      \item Test whether the recommendation is robust to prior assumptions.
+    \end{itemize}
+  \end{frame}
+  
   %-----------------------------------------------
   \begin{frame}
     \begin{block}{Beta-Binomial Conjugacy}
@@ -231,6 +282,10 @@ Fall 2026
 
   %-----------------------------------------------
   \begin{frame}{}
+    \begin{textblock*}{2cm}(9.8cm,0.3cm)
+      \includegraphics[width=2cm]{attendance.jpg}
+    \end{textblock*}
+    
     To understand conjugate priors mathematically, we use Bayes' rule.
     It states that the posterior probability is proportional to the prior multiplied by the likelihood:
     \[
@@ -739,15 +794,31 @@ Fall 2026
     \[
     p(\theta)=\frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)}\,\theta^{\alpha-1}(1-\theta)^{\beta-1}.
     \]
-
+    
+    {
+    \footnotesize
+    where
+    $
+    \Gamma(z)=\int_{0}^{\infty} x^{z-1}e^{-x}\,dx
+    $
+    and
+    $
+    \Gamma(z+1)=z\Gamma(z).
+    $
+    Fun fact: when \(z\) is a positive integer, then \(\Gamma(z)\) simplifies to
+    $
+    \Gamma(z)=(z-1)!.
+    $
+    }
+    
+    \vspace{.1cm}
+    
     For conjugacy, we focus on the kernel:
     \[
     p(\theta) \propto \theta^{\alpha-1}(1-\theta)^{\beta-1}.
     \]
 
-    \begin{block}{Interpretation}
-      $\alpha-1$ acts like prior successes; $\beta-1$ acts like prior failures.
-    \end{block}
+    \alert{$\alpha-1$ acts like prior successes; $\beta-1$ acts like prior failures.}
   \end{frame}
 
   %-----------------------------------------------
