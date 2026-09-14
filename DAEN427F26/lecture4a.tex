@@ -1,0 +1,464 @@
+%\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[aspectratio=43,11pt]{beamer}
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+%\setbeamercolor{structure}{fg=black}
+\setbeamercolor{structure}{fg=aggiemaroon}
+%\setbeamercolor{frametitle}{fg=black,bg=black!6}
+\setbeamercolor{frametitle}{fg=aggiemaroon,bg=aggiemaroon!6}
+\setbeamerfont{frametitle}{series=\bfseries}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\definecolor{priorblue}{RGB}{49,95,160}
+\definecolor{datagreen}{RGB}{36,130,90}
+\definecolor{postred}{RGB}{180,65,55}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\lstdefinelanguage{R}{keywords={library,data,set.seed,filter,summarise,mutate,ggplot,aes,geom_line,dbeta,seq,tibble,rbind},sensitive=true,comment=[l]\#,string=[b]"}
+\lstset{language=R,basicstyle=\ttfamily\scriptsize,keywordstyle=\color{priorblue}\bfseries,commentstyle=\color{black!55},stringstyle=\color{datagreen},showstringspaces=false,breaklines=true,columns=fullflexible,frame=single,framerule=.3pt}
+\newcommand{\riskbox}[1]{\begin{beamercolorbox}[rounded=true,sep=.8em]{block body} #1\end{beamercolorbox}}
+\title{Decision and Risk Analysis}
+\subtitle{Lecture 4: \textbf{Bayesian Balance and Sequential Learning}}
+\author{\emph{}}
+\date{\color{aggiemaroon}{
+DAEN 427 / ISEN 427 / ISEN 627\\
+\textbf{Alexander Abuabara}\\
+Fall 2026
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+\begin{frame}\titlepage\end{frame}
+
+\begin{frame}{Learning objectives}
+By the end of class, you should be able to:
+\begin{itemize}
+  \item explain how prior information and observed data jointly determine a posterior;
+  \item quantify their influence in a Beta--Binomial model;
+  \item update beliefs sequentially as evidence arrives;
+  \item recognize when a prior prevents learning from evidence;
+  \item connect posterior probabilities to risk decisions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Decision setting: an uncertain event rate}
+Let $\pi$ denote the unknown probability of an event.
+\begin{itemize}
+  \item Safety: probability that a component fails during a mission.
+  \item Operations: probability that demand exceeds capacity.
+  \item Screening: probability that a sampled item is nonconforming.
+\end{itemize}
+We observe $Y$ events in $n$ comparable trials:
+\[
+Y\mid \pi \sim \operatorname{Bin}(n,\pi), \qquad
+\pi\sim\operatorname{Beta}(\alpha,\beta).
+\]
+\riskbox{The posterior describes uncertainty about the event rate. A decision still requires consequences, alternatives, and a decision rule.}
+\end{frame}
+
+\begin{frame}{Running example: films and the Bechdel test}
+The chapter asks what proportion $\pi$ of recent films pass a representation test. Three analysts begin with different beliefs.
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Analyst & Prior & Interpretation \\
+\midrule
+Skeptic & $\operatorname{Beta}(5,11)$ & pass rates below 0.5 seem more plausible \\
+Uncertain & $\operatorname{Beta}(1,1)$ & all rates receive equal density \\
+Optimist & $\operatorname{Beta}(14,1)$ & rates near 1 seem highly plausible \\
+\bottomrule
+\end{tabular}
+\end{center}
+\vspace{.5em}
+Which prior carries the most information?\\
+How can you tell without seeing a graph?
+\end{frame}
+
+\begin{frame}{Reading Beta priors}
+For $\pi\sim\operatorname{Beta}(\alpha,\beta)$:
+\[
+E(\pi)=\frac{\alpha}{\alpha+\beta}, \qquad
+\operatorname{Var}(\pi)=\frac{\alpha\beta}{(\alpha+\beta)^2(\alpha+\beta+1)}.
+\]
+\begin{itemize}
+  \item The ratio $\alpha:(\alpha+\beta)$ locates the prior mean.
+  \item The total $\alpha+\beta$ measures prior concentration and behaves like a prior sample size.
+  \item A vague prior spreads plausibility broadly; an informative prior concentrates it.
+\end{itemize}
+\riskbox{Prior concentration determines how much new evidence a model needs before a risk estimate moves substantially.}
+\end{frame}
+
+\begin{frame}[fragile]{R: inspect competing priors}
+\begin{lstlisting}
+library(tidyverse)
+
+priors <- tibble(
+  analyst = c("Skeptic", "Uncertain", "Optimist"),
+  alpha   = c(5, 1, 14),
+  beta    = c(11, 1, 1)
+)
+
+grid <- crossing(priors, pi = seq(0, 1, length.out = 501)) |>
+  mutate(density = dbeta(pi, alpha, beta))
+
+ggplot(grid, aes(pi, density, color = analyst)) +
+  geom_line(linewidth = 1) + theme_minimal()
+\end{lstlisting}
+\textbf{Interpretation (before computation!):}\\
+location represents belief; spread represents certainty.
+\end{frame}
+
+\begin{frame}{Conjugate updating keeps the calculation simple}
+After observing $Y=y$ successes in $n$ trials,
+\[
+\pi\mid(Y=y)\sim\operatorname{Beta}(\alpha+y,\;\beta+n-y).
+\]
+The update has a useful counting interpretation:
+\begin{align*}
+\text{posterior success parameter} &= \alpha + \text{observed successes},\\
+\text{posterior failure parameter} &= \beta + \text{observed failures}.
+\end{align*}
+\textbf{Note:} $\alpha$ and $\beta$ are hyperparameters.\\
+Calling them literal past observations is often only an analogy.
+\end{frame}
+
+\begin{frame}{Same data, different posteriors}
+In a sample of 20 films, 9 pass. Every analyst sees the same likelihood.
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Analyst & Prior & Posterior & Posterior mean \\
+\midrule
+Skeptic & $\mathrm{Beta}(5,11)$ & $\mathrm{Beta}(14,22)$ & 0.389 \\
+Uncertain & $\mathrm{Beta}(1,1)$ & $\mathrm{Beta}(10,12)$ & 0.455 \\
+Optimist & $\mathrm{Beta}(14,1)$ & $\mathrm{Beta}(23,12)$ & 0.657 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\begin{itemize}
+  \item The vague prior yields a posterior centered close to $9/20=0.45$.
+  \item The concentrated optimistic prior still pulls the posterior upward.
+\end{itemize}
+\riskbox{With limited evidence, plausible prior judgments can produce materially different risk estimates. Sensitivity analysis should show that range.}
+\end{frame}
+
+\begin{frame}{Same prior, similar rate, different sample sizes}
+All three analysts use $\mathrm{Beta}(14,1)$ and observe a pass rate near 46\%.
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Data & Sample rate & Posterior & Posterior mean \\
+\midrule
+$6/13$ & 0.462 & $\mathrm{Beta}(20,8)$ & 0.714 \\
+$29/63$ & 0.460 & $\mathrm{Beta}(43,35)$ & 0.551 \\
+$46/99$ & 0.465 & $\mathrm{Beta}(60,54)$ & 0.526 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The larger sample generates a narrower likelihood and pulls the posterior farther from the optimistic prior.
+\riskbox{Evidence quality involves more than an observed rate. Sample size controls how strongly the rate should change a decision model.}
+\end{frame}
+
+\begin{frame}{Posterior mean as a weighted compromise}
+\[
+E(\pi\mid y)=\frac{\alpha+y}{\alpha+\beta+n}
+=\underbrace{\frac{\alpha+\beta}{\alpha+\beta+n}}_{w_{\text{prior}}}
+\underbrace{\frac{\alpha}{\alpha+\beta}}_{\text{prior mean}}
++\underbrace{\frac{n}{\alpha+\beta+n}}_{w_{\text{data}}}
+\underbrace{\frac{y}{n}}_{\text{sample rate}}.
+\]
+\[
+w_{\text{prior}}+w_{\text{data}}=1.
+\]
+This identity makes the balance explicit. The prior contributes $\alpha+\beta$ units of concentration; the data contribute $n$ trials.
+\end{frame}
+
+\begin{frame}{Worked balance calculation}
+Use the optimistic prior $\mathrm{Beta}(14,1)$.
+\begin{columns}[T]
+\column{.48\textwidth}
+\textbf{Small sample: $6/13$}
+\[
+w_{\text{prior}}=\frac{15}{28}=0.536
+\]
+\footnotesize
+\[
+\begin{aligned}
+E(\pi\mid y)
+  &= 0.536(0.933)+0.464(0.462) \\
+  &= 0.714.
+\end{aligned}
+\]
+\column{.48\textwidth}
+\textbf{Larger sample: $46/99$}
+\[
+w_{\text{prior}}=\frac{15}{114}=0.132
+\]
+\footnotesize
+\[
+\begin{aligned}
+E(\pi\mid y)
+  &= 0.132(0.933)+0.868(0.465) \\
+  &= 0.526.
+\end{aligned}
+\]
+\end{columns}
+\vspace{.7em}
+The same prior and almost the same observed rate lead to different posterior means because the evidence has different weight.
+\end{frame}
+
+\begin{frame}{What happens as evidence accumulates?}
+For a fixed proper Beta prior,
+\[
+\frac{\alpha+\beta}{\alpha+\beta+n}\longrightarrow 0,
+\qquad
+\frac{n}{\alpha+\beta+n}\longrightarrow 1.
+\]
+Therefore,
+\[
+E(\pi\mid y)\longrightarrow \frac{y}{n}
+\quad\text{as }n\text{ grows}.
+\]
+Analysts with different non-stubborn priors tend to converge when they observe strong common evidence.
+
+Does convergence guarantee a good decision if the trials are biased or not comparable to the decision context?
+\end{frame}
+
+\begin{frame}
+\begin{itemize}
+\item More data do not automatically mean better inference.
+\item If the observations are biased, dependent, measured incorrectly, or drawn from a population that differs from the decision population, the posterior may become extremely certain about the wrong value.
+\item Bayesian updating correctly processes the evidence described by the model; it cannot by itself correct a flawed sampling or data-generating process.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{R: visualize and summarize the balance}
+\begin{lstlisting}
+library(bayesrules)
+
+plot_beta_binomial(alpha = 14, beta = 1,
+                   y = 6, n = 13)
+
+summarize_beta_binomial(alpha = 14, beta = 1,
+                        y = 6, n = 13)
+
+# Compare with stronger evidence at nearly the same rate
+plot_beta_binomial(alpha = 14, beta = 1,
+                   y = 46, n = 99)
+\end{lstlisting}
+Look for three objects: prior density, scaled likelihood, and posterior density.
+A scaled likelihood aids visual comparison but remains distinct from a probability density.
+\end{frame}
+
+\begin{frame}{From probability to a risk decision}
+Suppose action $a_1$ mitigates an adverse event and action $a_0$ does not. Let $L(a,\pi)$ denote loss.
+\[
+\text{Posterior expected loss}(a)=E[L(a,\pi)\mid y].
+\]
+Choose the action with smaller posterior expected loss.
+\begin{block}{Simple threshold case}
+If mitigation costs $C$ and an unmitigated event causes loss $D$, mitigate when
+\[
+P(\text{event}\mid y)\,D > C.
+\]
+\end{block}
+Prior sensitivity matters most when competing posterior decisions lie near the action threshold.
+\end{frame}
+
+\begin{frame}{Sequential Bayesian learning}
+As each batch arrives, yesterday's posterior becomes today's prior.
+\[
+\mathrm{Beta}(\alpha_{t-1},\beta_{t-1})
+\xrightarrow{\ y_t\text{ of }n_t\ }
+\mathrm{Beta}(\alpha_{t-1}+y_t,\beta_{t-1}+n_t-y_t).
+\]
+This supports risk monitoring in settings where evidence arrives over time: reliability tests, incident counts, inspections, and demand observations.
+\end{frame}
+
+\begin{frame}{Milgram example: three sequential batches}
+The chapter begins with $\pi\sim\mathrm{Beta}(1,10)$ and updates three batches.
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Stage & New data & Current model & Posterior mean \\
+\midrule
+0 & none & $\mathrm{Beta}(1,10)$ & 0.091 \\
+1 & $1/10$ & $\mathrm{Beta}(2,19)$ & 0.095 \\
+2 & $17/20$ & $\mathrm{Beta}(19,22)$ & 0.463 \\
+3 & $8/10$ & $\mathrm{Beta}(27,24)$ & 0.529 \\
+\bottomrule
+\end{tabular}
+\end{center}
+The second batch causes the largest change because it conflicts sharply with the belief accumulated through stage 1.
+\end{frame}
+
+\begin{frame}[fragile]{R: implement sequential updating}
+\begin{lstlisting}
+batches <- tibble(day = 1:3,
+                  y = c(1, 17, 8),
+                  n = c(10, 20, 10))
+
+alpha <- 1; beta <- 10
+history <- tibble(day = 0, alpha = alpha, beta = beta)
+
+for (i in seq_len(nrow(batches))) {
+  alpha <- alpha + batches$y[i]
+  beta  <- beta + batches$n[i] - batches$y[i]
+  history <- rbind(history,
+                   tibble(day = i, alpha = alpha, beta = beta))
+}
+
+history |> mutate(mean = alpha / (alpha + beta))
+\end{lstlisting}
+This pattern generalizes to any stream of Binomial batches.
+\end{frame}
+
+\begin{frame}{Order changes the path, not the destination}
+Original order:
+\[
+\mathrm{Beta}(1,10)\to\mathrm{Beta}(2,19)\to
+\mathrm{Beta}(19,22)\to\boxed{\mathrm{Beta}(27,24)}.
+\]
+Reverse order:
+\[
+\mathrm{Beta}(1,10)\to\mathrm{Beta}(9,12)\to
+\mathrm{Beta}(26,15)\to\boxed{\mathrm{Beta}(27,24)}.
+\]
+The intermediate beliefs differ. The final posterior depends only on cumulative totals: 26 successes and 14 failures.
+\riskbox{Operational actions taken between batches can differ even when the final statistical model is order invariant. Timing still matters for decisions.}
+\end{frame}
+
+\begin{frame}{Why order invariance holds}
+For conditionally independent observations $y_1,y_2$,
+\[
+f(\theta\mid y_1,y_2)\propto f(\theta)L(\theta\mid y_1)L(\theta\mid y_2).
+\]
+Multiplication commutes:
+\[
+L(\theta\mid y_1)L(\theta\mid y_2)
+=L(\theta\mid y_2)L(\theta\mid y_1).
+\]
+Sequential and pooled updates therefore yield the same final posterior under the same model assumptions.
+\textbf{Boundary of the result:} dependence, changing data-generating processes, or adaptive sampling may require an expanded model.
+\end{frame}
+
+\begin{frame}{A prior can block learning}
+Suppose a researcher assigns
+\[
+\pi\sim\mathrm{Unif}(0,0.25).
+\]
+Even after observing 8 events in 10 trials, Bayes' rule gives
+\[
+f(\pi\mid y=8)\propto \pi^8(1-\pi)^2
+\quad\text{only for }0\leq\pi\leq0.25.
+\]
+The posterior cannot place probability above 0.25 because the prior assigns that region probability zero.
+\begin{alertblock}{Modeling rule}
+Avoid excluding technically possible parameter values unless the exclusion follows from a genuine physical or logical constraint.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Subjectivity and transparent analysis}
+Bayesian analysis makes several judgments visible:
+\begin{itemize}
+  \item prior location and concentration;
+  \item likelihood and sampling assumptions;
+  \item outcomes, losses, and decision thresholds.
+\end{itemize}
+Good practice for risk analysis:
+\begin{enumerate}
+  \item justify the prior from data, expertise, or a stated weak-information goal;
+  \item report sensitivity to plausible alternatives;
+  \item inspect prior predictive implications;
+  \item revise the model when the evidence reveals misspecification.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{In-class}
+A maintenance action costs \$12,000. A failure costs \$100,000. Assume the action prevents failure and has no other consequence.
+\begin{enumerate}
+  \item What posterior failure probability triggers maintenance?
+  \item Would the decision change under posterior means 0.09, 0.14, and 0.22?
+  \item What important consequences or uncertainties does this simple rule omit?
+\end{enumerate}
+\vspace{.6em}
+%\textbf{Answer to 1:} maintain when $P(\text{failure}\mid y)>0.12$.
+\end{frame}
+
+\begin{frame}{In-class (1)}
+A maintenance action costs \$12,000. Failure costs \$100,000. Assume maintenance completely prevents failure and has no other consequence.
+
+Let $p=P(\text{failure}\mid y)$. Compare posterior expected costs:
+\[
+\begin{aligned}
+E[C\mid\text{no maintenance},y] &= 100{,}000p,\\
+E[C\mid\text{maintenance},y] &= 12{,}000.
+\end{aligned}
+\]
+Maintenance has lower expected cost when
+\[
+100{,}000p>12{,}000
+\quad\Longleftrightarrow\quad
+\boxed{p>0.12}.
+\]
+At $p=0.12$, the two actions have equal expected cost.
+\end{frame}
+
+\begin{frame}{In-class: (2) and (3)}
+\begin{center}
+\small
+\begin{tabular}{ccc}
+\toprule
+Posterior failure & Expected cost & Decision \\
+ probability & without maintenance &  \\
+\midrule
+$0.09$ & \$9,000 & Do not maintain \\
+$0.14$ & \$14,000 & Maintain \\
+$0.22$ & \$22,000 & Maintain \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{What the simple model omits}
+\begin{itemize}
+  \item Maintenance may reduce rather than eliminate failure risk.
+  \item Failure losses and maintenance effectiveness may be uncertain.
+  \item Downtime, safety, environmental, and reputational consequences may matter.
+  \item Risk aversion and the value of waiting for more information may change the choice.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Conclusions}
+\begin{itemize}
+  \item The posterior balances the prior and evidence.
+  \item Prior concentration and sample size determine the balance in the Beta--Binomial model.
+  \item Sequential updating reuses the current posterior as the next prior.
+  \item The final posterior is order invariant under the stated model assumptions.
+  \item Zero prior support cannot be repaired by contradictory data.
+  \item Risk decisions require posterior uncertainty plus explicit consequences.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Homework: prior judgment and balance}
+\begin{enumerate}
+  \item \textbf{Exercise 4.3} Propose reasonable Beta priors for five judgments about the chance that a ginkgo tree drops its leaves next Monday: very unlikely; completely unsure; very likely based on last year; a decent chance with uncertainty; probably not, with uncertainty. Justify each choice using its mean and concentration.
+  \item \textbf{Exercise 4.7} For each of the five prior-and-data scenarios in the chapter, determine whether the prior, data, or neither has greater influence. Verify using $w_{\rm prior}$ and $w_{\rm data}$ and plot at least two cases in R.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Homework}
+\begin{enumerate}\setcounter{enumi}{2}
+  \item \textbf{Exercise 4.13} Analyze a politician's $\mathrm{Unif}(0.5,1)$ prior after a poll reports 0 approvals among 100 people. Sketch the prior and posterior, describe the conclusion, and diagnose the modeling error.
+  \item \textbf{Exercise 4.18} Begin with $\mathrm{Beta}(4,3)$ for an ad click rate. Update sequentially with batches $(y,n)=(0,1),(3,10),(20,100)$. Report and plot each posterior, then verify that pooling all data gives the same final posterior.
+\end{enumerate}
+\vspace{.5em}
+\textbf{Include in the submission:} derivations, interpretations in complete sentences, and reproducible R code (with labeled plots).
+\end{frame}
+
+\end{document}

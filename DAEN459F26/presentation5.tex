@@ -1,0 +1,168 @@
+\documentclass[12pt]{beamer}
+
+%CORE PACKAGES---------------------------------
+\usepackage{amsmath, amssymb, graphicx, booktabs, tabularx, setspace, soul}
+\usepackage[absolute, overlay]{textpos}
+\usepackage{subcaption}
+\usepackage{tikz, pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{positioning, arrows.meta, arrows.meta, positioning, shapes, calc}
+\usepackage[many]{tcolorbox}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{minted}
+
+%FONTS & STYLING-------------------------------
+\usepackage{fontspec, emoji, tikzsymbols}
+\usefonttheme{professionalfonts}
+\setsansfont[
+UprightFont    = *Light,
+BoldFont       = *Bold,
+ItalicFont     = *Light Italic,
+BoldItalicFont = *Bold Italic,
+Ligatures      = TeX,
+Scale          = MatchLowercase
+]{Frutiger LT Pro}
+\renewcommand{\familydefault}{\sfdefault}
+\linespread{1.}\selectfont
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\newcommand{\prob}{\mathsf{P}}
+\newcommand{\lik}{\mathcal{L}}
+\newcommand{\fixed}[1]{\textcolor{orange}{#1}}
+
+%COLORS & THEMES-------------------------------
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\definecolor{beamer@blendedblue}{RGB}{80,0,0}
+\definecolor{AggieMaroon}{HTML}{500000}
+\definecolor{SoftGray}{HTML}{F5F5F5}
+\definecolor{DarkGray}{HTML}{333333}
+\definecolor{AccentBlue}{HTML}{2F5597}
+\definecolor{deepBlue}{RGB}{0,64,128}
+%\definecolor{softGray}{RGB}{245,245,245}
+\definecolor{posteriorGreen}{RGB}{40,110,70}
+
+\usecolortheme{default}
+
+\setbeamertemplate{itemize items}{•}
+\setbeamertemplate{itemize subitem}[•]
+\setbeamertemplate{itemize subsubitem}[•]
+\renewcommand{\UrlFont}{\ttfamily\footnotesize}
+\newcommand{\vocab}[1]{\textcolor{AggieMaroon}{\textbf{#1}}}
+\newcommand{\question}[1]{\begin{block}{Question}#1\end{block}}
+\newcommand{\smallnote}[1]{{\footnotesize\textcolor{DarkGray}{#1}}}
+
+%HYPERLINKS------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+colorlinks=true,
+linkcolor=aggiemaroon,
+urlcolor=aggiemaroon,
+citecolor=aggiemaroon
+}
+
+%BEAMER TEMPLATES------------------------------
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}{
+\color{aggiemaroon}{\hfill \insertframenumber/\inserttotalframenumber \hspace{2pt} \vskip2pt}
+}
+
+%CUSTOM ENVIRONMENTS---------------------------
+\newenvironment{stepenumerate}{
+\begin{enumerate}[<+->]
+}{\end{enumerate}}
+
+\newenvironment{stepitemize}{
+\begin{itemize}[<+->]
+}{\end{itemize}}
+
+\newenvironment{stepenumeratewithalert}{
+\begin{enumerate}[<+-| alert@+>]
+}{\end{enumerate}}
+
+\newenvironment{stepitemizewithalert}{
+\begin{itemize}[<+-| alert@+>]
+}{\end{itemize}}
+
+%DOCUMENT INFO----------------------------------
+\title{From Friction to Architecture}
+\subtitle{Problem Framing,\\ Needs Assessment, \& Requirements Elicitation}
+%\author{Data Engineering Lifecycle Management}
+%\date{\today}
+\date{\color{aggiemaroon}{
+DAEN 459\\
+\textbf{Alexander Abuabara}\\
+Fall 2026
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+%-----------------------------------------------
+\begin{document}
+
+%-----------------------------------------------
+%\maketitle
+
+% Slide 1: Title Slide
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Slide 2: The Core Workflow
+\begin{frame}{The Discovery Workflow}
+    \begin{itemize}
+        \item \textbf{Problem Framing:} Defining the right challenge.
+        \item \textbf{Needs Assessment:} Identifying the foundational gaps.
+        \item \textbf{Requirements Elicitation:} Gathering specific technical rules.
+    \end{itemize}
+\end{frame}
+
+% Slide 3: Problem Framing
+\begin{frame}{1. Problem Framing}
+    \textbf{Concept:} Shifting from surface-level symptoms to root business challenges. Avoids building expensive pipelines for the wrong issue.
+    
+    \vspace{0.3cm}
+    \textbf{Example:}
+    \begin{itemize}
+        \item \emph{Symptom:}\\"The dashboard is too slow."
+        \item \emph{Poor Framing:}\\"We need to rewrite the entire ETL pipeline in Spark."
+        \item \emph{Good Framing:}\\"Business analysts lose decision-making time because downstream BI tables lack optimized partitioning and indexing for morning reports."
+    \end{itemize}
+\end{frame}
+
+% Slide 4: Needs Assessment
+\begin{frame}{2. Needs Assessment}
+    \textbf{Concept:} Evaluating the current state vs. the desired future state. Separates user "wants" from systemic "needs."
+    
+    \vspace{0.3cm}
+    \textbf{Example:}
+    \begin{itemize}
+        \item \emph{User Want:}\\"We want real-time streaming data for all sales metrics."
+        \item \emph{Assessment Finding:}\\The finance team only reviews reports weekly. The underlying source systems update via daily batch jobs. 
+        \item \emph{The True Need:}\\A robust, automated daily batch pipeline with data quality checks, rather than an expensive Kafka infrastructure.
+    \end{itemize}
+\end{frame}
+
+% Slide 5: Requirements Elicitation
+\begin{frame}{3. Requirements Elicitation}
+    \textbf{Concept:} Actively extracting detailed, actionable constraints (functional and non-functional) from stakeholders and systems.
+    
+    \vspace{0.3cm}
+    \textbf{Example:}
+    \begin{itemize}
+        \item \textbf{Functional:}\\The pipeline must ingest JSON files from an S3 bucket, schema-validate them, and flatten them into a Snowflake warehouse.
+        \item \textbf{Non-Functional (SLA):}\\Data must be available by 6:00 AM UTC daily; the pipeline must handle up to 500\% traffic spikes during Black Friday.
+    \end{itemize}
+\end{frame}
+
+% Slide 6: Summary
+\begin{frame}{Summary Checklist for Teams}
+    \begin{enumerate}
+        \item \hl{Don't write code} during \textbf{Problem Framing}.\\Focus entirely on the {\it business} bottleneck.
+        \item Audit your sources (thoroughly inspecting the data systems you depend on) and destinations during \textbf{Needs Assessment}. 
+        \item \ul{Lock down metrics, volume, and latency} during \textbf{Requirements Elicitation}.
+    \end{enumerate}
+\end{frame}
+
+%-----------------------------------------------
+\end{document}
