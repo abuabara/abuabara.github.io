@@ -83,21 +83,20 @@ legend(
   bty = "n"
 )
 
+###################
 alpha <- 45; beta <- 55
 y <- 30; n <- 50
 
-a_post <- alpha + y
-b_post <- beta + n - y
+(a_post <- alpha + y)
+(b_post <- beta + n - y)
 
-post_mean <- a_post / (a_post + b_post)
-p_viable  <- 1 - pbeta(.50, a_post, b_post)
-ci_95     <- qbeta(c(.025, .975), a_post, b_post)
+(post_mean <- a_post / (a_post + b_post))
+(p_viable  <- 1 - pbeta(.50, a_post, b_post))
+(ci_95     <- qbeta(c(.025, .975), a_post, b_post))
 
 # posterior predictive simulation for m = 100
-pi_draw <- rbeta(100000, a_post, b_post)
-y_new   <- rbinom(100000, 100, pi_draw)
-y_new
-
+(pi_draw <- rbeta(100000, a_post, b_post))
+(y_new   <- rbinom(100000, 100, pi_draw))
 
 ###################
 x <- seq(0, 1, length.out = 500)
