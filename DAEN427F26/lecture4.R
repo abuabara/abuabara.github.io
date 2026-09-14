@@ -1,3 +1,47 @@
+# Import data
+library(tidyverse)
+library(janitor)
+
+data(bechdel, package = "bayesrules")
+
+# Take a sample of 20 movies
+set.seed(84735)
+
+bechdel_20 <- bechdel %>% 
+  sample_n(20)
+
+bechdel_20 %>% 
+  head(3)
+# A tibble: 3 x 3
+#    year title      binary
+#    <dbl> <chr>      <chr> 
+# 1  2005 King Kong  FAIL  
+# 2  1983 Flashdance PASS  
+# 3  2013 The Purge  FAIL  
+
+bechdel_20 %>% 
+  tabyl(binary) %>% 
+  adorn_totals("row")
+#  binary  n percent
+#  FAIL   11    0.55
+#  PASS    9    0.45
+#  Total  20    1.00
+
+bechdel %>% 
+  filter(year == 1991) %>% 
+  tabyl(binary) %>% 
+  adorn_totals("row")
+
+bechdel %>% 
+  filter(year == 2000) %>% 
+  tabyl(binary) %>% 
+  adorn_totals("row")
+
+bechdel %>% 
+  filter(year == 2013) %>% 
+  tabyl(binary) %>% 
+  adorn_totals("row")
+
 ###################
 ###################
 library(tidyverse)
