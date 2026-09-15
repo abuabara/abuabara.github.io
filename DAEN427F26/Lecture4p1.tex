@@ -255,19 +255,18 @@ An arrow \(X\rightarrow Y\) does not have one universal meaning.
 
 \pause
 
-\begin{alertblock}{Important warning}
-A DAG is causal only when the arrows are assigned a causal
-interpretation and the required assumptions are defensible.
-\end{alertblock}
+\textcolor{red}{A DAG is causal only when the arrows are assigned a causal
+interpretation and the required assumptions are defensible.}
 
 \medskip
 
-Correlation alone does not tell us which way an arrow should point.
+\textcolor{blue}{Correlation alone does not tell us which way an arrow should point.}
 
 \end{frame}
 
 % ------------------------------------------------------------
-\begin{frame}{Three patterns worth remembering}
+\begin{frame}{Three patterns}
+These patterns behave differently when we condition on \(M\).
 
 \begin{columns}[T]
 
@@ -278,7 +277,7 @@ Correlation alone does not tell us which way an arrow should point.
 
 \medskip
 
-\begin{tikzpicture}[node distance=0.72cm]
+\begin{tikzpicture}[node distance=0.4cm]
   \node[dagNode] (x1) {$X$};
   \node[dagNode, below=of x1] (m1) {$M$};
   \node[dagNode, below=of m1] (y1) {$Y$};
@@ -286,7 +285,6 @@ Correlation alone does not tell us which way an arrow should point.
   \draw[dagArrow] (x1) -- (m1);
   \draw[dagArrow] (m1) -- (y1);
 \end{tikzpicture}
-
 \[
 X\rightarrow M\rightarrow Y
 \]
@@ -298,7 +296,7 @@ X\rightarrow M\rightarrow Y
 
 \medskip
 
-\begin{tikzpicture}[node distance=0.72cm]
+\begin{tikzpicture}[node distance=0.4cm]
   \node[dagNode] (m2) {$M$};
   \node[dagNode, below left=of m2] (x2) {$X$};
   \node[dagNode, below right=of m2] (y2) {$Y$};
@@ -318,7 +316,7 @@ X\leftarrow M\rightarrow Y
 
 \medskip
 
-\begin{tikzpicture}[node distance=0.72cm]
+\begin{tikzpicture}[node distance=0.4cm]
   \node[dagNode] (m3) {$M$};
   \node[dagNode, above left=of m3] (x3) {$X$};
   \node[dagNode, above right=of m3] (y3) {$Y$};
@@ -332,11 +330,6 @@ X\rightarrow M\leftarrow Y
 \]
 
 \end{columns}
-
-\medskip
-
-These patterns behave differently when we condition on \(M\).
-
 \end{frame}
 
 % ------------------------------------------------------------
@@ -364,7 +357,7 @@ These patterns behave differently when we condition on \(M\).
 
 The collider is the surprising case.
 
-\begin{exampleblock}{Informal example}
+\begin{exampleblock}{Example}
 Ability and family connections may both affect admission:
 
 \[
@@ -372,7 +365,7 @@ Ability and family connections may both affect admission:
 \longrightarrow
 \text{Admission}
 \longleftarrow
-\text{Connections}.
+\text{Connections}
 \]
 
 Among admitted students, ability and connections may appear related even
@@ -401,15 +394,12 @@ A path is blocked when:
 
 If every path between \(X\) and \(Y\) is blocked by \(Z\), then the DAG
 implies
-
 \[
-X \perp\!\!\!\perp Y \mid Z.
+X \perp\!\!\!\perp Y \mid Z
 \]
 
-\begin{block}{Plain-language interpretation}
-After we know \(Z\), learning \(X\) gives us no additional information
-about \(Y\).
-\end{block}
+\textit{After we know \(Z\), learning \(X\) gives us no additional information
+about \(Y\).}
 
 \end{frame}
 
@@ -439,7 +429,6 @@ A \textbf{Bayesian network} combines:
 \end{center}
 
 The joint distribution factorizes as
-
 \[
 P(R,S,W)
 =
@@ -451,7 +440,8 @@ P(R)\,P(S)\,P(W\mid R,S).
 % ------------------------------------------------------------
 \begin{frame}{The general factorization}
 
-For variables \(X_1,\ldots,X_n\), a Bayesian network represents
+\begin{itemize}
+\item For variables \(X_1,\ldots,X_n\), a Bayesian network represents
 
 \[
 P(X_1,\ldots,X_n)
@@ -464,12 +454,10 @@ P\!\left(
 
 where \(\operatorname{Pa}(X_i)\) denotes the parents of \(X_i\).
 
-\begin{block}{Why is this useful?}
-Instead of specifying one enormous joint probability distribution, we
+\item Instead of specifying one enormous joint probability distribution, we
 specify several smaller conditional models.
-\end{block}
 
-For binary variables, an unrestricted joint distribution over \(n\)
+\item For binary variables, an unrestricted joint distribution over \(n\)
 variables can require as many as
 
 \[
@@ -478,8 +466,8 @@ variables can require as many as
 
 independent parameters.
 
-A sparse Bayesian network can require dramatically fewer.
-
+\item A sparse Bayesian network can require dramatically fewer.
+\end{itemize}
 \end{frame}
 
 % ------------------------------------------------------------
@@ -487,13 +475,13 @@ A sparse Bayesian network can require dramatically fewer.
 \footnotesize
 Suppose we observe that the grass is wet.
 \begin{center}
-\begin{tikzpicture}[node distance=2cm]
+\begin{tikzpicture}[node distance=1.3cm]
   \node[dagNode] (rain3) {Rain};
 
   \node[dagNode, right=of rain3]
     (sprinkler3) {Sprinkler};
 
-  \node[dagObserved, below right=1.3cm and 0.3cm of rain3]
+  \node[dagObserved, below right=.7cm and 0.3cm of rain3]
     (grass3) {Wet\\grass};
 
   \draw[dagArrow] (rain3) -- (grass3);
@@ -502,7 +490,6 @@ Suppose we observe that the grass is wet.
 \end{center}
 
 Bayes' rule updates our beliefs:
-
 \[
 P(R,S\mid W)
 \propto
@@ -522,7 +509,7 @@ The last effect is called \textbf{explaining away}.
 
 % ------------------------------------------------------------
 \begin{frame}{Prediction, diagnosis, and intervention}
-
+\small
 The same graph can support different kinds of questions.
 
 \begin{description}
@@ -556,7 +543,7 @@ merely observing it.
 
 % ------------------------------------------------------------
 \begin{frame}{A decision needs more than probabilities}
-
+\small
 A Bayesian network tells us what is uncertain and how beliefs change.
 
 A decision problem also requires:
@@ -586,7 +573,6 @@ An \textbf{influence diagram} extends a Bayesian network.
   \draw[dagArrow] (choose) -- (util);
 \end{tikzpicture}
 \end{center}
-
 \[
 \text{circles = uncertainty},\quad
 \text{rectangles = choices},\quad
@@ -597,18 +583,18 @@ An \textbf{influence diagram} extends a Bayesian network.
 
 % ------------------------------------------------------------
 \begin{frame}{Example: should we perform maintenance?}
-
+\small
 \begin{center}
-\begin{tikzpicture}[node distance=1.65cm]
+\begin{tikzpicture}[node distance=1.3cm]
   \node[dagNode] (age) {Machine\\age};
 
   \node[dagNode, right=of age]
     (failure) {Failure};
 
-  \node[dagDecision, below=1.3cm of age]
+  \node[dagDecision, below=.9cm of age]
     (maintain) {Maintain?};
 
-  \node[dagUtility, right=2.1cm of failure]
+  \node[dagUtility, right=1.3cm of failure]
     (cost) {Total\\value};
 
   \draw[dagArrow] (age) -- (failure);
@@ -626,14 +612,14 @@ An \textbf{influence diagram} extends a Bayesian network.
   \item Failure may cost much more.
 \end{itemize}
 
-The goal is not simply to predict failure. The goal is to choose the
-action with the best expected consequences.
+The goal is not simply to predict failure.\\
+The goal is to choose the action with the best expected consequences.
 
 \end{frame}
 
 % ------------------------------------------------------------
 \begin{frame}{Expected utility: the decision rule}
-
+\small
 Let \(d\) be a decision and let \(x\) be an uncertain outcome.
 
 \[
@@ -666,7 +652,7 @@ For each decision:
 
 % ------------------------------------------------------------
 \begin{frame}{A small maintenance calculation}
-
+\small
 Suppose preventive maintenance costs \$2,000.
 
 Without maintenance:
@@ -702,20 +688,21 @@ On these assumptions, preventive maintenance is preferred.
 
 % ------------------------------------------------------------
 \begin{frame}{Information itself can have value}
+\small
 
 Suppose an inspection provides information before maintenance is chosen.
 
 \begin{center}
-\begin{tikzpicture}[node distance=1.5cm]
+\begin{tikzpicture}[node distance=.7cm]
   \node[dagNode] (condition) {True\\condition};
 
   \node[dagObserved, below=of condition]
     (inspection) {Inspection};
 
-  \node[dagDecision, right=2cm of inspection]
+  \node[dagDecision, right=1.cm of inspection]
     (maintenance2) {Maintain?};
 
-  \node[dagUtility, above right=1cm and 1.6cm of maintenance2]
+  \node[dagUtility, above right=.9cm and 1.2cm of maintenance2]
     (value2) {Value};
 
   \draw[dagArrow] (condition) -- (inspection);
@@ -726,7 +713,7 @@ Suppose an inspection provides information before maintenance is chosen.
 \end{center}
 
 The \textbf{value of information} is
-
+\footnotesize{
 \[
 \mathrm{VOI}
 =
@@ -734,6 +721,7 @@ EU(\text{best policy with information})
 -
 EU(\text{best policy without information}).
 \]
+}
 
 Purchase information only when its value exceeds its cost.
 
@@ -756,10 +744,10 @@ Purchase information only when its value exceeds its cost.
 
 \medskip
 
-\begin{alertblock}{A useful modeling habit}
+\begin{block}{A useful modeling habit}
 Start small. Add a node only when it could change beliefs, decisions,
 or the interpretation of the model.
-\end{alertblock}
+\end{block}
 
 \end{frame}
 
@@ -802,7 +790,6 @@ assumptions to be questioned.
 \bigskip
 
 \begin{center}
-\Large
 DAGs turn a complicated story into a model\\
 that we can inspect, calculate with, and improve.
 \end{center}
