@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Alexander Abuabara" />
+  <meta name="description" content="Risk and Decisions, Decisions and Risk" />
+  <title>Alexander Abuabara</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    :root {
+      color-scheme: light dark;
+    }
+    .close-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.5);
+      color: white;
+      border: none;
+      font-size: 24px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: background 0.3s;
+      text-decoration: none;
+    }
+    .close-button:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+<body>
+<div class="carousel">
+  <a href="https://abuabara.github.io/index.html" class="close-button">✕</a>
+  <div class="carousel-images">
+    <img src="2022-05-30_01-26-19.jpg" data-caption="Maciej Dakowicz. Street Games, Echmiadzin, Armenia" />
+  </div>
+  <div class="carousel-caption" id="carouselCaption"></div>
+  <button class="prev" onclick="changeSlide(-1)">❮</button>
+  <button class="next" onclick="changeSlide(1)">❯</button>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>
+
+<!---
+<p class="return-link" style="color:Red">
+   Return <a href="https://abuabara.github.io/index.html" style="color:Reds">home</a>
+</p>
+--->
