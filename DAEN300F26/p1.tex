@@ -15,7 +15,6 @@
 
 \usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
 
-% Color palette
 \definecolor{AggieMaroon}{HTML}{500000}
 \definecolor{CodeBackground}{HTML}{F3F3F3}
 \definecolor{CodeBorder}{HTML}{BFBFBF}
@@ -28,7 +27,6 @@
 \definecolor{PythonGreen}{HTML}{2E7D32}
 \definecolor{SoftBackground}{HTML}{F5F7F8}
 
-% Beamer theme and layout
 \setbeamercolor{structure}{fg=AggieMaroon}
 \setbeamercolor{frametitle}{fg=white,bg=AggieMaroon}
 \setbeamercolor{title}{fg=AggieMaroon}
@@ -66,7 +64,6 @@
   \hspace{4pt}\vskip2pt
 }
 
-% Source-code and pseudocode styles
 \lstdefinestyle{classcode}{
   language=Python,
   basicstyle=\ttfamily\small,
@@ -83,7 +80,6 @@
   tabsize=4
 }
 
-% Pseudocode style
 \lstdefinestyle{pseudo}{
   basicstyle=\ttfamily\small,
   backgroundcolor=\color{CodeBackground},
@@ -101,7 +97,6 @@
   }
 }
 
-
 \lstdefinestyle{py}{style=classcode}
 \newcommand{\code}[1]{\colorbox{SoftBackground}{\texttt{#1}}}
 \newcommand{\takeaway}[1]{%
@@ -110,7 +105,6 @@
   \end{beamercolorbox}%
 }
 
-% Section divider slides
 \AtBeginSection[]{%
   \begin{frame}
     \centering
@@ -120,7 +114,6 @@
 
 \lstset{style=classcode}
 
-% Document metadata
 \title{Algorithms, Python, and Jupyter}
 \subtitle{Foundations, Functions, Debugging, and Profiling}
 \author{}
