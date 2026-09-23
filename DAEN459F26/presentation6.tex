@@ -1,0 +1,171 @@
+\documentclass[aspectratio=169,12pt]{beamer}
+\usetheme{default}
+\usecolortheme{default}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{title}{fg=aggiemaroon}
+\setbeamercolor{frametitle}{fg=aggiemaroon}
+\setbeamercolor{itemize item}{fg=aggiemaroon}
+\setbeamercolor{itemize subitem}{fg=aggiemaroon}
+\setbeamercolor{itemize subsubitem}{fg=aggiemaroon}
+\setbeamertemplate{itemize items}{•}
+\setbeamertemplate{itemize subitem}[•]
+\setbeamertemplate{itemize subsubitem}[•]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\title{Project Charters, Scope, Assumptions, and Constraints}
+\author{}
+\date{
+\color{aggiemaroon}{
+DAEN 459 - Fall 2026\\
+\textbf{Alexander Abuabara}
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{}
+\begin{itemize}
+\item Explain what a project charter authorizes\\ \qquad \qquad and what a scope statement bounds.
+\item Write measurable outcomes and explicit inclusions and exclusions.
+\item Separate assumptions (to validate) from constraints (to design within).
+\item Draft these statements for your own capstone using evidence and acceptance criteria.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{One running example}
+\textbf{Campus energy analytics:} Facilities receives hourly meter exports in inconsistent CSV formats. Analysts spend hours cleaning them before reporting building electricity use.
+\vspace{0.8em}
+\begin{itemize}
+\item Proposed capstone: ingest historical and new exports into a documented, tested analytical dataset.
+\item Stakeholder: Facilities energy analyst; users: analysts preparing monthly reports.
+\item First decision: which buildings, fields, refresh frequency, and quality threshold matter?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Project charter: definition and purpose}
+A \textbf{project charter} is a short agreement that authorizes the project and records its purpose, sponsor, intended outcomes, boundaries at a high level, and basis for success.
+\vspace{0.7em}
+\begin{itemize}
+\item Problem and value: what decision or workflow will improve?
+\item Sponsor, users, team, and decision owner: who validates needs and accepts work?
+\item Objectives and deliverables: what evidence will show success?
+\item Time frame, major risks, dependencies, and approval: what makes the effort viable?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Charter statements: weak and strong}
+\footnotesize
+\begin{tabular}{p{0.375\linewidth}p{0.55\linewidth}}
+\textbf{Weak} & \textbf{Strong}\\\hline
+``Build a data pipeline for Facilities.'' & ``By the capstone demo, deliver a scheduled pipeline for hourly electricity CSVs from 12 pilot buildings, with a documented table used by the Facilities analyst for monthly reporting.''\\[0.7em]
+``Improve data quality.'' & ``For the pilot dataset, report completeness, duplicate meter-hours, and schema violations; achieve at least 98\% valid records on the supplied acceptance sample.''\\[0.7em]
+``The team will make a dashboard.'' & ``Facilities analyst reviews a sample monthly usage query and signs off on the dataset and data dictionary in the final review.''
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Scope definition: draw the boundary}
+The \textbf{scope statement} describes the work and outputs included in the project, what is excluded, and how completion will be accepted. It turns the charter's direction into a testable boundary.
+\vspace{0.7em}
+\begin{itemize}
+\item \textbf{In scope:} sources, time range, transformations, storage, interfaces, tests, documentation.
+\item \textbf{Out of scope:} tempting adjacent work and later phases.
+\item \textbf{Acceptance:} observable checks, reviewer, dataset, and conditions.
+\item \textbf{Change control:} record new requests and trade them against time and priorities.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Scope statements: weak and strong}
+\footnotesize
+\begin{tabular}{p{0.4\linewidth}p{0.525\linewidth}}
+\textbf{Weak} & \textbf{Strong}\\\hline
+``Integrate all energy data.'' & ``Ingest hourly electricity CSV exports for 12 pilot buildings from January 2024 through June 2026; normalize meter IDs and timestamps into one curated table.''\\[0.7em]
+``Create useful visualizations.'' & ``Deliver two reproducible SQL queries: monthly kWh by building and missing meter-hours by building; dashboard design is excluded.''\\[0.7em]
+``Pipeline is complete when it works.'' & ``On the acceptance sample, the scheduled run produces no duplicate meter-hour keys, at least 98\% valid rows, and a run log; the Facilities analyst verifies both queries.''
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Assumptions: claims to verify}
+An \textbf{assumption} is a condition treated as true for planning, although it has not yet been confirmed. Record its consequence, owner, and validation date.
+\vspace{0.7em}
+\begin{itemize}
+\item Data availability, access, schema stability, stakeholder availability, compute capacity.
+\item Test assumptions early with a sample, permission check, profiling, or stakeholder review.
+\item If an assumption fails, revise scope, method, or schedule explicitly.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Assumption statements: weak and strong}
+\small
+\begin{tabular}{p{0.375\linewidth}p{0.55\linewidth}}
+\textbf{Weak} & \textbf{Strong}\\\hline
+``The data is clean.'' & ``We assume at least 95\% of pilot files contain meter ID, timestamp, and kWh; the team will profile three months of files by week 2.''\\[0.7em]
+``We can get access.'' & ``We assume Facilities can provide deidentified pilot exports by week 2; the sponsor will confirm access by Friday of week 1.''\\[0.7em]
+``The API should be reliable.'' & ``We assume the source posts a complete daily file by 06:00; compare seven arrival times and define a late-file alert by week 3.''
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Constraints: limits to design within}
+A \textbf{constraint} is a known restriction on choices, resources, or delivery. State its source and practical implication.
+\vspace{0.7em}
+\begin{itemize}
+\item Examples: semester deadline, approved cloud budget, restricted student access, retention policy, mandated technology.
+\item Confirm whether a limit is truly fixed; a preferred tool is not necessarily a constraint.
+\item Design around constraints and note which deliverables they affect.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Constraint statements: weak and strong}
+\small
+\begin{tabular}{p{0.375\linewidth}p{0.55\linewidth}}
+\textbf{Weak} & \textbf{Strong}\\\hline
+``We have limited time.'' & ``The final demo is due in week 14; ingestion and data quality checks must be ready for stakeholder review in week 11.''\\[0.7em]
+``Budget is small.'' & ``The team may use only the department's existing storage and compute allocation; the design must not require a paid external service.''\\[0.7em]
+``Data is private.'' & ``Student accounts may access only deidentified meter exports in the approved workspace; raw occupant or billing records are excluded.''
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Keep the four parts consistent}
+\begin{enumerate}
+\item \textbf{Charter:} why the pilot matters and who accepts it.
+\item \textbf{Scope:} which 12 buildings, which records, which outputs, and which tests.
+\item \textbf{Assumptions:} pilot exports arrive, contain required fields, and can be accessed.
+\item \textbf{Constraints:} week 14 deadline, approved workspace, and available compute.
+\end{enumerate}
+\vspace{0.7em}
+If an assumption fails, revisit the scope and the charter's success measure with the sponsor; document the decision.
+\end{frame}
+
+\begin{frame}{Capstone drafting worksheet}
+\small
+Complete each sentence with your project's actual names, quantities, and dates.
+\begin{enumerate}
+\item \textbf{Charter:} For [user], [current problem] causes [impact]. By [date], we will deliver [outcome]; [sponsor] will accept it using [measure].
+\item \textbf{Scope:} We include [sources, period, transformations, outputs, tests]. We exclude [adjacent work]. Completion means [test on named sample] reviewed by [person].
+\item \textbf{Assumptions:} We assume [uncertain condition]. [Owner] will check it using [evidence] by [date]. If false, [response].
+\item \textbf{Constraints:} [Source] limits us to [specific limit]; therefore [design or delivery implication].
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Workshop/lab work: draft, challenge, revise}
+\begin{enumerate}
+\item Draft one charter objective, one in-scope item, one exclusion, two assumptions, and two constraints for your capstone.
+\item Pair review: underline every vague word (``all,'' ``easy,'' ``accurate,'' ``fast''); replace it with a boundary or measurable check.
+\item Ask: who owns the data, what can fail first, what sample proves completion, and who can accept the result?
+\item Revise the statements and log one unresolved decision for the sponsor.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Ready for sponsor review?}
+\begin{itemize}
+\item Can a stakeholder explain the value and name the acceptance owner?
+\item Can another team identify exactly which data and outputs are included and excluded?
+\item Can each assumption be tested by a named person and date?
+\item Does each constraint have a source and an effect on the design?
+\item Is success demonstrable on a stated dataset or sample within the semester?
+\end{itemize}
+\end{frame}
+\end{document}
