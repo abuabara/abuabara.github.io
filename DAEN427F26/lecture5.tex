@@ -1,0 +1,867 @@
+%\documentclass[aspectratio=43,11pt]{beamer}
+%\usetheme{default}
+%\usecolortheme{default}
+%\setbeamertemplate{navigation symbols}{}
+%\setbeamertemplate{footline}[frame number]
+%%\setbeamercolor{structure}{fg=black}
+%\setbeamercolor{structure}{fg=aggiemaroon}
+%%\setbeamercolor{frametitle}{fg=black,bg=black!6}
+%\setbeamercolor{frametitle}{fg=aggiemaroon} %,bg=aggiemaroon!0
+%\setbeamerfont{frametitle}{series=\bfseries}
+%\usepackage{booktabs}
+%\usepackage{amsmath}
+%\usepackage{listings}
+%\usepackage{xcolor}
+%\usepackage{pgfplots}
+%\pgfplotsset{compat=1.18}
+%\definecolor{priorblue}{RGB}{49,95,160}
+%\definecolor{datagreen}{RGB}{36,130,90}
+%\definecolor{postred}{RGB}{180,65,55}
+%\definecolor{aggiemaroon}{RGB}{80,0,0}
+%\lstdefinelanguage{R}{keywords={library,data,set.seed,filter,summarise,mutate,ggplot,aes,geom_line,dbeta,seq,tibble,rbind},sensitive=true,comment=[l]\#,string=[b]"}
+%\lstset{language=R,basicstyle=\ttfamily\scriptsize,keywordstyle=\color{priorblue}\bfseries,commentstyle=\color{black!55},stringstyle=\color{datagreen},showstringspaces=false,breaklines=true,columns=fullflexible,frame=single,framerule=.3pt}
+%\newcommand{\riskbox}[1]{\begin{beamercolorbox}[rounded=true,sep=.8em]{block body} #1\end{beamercolorbox}}
+
+\documentclass[aspectratio=43]{beamer}
+
+\usetheme{default}
+\usecolortheme{default}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamercolor{structure}{fg=aggiemaroon}
+
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+
+\title{Decision and Risk Analysis}
+\subtitle{Lecture 5: \textbf{Bayesian Updating and Uncertainty Propagation}}
+\author{\emph{}}
+\date{\color{aggiemaroon}{
+DAEN 427 / ISEN 427 / ISEN 627\\
+\textbf{Alexander Abuabara}\\
+Fall 2026
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+
+\begin{document}
+
+%------------------------------------------------
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Example}
+
+A company has deployed a new ETL pipeline.
+
+\vspace{0.4cm}
+
+Let
+\[
+\pi =
+\Pr(\text{a randomly selected record passes all validation checks}).
+\]
+
+\vspace{0.3cm}
+
+You are performing a quality audit.
+
+\vspace{0.3cm}
+
+The goal is to estimate the unknown pass rate $\pi$ as validation
+results arrive in batches.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+
+Three analysts begin with different prior beliefs about $\pi$.
+
+\vspace{0.25cm}
+
+\begin{table}
+\centering
+\footnotesize
+\begin{tabular}{
+>{\raggedright\arraybackslash}p{2.1cm}
+>{\centering\arraybackslash}p{1.7cm}
+>{\raggedright\arraybackslash}p{4.4cm}
+>{\centering\arraybackslash}p{1.4cm}}
+\toprule
+Analyst & Prior & Interpretation & Prior mean \\
+\midrule
+A: Optimistic
+& $\mathrm{Beta}(18,2)$
+& Pipeline was heavily tested
+& 0.90 \\
+
+B: Neutral
+& $\mathrm{Beta}(1,1)$
+& Uniform prior; little prior info
+& 0.50 \\
+
+C: Skeptical
+& $\mathrm{Beta}(3,7)$
+& Similar releases have had issues
+& 0.30 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.25cm}
+
+Before seeing the data, each analyst:
+\begin{quote}
+What proportion of records do you expect to pass validation,
+and how confident are you?
+\end{quote}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Bayesian Updating Rule}
+
+Suppose
+
+\[
+\pi \sim \mathrm{Beta}(\alpha,\beta),
+\]
+
+and
+
+\[
+Y \mid \pi \sim \mathrm{Binomial}(n,\pi).
+\]
+
+After observing $y$ passing records out of $n$ checked records,
+
+\[
+\pi \mid y
+\sim
+\mathrm{Beta}(\alpha+y,\beta+n-y).
+\]
+
+\vspace{0.3cm}
+
+\begin{itemize}
+  \item $\alpha$ represents prior weight associated with passing records.
+  \item $\beta$ represents prior weight associated with failing records.
+  \item $\alpha+\beta$ represents the effective strength of the prior.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Batch 1: First Audit Results}
+
+Inspect 10 records:
+
+\[
+y_1 = 6,
+\qquad
+n_1 = 10.
+\]
+
+Therefore, the observed pass rate is
+
+\[
+\frac{6}{10}=0.60.
+\]
+
+\vspace{0.4cm}
+
+Each analyst updates their prior according to
+
+\[
+\mathrm{Beta}(\alpha,\beta)
+\longrightarrow
+\mathrm{Beta}(\alpha+6,\beta+4).
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Batch 1: Posterior Results}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{
+>{\centering\arraybackslash}p{1.4cm}
+>{\centering\arraybackslash}p{2.5cm}
+>{\centering\arraybackslash}p{2.7cm}
+>{\centering\arraybackslash}p{2.3cm}}
+\toprule
+Analyst & Prior & Posterior & Posterior mean \\
+\midrule
+A & $\mathrm{Beta}(18,2)$
+  & $\mathrm{Beta}(24,6)$
+  & 0.800 \\
+
+B & $\mathrm{Beta}(1,1)$
+  & $\mathrm{Beta}(7,5)$
+  & 0.583 \\
+
+C & $\mathrm{Beta}(3,7)$
+  & $\mathrm{Beta}(9,11)$
+  & 0.450 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.3cm}
+
+\begin{quote}
+All three analysts observed exactly the same data.
+
+Why did they not all conclude that $\pi=0.60$?
+\end{quote}
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%------------------------------------------------
+\begin{frame}{}
+
+The posterior mean can be written as
+
+\[
+\mathbb{E}(\pi\mid y)
+=
+\frac{\alpha+\beta}
+     {\alpha+\beta+n}
+\mathbb{E}(\pi)
++
+\frac{n}
+     {\alpha+\beta+n}
+\frac{y}{n}.
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Why? $^\text{(the Posterior Mean Is a Weighted Mean)}$}
+Start with the Beta--Binomial posterior:
+\[
+\pi \mid y
+\sim
+\mathrm{Beta}(\alpha+y,\beta+n-y).
+\]
+
+Therefore,
+\[
+\mathbb{E}(\pi \mid y)
+=
+\frac{\alpha+y}{\alpha+\beta+n}.
+\]
+
+Rewrite the numerator as two pieces:
+\[
+\frac{\alpha+y}{\alpha+\beta+n}
+=
+\frac{\alpha}{\alpha+\beta+n}
++
+\frac{y}{\alpha+\beta+n}.
+\]
+
+\pause
+
+\vspace{.4cm}
+Multiply and divide each piece by a useful quantity:
+\[
+\frac{\alpha}{\alpha+\beta+n}
+=
+\frac{\textcolor{red}{\alpha+\beta}}{\alpha+\beta+n}
+\frac{\alpha}{\textcolor{red}{\alpha+\beta}},
+\text{\quad and \quad}
+\frac{y}{\alpha+\beta+n}
+=
+\frac{\textcolor{red}{n}}{\alpha+\beta+n}
+\frac{y}{\textcolor{red}{n}}.
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+Putting the pieces together,
+\[
+\mathbb{E}(\pi\mid y)
+=
+\frac{\alpha+\beta}{\alpha+\beta+n}
+\frac{\alpha}{\alpha+\beta}
++
+\frac{n}{\alpha+\beta+n}
+\frac{y}{n}.
+\]
+
+Since
+\[
+\mathbb{E}(\pi)=\frac{\alpha}{\alpha+\beta},
+\]
+
+we get
+\[
+\boxed{
+\mathbb{E}(\pi\mid y)
+=
+\underbrace{
+\frac{\alpha+\beta}{\alpha+\beta+n}
+}_{\text{prior weight}}
+\underbrace{
+\mathbb{E}(\pi)
+}_{\text{prior mean}}
++
+\underbrace{
+\frac{n}{\alpha+\beta+n}
+}_{\text{data weight}}
+\underbrace{
+\frac{y}{n}
+}_{\text{sample proportion}}
+}
+\]
+
+And the two weights add to one!
+\[
+\frac{\alpha+\beta}{\alpha+\beta+n}
++
+\frac{n}{\alpha+\beta+n}
+=1.
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{The Posterior as a Weighted Compromise}
+
+The posterior mean can be written as
+
+\[
+\mathbb{E}(\pi\mid y)
+=
+\frac{\alpha+\beta}
+     {\alpha+\beta+n}
+\mathbb{E}(\pi)
++
+\frac{n}
+     {\alpha+\beta+n}
+\frac{y}{n}.
+\]
+
+\vspace{0.35cm}
+
+Thus, the posterior mean is a weighted average of
+
+\begin{itemize}
+  \item the prior mean $\mathbb{E}(\pi)$, and
+  \item the observed sample proportion $y/n$.
+\end{itemize}
+
+\vspace{0.25cm}
+
+The quantity $\alpha+\beta$ acts as an
+\textbf{effective prior sample size}.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Batch 1: Interpreting Prior Strength}
+
+Analyst A has a relatively strong prior:
+
+\[
+\alpha+\beta = 18+2 = 20.
+\]
+
+The new dataset contains only
+
+\[
+n=10
+\]
+
+observations.
+
+\vspace{0.3cm}
+
+Therefore, the posterior for Analyst A remains relatively close
+to the prior belief.
+
+\vspace{0.3cm}
+
+Analyst B has a much weaker prior:
+
+\[
+\alpha+\beta = 1+1 = 2.
+\]
+
+Therefore, the observed data have much greater influence on the
+posterior.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Sequential Bayesian Learning}
+
+The audit continues.
+
+\vspace{0.35cm}
+
+Batch 2 contains 40 additional records:
+
+\[
+30 \text{ PASS},
+\qquad
+10 \text{ FAIL}.
+\]
+
+\vspace{0.3cm}
+
+What should be used as the prior before analyzing Batch 2?
+
+\pause
+
+\vspace{0.3cm}
+
+\[
+\boxed{
+\text{The Batch 1 posterior becomes the Batch 2 prior.}
+}
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Batch 2: Sequential Updating}
+
+Each analyst uses the Batch 1 posterior as the new prior.
+
+\vspace{0.25cm}
+
+\begin{align*}
+\text{Analyst A: }&
+\mathrm{Beta}(24,6)
+\longrightarrow
+\mathrm{Beta}(54,16),
+\\[0.15cm]
+\text{Analyst B: }&
+\mathrm{Beta}(7,5)
+\longrightarrow
+\mathrm{Beta}(37,15),
+\\[0.15cm]
+\text{Analyst C: }&
+\mathrm{Beta}(9,11)
+\longrightarrow
+\mathrm{Beta}(39,21).
+\end{align*}
+
+\vspace{0.25cm}
+
+Posterior means:
+
+\[
+0.771,
+\qquad
+0.712,
+\qquad
+0.650.
+\]
+
+\vspace{0.2cm}
+
+The analysts still disagree, but their posterior beliefs
+are becoming more similar.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{What Is Uncertainty Propagation?}
+
+We do not know the true pass rate $\pi$. A Beta distribution describes
+which values of $\pi$ are plausible and how strongly we believe them.
+
+\vspace{0.4cm}
+
+When a new batch arrives, we update the \textbf{entire distribution}:
+
+\[
+\underbrace{\mathrm{Beta}(24,6)}_{\text{after Batch 1}}
+\quad\xrightarrow{\;30\text{ passes},\;10\text{ failures}\;}
+\underbrace{\mathrm{Beta}(54,16)}_{\text{after Batch 2}}.
+\]
+
+\vspace{0.25cm}
+
+\textbf{Propagation} means carrying that uncertainty forward: the
+posterior from one batch becomes the prior for the next batch.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{What Changes as Uncertainty Propagates?}
+
+For Analyst A, the estimated pass rate and its uncertainty both change.
+
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+ & Distribution for $\pi$ & Mean & Standard deviation \\
+\midrule
+After Batch 1 & $\mathrm{Beta}(24,6)$ & 0.800 & 0.072 \\
+After Batch 2 & $\mathrm{Beta}(54,16)$ & 0.771 & 0.050 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{0.3cm}
+
+The mean moves toward the new evidence. The smaller standard deviation
+means that plausible values of $\pi$ are more tightly clustered.
+
+\vspace{0.25cm}
+
+\textcolor{blue}{Pass along the full posterior distribution, not just its mean.}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Batch 3: More Data Arrive}
+
+Batch 3 contains another 150 records:
+
+\[
+114 \text{ PASS},
+\qquad
+36 \text{ FAIL}.
+\]
+
+Across all three batches,
+
+\[
+y = 6+30+114 = 150,
+\]
+
+and
+
+\[
+n = 10+40+150 = 200.
+\]
+
+Therefore, the overall observed pass rate is
+
+\[
+\frac{150}{200}=0.75.
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Final Posterior Results}
+
+\begin{table}
+\centering
+\small
+\begin{tabular}{
+>{\centering\arraybackslash}p{1.5cm}
+>{\centering\arraybackslash}p{3.0cm}
+>{\centering\arraybackslash}p{2.8cm}}
+\toprule
+Analyst & Final posterior & Posterior mean \\
+\midrule
+A & $\mathrm{Beta}(168,52)$ & 0.764 \\
+B & $\mathrm{Beta}(151,51)$ & 0.748 \\
+C & $\mathrm{Beta}(153,57)$ & 0.729 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\vspace{0.4cm}
+
+The three posterior means are now much closer together.
+
+\vspace{0.25cm}
+
+As the amount of observed data increases,
+
+\[
+\text{weight of prior} \downarrow,
+\qquad
+\text{weight of data} \uparrow.
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+
+\begin{itemize}
+
+  \item Analyst A begins optimistic and updates downward.
+
+  \item Analyst C begins skeptical and updates upward.
+
+  \item Analyst B begins with a diffuse prior and responds quickly
+        to the observed data.
+
+  \item As more observations arrive, the posterior distributions
+        become increasingly concentrated.
+
+  \item The analysts' posterior beliefs move closer to the empirical
+        pass rate of $0.75$.
+
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Sequential Updating vs.\ All at Once}
+
+Instead of processing the observations in three batches, suppose
+we analyze all 200 records simultaneously.
+
+\vspace{0.3cm}
+
+For Analyst A,
+
+\[
+\mathrm{Beta}(18,2)
+\longrightarrow
+\mathrm{Beta}(18+150,\;2+50).
+\]
+
+Therefore,
+
+\[
+\mathrm{Beta}(18+150,\;2+50)
+=
+\mathrm{Beta}(168,52).
+\]
+
+\vspace{0.3cm}
+
+This is exactly the same final posterior obtained using
+sequential updating.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{}
+
+Which approach is correct?
+
+\begin{enumerate}
+  \item Process 10 records, then 40 records, then 150 records.
+  \item Process all 200 records at once.
+\end{enumerate}
+
+\pause
+
+\vspace{0.3cm}
+
+Both approaches give the same final posterior.
+
+\vspace{0.3cm}
+
+\[
+\boxed{
+\text{Sequential updating}
+=
+\text{updating with all the data at once}
+}
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Data-Order Invariance}
+
+The final posterior depends on the total number of passes and
+failures, not on the order in which the batches are processed.
+
+\vspace{0.3cm}
+
+For Analyst A,
+
+\[
+\text{Prior} = \mathrm{Beta}(18,2).
+\]
+
+The complete dataset contains
+
+\[
+150 \text{ passes},
+\qquad
+50 \text{ failures}.
+\]
+
+Thus,
+
+\[
+\mathrm{Beta}(18+150,\;2+50)
+=
+\mathrm{Beta}(168,52).
+\]
+
+\vspace{0.2cm}
+
+Reversing the order of the batches changes the intermediate
+posteriors, but not the final posterior.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Questions}
+
+\begin{enumerate}
+
+  \item Why do the three analysts disagree after Batch 1 even though
+        they observed identical data?
+
+  \item Which prior exerts the greatest influence after Batch 1,
+        and why?
+
+  \item Why do the posterior distributions become more similar as
+        more records are inspected?
+
+  \item Why does sequential updating produce the same final posterior
+        as analyzing all 200 observations simultaneously?
+
+\end{enumerate}
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}{Bayesian Learning}
+
+\[
+\boxed{
+\text{Prior knowledge}
++
+\text{new evidence}
+\longrightarrow
+\text{updated knowledge}
+}
+\]
+
+\vspace{0.45cm}
+
+Then,
+
+\[
+\boxed{
+\text{Updated knowledge becomes the next prior}
+}
+\]
+
+\vspace{0.45cm}
+
+For the Beta--Binomial model, the mechanics are simple:
+
+\[
+\mathrm{Beta}(\alpha,\beta)
+\longrightarrow
+\mathrm{Beta}(\alpha+y,\beta+n-y).
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{R: Batch 1}
+
+\begin{verbatim}
+library(bayesrules)
+
+plot_beta_binomial(
+  alpha = 18,
+  beta  = 2,
+  y     = 6,
+  n     = 10
+)
+\end{verbatim}
+
+This displays Analyst A's prior, likelihood information,
+and posterior after Batch 1.
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{R: Sequential Updating}
+
+After Batch 1, Analyst A has
+
+\[
+\pi \mid y_1 \sim \mathrm{Beta}(24,6).
+\]
+
+Use this posterior as the prior for Batch 2:
+
+\begin{verbatim}
+plot_beta_binomial(
+  alpha = 24,
+  beta  = 6,
+  y     = 30,
+  n     = 40
+)
+\end{verbatim}
+
+The result is
+
+\[
+\pi \mid y_1,y_2
+\sim
+\mathrm{Beta}(54,16).
+\]
+
+\end{frame}
+
+%------------------------------------------------
+\begin{frame}[fragile]{R: Batch 3}
+
+Use the Batch 2 posterior as the next prior:
+
+\begin{verbatim}
+plot_beta_binomial(
+  alpha = 54,
+  beta  = 16,
+  y     = 114,
+  n     = 150
+)
+\end{verbatim}
+
+This produces
+
+\[
+\pi \mid y_1,y_2,y_3
+\sim
+\mathrm{Beta}(168,52).
+\]
+
+The same posterior is obtained by analyzing all 200 observations
+at once.
+
+\end{frame}
+
+%------------------------------------------------
+\end{document}
