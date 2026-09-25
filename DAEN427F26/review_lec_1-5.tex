@@ -1,0 +1,284 @@
+\documentclass[aspectratio=43,10pt]{beamer}
+\usecolortheme{default}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\usepackage{amsmath,booktabs,tikz}
+\newcommand{\shrug}[1][]{
+  \begin{tikzpicture}[
+    baseline,
+    x=0.8\ht\strutbox,
+    y=0.8\ht\strutbox,
+    line width=0.125ex,
+    #1
+  ]
+    \def\eye{(-0.075,0.15) .. controls (0.02,0) .. (0.075,-0.15)}
+    \draw[shift={(-0.3,0.8)}] \eye;
+    \draw[shift={(0,0.85)}] \eye;
+    \draw (-0.1,0.2) to[out=15,in=-100] (0.4,0.95);
+  \end{tikzpicture}
+}
+\title{Decision and Risk Analysis}
+\subtitle{\textbf{Review of Lectures 1-5, Study Guide for Exam 1}}
+\author{}
+\date{
+\color{aggiemaroon}{
+DAEN 427 / ISEN 427 / ISEN 627 - Fall 2026\\
+\textbf{Alexander Abuabara}
+}
+}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{The event and the action are different}
+Let $H=1$ mean an article is fake. \\
+Let $a_+$ mean \emph{flag it}, and $a_-$ mean \emph{let it pass}.
+
+\medskip
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+ & $H=1$: fake & $H=0$: real \\
+\midrule
+$a_+$: flag & correct & false positive \\
+$a_-$: let pass & false negative & correct \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+A false positive is a real article flagged as fake. \\
+A false negative is a fake article allowed through.
+\end{frame}
+
+\begin{frame}{Which probability enters the decision?}
+After observing headline information $E$, define
+\[
+q=P(H=1\mid E)=P(\text{fake}\mid E).
+\]
+If we flag the article, the conditional probability that this \emph{chosen
+action} is wrong is $P(H=0\mid E)=1-q$.
+
+\medskip
+If we let it pass, the conditional probability that this \emph{chosen
+action} is wrong is $P(H=1\mid E)=q$.
+
+\medskip
+These are conditional probabilities of error for each possible action.
+
+\medskip
+They are not the overall false-positive rate $P(a_+\mid H=0)$ or
+false-negative rate $P(a_-\mid H=1)$ of a deployed classifier.
+\end{frame}
+
+\begin{frame}{Fake-news example: observed counts}
+In a sample of 150 articles, the headline and truth counts are:
+
+\medskip
+\begin{center}
+\begin{tabular}{lrrr}
+\toprule
+Headline & Fake & Real & Total \\
+\midrule
+Exclamation point & 16 & 2 & 18 \\
+No exclamation point & 44 & 88 & 132 \\
+\midrule
+Total & 60 & 90 & 150 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+For a headline with an exclamation point, the empirical conditional
+probability is $q_!=16/18\approx0.889$.
+
+\medskip
+For a headline without one, $q_{\neg !}=44/132=1/3$.
+\end{frame}
+
+\begin{frame}{Example: flag or let pass?}
+For an exclamation-point headline, $q_!=16/18$.
+\medskip
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Possible action & Error & Probability given ``!'' \\
+\midrule
+Flag & false positive & $1-q_!=2/18\approx0.111$ \\
+Let pass & false negative & $q_!=16/18\approx0.889$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+The two rows describe \emph{alternative actions on the same article}.
+
+\medskip
+The loss attached to each error determines the action; probability alone
+does not specify it.
+\end{frame}
+
+\begin{frame}{Both errors are possible in each headline group}
+The headline tells us which probability $q$ to use.
+
+\medskip
+The action tells us which mistake could occur.
+
+\medskip
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Headline & Flag: false positive & Let pass: false negative \\
+\midrule
+Has ``!'' & $1-q_!=2/18\approx0.111$ & $q_!=16/18\approx0.889$ \\
+Has no ``!'' & $1-q_{\neg !}=88/132\approx0.667$ & $q_{\neg !}=44/132\approx0.333$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\medskip
+Each row compares \emph{two possible actions} for one headline group.
+
+\medskip
+For one article, we choose only one action, so we cannot make both
+mistakes at once.
+
+\medskip
+The entries are conditional chances of being wrong under the action named in that column.
+\end{frame}
+
+\begin{frame}{Data, posterior, and prediction}
+\begin{itemize}
+\item The counts $16$ fake and $2$ real are \emph{data} for the ``!'' group.
+\item $16/18$ is an \emph{empirical estimate} of $P(\text{fake}\mid !)$.
+\item With an illustrative prior $\theta_!\sim\mathrm{Beta}(1,1)$,
+the posterior for the group's unknown fake rate is
+\[
+\theta_!\mid D\sim\mathrm{Beta}(17,3).
+\]
+\item For the \emph{next} article in that group, the posterior predictive
+probability is $P(Y_{\rm new}=1\mid D,!)=E(\theta_!\mid D)=17/20=0.85$.
+\end{itemize}
+
+\vspace{0.2em}
+The group-level question $P(\theta_!>0.5\mid D)$ concerns the unknown
+\emph{rate}.
+
+\medskip
+It is a different probability from the next-article prediction.
+\end{frame}
+
+\begin{frame}{Costs turn probability into an action}
+Let $C_{\rm FP}$ be the cost of flagging a real article, and
+$C_{\rm FN}$ the cost of letting a fake article pass. Correct actions
+have zero loss in this simple model.
+\[
+R(a_+)=C_{\rm FP}(1-q),\qquad R(a_-)=C_{\rm FN}q.
+\]
+Flag when $R(a_+)<R(a_-)$, equivalently when
+\[
+q>\tau,\qquad \tau=\frac{C_{\rm FP}}{C_{\rm FP}+C_{\rm FN}}.
+\]
+
+\medskip
+For example, if $C_{\rm FN}=3C_{\rm FP}$, then $\tau=0.25$.
+
+\medskip
+The empirical $q_!=0.889$ and $q_{\neg !}=0.333$ both exceed $0.25$.
+\end{frame}
+
+\begin{frame}{Check your understanding}
+Suppose the costs are equal, so $\tau=0.5$. Use the empirical probabilities.
+\begin{enumerate}
+\item What is the chance of a false positive if we flag a headline
+without an exclamation point?
+\item What is the chance of a false negative if we let it pass?
+\item Which action minimizes expected loss for that headline group?
+\end{enumerate}
+\pause
+\medskip
+\textbf{Answers:} $1-q_{\neg !}=2/3$;
+$q_{\neg !}=1/3$;
+let it pass, because $q_{\neg !}=1/3<\tau=1/2$.
+
+\medskip
+Always name the conditioning information, the proposed action, and the
+consequence before comparing probabilities.
+\end{frame}
+
+\begin{frame}{Study guide: updating beliefs}
+\textbf{Discrete Bayes rule.} For possible states $L_i$ and evidence $R$,
+\[
+P(L_i\mid R)=\frac{P(R\mid L_i)P(L_i)}
+{\sum_j P(R\mid L_j)P(L_j)}.
+\]
+The numerator is prior $\times$ likelihood; the denominator makes
+posterior probabilities sum to one. If possibilities are eliminated,
+revise the prior over those that remain before using new evidence.
+
+\medskip
+\textbf{DAG.} Draw an arrow in the model's dependency direction.
+A prior describes the state before evidence; the likelihood describes
+how the observation depends on the state; the posterior updates the state.
+
+\medskip
+\textbf{Beta--Binomial update.} If $\theta\sim\mathrm{Beta}(\alpha,\beta)$
+and $x$ of $n$ trials are positive, then
+$\theta\mid D\sim\mathrm{Beta}(\alpha+x,\beta+n-x)$.
+\end{frame}
+
+\begin{frame}{Study guide: from a posterior to a decision}
+\textbf{Choose the event that matches the question.}
+\[
+q_{\rm rate}=P(\theta>c\mid D)=1-F_{\rm Beta(\alpha+x,\beta+n-x)}(c)
+\]
+measures support for a state defined by the cutoff $c$.
+
+\medskip
+For one new binary outcome,
+\[
+q_{\rm next}=P(Y_{\rm new}=1\mid D)=E(\theta\mid D)
+=\frac{\alpha+x}{\alpha+\beta+n}.
+\]
+\textbf{Compare expected losses.} With zero loss for correct actions,
+\[
+R(a_+)=C_{\rm FP}(1-q),\quad R(a_-)=C_{\rm FN}q,\quad
+q>\tau=\frac{C_{\rm FP}}{C_{\rm FP}+C_{\rm FN}}\ \Rightarrow\ a_+.
+\]
+At equality, either action has the same expected loss.
+
+\medskip
+The state cutoff $c$ and the action threshold $\tau$ serve different purposes.
+\end{frame}
+
+
+\begin{frame}{Exam instructions}
+
+Closed-book exam.
+\medskip
+
+You may use pen or pencil, \\
+\quad a basic or scientific calculator, and \\
+\quad \quad one regular sticky note (standard 3$x$3 \textit{Post-it} or equivalent).
+\medskip
+
+\underline{Leave} the sticky note attached to your exam when you turn it in.
+\medskip
+
+No other materials or devices are permitted \\
+(NO smartphones, tables, computers, smart-glasses, etc.)
+
+\medskip
+Do your best, always. I believe in you. %\\ I’m proud of the work you’ve put in.
+
+\medskip
+Have a blessed weekend, see you all on Monday!\shrug[x=1.8ex,y=1.8ex]
+
+\end{frame}
+
+\end{document}
