@@ -1,0 +1,221 @@
+\documentclass[aspectratio=43,11pt]{beamer}
+\usepackage{tabularx}
+\usetheme{default}
+\usecolortheme{default}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{title}{fg=aggiemaroon}
+\setbeamercolor{frametitle}{fg=aggiemaroon}
+\setbeamercolor{itemize item}{fg=aggiemaroon}
+\setbeamercolor{itemize subitem}{fg=aggiemaroon}
+\setbeamercolor{itemize subsubitem}{fg=aggiemaroon}
+\setbeamertemplate{itemize items}{•}
+\setbeamertemplate{itemize subitem}[•]
+\setbeamertemplate{itemize subsubitem}[•]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\newcommand{\draft}[1]{\medskip\textbf{Drafting task}\par #1}
+\newcommand{\checkit}[1]{\medskip\textbf{Check}\par #1}
+\title{Project Charters, Scope, Assumptions, and Constraints}
+\subtitle{Lab}
+\author{}
+\date{
+\color{aggiemaroon}{
+DAEN 459 - Fall 2026\\
+\textbf{Alexander Abuabara}
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}
+A project charter for a capstone research project is a short agreement about what the project will investigate, why it matters, what the team will deliver, and how progress will be judged.
+
+\medskip
+Aim for 2–4 pages. It should be specific enough to guide decisions, while leaving room for the research findings to shape the final work.
+\end{frame}
+
+\begin{frame}{Project charter: sections and guiding questions}
+\tiny
+\renewcommand{\arraystretch}{1.}
+\begin{tabularx}{\textwidth}{@{}p{0.22\textwidth}X p{0.26\textwidth}@{}}
+\hline
+\textbf{Section} & \textbf{What to include} & \textbf{Guiding question} \\
+\hline
+Project overview & Title, team, advisor, and dates & What is this project? \\
+Problem and significance & Problem, affected people, and importance & Why does it matter? \\
+Research question & Primary and supporting questions & What will we answer? \\
+Objectives & Concrete research outcomes & What will we accomplish? \\
+Scope & Population, data, setting, and boundaries & What is included? \\
+Approach & Sources, methods, and approvals & How will we investigate? \\
+Deliverables & Report, code, presentation, or other outputs & What will we submit? \\
+Milestones & Key tasks and target dates & When is each stage due? \\
+Success criteria & Standards for completion and quality & How will we assess the work? \\
+Risks and dependencies & Obstacles and fallback plans & What could delay us? \\
+Roles and approval & Responsibilities and decision authority & Who approves changes? \\
+\hline
+\end{tabularx}
+\vfill
+\end{frame}
+
+\begin{frame}{What the charter does}
+  \begin{itemize}
+    \item Records the question, scope, approach, outputs, and decisions that guide the project.
+    \item Gives the student and advisor a shared reference when the project changes.
+    \item Usually fits in two to four pages. Write it before extensive data collection, then revise with approval.
+  \end{itemize}
+  
+  \draft{Start with a one-sentence description: ``This project investigates \ldots{} in \ldots{} using \ldots{}.''}
+\end{frame}
+
+\begin{frame}{1. Project overview}
+  \begin{itemize}
+    \item Give the project a specific working title that names the subject and setting.
+    \item List the student or team, advisor, partner if any, and expected project dates.
+    \item Write a two-sentence summary that someone outside the course could understand.
+  \end{itemize}
+  
+  \draft{Complete: ``We will study [subject] in [setting] to understand [purpose].''}
+  
+  \checkit{Could a reader identify the project without seeing the rest of the charter?}
+\end{frame}
+
+\begin{frame}{2. Problem and significance}
+  \begin{itemize}
+    \item Describe the current problem with a specific observation or source.
+    \item Name who experiences the problem or who would use the findings.
+    \item Explain what remains unknown and why an answer would matter.
+  \end{itemize}
+  
+  \draft{Write one paragraph: situation, evidence of the problem, and the knowledge gap. Cite any factual claims.}
+  
+  \checkit{Does the paragraph explain why research is needed, beyond saying the topic is interesting?}
+\end{frame}
+
+\begin{frame}{3. Research question}
+  \begin{itemize}
+    \item State one primary question that the available time and data can answer.
+    \item Specify the population, setting, variables, or process where relevant.
+    \item Add supporting questions only when each contributes to the primary answer.
+  \end{itemize}
+  
+  \draft{Try: ``How does [factor or method] relate to [outcome] in [setting]?'' Adjust the wording to fit your design.}
+  
+  \checkit{Can you name the evidence that would answer this question?}
+\end{frame}
+
+\begin{frame}{4. Objectives}
+  \begin{itemize}
+    \item Describe what you will do to answer the question: compare, estimate, explain, or evaluate.
+    \item Make each objective observable in the final report.
+    \item Keep objectives distinct from hoped-for results.
+  \end{itemize}
+  
+  \draft{Write two or three numbered objectives, each starting with an action verb and naming its output.}
+  
+  \checkit{Could a reader determine whether each objective was completed?}
+\end{frame}
+
+\begin{frame}{5. Scope and boundaries}
+  \begin{itemize}
+    \item Identify the population, time period, location, data, and methods you will include.
+    \item State exclusions that a reader might reasonably expect you to cover.
+    \item Explain any practical limit that affects how widely findings can apply.
+  \end{itemize}
+  
+  \draft{Fill in: ``This project includes [specific work] and excludes [related work].''}
+  
+  \checkit{Would this section help settle a request to add a new dataset or analysis midway through the term?}
+\end{frame}
+
+\begin{frame}{6. Research approach}
+  \begin{itemize}
+    \item Name the data sources and how you will obtain or collect them.
+    \item Outline the analysis and why it fits the question.
+    \item Identify permissions, ethics review, privacy measures, or tools needed before work begins.
+  \end{itemize}
+  
+  \draft{Sketch the sequence: obtain evidence, prepare it, analyze it, and interpret the results.}
+  
+  \checkit{Is each planned method feasible with the access and time you actually have?}
+\end{frame}
+
+\begin{frame}{7. Deliverables}
+  \begin{itemize}
+    \item List each item to be submitted: proposal, report, presentation, code, or other agreed output.
+    \item State its audience and expected form or length where useful.
+    \item Distinguish a research output from a possible finding.
+  \end{itemize}
+  
+  \draft{For each item, write ``[Deliverable] for [audience], containing [essential components].''}
+  
+  \checkit{Can the advisor verify each item at submission time?}
+\end{frame}
+
+\begin{frame}{8. Milestones}
+  \begin{itemize}
+    \item Work backward from the final presentation and submission dates.
+    \item Include approval, data access, collection, analysis, draft, feedback, and revision.
+    \item Allow time for delays where work depends on other people or systems.
+  \end{itemize}
+  
+  \draft{Make a table with milestone, target date, and evidence of completion.}
+  
+  \checkit{Does the schedule leave time to revise after feedback?}
+\end{frame}
+
+\begin{frame}{9. Success criteria}
+  \begin{itemize}
+    \item State what makes the work complete and credible, regardless of the result.
+    \item Include relevant standards for data quality, method, reproducibility, and communication.
+    \item Tie criteria to the objectives and required deliverables.
+  \end{itemize}
+  
+  \draft{Write criteria that can be checked, such as documented cleaning decisions and a reproducible analysis.}
+  
+  \checkit{Would the project still succeed if the hypothesis is unsupported?}
+\end{frame}
+
+\begin{frame}{10. Risks, roles, and decisions}
+  \begin{itemize}
+    \item Identify the most likely obstacles: access, recruitment, approvals, missing data, or time.
+    \item Pair each major risk with a practical fallback.
+    \item Assign responsibilities and say who approves changes to scope or method.
+  \end{itemize}
+  
+  \draft{Use three columns: risk or decision, responsible person, and response.}
+  
+  \checkit{If a critical dataset becomes unavailable, does the charter say what happens next?}
+\end{frame}
+
+\begin{frame}{Putting the charter together}
+  \begin{block}{One-paragraph synthesis}
+    This project will investigate [question] in [setting] using [data and method].
+    It will produce [deliverables] by [date]. Its scope is [boundary], and
+    completion will be assessed using [criteria].
+  \end{block}
+  
+  \begin{enumerate}
+    \item Draft each section in plain language.
+    \item Check that the question, method, scope, and deliverables agree.
+    \item Review the draft with the advisor and record approved changes.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Example: data quality capstone}
+  \textbf{Question:} How do revised validation rules affect completeness and reliability in a university research dataset?
+  \medskip
+  \begin{itemize}
+    \item \textbf{Scope:} One named dataset and a defined reporting period.
+    \item \textbf{Method:} Apply both rule sets and compare specified quality measures.
+    \item \textbf{Outputs:} Reproducible code, documented results, final report, and presentation.
+    \item \textbf{Risk:} If access is delayed, use an approved sample or revise the schedule with the advisor.
+  \end{itemize}
+  
+  \checkit{The charter commits to evaluating the rules, without assuming they will improve quality.}
+\end{frame}
+
+\end{document}
