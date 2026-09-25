@@ -1,0 +1,360 @@
+%\documentclass{beamer}
+%\usetheme{default}
+%\usecolortheme{default}
+%\setbeamertemplate{navigation symbols}{}
+%
+%\usepackage[utf8]{inputenc}
+%\usepackage{listings}
+%\usepackage{xcolor}
+%
+%\lstset{
+%  basicstyle=\ttfamily\footnotesize,
+%  breaklines=true,
+%  columns=fullflexible,
+%  keywordstyle=\color{blue},
+%  commentstyle=\color{gray},
+%  stringstyle=\color{teal},
+%  language=Python
+%}
+%
+%\title{Machine Learning Basics}
+%%\subtitle{A walkthrough using FEMA disaster declarations data}
+%\author{}
+%\date{}
+
+\documentclass[11pt,aspectratio=43]{beamer}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,booktabs,array,tabularx}
+\usepackage{graphicx,tikz,xcolor}
+\usepackage{listings}
+
+% Theme
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{frametitle}{series=\bfseries}
+
+% Colors
+\definecolor{aggiemaroon}{HTML}{500000}
+\definecolor{codebg}{HTML}{F7F7F7}
+\definecolor{codecomment}{RGB}{115,115,115}
+\definecolor{codeblue}{RGB}{0,0,140}
+\definecolor{codegreen}{RGB}{0,107,0}
+\definecolor{coderule}{RGB}{190,190,190}
+
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamercolor{title}{fg=aggiemaroon}
+\setbeamercolor{frametitle}{fg=aggiemaroon}
+
+% Python code
+\lstdefinestyle{python}{
+  language=Python,
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\scriptsize,
+  keywordstyle=\color{codeblue}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  stringstyle=\color{codegreen},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{coderule},
+  framesep=3pt,
+  xleftmargin=2pt,
+  xrightmargin=2pt,
+  tabsize=2,
+  columns=fullflexible
+}
+\lstset{style=python}
+
+% Tables
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% Metadata
+\title{Machine Learning Basics}
+%\subtitle{Data Transformation: Grouping, Pivoting, Strings, Pipelines}
+\author{}
+\date{
+  \textcolor{aggiemaroon}{
+    DAEN 300\\
+    \textbf{Alexander Abuabara}\\
+    Fall 2026
+  }
+}
+\titlegraphic{%
+  \IfFileExists{TAMU_logo.png}
+    {\includegraphics[height=1.2cm]{TAMU_logo.png}}{}
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\section{ML}
+
+\begin{frame}{Where data pipeline fits in ML}
+\begin{itemize}
+  \item Data engineering builds the pipeline:\\ \textbf{ingest} $\rightarrow$ \textbf{clean} $\rightarrow$ \textbf{transform} $\rightarrow$ \textbf{store/serve}
+  \item Machine learning consumes that \underline{clean} data to answer a question: \textit{is there a trend? can we predict a future value?}
+  \item A data engineer rarely builds the fanciest model. They build the pipeline that makes a \emph{correct, reproducible} model possible.
+  \item Our example: FEMA disaster declaration records. %, cleaned with \texttt{pandas} and modeled with \texttt{sklearn}/\texttt{statsmodels}.
+\end{itemize}
+\end{frame}
+
+\section{The Dataset and the Cleaning Pipeline}
+
+\begin{frame}[fragile]{Loading and inspecting data}
+\begin{lstlisting}
+df = pd.read_csv('DisasterDeclarationsSummaries.csv')
+df.info()
+df = df.drop(columns=["lastRefresh", "hash", "id"])
+\end{lstlisting}
+\begin{itemize}
+  \item \texttt{read\_csv} loads raw data into a DataFrame (70{,}405 rows, 29 columns).
+  \item \texttt{df.info()} is the first data-engineering check: types, non-null counts, memory.
+  \item \texttt{drop(columns=...)} removes housekeeping fields that carry no analytical value.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Data preparation: define the analysis}
+\textbf{Goal:} Analyze if the number of natural disasters/hazards are increasing over time.
+\begin{enumerate}
+  \item Load the FEMA Disaster Declarations Summaries CSV.
+  \item Inspect column names, types, missing values, and example records.
+  \item Keep major disaster declarations (\texttt{DR}).
+  \item Exclude unnecessary incident categories.
+  \item Keep designated areas that are equivalents ... such as whose names contain county, parish, or municipio.
+  \item Check and exclude of issues in the data (e.g., fiscal year 2026, as it is still ongoing).
+\end{enumerate}
+\smallskip
+\textbf{Check:} Record the row count after each filter. A change in these rules changes the population being modeled.
+\end{frame}
+
+\begin{frame}{Data preparation: filtering pseudocode}
+\ttfamily\small
+data := READ CSV("DisasterDeclarationsSummaries.csv")\\[0.5em]
+INSPECT schema, missing values, sample rows\\
+REMOVE unused metadata columns\\[0.5em]
+excluded := \{Biological, Fishing Losses, Other,\\
+\hspace*{2em}Toxic Substances, Human Cause, Terrorist\}\\[0.5em]
+clean := FILTER data WHERE\\
+\hspace*{2em}declarationType = DR\\
+\hspace*{2em}AND incidentType NOT IN excluded\\
+\hspace*{2em}AND designatedArea CONTAINS\\
+\hspace*{4em}county OR parish OR municipio\\
+\hspace*{2em}AND fyDeclared != 2026
+\end{frame}
+
+\begin{frame}{Data preparation: dates and annual table}
+\ttfamily\small
+FOR EACH row IN clean:\\
+\hspace*{2em}date := PARSE\_DATE(row.declarationDate)\\
+\hspace*{2em}row.year := CALENDAR\_YEAR(date)\\
+\hspace*{2em}row.month := CALENDAR\_MONTH(date)\\
+\hspace*{2em}row.year\_month := FORMAT(date, "YYYY-MM")\\[0.7em]
+annual := GROUP clean BY year\\
+\hspace*{2em}COUNT DISTINCT disasterNumber AS disasterCount\\
+SORT annual BY year\\[0.7em]
+X := annual.year AS ONE-COLUMN TABLE\\
+y := annual.disasterCount AS TARGET VECTOR
+\vspace{0.7em}
+
+\normalfont\small
+\textbf{Check:} One annual row represents one calendar year. Counting rows instead of distinct disaster numbers answers a different question. The exclusion uses fiscal year, while the derived year uses declaration date.
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+
+\begin{frame}[fragile]{Filtering and grouping: \texttt{query} + \texttt{groupby}}
+\begin{lstlisting}
+df.query("declarationType == 'DR'")
+  .groupby(["state"])
+  .size()
+  .reset_index(name="count")
+  .sort_values("count", ascending=False)
+\end{lstlisting}
+\begin{itemize}
+  \item \texttt{query()} filters rows with a readable string expression (like SQL's \texttt{WHERE}).
+  \item \texttt{groupby().size()} counts rows per category --- the pandas equivalent of \texttt{GROUP BY ... COUNT(*)}.
+  \item \texttt{reset\_index()} turns the grouped result back into a flat, tidy DataFrame.
+  \item This chain pattern (filter $\to$ group $\to$ aggregate $\to$ sort) is the core loop of exploratory data engineering.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Removing noise before modeling}
+\begin{lstlisting}
+excluded_incidents = ["Biological", "Fishing Losses",
+                       "Other", "Toxic Substances",
+                       "Human Cause", "Terrorist"]
+
+df.query("incidentType not in @excluded_incidents")
+\end{lstlisting}
+\begin{itemize}
+  \item \texttt{@variable} inside \texttt{query()} injects a Python list into the filter expression.
+  \item Rare/irrelevant categories (e.g.\ COVID-19 as ``Biological'') are excluded so they don't distort a \emph{weather-disaster} trend.
+  \item \textbf{Data engineering lesson:} deciding what to exclude, and documenting why, is as important as any model choice.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Text cleanup: \texttt{str} accessor and \texttt{explode}}
+\begin{lstlisting}
+df["designatedArea"].str.lower().str.split().explode().value_counts()
+\end{lstlisting}
+\begin{itemize}
+  \item \texttt{.str.lower()} / \texttt{.str.split()} apply string operations element-wise on a column.
+  \item \texttt{.explode()} turns each list entry into its own row --- useful for tokenizing free text.
+  \item \texttt{.value\_counts()} tallies frequencies, here revealing that ``county'', ``parish'', ``municipio'' dominate --- guiding the next filter.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Building engineered features with \texttt{assign}}
+\begin{lstlisting}
+df_clean = df.query(
+    "declarationType == 'DR' "
+    "and incidentType not in @excluded_incidents "
+    "and designatedArea.str.contains(@included_areas, case=False)"
+    "and fyDeclared != 2026",
+    engine="python"
+).assign(
+    year_month=lambda x: pd.to_datetime(x["declarationDate"]).dt.strftime("%Y-%m"),
+    year=lambda x: pd.to_datetime(x["declarationDate"]).dt.year,
+    month=lambda x: pd.to_datetime(x["declarationDate"]).dt.month
+)
+\end{lstlisting}
+\begin{itemize}
+  \item \texttt{assign()} creates new columns without mutating the original DataFrame (functional style).
+  \item \texttt{pd.to\_datetime(...).dt} extracts year/month --- classic \textbf{feature engineering}: turning a raw date string into model-ready numeric fields.
+  \item Excluding the incomplete current year (\texttt{fyDeclared != 2026}) avoids biasing the trend with partial data.
+\end{itemize}
+\end{frame}
+
+\section{Visualizing Data with Matplotlib}
+
+\begin{frame}[fragile]{\texttt{matplotlib}: the plotting layer}
+\begin{lstlisting}
+import matplotlib.pyplot as plt
+
+plt.scatter(annual["year"], annual["disasterDeclarations"], label="Observed")
+plt.xlabel("Year")
+plt.ylabel("Number of disasters")
+plt.legend(loc="upper left")
+plt.show()
+\end{lstlisting}
+\begin{itemize}
+  \item \texttt{plt.scatter} / \texttt{plt.plot} draw points or lines onto the current \emph{axes}.
+  \item \texttt{xlabel}, \texttt{ylabel}, \texttt{legend} annotate the figure --- always label axes before sharing a plot.
+  \item \texttt{plt.cla()} clears the current axes so successive plots don't overlap.
+  \item Pandas' own \texttt{.plot()} method (also used in the script) is a thin convenience wrapper \emph{around} matplotlib.
+\end{itemize}
+\end{frame}
+
+\section{Basic Machine Learning Concepts}
+
+\begin{frame}{What ``machine learning'' means}
+\begin{itemize}
+  \item \textbf{Supervised learning}: learn a function $y = f(x)$ from labeled examples $(x_i, y_i)$.
+  \item Here $x$ = year (or date), $y$ = number of disaster declarations --- a \textbf{regression} problem (continuous target).
+  \item \textbf{Training/fitting}: the model estimates parameters (slope, intercept) that best explain the observed data.
+  \item \textbf{Prediction}: once fit, the model produces $\hat{y}$ for new or existing $x$ values.
+  \item \textbf{Evaluation}: how well do predictions match reality? ($R^2$, residuals, error metrics.)
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Linear regression, conceptually}
+\[
+  \hat{y} = m x + b
+\]
+\begin{itemize}
+  \item $m$ (slope) and $b$ (intercept) are learned so that the line minimizes squared error to the observed points.
+  \item The script even computes $m$ and $b$ by hand with the closed-form formula, \emph{before} introducing \texttt{sklearn} --- showing that a library call is just an efficient implementation of this idea.
+  \item $R^2$ measures the fraction of variance in $y$ explained by $x$: $R^2 \in [0,1]$, higher is better.
+\end{itemize}
+\end{frame}
+
+\section{Overview of scikit-learn}
+
+\begin{frame}[fragile]{The \texttt{sklearn} estimator API}
+\begin{lstlisting}
+from sklearn.linear_model import LinearRegression
+
+X = annual[["year"]]     # features: must be 2D
+y = annual["disasterDeclarations"]  # target: 1D
+
+model = LinearRegression()
+model.fit(X, y)             # learn parameters
+model.coef_, model.intercept_  # learned slope/intercept
+model.score(X, y)           # R^2 on training data
+model.predict(X)             # generate predictions
+\end{lstlisting}
+\begin{itemize}
+  \item Every \texttt{sklearn} model follows the same pattern: \texttt{fit} $\to$ \texttt{predict}/\texttt{score}.
+  \item Features (\texttt{X}) are always 2D (rows = observations, columns = variables); target (\texttt{y}) is 1D.
+  \item This consistent API is why sklearn scales from a one-line linear model to complex pipelines.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{sklearn vs.\ statsmodels}
+\begin{itemize}
+  \item \texttt{sklearn} $\rightarrow$ optimized for \textbf{prediction}: fast \texttt{fit}/\texttt{predict}, easy to swap models, built for pipelines.
+  \item \texttt{statsmodels} $\rightarrow$ optimized for \textbf{inference}: p-values, confidence intervals, full regression \texttt{summary()}.
+  \item The script uses both on the \emph{same} data: \texttt{sm.OLS(y, sm.add\_constant(x)).fit()} for statistical rigor, \texttt{LinearRegression()} for a quick predictive fit.
+  \item \textbf{Data engineering takeaway:} choose the tool based on the question --- ``how confident are we?'' vs.\ ``what's the forecast?''
+\end{itemize}
+\end{frame}
+
+\section{Putting It Together: Model Diagnostics}
+
+\begin{frame}{Does the time scale of the data matter?}
+\begin{itemize}
+  \item Same underlying data, aggregated two ways:\\ \textbf{annual} counts vs.\ \textbf{monthly} counts.
+  \item Annual model:\\ slope $\approx 0.74$/year,\\ $R^2 \approx 0.48$.
+  \item Monthly model:\\ slope $\approx 0.00014$/month ($\approx 0.60$/year once rescaled),\\ $R^2 \approx 0.09$.
+  \item Lower monthly $R^2$ isn't a worse model! Monthly data has more noise (seasonality) that a simple line can't capture.
+  \item The level of aggregation you choose upstream directly shapes what the model downstream can learn. \textbf{Data engineering implication!!}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Checking model assumptions: autocorrelation}
+\begin{lstlisting}
+from statsmodels.stats.stattools import durbin_watson
+
+residuals = y - model.predict(x)
+durbin_watson(residuals)
+\end{lstlisting}
+\begin{itemize}
+  \item Linear regression assumes independent residuals; time series data often violates this.
+  \item Durbin--Watson statistic: $\approx 2$ means little autocorrelation; $<2$ means positive autocorrelation (nearby points are similar).
+  \item Both annual ($DW \approx 1.33$) and monthly ($DW \approx 1.58$) models show some positive autocorrelation --- a signal that a simple OLS trend is a simplification, useful but not the final word.
+\end{itemize}
+\end{frame}
+
+\section{Summary}
+
+\begin{frame}{Summary}
+\begin{itemize}
+  \item \textbf{pandas} builds the pipeline: load, inspect, filter (\texttt{query}), aggregate (\texttt{groupby}), engineer features (\texttt{assign}).
+  \item \textbf{matplotlib} makes the data (and the model's fit) visible before you trust it.
+  \item \textbf{ML,} at its simplest, is fitting a function to data and checking how well it generalizes ($R^2$, residual checks).
+  \item \textbf{sklearn} standardizes the fit/predict/score workflow; \textbf{statsmodels} adds statistical inference.
+  \item Clean, well-aggregated, well-labeled data is the real prerequisite for any of this to work!!
+\end{itemize}
+\end{frame}
+
+%\begin{frame}{Questions}
+%\centering
+%\Large Questions?
+%\end{frame}
+
+\end{document}
