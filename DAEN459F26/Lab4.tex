@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage[margin=.75in]{geometry}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=black}
+\setlist[itemize]{topsep=2pt,itemsep=2pt,leftmargin=*}
+\setlist[enumerate]{topsep=2pt,itemsep=3pt,leftmargin=*}
+
+\title{Assignment/Homework: Responsible Data Use}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-1.5em}
+
+\section*{Goal}
+This week, your team will examine your capstone project through the lens of \textbf{ethics, privacy, security, bias, and responsible data use}. The purpose is to identify risks early and propose concrete design or governance decisions that address them.
+
+\section*{Team Task}
+Review your current project and prepare a short assessment covering the following areas.
+
+\subsection*{1. Data and privacy}
+\begin{itemize}
+  \item What data are you collecting, storing, or processing?
+  \item Does the project involve personal, sensitive, or potentially identifying data?
+  \item Are you collecting more data than you actually need?
+  \item What are your plans for access control, retention, and deletion?
+\end{itemize}
+
+\subsection*{2. Security}
+\begin{itemize}
+  \item What are the main security risks in your architecture?
+  \item Where are credentials, API keys, or secrets stored?
+  \item Who should have access to raw data?
+  \item What security controls should be added to your pipeline, database, API, or application?
+\end{itemize}
+
+\subsection*{3. Bias and fairness}
+\begin{itemize}
+  \item Could the data underrepresent or misrepresent particular groups or situations?
+  \item What sampling, measurement, historical, or labeling biases might exist?
+  \item Could your project's outputs have different consequences for different users or groups?
+\end{itemize}
+
+\subsection*{4. Ethics and responsible use}
+\begin{itemize}
+  \item Who benefits from the system?
+  \item Who could be harmed if the system produces incorrect or misleading results?
+  \item Are there uses of your system that should be discouraged or explicitly prohibited?
+  \item What assumptions should users know about before relying on your results?
+\end{itemize}
+
+\section*{Use at Least Two External References}
+Consult at least \textbf{two} of the following resources and explain briefly how they apply to your project:
+
+\begin{itemize}
+  \item NIST AI Risk Management Framework: \url{https://www.nist.gov/itl/ai-risk-management-framework}
+  \item NIST Privacy Framework: \url{https://www.nist.gov/privacy-framework}
+  \item ACM Code of Ethics: \url{https://www.acm.org/code-of-ethics}
+  \item OWASP Top 10: \url{https://owasp.org/www-project-top-ten/}
+  \item OECD AI Principles: \url{https://oecd.ai/en/ai-principles}
+  \item GDPR principles: \url{https://eur-lex.europa.eu/eli/reg/2016/679/oj}
+  \item FAIR Data Principles: \url{https://www.go-fair.org/fair-principles/}
+  \item Datasheets for Datasets: \url{https://arxiv.org/abs/1803.09010}
+  \item Model Cards for Model Reporting: \url{https://arxiv.org/abs/1810.03993}
+\end{itemize}
+
+\section*{Deliverable for Next Friday's Lab}
+Prepare a \textbf{3--5 minute team presentation} with approximately \textbf{3--4 slides}:
+
+\begin{enumerate}
+  \item \textbf{Project context:} briefly describe your project and the data it uses.
+  \item \textbf{Top risks:} identify the 2--4 most important ethical, privacy, security, or bias concerns.
+  \item \textbf{Responsible design decisions:} describe specific actions your team will take to reduce these risks.
+  \item \textbf{Open question:} end with one issue where your team would like feedback from the class.
+\end{enumerate}
+
+\section*{What Makes a Strong Submission}
+A strong presentation should move beyond statements such as ``we will protect privacy'' or ``we will avoid bias.'' Connect each concern to a specific part of your project and propose a concrete technical, organizational, or documentation response.
+
+\bigskip
+\noindent\textbf{Guiding question:} What could go wrong with our project, and what are we doing about it?
+
+\end{document}

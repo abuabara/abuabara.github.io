@@ -1,0 +1,209 @@
+\documentclass[aspectratio=43,12pt]{beamer}
+\usetheme{default}
+\usecolortheme{default}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{title}{fg=aggiemaroon}
+\setbeamercolor{frametitle}{fg=aggiemaroon}
+\setbeamercolor{itemize item}{fg=aggiemaroon}
+\setbeamercolor{itemize subitem}{fg=aggiemaroon}
+\setbeamercolor{itemize subsubitem}{fg=aggiemaroon}
+\setbeamertemplate{itemize items}{•}
+\setbeamertemplate{itemize subitem}[•]
+\setbeamertemplate{itemize subsubitem}[•]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\title{Ethics, Privacy, Security, Bias,\\and Responsible Data Use}
+\author{}
+\date{
+\color{aggiemaroon}{
+DAEN 459 - Fall 2026\\
+\textbf{Alexander Abuabara}
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}{Source map: governance and ethics}
+\begin{itemize}
+  \item \textbf{NIST AI RMF}: AI risk, trustworthiness, lifecycle governance\\
+  \url{https://www.nist.gov/itl/ai-risk-management-framework}
+  \item \textbf{NIST Privacy Framework}: privacy risk management\\
+  \url{https://www.nist.gov/privacy-framework}
+  \item \textbf{ACM Code of Ethics}: professional duties for computing work\\
+  \url{https://www.acm.org/code-of-ethics}
+  \item \textbf{OECD AI Principles}: trustworthy AI and human-centered values\\
+  \url{https://oecd.ai/en/ai-principles}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Source map: security, law, and data stewardship}
+\begin{itemize}
+  \item \textbf{OWASP Top 10}: common web application security risks\\
+  \url{https://owasp.org/www-project-top-ten/}
+  \item \textbf{GDPR Article 5}: lawfulness, fairness, transparency, minimization\\
+  \url{https://eur-lex.europa.eu/eli/reg/2016/679/oj}
+  \item \textbf{FAIR Principles}: findable, accessible, interoperable, reusable data\\
+  \url{https://www.go-fair.org/fair-principles/}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Source map: documentation practices}
+\begin{itemize}
+  \item \textbf{Datasheets for Datasets}: document dataset motivation, composition, collection, preprocessing, uses, and risks\\
+  \url{https://arxiv.org/abs/1803.09010}
+  \item \textbf{Model Cards}: document model purpose, evaluation, intended use, limitations, and ethical considerations\\
+  \url{https://arxiv.org/abs/1810.03993}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How to use these sources in capstone projects}
+\begin{itemize}
+  \item Use \textbf{NIST AI RMF} to identify and govern AI-related risks.
+  \item Use \textbf{NIST Privacy Framework} and \textbf{GDPR principles} to justify privacy controls.
+  \item Use \textbf{OWASP Top 10} to evaluate application and API security.
+  \item Use \textbf{FAIR principles} to improve data stewardship.
+  \item Use \textbf{Datasheets} and \textbf{Model Cards} as required documentation templates.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Why responsible data engineering matters}
+\begin{itemize}
+  \item Data pipelines create real-world consequences.
+  \item Ethical failures often begin as design shortcuts.
+  \item Responsible systems require technical, legal, and social controls.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Core responsibilities}
+\begin{itemize}
+  \item Collect only what is needed.
+  \item Protect data across its lifecycle.
+  \item Document provenance, consent, assumptions, and limitations.
+  \item Test for bias, leakage, misuse, and downstream harm.
+  \item Make systems auditable and governable.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Privacy}
+\begin{itemize}
+  \item Data minimization
+  \item Purpose limitation
+  \item Consent and notice
+  \item De-identification and re-identification risk
+  \item Retention and deletion policies
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Security}
+\begin{itemize}
+  \item Authentication and authorization
+  \item Encryption in transit and at rest
+  \item Secrets management
+  \item Least privilege
+  \item Logging, monitoring, and incident response
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Bias and fairness}
+\begin{itemize}
+  \item Historical bias
+  \item Sampling bias
+  \item Label bias
+  \item Measurement bias
+  \item Deployment feedback loops
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Responsible data lifecycle}
+\begin{enumerate}
+  \item Define purpose and stakeholders.
+  \item Assess data sources and permissions.
+  \item Build secure pipelines.
+  \item Validate quality and representativeness.
+  \item Document assumptions and risks.
+  \item Monitor performance and harms after deployment.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Project risk checklist}
+\begin{itemize}
+  \item Who could be harmed by errors?
+  \item What sensitive attributes are present or inferable?
+  \item Could the data be re-identified?
+  \item Who has access to raw data?
+  \item Are outputs explainable and contestable?
+  \item What happens when the model or pipeline fails?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Documentation artifacts}
+\begin{itemize}
+  \item Data dictionary
+  \item Data lineage diagram
+  \item Dataset datasheet
+  \item Security threat model
+  \item Bias and fairness assessment
+  \item Retention and deletion policy
+  \item Model card, if ML is used
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Capstone deliverables}
+\begin{itemize}
+  \item Architecture diagram
+  \item Data governance plan
+  \item Privacy and security controls
+  \item Bias-risk analysis
+  \item Responsible-use statement
+  \item Monitoring and rollback plan
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Discussion}
+\begin{itemize}
+  \item What should this system refuse to do?
+  \item What data should never be collected?
+  \item What assumptions could fail in production?
+  \item Who audits the system?
+  \item How would users challenge an incorrect result?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Team Homework: Responsible Data Use Review}
+\footnotesize
+
+\textbf{Goal for next Friday lab:} prepare a 3--5 minute team presentation on your project's ethics, privacy, security, bias, and responsible data-use risks.
+
+\vspace{0.75em}
+\begin{columns}[T,totalwidth=\textwidth]
+\begin{column}{0.48\textwidth}
+\textbf{Analyze your project}
+\begin{itemize}
+  \item What data do you collect, store, or process?
+  \item What privacy or security risks exist?
+  \item What bias or fairness concerns could arise?
+  \item Who could be harmed by incorrect results?
+\end{itemize}
+\end{column}
+\begin{column}{0.48\textwidth}
+\textbf{Present your plan}
+\begin{itemize}
+  \item Project context and data used
+  \item 2--4 top responsible-use risks
+  \item Concrete design or governance responses
+  \item One open question for class feedback
+\end{itemize}
+\end{column}
+\end{columns}
+
+\vspace{0.75em}
+\textbf{Use at least two references:} NIST AI RMF, NIST Privacy Framework, ACM Code of Ethics, OWASP Top 10, OECD AI Principles, GDPR, FAIR, Datasheets for Datasets, or Model Cards.
+
+\vspace{0.5em}
+\centering
+\textbf{Guiding question:} What could go wrong with our project,\\and what are we doing about it?
+\end{frame}
+
+\end{document}

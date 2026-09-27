@@ -1,0 +1,336 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=0.75in]{geometry}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{tcolorbox}
+\usepackage{amssymb}
+
+\definecolor{lightgray}{gray}{0.95}
+
+\newtcolorbox{activitybox}[1]{
+  colback=lightgray,
+  colframe=black,
+  title=\textbf{#1},
+  boxrule=0.7pt,
+  arc=2pt
+}
+
+\newcommand{\writearea}[1]{%
+\vspace{0.2em}
+\fbox{\parbox[t][#1][t]{0.97\textwidth}{\vspace{0.3em}}}
+}
+
+\title{\textbf{Problem Discovery}\\
+\large In-Class Team Activity (and Presentation Guide)\\
+DAEN 459 - Fall 2026}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\vspace{-5em}
+
+\begin{center}
+\textbf{Goal for today:} Clarify the problem before discussing development, architecture, or delivery.
+\end{center}
+
+\begin{activitybox}{Ground Rule: No Solutions Yet}
+For most of today's activity, do \textbf{not} discuss dashboards, databases, APIs, cloud platforms, machine learning models, visualizations, or implementation details.
+
+If someone says, ``We could build \ldots'', ask:
+
+\begin{center}
+\textbf{What problem would that solve?}
+\end{center}
+%Write solution ideas in the \textbf{Parking Lot} at the end of this handout and return to them only after the discovery work is complete.
+\end{activitybox}
+
+\section*{Outline}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{p{0.1\textwidth} X p{0.4\textwidth}}
+\toprule
+\textbf{Time} & \textbf{Activity} & \textbf{Output} \\
+\midrule
+5 min & Initial problem statement & One sentence \\
+5 min & Five Whys & Root problem \\
+5 min & Stakeholder map & Stakeholder perspectives \\
+5 min & Evidence vs.\ assumptions & Three critical assumptions \\
+5 min & Failure even if the code works & Two discovery risks \\
+5 min & Discovery questions & Key unknowns \\
+5 min & Rewrite problem statement & Revised statement \\
+5 min & Prepare report-out & 90-second team presentation \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section*{1. Initial Problem Statement}
+
+Use this structure:
+
+\begin{quote}
+\textbf{[Stakeholder] struggles with [problem] because [cause/context], resulting in [consequence].}
+\end{quote}
+
+\textbf{Your current problem statement:}
+
+\writearea{1.1in}
+
+\section*{2. Five Whys}
+
+Start with your problem statement. Ask ``Why does this matter?'' several times until you reach an underlying need rather than a surface request.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{p{0.10\textwidth} X}
+\toprule
+\textbf{Step} & \textbf{Why does this matter?} \\
+\midrule
+1 & \\[0.35in]
+2 & \\[0.35in]
+3 & \\[0.35in]
+4 & \\[0.35in]
+5 & \\[0.35in]
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{What appears to be the deeper problem?}
+
+\writearea{0.8in}
+
+\section*{3. Stakeholder Map}
+
+Identify at least four stakeholder perspectives. Remember: the user, data owner, decision maker, and person affected by the output may be different people.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{p{0.18\textwidth} X X X}
+\toprule
+\textbf{Stakeholder} & \textbf{What do they want?} & \textbf{What do they know?} & \textbf{What could go wrong for them?} \\
+\midrule
+ & & & \\[0.55in]
+ & & & \\[0.55in]
+ & & & \\[0.55in]
+ & & & \\[0.55in]
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section*{4. Evidence vs.\ Assumptions}
+
+Separate what you \textbf{know} from what you currently \textbf{assume}.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{X X}
+\toprule
+\textbf{What we know} & \textbf{What we assume} \\
+\midrule
+ & \\[0.55in]
+ & \\[0.55in]
+ & \\[0.55in]
+ & \\[0.55in]
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\textbf{Circle or list the three assumptions most likely to invalidate the project:}
+
+\begin{enumerate}[leftmargin=*]
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+\end{enumerate}
+
+\section*{5. How Could the Project Fail Even if the Code Works?}
+
+Generate at least five non-programming failure modes.
+
+Examples:
+\begin{itemize}[leftmargin=*]
+    \item The data do not measure what we think they measure.
+    \item The data are incomplete or unrepresentative.
+    \item The wrong stakeholder defines success.
+    \item Users do not trust or act on the output.
+    \item The information arrives too late to support a decision.
+    \item The output does not address the real problem.
+    \item The problem is real but not important enough to justify the project.
+\end{itemize}
+
+\begin{enumerate}[leftmargin=*]
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+\end{enumerate}
+
+\textbf{Our two most important discovery risks are:}
+
+\begin{enumerate}[leftmargin=*]
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+\end{enumerate}
+
+\section*{6. Discovery Questions}
+
+Use the following prompts to identify what your team still needs to learn.
+
+\subsection*{Problem}
+\begin{itemize}[leftmargin=*]
+    \item What is happening today?
+    \item Why is it a problem?
+    \item How often does it occur?
+    \item What is the consequence?
+    \item What would happen if nobody solved it?
+\end{itemize}
+
+\subsection*{People}
+\begin{itemize}[leftmargin=*]
+    \item Who experiences the problem?
+    \item Who makes decisions related to it?
+    \item Who owns or provides the relevant data?
+    \item Who may be affected by the project's conclusions?
+\end{itemize}
+
+\subsection*{Data}
+\begin{itemize}[leftmargin=*]
+    \item What evidence do we currently have?
+    \item What data would we ideally want?
+    \item What data actually exist?
+    \item What important concepts might not be captured in the data?
+\end{itemize}
+
+\subsection*{Decisions}
+\begin{itemize}[leftmargin=*]
+    \item What decision should become easier or better?
+    \item Who makes that decision?
+    \item What information do they currently use?
+    \item How quickly must the information be available?
+\end{itemize}
+
+\subsection*{Unknowns}
+\begin{itemize}[leftmargin=*]
+    \item What are we assuming?
+    \item Which assumption is most dangerous?
+    \item What do we need to learn before committing to this project?
+    \item What evidence could convince us to change direction?
+\end{itemize}
+
+\textbf{Our three most important unanswered discovery questions:}
+
+\begin{enumerate}[leftmargin=*]
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+    \item \rule{0.88\textwidth}{0.4pt}
+\end{enumerate}
+
+\section*{7. Rewrite the Problem Statement}
+
+Use this structure:
+
+\begin{quote}
+\textbf{For [stakeholder], [current situation/problem] creates [measurable consequence]. We need to understand [unknown/question] so that [decision or outcome] can be improved.}
+\end{quote}
+
+\textbf{Revised problem statement:}
+
+\writearea{1.2in}
+
+\section*{8. Prepare the 90-Second Team Presentation\\--- or at least, be prepared for it}
+
+Your report-out should focus on what you learned about the problem, not on what you plan to build.
+
+Use this four-part structure:
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{What we thought:} ``We originally thought our project was about \ldots''
+    \item \textbf{What we learned:} ``After discovery, we think the real problem is \ldots''
+    \item \textbf{What matters most:} ``The most important stakeholder / assumption / risk is \ldots''
+    \item \textbf{What we still need to learn:} ``Before building anything, we need to understand \ldots''
+\end{enumerate}
+
+\begin{activitybox}{Presentation Constraint}
+Do not spend presentation time describing implementation, architecture, software tools, or proposed features.
+
+The goal is to show that your team's understanding of the \textbf{problem} became more precise.
+\end{activitybox}
+
+\subsection*{Presentation Notes}
+
+\textbf{1. What we thought:}
+
+\writearea{0.65in}
+
+\textbf{2. What we learned:}
+
+\writearea{0.65in}
+
+\textbf{3. Most important stakeholder, assumption, or risk:}
+
+\writearea{0.65in}
+
+\textbf{4. What we still need to learn:}
+
+\writearea{0.65in}
+
+%\section*{Class Discussion Questions}
+%
+%After each team presents, classmates may ask one discovery-oriented question. Good questions include:
+%
+%\begin{itemize}[leftmargin=*]
+%    \item What evidence supports that this is the real problem?
+%    \item Who else should be considered a stakeholder?
+%    \item Which assumption would be most dangerous if it were wrong?
+%    \item What data would you need to validate this problem?
+%    \item What would cause you to redefine or abandon the project?
+%    \item What decision will someone make differently if this project succeeds?
+%\end{itemize}
+
+\section*{End-of-Class Deliverable: Discovery Canvas (fingers crossed!!}
+
+Before leaving, your team should have concise answers for all six boxes below.
+
+\begin{center}
+\begin{tabularx}{\textwidth}{X X}
+\toprule
+\textbf{1. Problem} & \textbf{2. Stakeholders} \\
+\midrule
+\vspace{0.8in} & \vspace{0.8in} \\
+\midrule
+\textbf{3. Evidence} & \textbf{4. Assumptions} \\
+\midrule
+\vspace{0.8in} & \vspace{0.8in} \\
+\midrule
+\textbf{5. Unknowns} & \textbf{6. Revised Problem Statement} \\
+\midrule
+\vspace{0.8in} & \vspace{0.8in} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\section*{Follow-Up: Discovery Plan}
+
+For the next class or homework, identify:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{3 questions} your team needs answered,
+    \item \textbf{1 or 2 people} your team should talk to,
+    \item \textbf{2 datasets or documents} your team should search, learn, or inspect,
+    \item \textbf{1 assumption} your team should test,
+    \item \textbf{1 reason} your team might substantially redefine or abandon the current project direction.
+\end{itemize}
+
+%\section*{Parking Lot: Solution Ideas}
+%
+%Write solution ideas here without discussing them until discovery is complete.
+%
+%\writearea{2.0in}
+
+\end{document}
