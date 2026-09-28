@@ -1,17 +1,37 @@
 \documentclass[aspectratio=43,12pt]{beamer}
+
+% Themes & Colors===========================
 \usetheme{default}
 \usecolortheme{default}
+
+% Custom Colors (Texas A&M Aggie Maroon)
 \definecolor{aggiemaroon}{RGB}{80,0,0}
+
+% Apply Custom Colors to Elements
 \setbeamercolor{title}{fg=aggiemaroon}
 \setbeamercolor{frametitle}{fg=aggiemaroon}
+
+% Lists & Typography========================
+% Itemize Customization
 \setbeamercolor{itemize item}{fg=aggiemaroon}
 \setbeamercolor{itemize subitem}{fg=aggiemaroon}
 \setbeamercolor{itemize subsubitem}{fg=aggiemaroon}
-\setbeamertemplate{itemize items}{•}
-\setbeamertemplate{itemize subitem}[•]
-\setbeamertemplate{itemize subsubitem}[•]
+
+\setbeamertemplate{itemize item}{•}
+\setbeamertemplate{itemize subitem}{•}
+\setbeamertemplate{itemize subsubitem}{•}
+
+% Enumerate Customization (Replaces enumitem)
+\setbeamercolor{enumerate item}{fg=aggiemaroon}
+\setbeamercolor{enumerate subitem}{fg=aggiemaroon}
+\setbeamertemplate{enumerate item}{(\insertenumlabel)}
+\setbeamertemplate{enumerate subitem}{(\insertsubenumlabel)}
+
+% Presentation Layout=======================
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[frame number]
+
+% ==========================================
 \title{Ethics, Privacy, Security, Bias,\\and Responsible Data Use}
 \author{}
 \date{
@@ -21,9 +41,25 @@ DAEN 459 - Fall 2026\\
 }}
 \titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
 
+% ==========================================
 \begin{document}
 
 \frame{\titlepage}
+
+\begin{frame}{Questions we want to address:}
+\begin{itemize}
+  \item What should this system refuse to do?
+  \item What data should never be collected?
+  \item What assumptions could fail in production?
+  \item Who audits the system?
+  \item How would users challenge an incorrect result?
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+Case study:
+\url{https://www.youtube.com/watch?v=gnjVqeBoaqs}
+\end{frame}
 
 \begin{frame}{Source map: governance and ethics}
 \begin{itemize}
@@ -161,19 +197,8 @@ DAEN 459 - Fall 2026\\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Discussion}
-\begin{itemize}
-  \item What should this system refuse to do?
-  \item What data should never be collected?
-  \item What assumptions could fail in production?
-  \item Who audits the system?
-  \item How would users challenge an incorrect result?
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Team Homework: Responsible Data Use Review}
 \footnotesize
-
 \textbf{Goal for next Friday lab:} prepare a 3--5 minute team presentation on your project's ethics, privacy, security, bias, and responsible data-use risks.
 
 \vspace{0.75em}
