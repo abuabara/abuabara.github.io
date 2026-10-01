@@ -1,131 +1,76 @@
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[11pt,aspectratio=43]{beamer}
 
-\usecolortheme{seahorse}
-
-\usepackage[T1]{fontenc}
+% Packages
 \usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-\usepackage{zi4}
-\usepackage{amsmath,amssymb}
-\usepackage{booktabs}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,booktabs,array,tabularx}
+\usepackage{graphicx,tikz,xcolor}
 \usepackage{listings}
-\usepackage{tikz}
-\usepackage{xcolor}
-\usepackage{graphicx}
 
-\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
-
-% Color palette
-\definecolor{AggieMaroon}{HTML}{500000}
-\definecolor{CodeBackground}{HTML}{F3F3F3}
-\definecolor{CodeBorder}{HTML}{BFBFBF}
-\definecolor{CodeComment}{HTML}{666666}
-\definecolor{CodeKeyword}{HTML}{2F5597}
-\definecolor{Accent}{RGB}{31,78,121}
-\definecolor{Good}{RGB}{46,125,50}
-\definecolor{Warn}{RGB}{183,91,0}
-\definecolor{PythonBlue}{HTML}{2F5597}
-\definecolor{PythonGreen}{HTML}{2E7D32}
-\definecolor{SoftBackground}{HTML}{F5F7F8}
-
-% Beamer theme and layout
-\setbeamercolor{structure}{fg=AggieMaroon}
-\setbeamercolor{frametitle}{fg=white,bg=AggieMaroon}
-\setbeamercolor{title}{fg=AggieMaroon}
+% Theme
+\usetheme{default}
+\usecolortheme{default}
 \setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
 \setbeamertemplate{caption}[numbered]
+\setbeamerfont{frametitle}{series=\bfseries}
 
-\setbeamercolor{block title}{
-fg=white,
-bg=AggieMaroon
+% Colors
+\definecolor{aggiemaroon}{HTML}{500000}
+\definecolor{codebg}{HTML}{F7F7F7}
+\definecolor{codecomment}{RGB}{115,115,115}
+\definecolor{codeblue}{RGB}{0,0,140}
+\definecolor{codegreen}{RGB}{0,107,0}
+\definecolor{coderule}{RGB}{190,190,190}
+
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamercolor{title}{fg=aggiemaroon}
+\setbeamercolor{frametitle}{fg=aggiemaroon}
+
+% Python code
+\lstdefinestyle{python}{
+  language=Python,
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{codeblue}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  stringstyle=\color{codegreen},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{coderule},
+  framesep=3pt,
+  xleftmargin=2pt,
+  xrightmargin=2pt,
+  tabsize=2,
+  columns=fullflexible
+}
+\lstset{style=python}
+
+% Tables
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% Metadata
+\title{Recursive and Iterative Solutions}
+\author{}
+\date{
+  \textcolor{aggiemaroon}{
+    DAEN 300\\
+    \textbf{Alexander Abuabara}\\
+    Fall 2026
+  }
+}
+\titlegraphic{%
+  \IfFileExists{TAMU_logo.png}
+    {\includegraphics[height=1.2cm]{TAMU_logo.png}}{}
 }
 
-\setbeamercolor{block body}{
-fg=black,
-bg=AggieMaroon!8
-}
-
-\setbeamercolor{block title alerted}{
-fg=white,
-bg=red!70!black
-}
-
-\setbeamercolor{block body alerted}{
-fg=black,
-bg=red!8
-}
-
-\setbeamertemplate{blocks}[rounded][shadow=false]
-\setbeamertemplate{itemize item}{\textbullet}
-\setbeamertemplate{itemize subitem}{\textbullet}
-\setbeamertemplate{itemize subsubitem}{\textbullet}
-
-\setbeamertemplate{footline}{%
-\hfill
-\textcolor{AggieMaroon}{\insertframenumber/\inserttotalframenumber}
-\hspace{4pt}\vskip2pt
-}
-
-% Source-code and pseudocode styles
-\lstdefinestyle{classcode}{
-language=Python,
-basicstyle=\ttfamily\small,
-backgroundcolor=\color{CodeBackground},
-frame=single,
-rulecolor=\color{CodeBorder},
-keywordstyle=\color{PythonBlue}\bfseries,
-commentstyle=\color{CodeComment},
-stringstyle=\color{PythonGreen},
-showstringspaces=false,
-keepspaces=true,
-columns=fullflexible,
-breaklines=true,
-tabsize=4
-}
-
-% Pseudocode style
-\lstdefinestyle{pseudo}{
-basicstyle=\ttfamily\small,
-backgroundcolor=\color{CodeBackground},
-frame=single,
-rulecolor=\color{CodeBorder},
-columns=fullflexible,
-keepspaces=true,
-showstringspaces=false,
-keywordstyle=\bfseries\color{Accent},
-commentstyle=\itshape\color{Good},
-morecomment=[l]{//},
-morekeywords={
-Algorithm,Input,Output,for,while,if,else,return,
-then,to,do,not,and,or,true,false
-}
-}
-
-\lstdefinestyle{py}{style=classcode}
-\newcommand{\code}[1]{\colorbox{SoftBackground}{\texttt{#1}}}
-\newcommand{\takeaway}[1]{%
-\begin{beamercolorbox}[rounded=true,sep=0.55em]{block body}%
-\textbf{#1} 
-\end{beamercolorbox}%
-}
-
-% Section divider slides
-\AtBeginSection[]{%
-\begin{frame}
-\centering
-\Huge \insertsection
-\end{frame}
-}
-
-\lstset{style=classcode}
-
-% Document metadata
 \title{NumPy}
 \subtitle{arrays, indexing, vectorization, aggregation}
 \author{}
 
 \date{%
-\textcolor{AggieMaroon}{
+\textcolor{aggiemaroon}{
 DAEN 300\\
 \textbf{Alexander Abuabara}\\
 Fall 2026
@@ -891,35 +836,4 @@ Scikit-learn and other data-science tools
 
 \end{frame}
 
-% ==================================================
-%\begin{frame}{Reference}
-%
-%Primary reading:
-%
-%\vspace{0.3cm}
-%
-%Jake VanderPlas, \emph{Python Data Science Handbook},
-%Chapter 2: Introduction to NumPy.
-%
-%\vspace{0.5cm}
-%
-%Topics emphasized in this lecture:
-%
-%\begin{itemize}
-%    \item NumPy arrays and data types
-%    \item Array indexing and slicing
-%    \item Universal functions and vectorization
-%    \item Aggregations
-%    \item Broadcasting
-%\end{itemize}
-%
-%\vfill
-%
-%\small
-%Lecture examples and explanations are original adaptations for
-%undergraduate instruction.
-%
-%\end{frame}
-
-% ==================================================
 \end{document}

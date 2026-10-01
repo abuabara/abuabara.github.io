@@ -1,0 +1,458 @@
+\documentclass[11pt,aspectratio=43]{beamer}
+
+% Packages
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,booktabs,array,tabularx}
+\usepackage{graphicx,tikz,xcolor}
+\usepackage{listings}
+
+% Theme
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{caption}[numbered]
+\setbeamerfont{frametitle}{series=\bfseries}
+
+% Colors
+\definecolor{aggiemaroon}{HTML}{500000}
+\definecolor{codebg}{HTML}{F7F7F7}
+\definecolor{codecomment}{RGB}{115,115,115}
+\definecolor{codeblue}{RGB}{0,0,140}
+\definecolor{codegreen}{RGB}{0,107,0}
+\definecolor{coderule}{RGB}{190,190,190}
+
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamercolor{title}{fg=aggiemaroon}
+\setbeamercolor{frametitle}{fg=aggiemaroon}
+
+% Python code
+\lstdefinestyle{python}{
+  language=Python,
+  backgroundcolor=\color{codebg},
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{codeblue}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  stringstyle=\color{codegreen},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{coderule},
+  framesep=3pt,
+  xleftmargin=2pt,
+  xrightmargin=2pt,
+  tabsize=2,
+  columns=fullflexible
+}
+\lstset{style=python}
+
+% Tables
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+
+% Metadata
+\title{Recursive and Iterative Solutions}
+\author{}
+\date{
+  \textcolor{aggiemaroon}{
+    DAEN 300\\
+    \textbf{Alexander Abuabara}\\
+    Fall 2026
+  }
+}
+\titlegraphic{%
+  \IfFileExists{TAMU_logo.png}
+    {\includegraphics[height=1.2cm]{TAMU_logo.png}}{}
+}
+
+\begin{document}
+
+% 1
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% 2
+\begin{frame}{}
+  \begin{itemize}
+    \item Predict what a loop and a recursive function return.
+    \item Explain how a recursive program knows when to stop.
+    \item Recognize tail and non-tail recursive calls.
+    \item Compare solutions using tests and measured times.
+  \end{itemize}
+  \medskip
+  You should already know functions, lists, indexing,\\
+  \texttt{if}, and \texttt{for}/\texttt{while} loops.
+
+  Remember: \texttt{return} sends a value to the caller.\\
+  \texttt{print} displays a value on the screen.
+\end{frame}
+
+% 3
+\begin{frame}[fragile]{Totaling survey file counts}
+  A school survey produces three data files. Their row counts are:
+\begin{lstlisting}
+counts = [12, 8, 5]
+# The combined total should be 25.
+\end{lstlisting}
+  \textbf{Iteration} repeats steps with a loop.\\
+  \textbf{Recursion} repeats work through self-calls on smaller problems.
+
+  A \textbf{contract} states the allowed input and expected result.\\
+  Here: take a flat list of integers and return its total.\\
+  Return \texttt{0} for an empty list. Keep the input unchanged.
+\end{frame}
+
+% 4
+\begin{frame}[fragile]{A loop keeps a running total}
+\begin{lstlisting}
+def sum_iterative(values):
+    total = 0
+    for value in values:
+        total += value
+    return total
+
+sum_iterative(counts)  # 25
+\end{lstlisting}
+  The running total is \texttt{0}, then \texttt{12}, \texttt{20}, and \texttt{25}.
+
+  After every step, it includes all values processed so far.
+
+  \textbf{Predict:} What does the function return for \texttt{[]}?
+\end{frame}
+
+% 5
+\begin{frame}{The recursive summation plan}
+  At a position called \texttt{index}, the unfinished task is:\\
+  total the values starting at that position.
+
+  \begin{enumerate}
+    \item \textbf{Stop:} if the position reaches the list length, return \texttt{0}. This is the \textbf{base case}.
+    \item \textbf{Reduce:} ask the same function to total the later values, starting at \texttt{index + 1}.
+    \item \textbf{Combine:} add the current value to that answer.
+  \end{enumerate}
+  \medskip
+  The unchecked part loses one item each time.\\
+  This progress makes the base case reachable.
+\end{frame}
+
+% 6
+\begin{frame}[fragile]{A recursive total}
+\begin{lstlisting}
+def sum_recursive(values, index=0):
+    if index == len(values):
+        return 0
+    later_total = sum_recursive(values, index + 1)
+    return values[index] + later_total
+
+sum_recursive(counts)  # 25
+\end{lstlisting}
+  The first call starts at position \texttt{0}.
+
+  Each call shares the original list and advances the position. Using a position avoids making a new tail list with \texttt{values[1:]}.
+
+  The caller waits for \texttt{later\_total}, then adds its value.
+\end{frame}
+
+% 7
+\begin{frame}{Calls wait, then return}
+  For \texttt{[12, 8, 5]}:
+  \medskip
+  \begin{center}
+    \begin{tabular}{clc}
+      \toprule
+      Position & This call waits to calculate & Result \\
+      \midrule
+      0 & \texttt{12 +} answer from position 1 & 25 \\
+      1 & \texttt{8 +} answer from position 2 & 13 \\
+      2 & \texttt{5 +} answer from position 3 & 5 \\
+      3 & Base case & 0 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \medskip
+  Calls start at positions \texttt{0, 1, 2, 3}.\\
+  Results return in the order \texttt{0, 5, 13, 25}.
+
+  Python's \textbf{call stack} remembers the paused calls and their local variables. The latest call finishes first.
+\end{frame}
+
+% 8
+\begin{frame}{Non-tail recursion}
+  A recursive call is \textbf{non-tail} when its caller still has a calculation to do after the call returns.
+
+  In our recursive total, the call at position \texttt{0}:
+  \begin{enumerate}
+    \item Requests the total of \texttt{[8, 5]}.
+    \item Waits for the answer \texttt{13}.
+    \item Adds \texttt{12} and returns \texttt{25}.
+  \end{enumerate}
+  \medskip
+  The addition happens \textbf{after} the recursive call.
+
+  Even \texttt{return x + f(...)} needs an addition after \texttt{f} returns. Being on the final source line is not enough.
+\end{frame}
+
+% 9
+\begin{frame}[fragile]{Tail recursion carries the result so far}
+\begin{lstlisting}
+def sum_tail(values, index=0, total=0):
+    if index == len(values):
+        return total
+    return sum_tail(
+        values, index + 1, total + values[index]
+    )
+
+sum_tail(counts)  # 25
+\end{lstlisting}
+  \texttt{total} is an \textbf{accumulator}: the result so far.
+
+  Python calculates the new arguments before making the call. When it returns, the caller passes its answer back unchanged. This is a \textbf{tail call}.
+\end{frame}
+
+% 10
+\begin{frame}{Tracing the accumulator}
+  Each call receives the values shown here:
+  \medskip
+  \begin{center}
+    \begin{tabular}{ccl}
+      \toprule
+      \texttt{index} & \texttt{total} & Action \\
+      \midrule
+      0 & 0 & Pass position 1 and total 12 \\
+      1 & 12 & Pass position 2 and total 20 \\
+      2 & 20 & Pass position 3 and total 25 \\
+      3 & 25 & Base case returns 25 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \medskip
+  This version adds the values while moving forward.\\
+  The earlier version adds them while calls return.
+
+  Both give \texttt{25}. In Python, the tail version still has waiting calls. It passes \texttt{25} back through each one.
+\end{frame}
+
+% 11
+\begin{frame}[fragile]{A loop with an index and a total}
+\begin{lstlisting}
+def sum_while(values):
+    index = 0
+    total = 0
+    while index < len(values):
+        total += values[index]
+        index += 1
+    return total
+\end{lstlisting}
+  The tail version passes a new \texttt{index} and \texttt{total}.\\
+  The loop updates those variables inside one call.
+
+  Both move forward through the same positions. This is one way to translate a tail-recursive program into iteration.
+\end{frame}
+
+% 12
+\begin{frame}{What makes a call a tail call?}
+  \begin{center}
+    \begin{tabular}{p{0.27\textwidth}p{0.29\textwidth}p{0.29\textwidth}}
+      \toprule
+      In our totals & Non-tail version & Tail version \\
+      \midrule
+      After the self-call returns & Add a value & Return unchanged \\
+      Result so far & Waiting additions & Running total \\
+      Base case & Return \texttt{0} & Return \texttt{total} \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \medskip
+  Both functions check their base case first. The location of the base case does not define tail recursion.
+
+  \textbf{Check the work after the call}, rather than only the position of the call in the source code.
+\end{frame}
+
+% 13
+\begin{frame}[fragile]{Python still has a depth limit}
+\begin{lstlisting}
+import sys
+print(sys.getrecursionlimit())
+\end{lstlisting}
+  Some languages reuse a call frame for a tail call.\\
+  \textbf{CPython does not optimize Python tail calls this way.}
+
+  For our list totals, both recursive versions add one active call per item, plus the base case. Both can reach \texttt{RecursionError} on a valid long list.
+
+  The loop keeps one call active. In the lab, keep the configured recursion limit and compare the outcomes.
+\end{frame}
+
+% 14
+\begin{frame}{Three mistakes to check}
+  \begin{enumerate}
+    \item \textbf{Missing stopping case.} Does an empty input return a useful answer before indexing?
+    \item \textbf{Missing progress.} Passing \texttt{index} again asks for the same work. Pass \texttt{index + 1}.
+    \item \textbf{Missing return.} Calling a function and returning its answer are separate actions. Forward the answer when the caller needs it.
+  \end{enumerate}
+  \medskip
+  Use \texttt{[]}, one item, and a few items to check these cases.
+
+  Our examples read shared inputs without changing them. This keeps the comparison easier to reason about.
+\end{frame}
+
+% 15
+\begin{frame}[fragile]{Practice with a word game}
+  A \textbf{palindrome} reads the same in both directions:
+\begin{lstlisting}
+"level"   # True
+"1221"    # True
+"python"  # False
+\end{lstlisting}
+  Compare the outer pair, then move inward. This gives us a second example of a smaller remaining problem.
+
+  \textbf{Contract:} compare the exact string.\\
+  Case, spaces, and punctuation count.\\
+  \texttt{"Level"} is \texttt{False}. Empty and one-character strings are \texttt{True}.
+\end{frame}
+
+% 16
+\begin{frame}[fragile]{Palindrome with iteration}
+\begin{lstlisting}
+def palindrome_iterative(text):
+    left = 0
+    right = len(text) - 1
+    while left < right:
+        if text[left] != text[right]:
+            return False
+        left += 1
+        right -= 1
+    return True
+\end{lstlisting}
+  A mismatch stops the check immediately.
+
+  If the positions meet or cross, all required pairs matched. No separate reversal of the string is needed.
+\end{frame}
+
+% 17
+\begin{frame}[fragile]{Palindrome with recursion}
+\begin{lstlisting}
+def palindrome_recursive(text, left=0, right=None):
+    if right is None:
+        right = len(text) - 1
+    if left >= right:
+        return True
+    if text[left] != text[right]:
+        return False
+    return palindrome_recursive(
+        text, left + 1, right - 1
+    )
+\end{lstlisting}
+  \texttt{None} lets the initial call set the right position.
+
+  The unchecked region shrinks by two characters.\\
+  \textbf{Predict:} Is this self-call tail or non-tail? Why?
+\end{frame}
+
+% 18
+\begin{frame}[fragile]{Why nested data changes the task}
+  A folder may contain data files or smaller groups of files. Represent their row counts with nested lists:
+\begin{lstlisting}
+batches = [120, [80, 45], [], [30, [25]]]
+# Total: 300 rows
+\end{lstlisting}
+  A fixed pair of loops handles only a fixed number of levels. Here, the number of levels can vary.
+
+  Each smaller group has the same form as the whole group. Recursion can follow that structure.
+
+  \textbf{Contract:} an integer or a finite nested list of integers. Empty lists contribute \texttt{0}. No cycles or other data types. Keep the input unchanged.
+\end{frame}
+
+% 19
+\begin{frame}[fragile]{A recursive total for nested lists}
+\begin{lstlisting}
+def nested_sum_recursive(data):
+    if isinstance(data, int):
+        return data
+    total = 0
+    for item in data:
+        total += nested_sum_recursive(item)
+    return total
+
+nested_sum_recursive(batches)  # 300
+\end{lstlisting}
+  An integer returns directly. An empty list returns \texttt{0} because its loop has no items.
+
+  The loop combines the child results. A recursive function can contain a loop. This self-call is non-tail because the caller adds its result and may process more children.
+\end{frame}
+
+% 20
+\begin{frame}[fragile]{Iteration keeps a list of pending work}
+\begin{lstlisting}
+def nested_sum_iterative(data):
+    total = 0
+    stack = [data]
+    while stack:
+        item = stack.pop()
+        if isinstance(item, list):
+            stack.extend(item)
+        else:
+            total += item
+    return total
+\end{lstlisting}
+  \texttt{pop()} takes the last pending item. \texttt{extend()} adds children. This is an explicit \textbf{stack} of work.
+
+  For \texttt{[8, [4, 3]]}, it adds \texttt{3}, then \texttt{4}, then \texttt{8}. Integer addition gives the same total, \texttt{15}.
+\end{frame}
+
+% 21
+\begin{frame}{Choosing a solution}
+  For a flat list with $n$ items, in CPython:
+  \medskip
+  \begin{center}
+    \begin{tabular}{lll}
+      \toprule
+      Our version & Additions & Active calls at most \\
+      \midrule
+      Loop & $n$ & 1 \\
+      Non-tail total & $n$ & $n+1$ \\
+      Tail total & $n$ & $n+1$ \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+  \medskip
+  For flat counts, a loop or Python's built-in \texttt{sum} is a direct choice.
+
+  For a small nested input, recursion may be easy to follow. For unpredictable depth, an explicit stack avoids recursive calls, while still storing pending work.
+
+  Readability and measured time both help you choose.
+\end{frame}
+
+% 22
+\begin{frame}{Lab Assignment}
+  \textbf{A:} Trace three supplied totals and add two tests.\\
+  \textbf{B:} Write two palindrome functions and add a test.\\
+  \textbf{C:} Write two nested totals and trace the explicit stack.\\
+  \textbf{D:} Measure three totals and observe their depth behavior.\\
+  \textbf{E:} Choose solutions and explain your evidence.
+
+  \medskip
+  First test ordinary and boundary inputs against expected answers. Two programs agreeing can still both be wrong.
+
+  Complete the notebook's named answer cells. Then restart the kernel and run every cell before submission.
+\end{frame}
+
+% 23
+\begin{frame}[fragile]{Timing comparison}
+\begin{lstlisting}
+from timeit import repeat
+
+values = [1] * 100
+samples = repeat(lambda: sum_iterative(values),
+                 number=200, repeat=5)
+best_us = min(samples) / 200 * 1_000_000
+print(best_us)
+\end{lstlisting}
+  The small \texttt{lambda} makes the call we want to measure.
+
+  Measure all three totals on the same input. Build data outside the timer. Keep printing and tracing outside it too.
+
+  Report microseconds per call for several input sizes. Record your Python version. Use your results rather than assuming that one version must always be faster.
+\end{frame}
+
+\end{document}
