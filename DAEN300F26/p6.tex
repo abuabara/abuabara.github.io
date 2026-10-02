@@ -1,58 +1,39 @@
 \documentclass[11pt,aspectratio=43]{beamer}
 
 % Packages
-\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{amsmath,booktabs,array,tabularx}
-\usepackage{graphicx,tikz,xcolor}
-\usepackage{listings}
+\usepackage{booktabs,listings,pgfplots}
+\pgfplotsset{compat=1.18}
 
-% Theme
-\usetheme{default}
-\usecolortheme{default}
+% Appearance
+\definecolor{aggiemaroon}{HTML}{500000}
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamerfont{frametitle}{series=\bfseries}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[frame number]
-\setbeamertemplate{caption}[numbered]
-\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamertemplate{itemize items}[circle]
 
-% Colors
-\definecolor{aggiemaroon}{HTML}{500000}
-\definecolor{codebg}{HTML}{F7F7F7}
-\definecolor{codecomment}{RGB}{115,115,115}
-\definecolor{codeblue}{RGB}{0,0,140}
-\definecolor{codegreen}{RGB}{0,107,0}
-\definecolor{coderule}{RGB}{190,190,190}
-
-\setbeamercolor{structure}{fg=aggiemaroon}
-\setbeamercolor{title}{fg=aggiemaroon}
-\setbeamercolor{frametitle}{fg=aggiemaroon}
-
-% Python code
-\lstdefinestyle{python}{
+% Python listings
+\lstset{
   language=Python,
-  backgroundcolor=\color{codebg},
   basicstyle=\ttfamily\small,
-  keywordstyle=\color{codeblue}\bfseries,
-  commentstyle=\color{codecomment}\itshape,
-  stringstyle=\color{codegreen},
-  showstringspaces=false,
-  breaklines=true,
+  backgroundcolor=\color[HTML]{F7F7F7},
+  keywordstyle=\color[RGB]{0,0,140}\bfseries,
+  commentstyle=\color[RGB]{115,115,115}\itshape,
+  stringstyle=\color[RGB]{0,107,0},
+  rulecolor=\color[RGB]{190,190,190},
   frame=single,
-  rulecolor=\color{coderule},
   framesep=3pt,
   xleftmargin=2pt,
   xrightmargin=2pt,
   tabsize=2,
-  columns=fullflexible
+  columns=fullflexible,
+  breaklines=true,
+  showstringspaces=false
 }
-\lstset{style=python}
-
-% Tables
-\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
 
 % Metadata
-\title{Recursive and Iterative Solutions}
-\author{}
+\title{Iteration, Recursion, and Big-O}
 \date{
   \textcolor{aggiemaroon}{
     DAEN 300\\
@@ -67,392 +48,443 @@
 
 \begin{document}
 
-% 1
 \begin{frame}
   \titlepage
 \end{frame}
 
-% 2
 \begin{frame}{}
+  \begin{enumerate}
+    \item Reliable Mini Data Pipeline
+    \item Process Numerical Data
+    \item The Great M\&M Count
+    \item Preparing Data for a Simple Machine
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{}
+  \begin{enumerate}
+    \item The philosophical difference between using a tool versus living inside a system?
+    \item AI functions more like an active system or environment than a passive, neutral tool that you fully control.
+    \item Calling AI "just a tool" is misleading.
+    \item AI is not "yours"
+    \item 
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Learning Goals}
   \begin{itemize}
-    \item Predict what a loop and a recursive function return.
-    \item Explain how a recursive program knows when to stop.
-    \item Recognize tail and non-tail recursive calls.
-    \item Compare solutions using tests and measured times.
+    \item Explain the difference between an iterative and recursive approach;
+    \item Sort a small list of music artists by play count;
+    \item Describe why algorithms take more time as data gets larger;
+    \item Use basic Big-O notation to compare algorithm growth;
+    \item Connect theoretical complexity with measured time using \texttt{timeit}.
   \end{itemize}
-  \medskip
-  You should already know functions, lists, indexing,\\
-  \texttt{if}, and \texttt{for}/\texttt{while} loops.
-
-  Remember: \texttt{return} sends a value to the caller.\\
-  \texttt{print} displays a value on the screen.
 \end{frame}
 
-% 3
-\begin{frame}[fragile]{Totaling survey file counts}
-  A school survey produces three data files. Their row counts are:
-\begin{lstlisting}
-counts = [12, 8, 5]
-# The combined total should be 25.
-\end{lstlisting}
-  \textbf{Iteration} repeats steps with a loop.\\
-  \textbf{Recursion} repeats work through self-calls on smaller problems.
+\begin{frame}[fragile]{Our Small Music Dataset}
+  We will rank artists by total plays.
 
-  A \textbf{contract} states the allowed input and expected result.\\
-  Here: take a flat list of integers and return its total.\\
-  Return \texttt{0} for an empty list. Keep the input unchanged.
+  \begin{lstlisting}
+music_data = [
+    ("Taylor Swift", 950),
+    ("Bad Bunny", 870),
+    ("Billie Eilish", 620),
+    ("Drake", 810),
+    ("SZA", 590),
+    ("The Weeknd", 780),
+    ("Olivia Rodrigo", 540),
+    ("Bruno Mars", 690),
+    ("Kendrick Lamar", 730),
+    ("Sabrina Carpenter", 660)
+]
+  \end{lstlisting}
+
+  \vspace{0.2cm}
+  Goal: highest play count gets rank 1.
 \end{frame}
 
-% 4
-\begin{frame}[fragile]{A loop keeps a running total}
-\begin{lstlisting}
-def sum_iterative(values):
-    total = 0
-    for value in values:
-        total += value
-    return total
+\begin{frame}{What Does Ranking Mean?}
+  \begin{center}
+    \begin{tabular}{r l r}
+      \toprule
+      Rank & Artist & Plays \\
+      \midrule
+      1 & Taylor Swift & 950 \\
+      2 & Bad Bunny & 870 \\
+      3 & Drake & 810 \\
+      4 & The Weeknd & 780 \\
+      5 & Kendrick Lamar & 730 \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
 
-sum_iterative(counts)  # 25
-\end{lstlisting}
-  The running total is \texttt{0}, then \texttt{12}, \texttt{20}, and \texttt{25}.
+  \vspace{0.3cm}
+  Sorting is the process. Ranking is the labeled result.
 
-  After every step, it includes all values processed so far.
-
-  \textbf{Predict:} What does the function return for \texttt{[]}?
+  \[
+    \text{Sort by play count descending} \Rightarrow \text{assign rank numbers}
+  \]
 \end{frame}
 
-% 5
-\begin{frame}{The recursive summation plan}
-  At a position called \texttt{index}, the unfinished task is:\\
-  total the values starting at that position.
+\begin{frame}{Two Ways to Think About Repetition}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \textbf{Iteration}
+    \begin{itemize}
+      \item repeats with loops;
+      \item often uses \texttt{for} or \texttt{while};
+      \item usually easy to trace step by step.
+    \end{itemize}
+    \column{0.5\textwidth}
+    \textbf{Recursion}
+    \begin{itemize}
+      \item repeats by calling the same function again;
+      \item solves a smaller version of the problem;
+      \item must have a stopping rule.
+    \end{itemize}
+  \end{columns}
 
-  \begin{enumerate}
-    \item \textbf{Stop:} if the position reaches the list length, return \texttt{0}. This is the \textbf{base case}.
-    \item \textbf{Reduce:} ask the same function to total the later values, starting at \texttt{index + 1}.
-    \item \textbf{Combine:} add the current value to that answer.
-  \end{enumerate}
-  \medskip
-  The unchecked part loses one item each time.\\
-  This progress makes the base case reachable.
+  \vspace{0.5cm}
+  Both can solve the same problem.\\
+  The difference is how the repeated work is organized.
 \end{frame}
 
-% 6
-\begin{frame}[fragile]{A recursive total}
-\begin{lstlisting}
-def sum_recursive(values, index=0):
-    if index == len(values):
+\begin{frame}[fragile]{Small Iterative Example: Counting Plays}
+  Iteration uses a loop.
+
+  \begin{lstlisting}
+plays = [950, 870, 620]
+
+total = 0
+for play_count in plays:
+    total = total + play_count
+
+print(total)
+  \end{lstlisting}
+
+  \vspace{0.3cm}
+  The loop visits each value once.
+
+  \[
+    950 + 870 + 620 = 2440
+  \]
+\end{frame}
+
+\begin{frame}[fragile]{Small Recursive Example: Counting Plays}
+  Recursion breaks the list into one item plus the rest.
+
+  \begin{lstlisting}
+def total_plays(values):
+    if len(values) == 0:        # base case
         return 0
-    later_total = sum_recursive(values, index + 1)
-    return values[index] + later_total
+    return values[0] + total_plays(values[1:])
 
-sum_recursive(counts)  # 25
-\end{lstlisting}
-  The first call starts at position \texttt{0}.
+print(total_plays([950, 870, 620]))
+  \end{lstlisting}
 
-  Each call shares the original list and advances the position. Using a position avoids making a new tail list with \texttt{values[1:]}.
+  \vspace{0.3cm}
+  The function calls itself with a smaller list each time.
 
-  The caller waits for \texttt{later\_total}, then adds its value.
+  \[
+    [950,870,620] \rightarrow [870,620] \rightarrow [620] \rightarrow []
+  \]
 \end{frame}
 
-% 7
-\begin{frame}{Calls wait, then return}
-  For \texttt{[12, 8, 5]}:
-  \medskip
+\begin{frame}{The Most Important Rule of Recursion}
+  Every recursive function needs:
+
+  \[
+    \boxed{\text{Base Case} + \text{Recursive Case}}
+  \]
+
   \begin{center}
-    \begin{tabular}{clc}
+    \begin{tabular}{p{0.2\textwidth} p{0.7\textwidth}}
       \toprule
-      Position & This call waits to calculate & Result \\
+      Part & Meaning \\
       \midrule
-      0 & \texttt{12 +} answer from position 1 & 25 \\
-      1 & \texttt{8 +} answer from position 2 & 13 \\
-      2 & \texttt{5 +} answer from position 3 & 5 \\
-      3 & Base case & 0 \\
+      Base case & The condition that stops the function \\
+      Recursive case & The part where the function calls itself on a smaller problem \\
       \bottomrule
     \end{tabular}
   \end{center}
-  \medskip
-  Calls start at positions \texttt{0, 1, 2, 3}.\\
-  Results return in the order \texttt{0, 5, 13, 25}.
 
-  Python's \textbf{call stack} remembers the paused calls and their local variables. The latest call finishes first.
+  Without a base case, the function keeps calling itself until Python raises an error.
 \end{frame}
 
-% 8
-\begin{frame}{Non-tail recursion}
-  A recursive call is \textbf{non-tail} when its caller still has a calculation to do after the call returns.
+\begin{frame}[fragile]{Iterative Sorting Idea: Neighbor Swaps}
+  One simple sorting strategy compares neighboring records.
 
-  In our recursive total, the call at position \texttt{0}:
-  \begin{enumerate}
-    \item Requests the total of \texttt{[8, 5]}.
-    \item Waits for the answer \texttt{13}.
-    \item Adds \texttt{12} and returns \texttt{25}.
-  \end{enumerate}
-  \medskip
-  The addition happens \textbf{after} the recursive call.
+  \begin{lstlisting}
+if result[j][1] < result[j + 1][1]:
+    result[j], result[j + 1] = result[j + 1], result[j]
+  \end{lstlisting}
 
-  Even \texttt{return x + f(...)} needs an addition after \texttt{f} returns. Being on the final source line is not enough.
-\end{frame}
+  \vspace{0.3cm}
+  Example comparison:
 
-% 9
-\begin{frame}[fragile]{Tail recursion carries the result so far}
-\begin{lstlisting}
-def sum_tail(values, index=0, total=0):
-    if index == len(values):
-        return total
-    return sum_tail(
-        values, index + 1, total + values[index]
-    )
-
-sum_tail(counts)  # 25
-\end{lstlisting}
-  \texttt{total} is an \textbf{accumulator}: the result so far.
-
-  Python calculates the new arguments before making the call. When it returns, the caller passes its answer back unchanged. This is a \textbf{tail call}.
-\end{frame}
-
-% 10
-\begin{frame}{Tracing the accumulator}
-  Each call receives the values shown here:
-  \medskip
   \begin{center}
-    \begin{tabular}{ccl}
+    \begin{tabular}{l r c l r}
       \toprule
-      \texttt{index} & \texttt{total} & Action \\
+      Artist A & Plays & Compare & Artist B & Plays \\
       \midrule
-      0 & 0 & Pass position 1 and total 12 \\
-      1 & 12 & Pass position 2 and total 20 \\
-      2 & 20 & Pass position 3 and total 25 \\
-      3 & 25 & Base case returns 25 \\
+      Billie Eilish & 620 & $<$ & Drake & 810 \\
       \bottomrule
     \end{tabular}
   \end{center}
-  \medskip
-  This version adds the values while moving forward.\\
-  The earlier version adds them while calls return.
 
-  Both give \texttt{25}. In Python, the tail version still has waiting calls. It passes \texttt{25} back through each one.
+  Because 620 is less than 810, swap them.
 \end{frame}
 
-% 11
-\begin{frame}[fragile]{A loop with an index and a total}
-\begin{lstlisting}
-def sum_while(values):
-    index = 0
-    total = 0
-    while index < len(values):
-        total += values[index]
-        index += 1
-    return total
-\end{lstlisting}
-  The tail version passes a new \texttt{index} and \texttt{total}.\\
-  The loop updates those variables inside one call.
+\begin{frame}[fragile]{Iterative Ranking Function}
+  \begin{lstlisting}
+def rank_iterative(data):
+    result = data.copy()
+    n = len(result)
 
-  Both move forward through the same positions. This is one way to translate a tail-recursive program into iteration.
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if result[j][1] < result[j + 1][1]:
+                result[j], result[j + 1] = result[j + 1], result[j]
+
+    return result
+  \end{lstlisting}
+
+  \vspace{0.3cm}
+  This uses nested loops.
+
+  \[
+    \text{Outer loop} \times \text{inner loop} \approx n \times n
+  \]
 \end{frame}
 
-% 12
-\begin{frame}{What makes a call a tail call?}
+\begin{frame}[fragile]{Recursive Ranking Function}
+  Here is one beginner-friendly recursive sorting approach.
+
+  \begin{lstlisting}
+def rank_recursive(data):
+    result = data.copy()
+
+    def bubble_pass(end):
+        if end <= 1:              # base case
+            return
+
+        for j in range(end - 1):
+            if result[j][1] < result[j + 1][1]:
+                result[j], result[j + 1] = result[j + 1], result[j]
+
+        bubble_pass(end - 1)      # recursive case
+
+    bubble_pass(len(result))
+    return result
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Comparing the Two Approaches}
   \begin{center}
-    \begin{tabular}{p{0.27\textwidth}p{0.29\textwidth}p{0.29\textwidth}}
+    \small
+    \begin{tabular}{p{0.33\textwidth} p{0.22\textwidth} p{0.33\textwidth}}
       \toprule
-      In our totals & Non-tail version & Tail version \\
+      Question & Iterative & Recursive \\
       \midrule
-      After the self-call returns & Add a value & Return unchanged \\
-      Result so far & Waiting additions & Running total \\
-      Base case & Return \texttt{0} & Return \texttt{total} \\
+      How does it repeat? & Uses loops & Calls itself \\
+      Stopping rule & Loop range ends & Base case is reached \\
+      Easy for beginners? & Often yes & Sometimes less obvious \\
+      Can solve sorting? & Yes & Yes \\
+      Can have same Big-O? & Yes & Yes \\
       \bottomrule
     \end{tabular}
   \end{center}
-  \medskip
-  Both functions check their base case first. The location of the base case does not define tail recursion.
-
-  \textbf{Check the work after the call}, rather than only the position of the call in the source code.
 \end{frame}
 
-% 13
-\begin{frame}[fragile]{Python still has a depth limit}
-\begin{lstlisting}
-import sys
-print(sys.getrecursionlimit())
-\end{lstlisting}
-  Some languages reuse a call frame for a tail call.\\
-  \textbf{CPython does not optimize Python tail calls this way.}
+\begin{frame}{Why Do We Need Big-O?}
+  Small examples can hide big problems.
 
-  For our list totals, both recursive versions add one active call per item, plus the base case. Both can reach \texttt{RecursionError} on a valid long list.
-
-  The loop keeps one call active. In the lab, keep the configured recursion limit and compare the outcomes.
-\end{frame}
-
-% 14
-\begin{frame}{Three mistakes to check}
-  \begin{enumerate}
-    \item \textbf{Missing stopping case.} Does an empty input return a useful answer before indexing?
-    \item \textbf{Missing progress.} Passing \texttt{index} again asks for the same work. Pass \texttt{index + 1}.
-    \item \textbf{Missing return.} Calling a function and returning its answer are separate actions. Forward the answer when the caller needs it.
-  \end{enumerate}
-  \medskip
-  Use \texttt{[]}, one item, and a few items to check these cases.
-
-  Our examples read shared inputs without changing them. This keeps the comparison easier to reason about.
-\end{frame}
-
-% 15
-\begin{frame}[fragile]{Practice with a word game}
-  A \textbf{palindrome} reads the same in both directions:
-\begin{lstlisting}
-"level"   # True
-"1221"    # True
-"python"  # False
-\end{lstlisting}
-  Compare the outer pair, then move inward. This gives us a second example of a smaller remaining problem.
-
-  \textbf{Contract:} compare the exact string.\\
-  Case, spaces, and punctuation count.\\
-  \texttt{"Level"} is \texttt{False}. Empty and one-character strings are \texttt{True}.
-\end{frame}
-
-% 16
-\begin{frame}[fragile]{Palindrome with iteration}
-\begin{lstlisting}
-def palindrome_iterative(text):
-    left = 0
-    right = len(text) - 1
-    while left < right:
-        if text[left] != text[right]:
-            return False
-        left += 1
-        right -= 1
-    return True
-\end{lstlisting}
-  A mismatch stops the check immediately.
-
-  If the positions meet or cross, all required pairs matched. No separate reversal of the string is needed.
-\end{frame}
-
-% 17
-\begin{frame}[fragile]{Palindrome with recursion}
-\begin{lstlisting}
-def palindrome_recursive(text, left=0, right=None):
-    if right is None:
-        right = len(text) - 1
-    if left >= right:
-        return True
-    if text[left] != text[right]:
-        return False
-    return palindrome_recursive(
-        text, left + 1, right - 1
-    )
-\end{lstlisting}
-  \texttt{None} lets the initial call set the right position.
-
-  The unchecked region shrinks by two characters.\\
-  \textbf{Predict:} Is this self-call tail or non-tail? Why?
-\end{frame}
-
-% 18
-\begin{frame}[fragile]{Why nested data changes the task}
-  A folder may contain data files or smaller groups of files. Represent their row counts with nested lists:
-\begin{lstlisting}
-batches = [120, [80, 45], [], [30, [25]]]
-# Total: 300 rows
-\end{lstlisting}
-  A fixed pair of loops handles only a fixed number of levels. Here, the number of levels can vary.
-
-  Each smaller group has the same form as the whole group. Recursion can follow that structure.
-
-  \textbf{Contract:} an integer or a finite nested list of integers. Empty lists contribute \texttt{0}. No cycles or other data types. Keep the input unchanged.
-\end{frame}
-
-% 19
-\begin{frame}[fragile]{A recursive total for nested lists}
-\begin{lstlisting}
-def nested_sum_recursive(data):
-    if isinstance(data, int):
-        return data
-    total = 0
-    for item in data:
-        total += nested_sum_recursive(item)
-    return total
-
-nested_sum_recursive(batches)  # 300
-\end{lstlisting}
-  An integer returns directly. An empty list returns \texttt{0} because its loop has no items.
-
-  The loop combines the child results. A recursive function can contain a loop. This self-call is non-tail because the caller adds its result and may process more children.
-\end{frame}
-
-% 20
-\begin{frame}[fragile]{Iteration keeps a list of pending work}
-\begin{lstlisting}
-def nested_sum_iterative(data):
-    total = 0
-    stack = [data]
-    while stack:
-        item = stack.pop()
-        if isinstance(item, list):
-            stack.extend(item)
-        else:
-            total += item
-    return total
-\end{lstlisting}
-  \texttt{pop()} takes the last pending item. \texttt{extend()} adds children. This is an explicit \textbf{stack} of work.
-
-  For \texttt{[8, [4, 3]]}, it adds \texttt{3}, then \texttt{4}, then \texttt{8}. Integer addition gives the same total, \texttt{15}.
-\end{frame}
-
-% 21
-\begin{frame}{Choosing a solution}
-  For a flat list with $n$ items, in CPython:
-  \medskip
   \begin{center}
-    \begin{tabular}{lll}
+    \begin{tabular}{r r}
       \toprule
-      Our version & Additions & Active calls at most \\
+      Number of Artists $n$ & Approximate $n^2$ Work \\
       \midrule
-      Loop & $n$ & 1 \\
-      Non-tail total & $n$ & $n+1$ \\
-      Tail total & $n$ & $n+1$ \\
+      10 & 100 \\
+      20 & 400 \\
+      50 & 2,500 \\
+      100 & 10,000 \\
+      1,000 & 1,000,000 \\
       \bottomrule
     \end{tabular}
   \end{center}
-  \medskip
-  For flat counts, a loop or Python's built-in \texttt{sum} is a direct choice.
 
-  For a small nested input, recursion may be easy to follow. For unpredictable depth, an explicit stack avoids recursive calls, while still storing pending work.
-
-  Readability and measured time both help you choose.
+  \vspace{0.3cm}
+  Big-O helps us describe how work grows as data grows.
 \end{frame}
 
-% 22
-\begin{frame}{Lab Assignment}
-  \textbf{A:} Trace three supplied totals and add two tests.\\
-  \textbf{B:} Write two palindrome functions and add a test.\\
-  \textbf{C:} Write two nested totals and trace the explicit stack.\\
-  \textbf{D:} Measure three totals and observe their depth behavior.\\
-  \textbf{E:} Choose solutions and explain your evidence.
+\begin{frame}{Common Big-O Patterns}
+  \begin{center}
+    \begin{tabular}{l l l}
+      \toprule
+      Big-O & Name & Example Idea \\
+      \midrule
+      $O(1)$ & Constant & Get the first item \\
+      $O(n)$ & Linear & Visit every artist once \\
+      $O(n \log n)$ & Efficient sorting & Python's built-in sort \\
+      $O(n^2)$ & Quadratic & Compare many pairs \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
 
-  \medskip
-  First test ordinary and boundary inputs against expected answers. Two programs agreeing can still both be wrong.
-
-  Complete the notebook's named answer cells. Then restart the kernel and run every cell before submission.
+  \vspace{0.3cm}
+  Big-O ignores small details and focuses on growth.
 \end{frame}
 
-% 23
-\begin{frame}[fragile]{Timing comparison}
-\begin{lstlisting}
-from timeit import repeat
+\begin{frame}{Growth of Common Big-O Classes}
+  \begin{center}
+    \begin{tikzpicture}
+      \begin{axis}[
+        width=0.8\textwidth,
+        height=0.8\textheight,
+        xlabel={$n$},
+        ylabel={Relative work},
+        xmin=1, xmax=50,
+        ymin=0, ymax=2500,
+        legend pos=north west,
+        grid=major
+      ]
+        \addplot+[mark=none, thick] coordinates {(1,1) (10,10) (20,20) (30,30) (40,40) (50,50)};
+        \addlegendentry{$O(n)$}
+        \addplot+[mark=none, thick] coordinates {(1,1) (10,33) (20,86) (30,147) (40,213) (50,282)};
+        \addlegendentry{$O(n\log n)$}
+        \addplot+[mark=none, thick] coordinates {(1,1) (10,100) (20,400) (30,900) (40,1600) (50,2500)};
+        \addlegendentry{$O(n^2)$}
+      \end{axis}
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
 
-values = [1] * 100
-samples = repeat(lambda: sum_iterative(values),
-                 number=200, repeat=5)
-best_us = min(samples) / 200 * 1_000_000
-print(best_us)
-\end{lstlisting}
-  The small \texttt{lambda} makes the call we want to measure.
+\begin{frame}{Big-O for Our Ranking Algorithms}
+  Both beginner sorting versions use repeated comparisons.
 
-  Measure all three totals on the same input. Build data outside the timer. Keep printing and tracing outside it too.
+  \begin{center}
+    \begin{tabular}{l l l}
+      \toprule
+      Implementation & Repetition Style & Approximate Big-O \\
+      \midrule
+      Iterative ranking & Nested loops & $O(n^2)$ \\
+      Recursive ranking & Recursive passes & $O(n^2)$ \\
+      Python \texttt{sorted()} & Built-in optimized sort & $O(n \log n)$ \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
 
-  Report microseconds per call for several input sizes. Record your Python version. Use your results rather than assuming that one version must always be faster.
+  \vspace{0.3cm}
+  Note: recursion does not automatically make an algorithm faster.
+\end{frame}
+
+\begin{frame}[fragile]{Measuring Time with \texttt{timeit}}
+  Theoretical complexity is useful, but we can also measure runtime.
+
+  \begin{lstlisting}
+import timeit
+
+iterations = 1000
+
+iterative_time = timeit.timeit(
+    lambda: rank_iterative(music_data),
+    number=iterations
+)
+
+recursive_time = timeit.timeit(
+    lambda: rank_recursive(music_data),
+    number=iterations
+)
+
+print(iterative_time / iterations)
+print(recursive_time / iterations)
+  \end{lstlisting}
+\end{frame}
+
+\begin{frame}{Timing Results Table Template}
+  Complete this table with your own results!
+
+  \begin{center}
+    \begin{tabular}{l r r r}
+      \toprule
+      Implementation & Runs & Total Time & Avg. Time per Run \\
+      \midrule
+      Iterative & 1000 & & \\
+      Recursive & 1000 & & \\
+      Python \texttt{sorted()} & 1000 & & \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+
+  \vspace{0.3cm}
+  Note that measured results may vary by computer,\\Python version, and background activity(ies).
+\end{frame}
+
+% \begin{frame}{Example Timing Chart Template}
+%
+%   \begin{center}
+%     \begin{tikzpicture}
+%       \begin{axis}[
+%         ybar,
+%         width=0.5\textwidth,
+%         height=0.7\textheight,
+%         ylabel={Average time per run},
+%         symbolic x coords={Iterative,Recursive,Python sorted},
+%         xtick=data,
+%         nodes near coords,
+%         ymin=0,
+%         ymax=0.000015,
+%         bar width=10pt
+%       ]
+%         \addplot coordinates {(Iterative,0.000012) (Recursive,0.000010) (Python sorted,0.000003)};
+%       \end{axis}
+%     \end{tikzpicture}
+%   \end{center}
+%
+%   Note: values are illustrative only.
+% \end{frame}
+
+\begin{frame}{How to Interpret the Results}
+  A good comparison should include both theory and measurement.
+
+  \begin{center}
+    \small
+    \begin{tabular}{p{0.2\textwidth} p{0.65\textwidth}}
+      \toprule
+      Evidence Type & What It Tells Us \\
+      \midrule
+      Big-O & How runtime grows as data gets larger \\
+      \texttt{timeit} & How fast the code was on one machine \\
+      Readability & How easy the code is to understand and maintain \\
+      Correctness & Whether the output ranking is right \\
+      \bottomrule
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Takeaways}
+  \begin{itemize}
+    \item Iteration repeats work using loops.
+    \item Recursion repeats work using function calls.
+    \item Recursive functions need a base case.
+    \item Big-O describes growth, not exact seconds.
+    \item Two algorithms can have the same Big-O but different measured runtimes.
+    \item Built-in Python tools are often preferred in professional code because they are tested and optimized.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Question for after the lab assignment}
+  Suppose the music dataset grows from 10 artists to 10,000 artists.
+
+  \vspace{0.3cm}
+  Would you still use the beginner sorting algorithm from this lesson?
+
+  \vspace{0.4cm}
+  Explain your answer using:
+
+  \[
+    \boxed{\text{Correctness} + \text{Big-O} + \texttt{timeit} + \text{Readability}}
+  \]
 \end{frame}
 
 \end{document}
