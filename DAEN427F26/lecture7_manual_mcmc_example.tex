@@ -1,0 +1,325 @@
+\documentclass[aspectratio=43,11pt]{beamer}
+
+\usetheme{default}
+\usecolortheme{default}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamertemplate{navigation symbols}{}\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+
+\usepackage{amsmath,amssymb,booktabs}
+
+%\title{A Simple Manual Example of MCMC}
+%\subtitle{Metropolis-Hastings for a Bernoulli Parameter}
+%\author{}
+%\date{}
+
+\title{Decision and Risk Analysis}
+\subtitle{Lecture 7: \textbf{A Simple Manual Example of MCMC}\\
+Metropolis-Hastings for a Bernoulli Parameter}
+\author{}
+\date{
+\color{aggiemaroon}{
+DAEN 427 / ISEN 427 / ISEN 627 - Fall 2026\\
+\textbf{Alexander Abuabara}
+}
+}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}{}
+We want to understand how MCMC can generate samples from a posterior distribution.
+
+\vspace{0.4cm}
+Suppose we observe four Bernoulli trials:
+\[
+ y = (1,1,1,0)
+\]
+
+That is:
+\[
+ 3 \text{ successes}, \qquad 1 \text{ failure}
+\]
+
+\vspace{0.3cm}
+The unknown parameter is:
+\[
+\theta = \Pr(y=1)
+\]
+\end{frame}
+
+\begin{frame}{Prior and Likelihood}
+Assume a uniform prior:
+\[
+\theta \sim \text{Uniform}(0,1)
+\]
+
+The likelihood for 3 successes and 1 failure is:
+\[
+ p(y \mid \theta) \propto \theta^3(1-\theta)^1
+\]
+
+Since the prior is uniform, the posterior is proportional to:
+\[
+ p(\theta \mid y) \propto \theta^3(1-\theta)
+\]
+
+We define the unnormalized posterior density:
+\[
+ f(\theta)=\theta^3(1-\theta)
+\]
+\end{frame}
+
+\begin{frame}{Metropolis-Hastings Rule}
+Start at some current value:
+\[
+\theta_t
+\]
+
+Propose a new value:
+\[
+\theta^*
+\]
+
+Compute the acceptance ratio:
+\[
+ r = \frac{f(\theta^*)}{f(\theta_t)}
+\]
+
+Then compute:
+\[
+ \alpha = \min(1,r)
+\]
+
+Accept the proposed value if:
+\[
+ u < \alpha, \qquad u \sim \text{Uniform}(0,1)
+\]
+\end{frame}
+
+\begin{frame}{Step 1: Move from 0.50 to 0.60}
+Start at:
+\[
+\theta_0 = 0.50
+\]
+
+Compute:
+\[
+ f(0.50)=0.50^3(1-0.50)=0.125 \times 0.50=0.0625
+\]
+
+Propose:
+\[
+\theta^*=0.60
+\]
+
+Compute:
+\[
+ f(0.60)=0.60^3(1-0.60)=0.216 \times 0.40=0.0864
+\]
+
+Acceptance ratio:
+\[
+ r=\frac{0.0864}{0.0625}=1.3824
+\]
+
+So:
+\[
+\alpha=1
+\]
+
+Accept:
+\[
+0.50 \rightarrow 0.60
+\]
+\end{frame}
+
+\begin{frame}{Step 2: Move from 0.60 to 0.80}
+Current value:
+\[
+\theta_t=0.60
+\]
+
+Propose:
+\[
+\theta^*=0.80
+\]
+
+Compute:
+\[
+ f(0.80)=0.80^3(1-0.80)=0.512 \times 0.20=0.1024
+\]
+
+Acceptance ratio:
+\[
+ r=\frac{0.1024}{0.0864}=1.185
+\]
+
+Thus:
+\[
+\alpha=1
+\]
+
+Accept:
+\[
+0.60 \rightarrow 0.80
+\]
+\end{frame}
+
+\begin{frame}{Step 3: A Rejected Proposal}
+\small
+Current value:
+\[
+\theta_t=0.80
+\]
+
+Propose:
+\[
+\theta^*=0.95
+\]
+
+Compute:
+\[
+ f(0.95)=0.95^3(1-0.95)\approx 0.8574\times 0.05=0.0429
+\]
+
+Acceptance ratio:
+\[
+ r=\frac{0.0429}{0.1024}\approx 0.419
+\]
+
+So:
+\[
+\alpha=0.419
+\]
+
+Suppose we draw: % {\tiny(random value between $0-1$)}:
+\[
+u=0.70
+\]
+
+Since:
+\[
+0.70>0.419
+\]
+
+reject the proposal and stay at:
+\[
+\theta=0.80
+\]
+\end{frame}
+
+\begin{frame}{Step 4: Move from 0.80 to 0.70}
+Current value:
+\[
+\theta_t=0.80
+\]
+
+Propose:
+\[
+\theta^*=0.70
+\]
+
+Compute:
+\[
+ f(0.70)=0.70^3(1-0.70)=0.343 \times 0.30=0.1029
+\]
+
+Acceptance ratio:
+\[
+ r=\frac{0.1029}{0.1024}\approx1.005
+\]
+
+Thus:
+\[
+\alpha=1
+\]
+
+Accept:
+\[
+0.80 \rightarrow 0.70
+\]
+\end{frame}
+
+\begin{frame}{Manual Chain}
+The chain we recorded is:
+\[
+0.50,\;0.60,\;0.80,\;0.80,\;0.70
+\]
+
+\vspace{0.4cm}
+Notice the repeated value:
+\[
+0.80,\;0.80
+\]
+
+This happens because a rejected proposal keeps the chain at the current state.
+
+\vspace{0.4cm}
+After many iterations, the histogram of the chain approximates the posterior:
+\[
+p(\theta \mid y)
+\]
+\end{frame}
+
+\begin{frame}{Summary Table}
+\centering
+\small
+\begin{tabular}{ccccccc}
+\toprule
+Step & Current & Proposal & $f$(Current) & $f$(Proposal) & $\alpha$ & Result \\
+\midrule
+1 & 0.50 & 0.60 & 0.0625 & 0.0864 & 1.000 & Accept \\
+2 & 0.60 & 0.80 & 0.0864 & 0.1024 & 1.000 & Accept \\
+3 & 0.80 & 0.95 & 0.1024 & 0.0429 & 0.419 & Reject \\
+4 & 0.80 & 0.70 & 0.1024 & 0.1029 & 1.000 & Accept \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Key Idea}
+MCMC does not only search for the best value.
+
+\vspace{0.4cm}
+It constructs a chain whose long-run behavior matches the posterior distribution.
+
+\vspace{0.4cm}
+Regions with higher posterior probability are visited more often.
+
+\vspace{0.4cm}
+Regions with lower posterior probability are visited less often, but not necessarily never.
+
+\vspace{0.4cm}
+That is why MCMC provides uncertainty, not just a point estimate.
+\end{frame}
+
+\begin{frame}{} % Connection to Bayesian Regression
+In the simple example, the unknown was one parameter:
+\[
+\theta
+\]
+
+In Bayesian linear regression, the unknowns are usually:
+\[
+(\beta_0,\beta_1,\sigma)
+\]
+
+MCMC samples from:
+\[
+p(\beta_0,\beta_1,\sigma \mid x,y)
+\]
+
+Each draw gives one plausible regression model:
+\[
+y = \beta_0 + \beta_1 x + \varepsilon
+\]
+
+The collection of draws gives the full posterior uncertainty.
+\end{frame}
+
+\end{document}
