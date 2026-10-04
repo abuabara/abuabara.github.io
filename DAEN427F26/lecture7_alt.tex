@@ -45,8 +45,7 @@
 
 \title{Decision and Risk Analysis}
 \subtitle{Lecture 7: \textbf{Approximating the Posterior}\\
-{\it Grid Approximation, MCMC, and RStan}\\
-(alternative version)
+{\it Grid Approximation, MCMC, and RStan}
 }
 \author{}
 \date{
@@ -224,8 +223,8 @@ c(keep = cost_fail * mean(draws), replace = cost_repl)
 % ---------------------------------------------------------------
 \begin{frame}[fragile]{Another model (Gamma--Poisson, failures per month)}
   \small
-  Plant has $\lambda$ failures/month. Prior $\lambda\sim\text{Gamma}(3,1)$. Three months of
-  data: $y=(2,4,3)$.
+  Plant has $\lambda$ failures/month. Prior $\lambda\sim\text{Gamma}(3,1)$.\\
+  Three months of data: $y=(2,4,3)$.
 \begin{lstlisting}
 y        <- c(2, 4, 3)
 lam_grid <- seq(0, 12, length = 200)
@@ -235,10 +234,8 @@ lik      <- sapply(lam_grid,
 post     <- prior * lik / sum(prior * lik)
 lam_draws <- sample(lam_grid, 10000, replace = TRUE, prob = post)
 \end{lstlisting}
-  \begin{itemize}
-    \item \textbf{(5)} Independent months: the likelihood is a \emph{product} of Poisson probabilities.
-    \item Same four steps, different model. The recipe does not change.
-  \end{itemize}
+\textbf{(5)} Independent months: the likelihood is a \emph{product} of Poisson probabilities.\\
+Same four steps, different model. The recipe does not change.
 \end{frame}
 
 % ---------------------------------------------------------------
@@ -256,7 +253,7 @@ lam_draws <- sample(lam_grid, 10000, replace = TRUE, prob = post)
     \begin{column}{0.52\textwidth}
       \pic[1]{f06_dimension.png}
     \end{column}
-    \begin{column}{0.46\textwidth}
+    \begin{column}{0.5\textwidth}
       \small
       \begin{itemize}
         \item 100 grid values per parameter.
@@ -341,7 +338,9 @@ lam_draws <- sample(lam_grid, 10000, replace = TRUE, prob = post)
   \end{tikzpicture}
   \end{center}
   \small
-  $w$ is the \textbf{step size}. Too small: slow exploration. Too large: many rejections.
+  $w$ is the \textbf{step size}. Too small: slow exploration.
+  Too large: many rejections.
+  See "lecture7\_manual\_mcmc\_example.pdf"
 \end{frame}
 
 % ---------------------------------------------------------------
@@ -505,15 +504,15 @@ quantile(pi_draws, c(0.025, 0.975))    # about (0.16, 0.57)
 \begin{frame}{Grid vs MCMC}
   \centering
   \footnotesize
-  \begin{tabular}{L{2.3cm}L{3.6cm}L{3.8cm}}
+  \begin{tabular}{L{2.6cm}L{3.6cm}L{3.6cm}}
     \toprule
      & \textbf{Grid approximation} & \textbf{MCMC}\\
     \midrule
-    Idea & Evaluate the posterior on a fixed grid & Random walk that visits $\pi$ in proportion to the posterior\\[4pt]
-    Draws & Independent & Dependent (check ESS)\\[4pt]
-    Few parameters & Excellent, simple & Works\\[4pt]
-    Many parameters & Fails (grid explodes) & Scales\\[4pt]
-    Needs diagnostics? & No, just grid fineness & \textbf{Yes}: trace, ESS, $\hat R$\\[4pt]
+    Idea & Evaluate the posterior on a fixed grid & Random walk that visits $\pi$ in proportion to the posterior\\ \hline
+    Draws & Independent & Dependent (check ESS)\\ \hline
+    Few parameters & Excellent, simple & Works\\ \hline
+    Many parameters & Fails (grid explodes) & Scales\\ \hline
+    Needs diagnostics? & No, just grid fineness & \textbf{Yes}: trace, ESS, $\hat R$\\ \hline
     Tools & Base R & \texttt{rstan}, \texttt{bayesplot}\\
     \bottomrule
   \end{tabular}
@@ -524,7 +523,7 @@ quantile(pi_draws, c(0.025, 0.975))    # about (0.16, 0.57)
 \end{frame}
 
 % ---------------------------------------------------------------
-\begin{frame}{Practice problems}
+\begin{frame}{Some practice problems}
   \small
   \begin{enumerate}
     \item \textbf{Grid:} Repeat the example with prior Beta$(1,1)$ and $Y=2$ failures in $n=20$.
