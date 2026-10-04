@@ -222,7 +222,7 @@ c(keep = cost_fail * mean(draws), replace = cost_repl)
 \end{frame}
 
 % ---------------------------------------------------------------
-\begin{frame}[fragile]{Another model: Gamma--Poisson (failures per month)}
+\begin{frame}[fragile]{Another model (Gamma--Poisson, failures per month)}
   \small
   Plant has $\lambda$ failures/month. Prior $\lambda\sim\text{Gamma}(3,1)$. Three months of
   data: $y=(2,4,3)$.
@@ -242,7 +242,7 @@ lam_draws <- sample(lam_grid, 10000, replace = TRUE, prob = post)
 \end{frame}
 
 % ---------------------------------------------------------------
-\begin{frame}{Gamma--Poisson: grid vs exact}
+\begin{frame}{Grid vs exact (Gamma--Poisson)}
   \pic[0.78]{f05_gamma_poisson.png}
   \begin{itemize}
     \item Exact posterior: Gamma$(3+9,\,1+3)=$ Gamma$(12,4)$, mean 3 failures/month.
@@ -251,7 +251,7 @@ lam_draws <- sample(lam_grid, 10000, replace = TRUE, prob = post)
 \end{frame}
 
 % ---------------------------------------------------------------
-\begin{frame}{The limit of grids: dimensionality}
+\begin{frame}{The limit of grids (dimensionality)}
   \begin{columns}[T]
     \begin{column}{0.52\textwidth}
       \pic[1]{f06_dimension.png}
@@ -272,7 +272,7 @@ lam_draws <- sample(lam_grid, 10000, replace = TRUE, prob = post)
 \end{frame}
 
 % ---------------------------------------------------------------
-\begin{frame}{MCMC: the big idea}
+\begin{frame}{MCMC}
   \begin{center}
   \begin{tikzpicture}[c/.style={circle,draw,fill=cpost!20,minimum size=0.9cm,font=\footnotesize},
                       node distance=0.8cm]
@@ -502,7 +502,7 @@ quantile(pi_draws, c(0.025, 0.975))    # about (0.16, 0.57)
 \end{frame}
 
 % ---------------------------------------------------------------
-\begin{frame}{Grid vs MCMC: when to use which}
+\begin{frame}{Grid vs MCMC}
   \centering
   \footnotesize
   \begin{tabular}{L{2.3cm}L{3.6cm}L{3.8cm}}
