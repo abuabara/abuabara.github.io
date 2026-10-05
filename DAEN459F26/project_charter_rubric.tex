@@ -1,0 +1,100 @@
+\documentclass[landscape, 11pt]{article}
+\usepackage[letterpaper, margin=.5in]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{soul}
+\usepackage{setspace}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{ragged2e}
+\newcolumntype{L}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\newcommand{\blank}{\hrulefill}
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+
+%\usepackage{draftwatermark}
+%\SetWatermarkText{DRAFT}
+%\SetWatermarkScale{1}
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\noindent {DAEN 459 Capstone Senior Design Planning \hfill Fall 2026}
+
+\begin{center}
+    \textbf{Final Project Charter Rubric}\\
+    (\emph{all items should meet at least a satisfactory level (70\%) but your true goal is to exceed expectations and achieve excellence})
+\end{center}
+
+\vspace{0.5em}
+
+\footnotesize
+
+\noindent \textbf{Team Members:} \blank{}
+
+\noindent \textbf{Reviewer:} \blank{}\
+
+\setstretch{.92}
+
+\begin{longtable}{L{2.8cm}L{7cm}L{4cm}L{4cm}L{4cm}|c}
+\toprule
+\textbf{Category} & \textbf{Excellent (90--100\%)} & \textbf{Proficient (80--89\%)} & \textbf{Evolving (70--79\%)} & \textbf{In Progress (<70\%)} & \textbf{Weight} \\
+\midrule
+\textbf{1. Problem Definition \& Objectives} & 
+Clearly identifies an open-ended, data-engineering problem; objectives are measurable, achievable, and aligned with sponsor goals. &
+Problem and objectives are mostly clear but may lack precision or measurable outcomes. &
+Problem is vaguely defined; objectives incomplete or not clearly measurable. &
+Problem statement unclear or misaligned with sponsor needs. & 15\% \\
+\midrule
+\textbf{2. Scope \& Boundaries} &
+Defines clear project scope, constraints, and assumptions; effectively prevents scope creep. Presents a well-defined structure, conceptual model, and/or \hl{framework}\footnote{A high-level representation of a system or idea that simplifies complexity by showing the main components and their relationships. Emphasize/showcase the proposed solution acting as a facilitator/driver/enabler of the project objectives.}.&
+Defines scope and constraints but may overlook minor details. &
+Scope is broad or missing constraints. &
+No clear scope or boundaries; project lacks focus. & 10\% \\
+\midrule
+\textbf{3. Stakeholders \& Authority} &
+Accurately lists sponsor, advisor, and team roles with defined responsibilities and communication plan; includes sponsor sign-off. &
+Stakeholders identified with some clarity issues in roles or authority. &
+Some stakeholders or responsibilities missing. &
+Stakeholders not identified or misrepresented. & 10\% \\
+\midrule
+\textbf{4. Data \& Resources} &
+Identifies all required datasets, tools, methods, and technologies; discusses access, quality, and ethical considerations. &
+Lists key data and tools but lacks detail on access or ethics. &
+Mentions data sources but with limited analysis. &
+Data sources and resources unclear or missing. & 10\% \\
+\midrule
+\textbf{5. Project Plan \& Timeline} &
+Detailed, feasible timeline with milestones and deliverables aligned with semester schedule; shows understanding of dependencies. &
+Reasonable timeline with most milestones identified. &
+Timeline is generic or incomplete. &
+No clear timeline or deliverables. & 15\% \\
+\midrule
+\textbf{6. Risks \& Constraints} &
+Identifies major technical, ethical, and logistical risks with mitigation strategies. &
+Identifies some risks but limited mitigation discussion. &
+Risks are vague or unrealistic. &
+Risks not identified. & 10\% \\
+\midrule
+\textbf{7. Ethical, Legal \& Standards Considerations} &
+Explicitly discusses relevant standards, ethical, and privacy issues in data engineering. &
+Mentions key issues but lacks depth. &
+Minimal attention to ethics or standards. &
+Omits ethical and standards considerations. & 10\% \\
+\midrule
+\textbf{8. Clarity \& Professionalism} &
+Well-organized, concise, and polished; suitable for sponsor and academic audiences; uses professional formatting and references. &
+Mostly clear and professional; minor formatting issues. &
+Somewhat disorganized or unclear sections. &
+Poorly written or formatted; lacks coherence. & 10\% \\
+\midrule
+\textbf{9. Sponsor \& Advisor Interaction} &
+Demonstrates meaningful collaboration and documented feedback integration from sponsor/advisor. &
+Shows engagement but feedback not fully integrated. &
+Minimal sponsor/advisor interaction evident. &
+No evidence of engagement or feedback. & 10\% \\
+\bottomrule
+\end{longtable}
+
+\end{document}
