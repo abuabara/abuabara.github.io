@@ -42,6 +42,7 @@
 \usepackage{array}
 \newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
 \newcommand{\pic}[2][0.85]{{\centering\includegraphics[width=#1\textwidth]{#2}\par}}
+\newcommand{\tightitems}{\setlength\itemsep{0.25em}}
 
 \title{Decision and Risk Analysis}
 \subtitle{Lecture 7: \textbf{Approximating the Posterior}\\
@@ -122,6 +123,42 @@ DAEN 427 / ISEN 427 / ISEN 627 - Fall 2026\\
       \pic[1]{f01_prior_lik_post.png}
     \end{column}
   \end{columns}
+\end{frame}
+
+% ---------------------------------------------------------------
+\begin{frame}{Two approximation ideas}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\begin{block}{1. Grid approximation}
+\begin{itemize}\tightitems
+  \item Try many possible parameter values.
+  \item Score each value by prior $\times$ likelihood.
+  \item Normalize scores into probabilities.
+  \item Sample from the discrete grid.
+\end{itemize}
+\end{block}
+
+\column{0.48\textwidth}
+\begin{block}{2. MCMC}
+\begin{itemize}\tightitems
+  \item Build a dependent sequence of values.
+  \item Each next value depends on the current value.
+  \item A good chain mimics the posterior.
+  \item RStan handles the sampling algorithm.
+\end{itemize}
+\end{block}
+\end{columns}
+
+\vspace{0.3em}
+\begin{center}
+\begin{tikzpicture}[node distance=1.45cm,every node/.style={font=\small}]
+\node[draw,rounded corners,fill=gray!10,minimum width=2.1cm,minimum height=0.65cm] (model) {model + data};
+\node[draw,rounded corners,fill=gray!10,right=of model,minimum width=2.0cm,minimum height=0.65cm] (sim) {simulation};
+\node[draw,rounded corners,fill=gray!10,right=of sim,minimum width=2.1cm,minimum height=0.65cm] (dec) {risk decision};
+\draw[-{Stealth[length=2.0mm]}] (model) -- (sim);
+\draw[-{Stealth[length=2.0mm]}] (sim) -- (dec);
+\end{tikzpicture}
+\end{center}
 \end{frame}
 
 % ---------------------------------------------------------------
