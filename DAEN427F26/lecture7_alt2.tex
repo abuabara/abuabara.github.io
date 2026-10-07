@@ -215,7 +215,7 @@ posterior    <- unnormalized / sum(unnormalized)
 
 \begin{frame}[fragile]{Grid approximation in R}
 \begin{lstlisting}
-# Y | pi ~ Bin(10, pi), pi ~ Beta(2, 2), observed Y = 9
+# Y | pi ~ Bin(10, pi), pi ~ Beta(2, 8), observed Y = 5
 
 library(tidyverse)
 
@@ -224,8 +224,8 @@ grid_data <- data.frame(pi_grid = seq(0, 1, length = 6))
 
 # Step 2: evaluate prior and likelihood on the grid
 grid_data <- grid_data %>%
-   mutate(prior = dbeta(pi_grid, 2, 2),
-          likelihood = dbinom(9, size = 10, prob = pi_grid))
+   mutate(prior = dbeta(pi_grid, 2, 8),
+          likelihood = dbinom(5, size = 10, prob = pi_grid))
 
 # Step 3: prior x likelihood, then normalize
 grid_data <- grid_data %>%
@@ -250,18 +250,24 @@ The posterior column is a probability distribution across rows.}
 % ---------------------------------------------------------------
 \begin{frame}[fragile]{Sample from the grid and compare with the truth}
 \begin{lstlisting}
-grid101 <- grid_post(101)   # same code as before, 101 points
+grid101 <- data.frame(pi_grid = seq(0, 1, length = 101))
+grid101 <- grid101 %>%
+   mutate(prior = dbeta(pi_grid, 2, 8),
+          likelihood = dbinom(5, size = 10, prob = pi_grid),
+          unnormalized = prior * likelihood,
+          posterior = unnormalized / sum(unnormalized))
+
 draws <- sample(grid101$pi_grid, size = 10000, replace = TRUE,
                 prob = grid101$posterior)           # (4)
 
 ggplot(data.frame(pi = draws), aes(pi)) +
-  geom_histogram(aes(y = after_stat(density)), bins = 50) +
-  stat_function(fun = dbeta, args = list(shape1 = 7, shape2 = 13))
+   geom_histogram(aes(y = after_stat(density)), bins = 50) +
+   stat_function(fun = dbeta, args = list(shape1 = 7, shape2 = 13))
 \end{lstlisting}
-  \pic[0.8]{f03_grid_compare.png}
+  \pic[0.6]{f03_grid_compare.png}
   \footnotesize
-  \textbf{(4)} \texttt{sample()} turns weights into a Monte Carlo sample. With 101 points
-  the histogram follows the exact Beta$(7,13)$ curve.
+  \textbf{(4)} \texttt{sample()} turns weights into a Monte Carlo sample.\\
+  With 101 points the histogram follows the exact Beta$(7,13)$ curve.
 \end{frame}
 
 % ---------------------------------------------------------------
@@ -269,15 +275,16 @@ ggplot(data.frame(pi = draws), aes(pi)) +
 \begin{lstlisting}
 mean(draws)                       # posterior mean of pi
 mean(draws > 0.3)                 # P(pi > 0.3 | data)
-quantile(draws, c(0.025, 0.975))  # 95\% credible interval
+quantile(draws, c(0.025, 0.975))  # 95pct. credible interval
 
-cost_fail <- 100;  cost_repl <- 30          # cost per unit
+cost_fail <- 100;  cost_repl <- 30 # cost per unit
 c(keep = cost_fail * mean(draws), replace = cost_repl)
 \end{lstlisting}
   \pic[0.8]{f04_risk_grid.png}
   \small
-  \textbf{Reading it:} $P(\pi>0.3\mid y)\approx 0.65$--$0.67$; expected cost of keeping
-  $=100\times0.35=35>30$. Under this loss, \textbf{replace the design}.
+  \textbf{Reading it:} $P(\pi>0.3\mid y)\approx 0.65$--$0.67$;\\
+  expected cost of keeping $=100\times0.35=35>30$.
+  Under this loss, \textbf{replace the design}.
 \end{frame}
 
 % ---------------------------------------------------------------
@@ -455,7 +462,7 @@ bb_model <- "
 "
 # SIMULATE: 4 chains, 5000 iterations each (half is warm-up)
 bb_sim <- stan(model_code = bb_model, data = list(Y = 5),
-               chains = 4, iter = 5000 * 2, seed = 84735)
+               chains = 4, iter = 5000, seed = 84735)
 \end{lstlisting}
   \begin{itemize}
     \item The model block is the \textbf{same math} as before: likelihood and prior.
