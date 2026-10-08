@@ -1,0 +1,286 @@
+\documentclass[aspectratio=43,10pt]{beamer}
+\usetheme{default}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamercolor{title}{fg=aggiemaroon}
+\setbeamercolor{frametitle}{fg=aggiemaroon}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+\usepackage{booktabs}
+\usepackage{array}
+
+\title{Measurement, Ethical Risks,\\and Data Engineering Requirements}
+\author{}
+\date{
+\color{aggiemaroon}{
+DAEN 459 - Fall 2026\\
+\textbf{Alexander Abuabara}
+}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+% 1
+\begin{frame}
+\titlepage
+\end{frame}
+
+% 2
+\begin{frame}{A Real Case: Healthcare Risk Scores}
+\textbf{Goal:} Identify patients who need additional care.
+
+\medskip
+\begin{itemize}
+  \item A widely used algorithm predicted \textbf{healthcare costs}.
+  \item Costs were used as a proxy for \textbf{healthcare needs}.
+  \item At similar risk scores, Black patients were often sicker
+        than White patients.
+  \item The system could overlook patients who needed help.
+\end{itemize}
+
+\medskip
+\begin{block}{What went wrong?}
+The algorithm could predict its chosen target while
+misrepresenting the underlying need.
+\end{block}
+
+{\footnotesize Source: Obermeyer et al. (2019), \emph{Science},
+DOI: 10.1126/science.aax2342.}
+\end{frame}
+
+% 3
+\begin{frame}{Three Ways Data Can Mislead Us}
+\begin{description}
+\item[Operationalism] Define an abstract concept using
+observable measurements.\newline
+\emph{Question: Does the proxy capture what matters?}
+
+\medskip
+\item[Reification] Treat a constructed score or category
+as if it were the real-world property.\newline
+\emph{Question: Are we confusing the score with reality?}
+
+\medskip
+\item[McNamara fallacy] Make decisions using measurable
+indicators while discounting what is difficult to quantify.\newline
+\emph{Question: What important outcomes are we ignoring?}
+\end{description}
+
+\medskip
+\textbf{Key distinction:} Operational definitions are necessary;
+misinterpreting or overvaluing them creates risk.
+\end{frame}
+
+% 4
+\begin{frame}{Where the Problem Enters a Data System}
+\begin{center}
+\large Real-world goal $\longrightarrow$ Proxy measure\\[0.3cm]
+$\longrightarrow$ Data pipeline $\longrightarrow$ Model\\[0.3cm]
+$\longrightarrow$ Decision $\longrightarrow$ Human outcome
+\end{center}
+\vspace{0.2cm}
+\begin{itemize}
+  \item \textbf{Measure:} Is the target a meaningful proxy?
+  \item \textbf{Pipeline:} Who is missing or misrepresented?
+  \item \textbf{Model:} Is the score being treated as fact?
+  \item \textbf{Decision:} Are other important outcomes ignored?
+\end{itemize}
+\begin{block}{Engineering principle}
+Validate the meaning of the data, not only its format.
+\end{block}
+\end{frame}
+
+% 5
+\begin{frame}{Data Quality Is Necessary, Not Sufficient}
+\small
+\begin{tabular}{p{2.45cm}p{7.0cm}}
+\toprule
+\textbf{Quality check} & \textbf{What it cannot establish}\\
+\midrule
+Complete records & Whether people missing from the dataset matter\\
+Valid values & Whether a valid value describes reality\\
+Consistent joins & Whether linked records belong to the same person\\
+Timely events & Whether the chosen metric captures the desired goal\\
+\bottomrule
+\end{tabular}
+
+\medskip
+\begin{block}{Example}
+A resume pipeline can parse every document correctly
+and still rank applicants using a biased target.
+\end{block}
+\textbf{Add:} representativeness checks, construct validation,
+subgroup evaluation, and documentation of uncertainty.
+\end{frame}
+
+% 6
+\begin{frame}{Example 1: Automated Hiring}
+\textbf{Goal:} Screen resumes efficiently and fairly.
+
+\medskip
+\textbf{Pipeline:} Kafka $\rightarrow$ Spark $\rightarrow$ Lakehouse
+$\rightarrow$ Ranking service
+
+\medskip
+\begin{itemize}
+  \item \textbf{Proxy trap:} Historical hiring decisions
+        stand in for applicant potential.
+  \item \textbf{Ethical risk:} Past exclusion can become
+        an apparently objective ranking.
+  \item \textbf{Engineering controls:} Dataset lineage,
+        subgroup audits where appropriate, drift alerts,
+        and human reconsideration.
+\end{itemize}
+
+\medskip
+\textbf{Important:} Removing names does not eliminate
+all bias; other features may act as proxies.
+\end{frame}
+
+% 7
+\begin{frame}{Example 2: Healthcare Allocation}
+\textbf{Goal:} Identify patients for additional care.
+
+\medskip
+\textbf{Pipeline:} Flink $\rightarrow$ Secure database
+$\rightarrow$ Risk service; lineage tracking
+
+\medskip
+\begin{itemize}
+  \item \textbf{Proxy trap:} Cost is substituted for care need.
+  \item \textbf{Ethical risk:} Unequal access to healthcare
+        distorts the estimate of need.
+  \item \textbf{Engineering controls:} Clinically validated
+        outcomes, subgroup evaluation, data lineage,
+        and documented clinician review.
+\end{itemize}
+
+\medskip
+\textbf{Important:} A clinician's override is a safeguard,
+not a substitute for fixing the target definition.
+\end{frame}
+
+% 8
+\begin{frame}{Example 3: Smart City Safety}
+\textbf{Goal:} Improve emergency response and public safety.
+
+\medskip
+\textbf{Pipeline:} MQTT $\rightarrow$ Time-series database
+$\rightarrow$ Quality checks $\rightarrow$ Dashboard
+
+\medskip
+\begin{itemize}
+  \item \textbf{Proxy trap:} Average response time becomes
+        the only success measure.
+  \item \textbf{Ethical risk:} Unsafe routing or uneven
+        neighborhood coverage goes unnoticed.
+  \item \textbf{Engineering controls:} Response-time
+        distributions, collision rates, geographic
+        coverage, and community feedback.
+\end{itemize}
+
+\medskip
+\textbf{Important:} Hypothetical design scenario;
+faster response does not itself imply less safety.
+\end{frame}
+
+% 9
+\begin{frame}{Example 4: Context-Aware Moderation}
+\textbf{Goal:} Identify potentially harmful content.
+
+\medskip
+\textbf{Pipeline:} APIs $\rightarrow$ Text index
+$\rightarrow$ NLP scoring $\rightarrow$ Review workflow
+
+\medskip
+\begin{itemize}
+  \item \textbf{Proxy trap:} A toxicity score stands in
+        for the meaning of a message.
+  \item \textbf{Ethical risk:} Satire, quotation, and
+        language varieties are misclassified.
+  \item \textbf{Engineering controls:} Review for uncertain
+        cases, context retention, appeals, and
+        evaluation across language varieties.
+\end{itemize}
+
+\medskip
+\textbf{Important:} Dead-letter queues handle technical
+failures; ambiguous content needs a human-review queue.
+\end{frame}
+
+% 10
+\begin{frame}{Capstone Matrix: Architecture vs. Ethics}
+\centering
+\fontsize{9}{8.8}\selectfont
+\renewcommand{\arraystretch}{1.28}
+\begin{tabular}{p{1.7cm}p{2.45cm}p{2.45cm}p{2.9cm}}
+\toprule
+\textbf{Project topic} & \textbf{Primary system requirement} &
+\textbf{Ethical failure mode} & \textbf{Engineering solution}\\
+\midrule
+Hiring & Scalable intake and traceability &
+Past bias becomes applicant ranking &
+Lineage, subgroup audits, review\\
+\addlinespace
+Healthcare & Low latency, privacy, provenance &
+Costs mistaken for care needs &
+Clinical targets, validation, review\\
+\addlinespace
+Smart city & Sensor scale and data quality &
+Response-time fixation &
+Safety metrics, geographic checks\\
+\addlinespace
+Moderation & Text indexing and orchestration &
+Context-blind removals &
+Uncertainty routing, appeals\\
+\bottomrule
+\end{tabular}
+
+\medskip
+\textbf{Common theme:} Ethical safeguards are system requirements,\\
+not optional post-processing.
+\end{frame}
+
+% 11
+\begin{frame}{Turn Ethical Risks into Requirements}
+\begin{enumerate}
+  \item \textbf{Define the goal:} What human outcome matters?
+  \item \textbf{Justify the proxy:} What does the metric miss?
+  \item \textbf{Test the data:} Who is absent or misrepresented?
+  \item \textbf{Monitor harm:} Which counter-metrics matter?
+  \item \textbf{Enable review:} Who can correct a decision?
+  \item \textbf{Preserve evidence:} Can we trace and audit it?
+\end{enumerate}
+
+\medskip
+\begin{block}{Design test}
+Can the system detect, explain, and correct a decision
+that is technically valid but substantively wrong?
+\end{block}
+\end{frame}
+
+% 12
+\begin{frame}{Conclusion}
+\textbf{Three lessons}
+\begin{itemize}
+  \item A \textbf{proxy} is not the underlying reality.
+  \item An accurate \textbf{model} need not serve the right goal.
+  \item A reliable \textbf{pipeline} need not produce fair decisions.
+\end{itemize}
+
+\medskip
+\textbf{Discussion:}
+A pipeline passes every data quality test and its model
+achieves 95\% accuracy. What else must we know before
+trusting its decisions?
+
+\medskip
+{\textbf{Further reading:}\\
+Obermeyer et al. (2019), \emph{Science}, DOI: 10.1126/science.aax2342;\\
+NIST AI Risk Management Framework 1.0;\\
+Wikipedia: Reification (fallacy),
+McNamara fallacy.}
+\end{frame}
+
+\end{document}
