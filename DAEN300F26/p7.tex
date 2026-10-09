@@ -1,0 +1,382 @@
+\documentclass[aspectratio=43,11pt]{beamer}
+
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{soul}
+
+\definecolor{maroon}{HTML}{500000}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codeblue}{RGB}{0,90,150}
+\definecolor{codegreen}{RGB}{30,120,60}
+\definecolor{codered}{RGB}{170,40,40}
+
+\setbeamercolor{structure}{fg=maroon}
+\setbeamercolor{frametitle}{fg=maroon,bg=white}
+\setbeamercolor{block title}{fg=white,bg=maroon}
+
+\lstdefinestyle{py}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{codeblue}\bfseries,
+  stringstyle=\color{codered},
+  commentstyle=\color{codegreen},
+  backgroundcolor=\color{codebg},
+  frame=single,
+  framerule=0.2pt,
+  breaklines=true,
+  showstringspaces=false,
+  columns=fullflexible
+}
+\lstset{style=py}
+
+\title{Matplotlib and Seaborn}
+\subtitle{Data Visualization:\\Core Plotting Functions and Workflow}
+\author{DAEN 300}
+\date{Fall 2026}
+\titlegraphic{\IfFileExists{TAMU_logo.png}{\includegraphics[height=1.2cm]{TAMU_logo.png}}{}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Goals}
+\begin{itemize}
+  \item Build plots step by step rather than copying finished examples.
+  \item Recognize the main Matplotlib plotting functions and when to use them.
+  \item Use the object-oriented interface for clearer, reusable code.
+  \item Add titles, labels, legends, ticks, colorbars, and annotations.
+  \item Use Seaborn for higher-level statistical plots.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Notebook: Concept - Your Turn - Check}
+\begin{block}{Pattern}
+Each section contains a short concept note, a stubbed code cell, and a quick check cell.
+\end{block}
+
+\begin{lstlisting}
+# Your turn
+x = np.linspace(0, 2*np.pi, 100)
+# TODO: plot sin(x)
+
+# Quick check
+if len(plt.gca().lines) >= 1:
+    print("OK: line created")
+else:
+    print("Try again: no line found")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Essential setup}
+\begin{itemize}
+  \item \texttt{numpy} creates numeric arrays.
+  \item \texttt{pyplot} is the common Matplotlib interface.
+  \item Run setup after restarting the kernel.
+\end{itemize}
+
+\begin{lstlisting}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Optional style
+plt.style.use("seaborn-v0_8-whitegrid")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Two plotting interfaces}
+\begin{columns}[T]
+\column{0.48\textwidth}
+\textbf{Stateful pyplot}
+\begin{lstlisting}
+plt.figure()
+plt.plot(x, y)
+plt.xlabel("x")
+plt.ylabel("y")
+plt.show()
+\end{lstlisting}
+
+\column{0.48\textwidth}
+\textbf{Object-oriented}
+\begin{lstlisting}
+fig, ax = plt.subplots()
+ax.plot(x, y)
+ax.set(xlabel="x", ylabel="y")
+plt.show()
+\end{lstlisting}
+\end{columns}
+
+\vspace{0.5em}
+\alert{Prefer the object-oriented for multi-step figures.}
+\end{frame}
+
+\begin{frame}[fragile]{Line plots: trends over ordered values}
+\begin{itemize}
+  \item Main function: \texttt{plot()}.
+  \item Useful arguments: \texttt{color}, \texttt{linestyle}, \texttt{linewidth}, \texttt{label}.
+  \item Add context with titles, labels, and limits.
+\end{itemize}
+
+\begin{lstlisting}
+fig, ax = plt.subplots()
+ax.plot(x, np.sin(x), label="sin(x)")
+ax.set(title="Sine wave", xlabel="x", ylabel="sin(x)")
+ax.legend()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Scatter plots: relationships between variables}
+\begin{itemize}
+  \item Main functions: \texttt{plot(..., marker=...)} and \texttt{scatter()}.
+  \item \texttt{scatter()} supports per-point encodings: size, color, alpha.
+  \item Use scatter plots when observations are independent points.
+\end{itemize}
+
+\begin{lstlisting}
+fig, ax = plt.subplots()
+ax.scatter(x, y, s=sizes, c=colors, alpha=0.7)
+ax.set(xlabel="x", ylabel="y", title="Encoded scatter")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Uncertainty: error bars and bands}
+\begin{itemize}
+  \item \texttt{errorbar()} shows point estimates with uncertainty intervals.
+  \item \texttt{fill\_between()} creates continuous uncertainty bands.
+  \item Use alpha/transparency so the main trend remains visible.
+\end{itemize}
+
+\begin{lstlisting}
+fig, ax = plt.subplots()
+ax.errorbar(x, y, yerr=dy, fmt="o")
+
+ax.plot(x_grid, y_fit)
+ax.fill_between(x_grid, y_fit-dy, y_fit+dy, alpha=0.2)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Density, contour, and image displays}
+\begin{itemize}
+  \item \texttt{contour()} draws level curves.
+  \item \texttt{contourf()} fills regions between levels.
+  \item \texttt{imshow()} displays a 2D array as an image.
+  \item Pair color-encoded plots with \texttt{colorbar()}.
+\end{itemize}
+
+\begin{lstlisting}
+fig, ax = plt.subplots()
+contour = ax.contourf(X, Y, Z, levels=20)
+fig.colorbar(contour, ax=ax)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Histograms and binned density}
+\begin{itemize}
+  \item \texttt{hist()} summarizes one numeric variable.
+  \item \texttt{hist2d()} bins paired observations on a grid.
+  \item \texttt{hexbin()} is useful for dense scatter data.
+\end{itemize}
+
+\begin{lstlisting}
+fig, ax = plt.subplots()
+ax.hist(data, bins=30)
+
+fig, ax = plt.subplots()
+h = ax.hexbin(x, y, gridsize=30)
+fig.colorbar(h, ax=ax)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Legends: mapping symbols to meaning}
+\begin{itemize}
+  \item Add \texttt{label=} when plotting.
+  \item Call \texttt{legend()} after all labeled artists are created.
+  \item For selected entries, pass handles and labels manually.
+\end{itemize}
+
+\begin{lstlisting}
+fig, ax = plt.subplots()
+line1, = ax.plot(x, np.sin(x), label="sine")
+line2, = ax.plot(x, np.cos(x), label="cosine")
+ax.legend()
+
+# selected entries only
+ax.legend([line1], ["sine only"])
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Colorbars and colormaps}
+\begin{itemize}
+  \item Use \texttt{cmap=} to choose the mapping from values to colors.
+  \item Use \texttt{vmin}/\texttt{vmax} or \texttt{clim()} for comparable scales.
+  \item Use sequential maps for magnitude; diverging maps for deviation around a midpoint.
+\end{itemize}
+
+\begin{lstlisting}
+fig, ax = plt.subplots()
+im = ax.imshow(I, cmap="RdBu", vmin=-1, vmax=1)
+fig.colorbar(im, ax=ax)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Multiple subplots}
+\begin{itemize}
+  \item \texttt{subplot()} selects one axes in a grid.
+  \item \texttt{subplots()} creates a figure and axes array together.
+  \item \texttt{GridSpec} supports custom layouts and spanning cells.
+\end{itemize}
+
+\begin{lstlisting}
+fig, axes = plt.subplots(2, 3, figsize=(8, 5))
+axes[0, 0].plot(x, np.sin(x))
+axes[0, 1].plot(x, np.cos(x))
+
+fig.tight_layout()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Text and annotation}
+\begin{itemize}
+  \item \texttt{text()} places free text on an axes.
+  \item \texttt{annotate()} connects text to a data point, often with an arrow.
+  \item Use annotations sparingly; highlight the one point that matters.
+\end{itemize}
+
+\begin{lstlisting}
+fig, ax = plt.subplots()
+ax.plot(x, y)
+ax.annotate("maximum", xy=(x0, y0), xytext=(x1, y1),
+            arrowprops={"arrowstyle": "->"})
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Ticks and formatting}
+\begin{itemize}
+  \item Locators control tick positions.
+  \item Formatters control tick labels.
+  \item Hide ticks or labels when they distract from the message.
+\end{itemize}
+
+\begin{lstlisting}
+from matplotlib.ticker import MultipleLocator, FuncFormatter
+
+ax.xaxis.set_major_locator(MultipleLocator(np.pi / 2))
+ax.xaxis.set_minor_locator(MultipleLocator(np.pi / 4))
+ax.xaxis.set_major_formatter(FuncFormatter(pi_formatter))
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Styles and runtime defaults}
+\begin{itemize}
+  \item \texttt{plt.style.use()} applies a style globally.
+  \item \texttt{plt.style.context()} applies a style temporarily.
+  \item \texttt{plt.rc()} and \texttt{rcParams} adjust defaults.
+\end{itemize}
+
+\begin{lstlisting}
+plt.rc("lines", linewidth=2)
+
+with plt.style.context("ggplot"):
+    fig, ax = plt.subplots()
+    ax.plot(x, y)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Three-dimensional plotting}
+\begin{itemize}
+  \item Create 3D axes with \texttt{projection="3d"}.
+  \item Common methods: \texttt{plot3D()}, \texttt{scatter3D()}, \texttt{contour3D()}.
+  \item Surfaces: \texttt{plot\_wireframe()}, \texttt{plot\_surface()}, \texttt{plot\_trisurf()}.
+\end{itemize}
+
+\begin{lstlisting}
+fig = plt.figure()
+ax = fig.add_subplot(111, projection="3d")
+ax.plot3D(x, y, z)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Seaborn: statistical plotting layer}
+\begin{itemize}
+  \item Built on Matplotlib; works naturally with pandas DataFrames.
+  \item Main functions in this session: \texttt{kdeplot()}, \texttt{pairplot()}, \texttt{FacetGrid}, \texttt{catplot()}, \texttt{jointplot()}.
+  \item Use Seaborn when the statistical summary is the focus.
+\end{itemize}
+
+\begin{lstlisting}
+import pandas as pd
+import seaborn as sns
+
+sns.kdeplot(data=df, x="value")
+sns.pairplot(df, hue="group")
+sns.catplot(data=df, x="category", y="value", kind="box")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Function map}
+\small
+\begin{tabular}{ll}
+\toprule
+Need & Main functions \\
+\midrule
+Line trends & \texttt{plot}, \texttt{set}, \texttt{legend} \\
+Point relationships & \texttt{scatter}, \texttt{plot(..., marker=)} \\
+Uncertainty & \texttt{errorbar}, \texttt{fill\_between} \\
+2D fields & \texttt{contour}, \texttt{contourf}, \texttt{imshow}, \texttt{colorbar} \\
+Distributions & \texttt{hist}, \texttt{hist2d}, \texttt{hexbin}, \texttt{kdeplot} \\
+Layouts & \texttt{subplot}, \texttt{subplots}, \texttt{GridSpec} \\
+Explanatory text & \texttt{text}, \texttt{annotate} \\
+Ticks/styles & \texttt{MultipleLocator}, \texttt{FuncFormatter}, \texttt{style}, \texttt{rc} \\
+3D & \texttt{projection="3d"}, \texttt{plot3D}, \texttt{plot\_surface} \\
+Seaborn grids & \texttt{pairplot}, \texttt{FacetGrid}, \texttt{jointplot}, \texttt{catplot} \\
+\bottomrule
+\end{tabular}
+\end{frame}
+
+\begin{frame}[fragile]{Checks without tracebacks}
+\begin{itemize}
+  \item \texttt{assert} is useful, but traceback output can distract beginners.
+  \item Print what was found so you can debug notebook state in the future.
+\end{itemize}
+
+\begin{lstlisting}
+line_count = len(plt.gca().lines)
+
+if line_count >= 1:
+    print(f"OK: found {line_count} line(s).")
+else:
+    print("Try again: no plotted line found yet.")
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Hints}
+\begin{itemize}
+  \item Separate data prep from plotting commands.
+  \item Build figures in layers: data, labels, legends, scales, annotations.
+  \item Use explicit \texttt{fig, ax} references for reliable notebook behavior.
+  \item Read function signatures and documentation.
+  \item Always ask youself:\\what comparison should this figure help the viewer make?!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Assignment}
+\begin{enumerate}
+\item The goal is to finish this assignment \hl{during class today}.
+\item If you need more time, I can grant an extension, but whatever you've completed by the end of class must be submitted for credit.
+\item Any work you do after that is optional and may earn extra points, but I'm not guaranteeing it.
+\item After you submit the assignment, take the 11-question quiz on Canvas to check your understanding.
+%\item It's a key part of the week, and helps you confirm you've understood the material.
+\end{enumerate}
+\end{frame}
+
+\end{document}
