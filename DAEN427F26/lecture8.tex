@@ -1,400 +1,428 @@
-\documentclass[aspectratio=43,11pt]{beamer}
-\usetheme{default}
-\usecolortheme{default}
+\documentclass[aspectratio=43]{beamer}
+\usepackage{amsmath,amssymb,graphicx,listings,xcolor,booktabs}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{structure}{fg=aggiemaroon}
 \setbeamertemplate{navigation symbols}{}
 \setbeamertemplate{footline}[frame number]
-\usepackage[T1]{fontenc}
-\usepackage{lmodern}
-\usepackage{amsmath,amssymb,booktabs,array}
-\usepackage{tikz}
-\usetikzlibrary{positioning}
-\hypersetup{colorlinks=true,urlcolor=blue}
-\newcommand{\given}{\mid}
-\newcommand{\E}{\mathbb{E}}
-\newcommand{\Prb}{\mathbb{P}}
-\title{Posterior Inference, Prediction, and Decisions}
-\subtitle{An undergraduate introduction to Bayesian risk analysis}
-\author{Based on \emph{Bayes Rules!}, Chapter 8}
-\date{}
+\setbeamertemplate{itemize items}[circle]
+\lstdefinestyle{Rstyle}{language=R,basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{blue},commentstyle=\color{gray!70},
+  stringstyle=\color{red!65!black},showstringspaces=false,
+  breaklines=true,breakatwhitespace=true,columns=fullflexible,
+  keepspaces=true,frame=single,framerule=0.25pt}
+\lstset{style=Rstyle}
+
+\title{Decision and Risk Analysis}
+\subtitle{Lecture 8: \textbf{Posterior Inference \& Prediction}}
+\author{}
+\date{\color{aggiemaroon}{DAEN 427 / ISEN 427 / ISEN 627 - Fall 2026\\
+      \textbf{Alexander Abuabara}}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
 \begin{document}
+\begin{frame}\titlepage\end{frame}
 
-\begin{frame}
-\titlepage
-\vfill
-\centering\small Source: \url{https://www.bayesrulesbook.com/chapter-8}
-\end{frame}
-
-\begin{frame}{Learning goals}
-By the end, you should be able to:
-\begin{enumerate}
-\item Summarize a posterior using a mean and credible interval.
-\item Calculate the probability of a decision-relevant claim.
-\item Predict future observations, including uncertainty.
-\item Compare actions using \textbf{expected loss} and a risk tolerance.
-\item Explain how simulation supports these calculations.
-\end{enumerate}
-\medskip
-\textbf{Big idea:} Bayesian analysis does not end with an estimate. It helps us \emph{choose an action under uncertainty}.
-\end{frame}
-
-\begin{frame}{The Bayesian workflow}
-\centering
-\begin{tikzpicture}[>=stealth, node distance=0.38cm, every node/.style={align=center}]
-\node[draw,rounded corners,text width=6.4cm,minimum height=0.65cm] (prior) {Prior belief: what was plausible before data?};
-\node[draw,rounded corners,text width=6.4cm,minimum height=0.65cm,below=of prior] (data) {Observed data + sampling model};
-\node[draw,rounded corners,text width=6.4cm,minimum height=0.65cm,below=of data] (post) {Posterior: what is plausible now?};
-\node[draw,rounded corners,text width=6.4cm,minimum height=0.65cm,below=of post] (pred) {Predict outcomes and quantify risks};
-\node[draw,rounded corners,text width=6.4cm,minimum height=0.65cm,below=of pred] (act) {Choose an action given its costs and benefits};
-\draw[->] (prior)--(data);\draw[->](data)--(post);\draw[->](post)--(pred);\draw[->](pred)--(act);
-\end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Running example from Chapter 8: museum artists}
-Let $\pi$ be the proportion of artists in major US modern-art museums who were born in 1965 or later.
+\begin{frame}{Learning objectives}
 \begin{itemize}
-\item Prior: $\pi\sim\operatorname{Beta}(4,6)$.
-\item Sample: 14 of 100 artists in a MoMA sample are in this group.
-\item Sampling model: $Y\given\pi\sim\operatorname{Binomial}(100,\pi)$.
+\item Summarize a posterior with a point estimate\\and credible interval.
+\item Evaluate hypotheses using posterior probabilities\\and Bayes factors.
+\item Explain and compute posterior predictions for new obs.
+\item Use MCMC draws to approximate\\and check posterior summaries.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Our example: artists at MoMA}
+\begin{itemize}
+\item Let $\pi$ be the fraction of major modern-art museum artists born in 1965 or later.
+\item In the chapter's MoMA sample, $Y=14$ of $n=100$ artists meet this definition.
+\item Prior: $\pi\sim\mathrm{Beta}(4,6)$.
+\item Sampling model: $Y\mid\pi\sim\mathrm{Bin}(100,\pi)$.
 \end{itemize}
 \[
-\boxed{\pi\given Y=14\sim\operatorname{Beta}(4+14,\,6+86)
-=\operatorname{Beta}(18,92)}
+\underbrace{\mathrm{Beta}(4,6)}_{\text{prior}}
+\;\xrightarrow{\;Y=14\text{ of }100\;}\;
+\underbrace{\mathrm{Beta}(18,92)}_{\text{posterior}}.
 \]
-\textbf{Interpretation:} after seeing the data, smaller proportions are more plausible than the prior suggested.
-\end{frame}
-
-\begin{frame}{A posterior is more than one number}
-For $\pi\given Y=14\sim\operatorname{Beta}(18,92)$:
-\begin{itemize}
-\item Posterior mean: $\E(\pi\given Y)=18/110\approx\mathbf{0.164}$.
-\item Posterior mode: $(18-1)/(110-2)\approx0.157$.
-\item Middle 95\% credible interval: $\mathbf{(0.101,\,0.238)}$.
-\end{itemize}
-\medskip
-\textbf{Plain language:} the proportion is likely near 16\%, but values around 10\% to 24\% remain plausible.
-\medskip
-\textbf{Risk lesson:} two estimates with the same mean can lead to different decisions if their uncertainty differs.
-\end{frame}
-
-\begin{frame}{Understanding credible intervals}
-A 95\% Bayesian credible interval $[L,U]$ is a range satisfying
-\[
-\Prb(L\leq\pi\leq U\given Y)=0.95.
-\]
-For our example:
-\[
-\Prb(0.101\lesssim\pi\lesssim0.238\given Y=14)\approx0.95.
-\]
-\begin{block}{Do not confuse two questions}
-\begin{itemize}
-\item \textbf{Parameter uncertainty:} What proportion $\pi$ is plausible?
-\item \textbf{Future variability:} What might happen in the \emph{next} sample?
-\end{itemize}
+\begin{block}{}
+The data move our estimate toward 14\%,\\while the prior still contributes information.
 \end{block}
-A credible interval addresses the first question, not the second.
 \end{frame}
 
-\begin{frame}{Posterior probabilities answer useful questions}
-Suppose a planning team asks:\medskip
-\begin{center}
-\emph{Is the true proportion below 20\%?}
-\end{center}
-For the museum posterior,
+\begin{frame}[fragile]{R: inspect the sample and update}
+\begin{lstlisting}
+library(bayesrules)
+library(tidyverse)
+data("moma_sample")
+
+moma_sample %>%
+  group_by(genx) %>%
+  tally()
+
+plot_beta_binomial(alpha = 4, beta = 6,
+                   y = 14, n = 100)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{}
+\begin{itemize}
+\item \texttt{bayesrules}: provides \texttt{moma\_sample} and plotting helpers.
+\item \texttt{tidyverse}: \texttt{group\_by()}, \texttt{tally()}, and the \texttt{\%>\%} pipe.
+\item \texttt{genx}: indicator for an artist born in 1965 or later.
+\item \texttt{plot\_beta\_binomial()}: passes prior shapes $4,6$ and observed $y=14$, $n=100$.
+\end{itemize}
+\begin{block}{}
+The posterior is concentrated near $0.16$\\and much narrower than the prior.
+\end{block}
+\end{frame}
+
+\begin{frame}{Why is a point estimate not enough?}
+\textbf{Question:} What percentage of artists are Gen X or younger?
 \[
-\Prb(\pi<0.20\given Y=14)=\mathbf{0.849}.
+\begin{aligned}
+E(\pi\mid Y=14)&=\frac{18}{110}\approx0.164,\\
+\operatorname{Mode}(\pi\mid Y=14)&=\frac{17}{108}\approx0.157.
+\end{aligned}
 \]
 \begin{itemize}
-\item The model assigns about 85\% probability to the claim.
-\item The complementary probability is about 15\%.
-\item This is \emph{not} a guarantee; choices also depend on consequences.
+\item A typical posterior value is about 16\%.
+\item But a point estimate hides uncertainty.
+\item The chapter contrasts our $\mathrm{Beta}(18,92)$ with a wider $\mathrm{Beta}(4,16)$ posterior based on 10 observations.
 \end{itemize}
-\textbf{Decision connection:} a threshold matters when it changes what we would do.
+\begin{block}{Intuition}
+Two analyses can have similar centers but very different precision.
+\end{block}
 \end{frame}
 
-\begin{frame}{Hypotheses and Bayes factors: the intuition}
-Compare two claims:
+\begin{frame}{A 95\% posterior credible interval (CI)}
+Let $f(\pi\mid y)$ be the posterior density, and $\pi_q$ its $q$th quantile.
 \[
-H_a:\pi<0.20,\qquad H_0:\pi\geq0.20.
+\text{Middle 95\% CI}=(\pi_{0.025},\pi_{0.975}),
+\]
+\[
+P(\pi_{0.025}<\pi<\pi_{0.975}\mid Y=14)=0.95.
+\]
+For the chapter's posterior, the interval is approximately $(0.10,0.24)$.
+\begin{block}{In plain-language ...}
+Given the model and observed data, there is 95\% posterior probability that the population proportion is in this interval.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{R}
+\begin{lstlisting}
+# Middle 95% credible interval
+qbeta(c(0.025, 0.975), 18, 92)
+# [1] 0.1009 0.2379
+
+# Middle 50% credible interval
+qbeta(c(0.25, 0.75), 18, 92)
+# [1] 0.1388 0.1862
+
+# Middle 99% credible interval
+qbeta(c(0.005, 0.995), 18, 92)
+# [1] 0.0853 0.2647
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{}
+\begin{itemize}
+\item \texttt{qbeta()} is a \emph{base R} function: it returns Beta distribution quantiles.
+\item First argument: quantile probabilities for the lower and upper endpoints.
+\item Arguments \texttt{18, 92}: posterior Beta shape parameters.
+\item The 50\% interval is narrowest; the 99\% interval is widest.
+\end{itemize}
+\begin{block}{Intuition}
+Higher credibility requires including more posterior values, usually widening the interval. Highest-density intervals are an alternative to equal-tailed intervals.
+\end{block}
+\end{frame}
+
+\begin{frame}{\textbf{Posterior hypothesis testing}\\One-sided question: is $\pi<0.20$?}
+\[
+H_0:\pi\ge0.20\qquad H_a:\pi<0.20.
+\]
+The probability of the claim is an area under the posterior density:
+\[
+P(H_a\mid Y=14)=\int_0^{0.20}f(\pi\mid Y=14)\,d\pi
+=0.849.
+\]
+\begin{block}{}
+Given the prior, sampling model, and 100 observed artists,\\the posterior chance that the population proportion is below 20\% is about 84.9\%.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{R (probability, odds, and Bayes factor)}
+\begin{lstlisting}
+post_prob <- pbeta(0.20, 18, 92)
+post_odds <- post_prob / (1 - post_prob)
+
+prior_prob <- pbeta(0.20, 4, 6)
+prior_odds <- prior_prob / (1 - prior_prob)
+BF <- post_odds / prior_odds
+
+post_prob  # 0.849
+post_odds  # 5.622
+prior_prob # 0.08564
+prior_odds # 0.09366
+BF         # 60.02
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{}
+\begin{itemize}
+\item \texttt{pbeta(x,a,b)} (base R): $P(\pi\le x)$ for a $\mathrm{Beta}(a,b)$ variable.
+\item \texttt{post\_odds}: probability of $H_a$ divided by probability of $H_0$ after observing data.
+\item \texttt{prior\_odds}: the same ratio before observing data.
+\item \texttt{BF}: posterior odds divided by prior odds.
+\end{itemize}
+\[
+\mathrm{BF}=\frac{P(H_a\mid y)/P(H_0\mid y)}
+{P(H_a)/P(H_0)}\approx60.
+\]
+\begin{block}{Intuition}
+The sample multiplies the odds for $\pi<0.20$ by about 60;\\a Bayes factor is not itself a probability.
+\end{block}
+\end{frame}
+
+\begin{frame}{What about a two-sided claim?}
+\textbf{Question:} Is the true proportion different from $0.30$?
+\[
+H_0:\pi=0.30\qquad H_a:\pi\ne0.30.
+\]
+
+\begin{itemize}
+\item Under the chapter's continuous Beta prior and posterior, $P(\pi=0.30)=0$.
+\item So the previous odds-ratio calculation cannot test this exact point null.
+\item The 95\% CI $(0.10,0.24)$ lies below $0.30$.
+\item Chapter 8 suggests a specified meaningful range: $H_0:\pi\in(0.25,0.35)$.
+\end{itemize}
+\begin{block}{Note}
+Define what counts as a meaningful difference \emph{before} examining the data. (A point-mass prior would be a different model.)
+\end{block}
+\end{frame}
+
+\begin{frame}{\textbf{Posterior prediction}\\Predict 20 new artworks}
+Let $Y'$ count younger artists in 20 \emph{new} artworks.
+\[
+Y'\mid\pi\sim\mathrm{Bin}(20,\pi),\quad
+P(Y'=y'\mid\pi)={20\choose y'}\pi^{y'}(1-\pi)^{20-y'}.
 \]
 \begin{itemize}
-\item Prior chance of $H_a$: $0.0856$.
-\item Posterior chance of $H_a$: $0.849$.
-\item Posterior odds: $0.849/0.151\approx5.62$.
+\item Even for a known $\pi$, the new count varies by random sampling.
+\item We are also uncertain about $\pi$ itself.
 \end{itemize}
-\[
-\text{Bayes factor}=\frac{\text{posterior odds}}{\text{prior odds}}\approx\mathbf{60}.
-\]
-The data shifted the odds strongly toward $H_a$.
-\medskip
-\textbf{Important:} a large Bayes factor is evidence, \emph{not} a decision rule; costs of mistakes still matter.
+\begin{block}{Intuition}
+Prediction must account for both sampling variability \emph{and} posterior uncertainty about the rate.
+\end{block}
 \end{frame}
-
-\begin{frame}{A caution about exact-value hypotheses}
-For a continuous parameter with a continuous posterior,
-\[
-\Prb(\pi=0.30\given Y)=0.
-\]
-That does \emph{not} automatically establish a useful decision.
-\begin{itemize}
-\item Instead, ask whether a value is \textbf{practically different}.
-\item Example: ``roughly 30\%'' means $0.25\le\pi\le0.35$.
-\item Calculate posterior probability of this \emph{range}.
-\end{itemize}
-\textbf{Decision lesson:} define a meaningful tolerance before looking at results.
-\end{frame}
-
-\begin{frame}{Prediction: what happens next?}
-Suppose we examine 20 \emph{new} museum artists; $Y'$ is the number born in 1965 or later.
-\[
-Y'\given\pi\sim\operatorname{Binomial}(20,\pi).
-\]
-The expected future count is
-\[
-\E(Y'\given Y=14)=20\E(\pi\given Y=14)
-=20(18/110)\approx\mathbf{3.27}.
-\]
-But observing exactly 3 is not certain!
-\medskip
-Prediction includes \textbf{sampling randomness} and \textbf{uncertainty about $\pi$}.
-\end{frame}
-
 \begin{frame}{Posterior predictive distribution}
-To predict a future count, average over plausible values of $\pi$:
+Average new-data probabilities over plausible parameter values:
 \[
-\Prb(Y'=k\given Y)=\int_0^1\Prb(Y'=k\given\pi)\,p(\pi\given Y)\,d\pi.
+f(y'\mid y)=\int_0^1 f(y'\mid\pi)f(\pi\mid y)\,d\pi.
 \]
-In the Beta--Binomial model this gives a \textbf{Beta--Binomial} predictive distribution.
+Here $y=14$ and $\pi\mid y\sim\mathrm{Beta}(18,92)$.
 \begin{itemize}
-\item Predicted mean number of younger artists out of 20: $3.27$.
-\item Chance of at least 5: $\Prb(Y'\ge5\given Y=14)\approx\mathbf{0.233}$.
+\item Exact predictive probability: $P(Y'=3\mid Y=14)=0.2217$.
+\item $P(Y'\ge5\mid Y=14)=0.233$.
+\item $E(Y'\mid Y=14)=3.273$; the most likely count is 3.
 \end{itemize}
-\textbf{Risk lesson:} often the most important answer is a \emph{tail probability}, not the expected count.
-\end{frame}
-
-\begin{frame}{From inference to decision analysis}
-A decision requires \textbf{three ingredients}:
-\begin{enumerate}
-\item \textbf{Actions:} What can we choose?
-\item \textbf{Uncertain states/outcomes:} What could happen?
-\item \textbf{Loss or payoff:} What is the consequence of each action and state?
-\end{enumerate}
-\medskip
-For an action $a$, define its posterior expected loss:
-\[
-\boxed{R(a\given Y)=\E\big[L(a,\theta)\given Y\big].}
-\]
-Choose the action with the \textbf{smallest expected loss} if that is the agreed decision objective.
-\end{frame}
-
-\begin{frame}{New example: quality-control risk}
-A manufacturer wants to estimate $\theta$, the probability that a new part fails inspection.
-\begin{itemize}
-\item Prior: $\theta\sim\operatorname{Beta}(2,18)$ (mean 10\%).
-\item Inspect 32 parts; 3 fail and 29 pass.
-\item Posterior: $\theta\given Y\sim\operatorname{Beta}(5,47)$.
-\end{itemize}
-\[
-\E(\theta\given Y)=\frac5{52}\approx\mathbf{9.6\%}.
-\]
-95\% credible interval: approximately \textbf{3.3\% to 18.9\%}.
-\medskip
-\textbf{Management question:} Should we perform an extra screening step before shipment?
-\end{frame}
-
-\begin{frame}{Define the available actions and losses}
-Suppose the team can either \textbf{ship as is} or \textbf{screen every part}. For teaching purposes, assume:
-\begin{itemize}
-\item Shipping an unchecked failed part costs $\$200$ on average.
-\item Screening costs $\$12$ per part.
-\item Screening identifies and resolves every failure at no further cost.
-\end{itemize}
-\medskip
-For a future part,
-\[
-\begin{aligned}
-\E(L_{\mathrm{ship}}\given Y)&=200\E(\theta\given Y),\\
-\E(L_{\mathrm{screen}}\given Y)&=12.
-\end{aligned}
-\]
-\textbf{Note:} These are simplified, illustrative cost assumptions, not real factory estimates.
-\end{frame}
-
-\begin{frame}{Compute expected loss and choose}
-Under the posterior mean failure rate $5/52$:
-\[
-\begin{aligned}
-R(\mathrm{ship}\given Y)&=200\times\frac5{52}\approx\$19.23,\\
-R(\mathrm{screen}\given Y)&=\$12.00.
-\end{aligned}
-\]
-\begin{block}{Decision under the stated assumptions}
-Screen the part: lower posterior expected loss by about \textbf{\$7.23 per part}.
+\begin{block}{Meaning}
+Three is the best single-count prediction, not a guarantee.
 \end{block}
-For 1,000 comparable future parts, the expected saving is about $\$7{,}230$.
-\medskip
-This result depends on both the posterior \emph{and} the assumed costs.
 \end{frame}
 
-\begin{frame}{Break-even thresholds are easy to communicate}
-Screening is preferable when
-\[
-12<200\E(\theta\given Y).
-\]
-Equivalently,
-\[
-\boxed{\E(\theta\given Y)>0.06.}
-\]
+\begin{frame}[fragile]{Calculate predictive probabilities}
+\begin{lstlisting}
+# Beta-binomial predictive probabilities;
+# base R's beta and choose functions
+ys <- 0:20
+pred <- choose(20, ys) *
+  beta(18 + ys, 92 + 20 - ys) /
+  beta(18, 92)
+
+pred[ys == 3]            # about 0.2217
+sum(pred[ys >= 5])      # about 0.233
+sum(ys * pred)          # about 3.273
+\end{lstlisting}
+\footnotesize This is an R implementation; the book displays the analytic calculation rather than this code.
+\end{frame}
+\begin{frame}{Exact prediction}
 \begin{itemize}
-\item If expected failure probability exceeds 6\%, screen.
-\item Our estimate is 9.6\%, so screen.
-\item If costs change, the \textbf{break-even threshold changes}.
+\item \texttt{ys <- 0:20}: enumerate all possible counts in the next 20 observations.
+\item \texttt{choose(20, ys)}: count ways each outcome can occur.
+\item \texttt{beta()} (base R): evaluates the Beta function; its ratio averages over the posterior for $\pi$.
+\item \texttt{pred}: probability of each count; it sums to 1.
+\item \texttt{sum()} and indexing: add probabilities for $Y'\ge5$, or calculate a weighted average.
 \end{itemize}
-\textbf{Sensitivity question:} what if screening costs $\$22$ rather than $\$12$?
+\begin{block}{Intuition}
+The predictive distribution spreads probability across many possible future counts, not only 3.
+\end{block}
 \end{frame}
 
-\begin{frame}{Probability of crossing a risk threshold}
-The posterior can also answer:
-\[
-\Prb(\theta>0.10\given Y)=\Prb(\theta>0.10\given\operatorname{Beta}(5,47))\approx\mathbf{0.413}.
-\]
-There is about a \textbf{41\%} chance the failure rate exceeds 10\%.
-\medskip
+\section{8.4 Posterior analysis with MCMC}
+\begin{frame}{When exact calculations are unavailable}
+\textbf{Question:} Can a sample of plausible $\pi$ values replace difficult integrals?
 \begin{itemize}
-\item This probability could trigger further inspection or monitoring.
-\item It need not change the expected-loss decision automatically.
-\item Different organizations may have different risk tolerances.
+\item MCMC generates dependent draws that approximate the posterior distribution.
+\item Chapter 8 uses four chains with 10,000 iterations each and discards the first 5,000 of each.
+\item That leaves $4\times5{,}000=20{,}000$ posterior draws.
+\item Check simulation quality \emph{before} interpreting summaries.
 \end{itemize}
+\begin{block}{Intuition}
+A posterior probability can be approximated by the fraction of simulated draws satisfying a claim.
+\end{block}
+\end{frame}
+\begin{frame}[fragile]{Specify and simulate the model}
+\begin{lstlisting}
+library(rstan)
+art_model <- "
+data { int<lower=0,upper=100> Y; }
+parameters { real<lower=0,upper=1> pi; }
+model {
+  Y ~ binomial(100, pi);
+  pi ~ beta(4, 6);
+}"
+
+art_sim <- stan(model_code = art_model,
+                data = list(Y = 14),
+                chains = 4, iter = 10000,
+                seed = 84735)
+\end{lstlisting}
 \end{frame}
 
-\begin{frame}{Prediction for a batch: another form of risk}
-Suppose 20 more parts will be shipped.
-\[
-K\given\theta\sim\operatorname{Binomial}(20,\theta),\qquad
-\theta\given Y\sim\operatorname{Beta}(5,47).
-\]
-Using the posterior predictive distribution:
-\[
-\E(K\given Y)=20(5/52)\approx\mathbf{1.92},
-\]
-\[
-\Prb(K\ge3\given Y)\approx\mathbf{0.306}.
-\]
-Thus the expected count is about 2, but there is still about a \textbf{31\% chance of 3 or more} failures.
-\end{frame}
-
-\begin{frame}{Expected loss vs. downside risk}
-Both may matter, but they answer different questions.
-\begin{center}
-\begin{tabular}{p{3.0cm}p{5.0cm}}
-\toprule
-\textbf{Criterion} & \textbf{Question}\\
-\midrule
-Expected loss & Which action has the smallest average cost?\\
-Tail probability & How likely is an unacceptably bad outcome?\\
-Credible interval & How uncertain is the underlying rate?\\
-Predictive distribution & How variable might future results be?\\
-\bottomrule
-\end{tabular}
-\end{center}
-\medskip
-A robust decision report makes the \textbf{objective, threshold, and assumptions} explicit.
-\end{frame}
-
-\begin{frame}{What is the value of more information?}
-Imagine we could inspect more parts before deciding on screening.
+\begin{frame}{Explaining Stan}
 \begin{itemize}
-\item New data might push the estimated failure rate \emph{above or below} the 6\% break-even point.
-\item That could change the preferred action.
-\item Collecting more data has a cost, so we should ask whether it might \emph{improve the decision enough} to justify that cost.
+\item \texttt{rstan} interfaces R with Stan's posterior simulation engine.
+\item \texttt{data}: $Y$ is the observed count, constrained between 0 and 100.
+\item \texttt{parameters}: unknown proportion $\pi$ is constrained to $[0,1]$.
+\item \texttt{model}: binomial sampling model plus Beta prior.
+\item \texttt{stan()}: simulates four chains, each of length 10,000; default warmup discards half.
 \end{itemize}
-\medskip
-\textbf{Core idea:} information is valuable when it can change an action and reduce expected loss.
+\begin{block}{Expected result}
+A fitted \texttt{stanfit} object containing 20,000 retained draws across four chains. Actual draw values depend on the software environment.
+\end{block}
 \end{frame}
 
-\begin{frame}{Simulation: inference when formulas are difficult}
-In a simple Beta--Binomial model, we can calculate many answers exactly. In more complex models we often simulate from the posterior (e.g., MCMC).
+\begin{frame}[fragile]{Check the four chains}
+\begin{lstlisting}
+library(bayesplot)
+
+mcmc_trace(art_sim, pars = "pi")
+mcmc_dens_overlay(art_sim, pars = "pi")
+mcmc_acf(art_sim, pars = "pi")
+
+rhat(art_sim, pars = "pi")
+neff_ratio(art_sim, pars = "pi")
+\end{lstlisting}
+\small Reported diagnostics: \texttt{Rhat = 1}; \texttt{neff\_ratio = 0.378}.\par
+\small Expected plots: well-mixed traces, overlapping chain densities, and quickly decaying autocorrelation (see Fig.~8.8).
+\end{frame}
+
+\begin{frame}{Diagnostics}
+\begin{itemize}
+\item \texttt{bayesplot}: trace, density overlay, and autocorrelation graphics.
+\item \texttt{rhat()}: checks consistency across chains; near 1 is desirable.
+\item \texttt{neff\_ratio()}: effective sample size divided by retained sample size.
+\item The chapter's ratio $0.378$ corresponds to approximately 7,600 independent-equivalent draws.
+\end{itemize}
+\begin{block}{Intuition}
+20,000 correlated MCMC draws are not necessarily as informative as 20,000 independent draws. Recheck diagnostics for your own run.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Summarize the MCMC posterior}
+\begin{lstlisting}
+library(broom.mixed)
+library(janitor)
+
+tidy(art_sim, conf.int = TRUE,
+     conf.level = 0.95)
+
+art_chains_df <- as.data.frame(
+  art_sim, pars = "pi")
+
+mean(art_chains_df$pi)
+quantile(art_chains_df$pi, c(0.025, 0.975))
+mean(art_chains_df$pi < 0.20)
+\end{lstlisting}
+\small Output from \texttt{tidy()}: median $0.162$, CI $(0.101,0.239)$.\par
+\small MCMC estimate of $P(\pi<0.20\mid y)$: $0.846$.
+\end{frame}
+
+\begin{frame}{Simulated inference}
+\begin{itemize}
+\item \texttt{broom.mixed::tidy()}: posterior median, uncertainty summaries, and central 95\% interval for the fitted parameter.
+\item \texttt{as.data.frame()}: combine retained chain draws of $\pi$ into an R table.
+\item \texttt{mean()} and \texttt{quantile()}: approximate posterior center and interval endpoints.
+\item \texttt{mean(pi < 0.20)}: fraction of draws consistent with the claim.
+\item \texttt{janitor} is used for the chapter's optional \texttt{tabyl()} count table; it is not required for these shortened lines.
+\end{itemize}
+\begin{block}{}
+MCMC approximates the exact 95\% CI $(0.1009,0.2379)$ and exact posterior probability $0.849$.
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]{Simulate and summarize predictions}
+\begin{lstlisting}
+set.seed(1)
+art_chains_df <- art_chains_df %>%
+  mutate(y_predict = rbinom(
+    length(pi), size = 20, prob = pi))
+
+ggplot(art_chains_df,
+       aes(x = y_predict)) + stat_count()
+
+art_chains_df %>%
+  summarize(mean = mean(y_predict),
+    lower_80 = quantile(y_predict, 0.10),
+    upper_80 = quantile(y_predict, 0.90))
+\end{lstlisting}
+\small Chapter output: mean $3.283$, central 80\% interval from 1 to 6\\(See Fig.~8.11).
+\end{frame}
+\begin{frame}{Explaining the code: predictive simulation}
+\begin{itemize}
+\item \texttt{set.seed(1)}: makes the R random-number stream reproducible.
+\item \texttt{rbinom()}: for \emph{each} simulated $\pi$, draws a new count out of 20.
+\item \texttt{mutate()}: adds these counts as \texttt{y\_predict}.
+\item \texttt{ggplot() + stat\_count()}: plots the frequency of each predicted count.
+\item \texttt{summarize()} and \texttt{quantile()}: predictive mean and middle 80\% endpoints.
+\end{itemize}
+\begin{block}{Meaning ...}
+Given the model and data, the simulation places about 80\% of predicted 20-artwork counts between 1 and 6.
+\end{block}
+\end{frame}
+
+\begin{frame}{\textbf{Bayesian benefits}\\Conditioning matters: posterior vs. $p$-value}
+Two probabilities in the chapter answer \emph{different} questions:
+\[
+\underbrace{P(\pi<0.20\mid Y=14)=0.849}_{\text{uncertainty about a parameter given data}}
+\]
+\[
+\underbrace{P(Y\le14\mid\pi=0.20)=0.08}_{\text{data variability under an assumed rate}}
+\]
+\begin{block}{Intuition}
+The second quantity does not say there is an 8\% chance that the assumed parameter value is true. Neither quantity is a universal true/false decision rule.
+\end{block}
+\end{frame}
+\begin{frame}{Key takeaways}
 \begin{enumerate}
-\item Draw many plausible $\theta^{(1)},\ldots,\theta^{(S)}$ values.
-\item Approximate $\E(\theta\given Y)$ by their average.
-\item Approximate $\Prb(\theta>0.10\given Y)$ by the fraction over 0.10.
-\item For each draw, simulate future failures $K^{(s)}$.
-\item Approximate risks and expected losses using simulated outcomes.
+\item \textbf{Estimation:} report both a posterior center and uncertainty interval.
+\item \textbf{Testing:} posterior probability assesses a claim; a Bayes factor compares changes in odds.
+\item \textbf{Prediction:} average over uncertain parameters and future sampling randomness.
+\item \textbf{MCMC:} approximate all three tasks from posterior draws, after checking diagnostics.
 \end{enumerate}
-\textbf{Practical check:} MCMC results need convergence and sampling diagnostics.
 \end{frame}
 
-\begin{frame}[fragile]{Optional R: four questions in a few lines}
+\begin{frame}{Check your understanding (short answers here)}
 \small
-\begin{verbatim}
-# Museum example, Chapter 8
-18 / (18 + 92)                 # posterior mean
-qbeta(c(.025, .975), 18, 92)  # credible interval
-pbeta(.20, 18, 92)            # P(pi < .20 | data)
-
-# Quality-control example
-qbeta(c(.025, .975), 5, 47)
-pbeta(.10, 5, 47, lower.tail = FALSE)
-200 * 5 / 52                  # expected loss: ship
-12                            # expected loss: screen
-\end{verbatim}
-\footnotesize
-For the predictive tail, use the self-contained code on the next slide (no extra packages).
-\end{frame}
-
-\begin{frame}[fragile]{Optional R: posterior predictive tail}
-\small
-\begin{verbatim}
-# Beta-Binomial probability, using base R
-pbb <- function(k, n, a, b) {
-  exp(lchoose(n, k) + lbeta(a + k, b + n - k)
-      - lbeta(a, b))
-}
-
-# Museum: P(at least 5 out of the next 20)
-sum(sapply(5:20, pbb, n = 20, a = 18, b = 92))
-
-# Parts: P(at least 3 failures out of the next 20)
-sum(sapply(3:20, pbb, n = 20, a = 5, b = 47))
-\end{verbatim}
-\textbf{Interpretation:} add probabilities of all outcomes that meet the adverse-event threshold.
-\end{frame}
-
-\begin{frame}{Class exercise: would you screen?}
-A new product has posterior failure probability
-\[
-\theta\given Y\sim\operatorname{Beta}(3,27),
-\qquad\E(\theta\given Y)=0.10.
-\]
-Suppose inspection costs $\$15$ per unit, and an unchecked failure costs $\$100$.
 \begin{enumerate}
-\item What is the expected loss of shipping without inspection?
-\item What is the expected loss of inspecting every unit?
-\item Which action minimizes expected loss?
-\item If an unchecked failure cost $\$250$, would your answer change?
+\item \textbf{Is a 95\% credible interval a 95\% range for a new count?}\\
+No. It describes $\pi$, not the future count $Y'$.
+\item \textbf{Does a Bayes factor of 60 mean $P(H_a\mid y)=0.60$?}\\
+No. It is the ratio of posterior odds to prior odds.
+\item \textbf{Why not always predict exactly 3 new younger artists?}\\
+Both the future sample and $\pi$ vary.
+\item \textbf{Do many MCMC draws guarantee correct results?}\\
+No. Convergence and mixing must be assessed.
 \end{enumerate}
-\end{frame}
-
-\begin{frame}{Class exercise: discussion answers}
-\begin{enumerate}
-\item Ship: $100\times0.10=\mathbf{\$10}$ expected loss.
-\item Inspect: $\mathbf{\$15}$ expected loss.
-\item With a $\$100$ failure cost: \textbf{ship}, under the stated assumptions.
-\item With a $\$250$ failure cost: ship costs $250\times0.10=\$25$; \textbf{inspect} is preferred.
-\end{enumerate}
-\medskip
-\textbf{Takeaway:} the data and posterior are unchanged; the optimal action changes because the consequences change.
-\end{frame}
-
-\begin{frame}{Five questions to ask in any risk analysis}
-\begin{enumerate}
-\item What is uncertain, and what is the posterior distribution?
-\item What threshold or future event actually matters?
-\item Which actions are available?
-\item What are the costs and benefits of each outcome?
-\item Would additional information be worth collecting?
-\end{enumerate}
-\medskip
-\centering\textbf{Posterior $\longrightarrow$ prediction $\longrightarrow$ loss $\longrightarrow$ decision}
 \end{frame}
 
 \end{document}
