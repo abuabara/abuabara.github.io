@@ -1,0 +1,309 @@
+\documentclass[aspectratio=43,10pt]{beamer}
+
+\usecolortheme{default}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{soul}
+\usepackage{xcolor}
+\definecolor{maroon}{HTML}{500000}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+
+\setbeamercolor{structure}{fg=maroon}
+\setbeamercolor{frametitle}{fg=maroon,bg=white}
+\setbeamercolor{block title}{fg=white,bg=maroon}
+\setbeamercolor{block body}{bg=gray!20,fg=black}
+\setbeamercolor{alerted text}{fg=purple!80}
+
+\setlength{\parskip}{3pt}
+\lstset{basicstyle=\ttfamily\scriptsize,keywordstyle=\color{blue}\bfseries,
+  commentstyle=\color{black!35},showstringspaces=false,breaklines=true,
+  columns=fullflexible,frame=single,rulecolor=\color{black!50}}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\title{Initial Data Collection \& Profiling}
+\subtitle{}
+\author{}
+\date{\textcolor{maroon}{DAEN 459 -- Fall 2026\\
+      \textbf{Alexander Abuabara}}}
+\titlegraphic{\IfFileExists{TAMU_logo.png}{\includegraphics[height=1.2cm]{TAMU_logo.png}}{}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Actual x Virtual | Practical x Ritual}
+
+\begin{frame}{}
+    \begin{block}{The Actual}
+        What \hl{currently exists in physical reality}. It is concrete, measurable, and historically realized.
+    \end{block}
+    \begin{block}{The Virtual}
+        The realm of latent \hl{potential}, mathematical abstraction, and simulations. Real forces or models that shape what can become actual.
+    \end{block}
+    \begin{block}{The Practical}
+        The \hl{bridge of action, utility, and efficiency}. It asks: \textit{How do we apply ideas and data to solve problems and make decisions?}
+    \end{block}
+    \begin{block}{The Ritual}
+        A \hl{structured sequence of actions} focused on meaning, internal transformation, and alignment rather than external utility.
+    \end{block}
+\end{frame}
+
+\begin{frame}{Everyday Examples}
+    \textit{Actual:} Our conversation, it's live, it's action.
+    
+    \textit{Virtual:} This slides, a book, something that is stored.
+    
+    \pause
+    
+    \vspace{1cm}
+    \begin{columns}
+        \begin{column}{0.5\textwidth}
+            \textbf{Eating a Meal}
+            \begin{itemize}
+                \item \textit{Practical:} Eating a protein bar at your desk solely to fuel your physical body.
+                \item \textit{Ritual:} Group family dinner, sharing gratitude, and passing specific dishes.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \textbf{Getting a Degree}
+            \begin{itemize}
+                \item \textit{Practical:} Logging into an administrative portal to download a PDF diploma.
+                \item \textit{Ritual:} Walking across a stage in a cap and gown while your family cheers.
+            \end{itemize}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{}
+    \begin{table}
+    \centering
+    \small
+    \begin{tabular}{|l|p{4cm}|p{4cm}|}
+    \hline
+    \textbf{Attribute} & \textbf{The Practical (Utility)} & \textbf{The Ritual (Meaning)} \\ \hline
+    \textbf{Primary Goal} & Efficiency \& Output & Transformation \& Connection \\ \hline
+    \textbf{Focus} & The destination or product & The journey and execution \\ \hline
+    \textbf{Logic} & Instrumental (take the shortcut) & Symbolic (steps cannot be skipped) \\ \hline
+    \textbf{Outcome} & Changes physical environment & Changes you (psychological/social state) \\ \hline
+    \end{tabular}
+    \end{table}
+\end{frame}
+
+\section{Data Collection \& Profiling}
+
+\begin{frame}{What success looks like}
+\begin{block}{The goal is not ``download a dataset''}
+Produce a \textbf{repeatable acquisition path}, a \textbf{measured quality baseline}, and a \textbf{decision about fitness for purpose}.
+\end{block}
+
+\vspace{0.3em}
+\begin{enumerate}
+  \item \textbf{Discover:} identify sources, owners, licenses, refresh cadence.
+  \item \textbf{Collect:} land a small but representative raw sample.
+  \item \textbf{Profile:} measure schema, missingness, keys, values, and time.
+  \item \textbf{Decide:} document risks and a go / investigate / reject call.
+\end{enumerate}
+
+\vspace{0.5em}
+\textbf{Artifact:} one-page source inventory + raw sample + reproducible profiling report.
+
+\begin{center}\alert{Core question:} Can we trust this data enough to build on it?\end{center}
+\end{frame}
+
+\begin{frame}{Example: Where do city bikes disappear?}
+\textbf{Project idea:} forecast bike availability at each station for the next hour.
+
+\medskip
+\begin{tabular}{p{0.24\linewidth}p{0.34\linewidth}p{0.31\linewidth}}
+\toprule
+\textbf{Source} & \textbf{Fields we want} & \textbf{Risk to test}\\
+\midrule
+Trips (CSV) & start/end station, times, trip ID & late uploads; duplicate trips\\
+Station (JSON) & station ID, bikes, docks, timestamp & changing IDs; intermittent readings\\
+Weather (API) & hourly rainfall, temperature & timezone and spatial mismatch\\
+\bottomrule
+\end{tabular}
+
+\vspace{0.8em}
+\begin{block}{Think ...}
+A dataset with 10 million trip rows may still be \textbf{unfit} for hourly forecasting if it arrives three weeks late.
+\end{block}
+\end{frame}
+
+\begin{frame}{Collect like an engineer, not a tourist}
+\begin{center}
+\colorbox{gray!25}{\parbox{\linewidth}{\centering
+\textbf{Source / API} $\longrightarrow$ \textbf{Immutable raw} $\longrightarrow$ \textbf{Profile} $\longrightarrow$ \textbf{Curated tables}}}
+\end{center}
+
+\vspace{0.5em}
+\begin{columns}[T]
+\column{0.49\linewidth}
+\textbf{Capture provenance}
+\begin{itemize}
+\item source URL and access terms
+\item retrieval UTC timestamp
+\item requested period and filters
+\item file hash / batch ID
+\item API pagination and status
+\end{itemize}
+\column{0.49\linewidth}
+\textbf{Preserve reproducibility}
+\begin{itemize}
+\item keep raw bytes unchanged
+\item version the extraction code
+\item record schema and row count
+\item save failed requests safely
+\item separate secrets from notebooks
+\end{itemize}
+\end{columns}
+
+\begin{block}{Sample deliberately}
+Include weekdays \emph{and} weekends, peak \emph{and} quiet hours, old \emph{and} recent batches. A convenient first 1,000 rows can mislead.
+\end{block}
+\end{frame}
+
+\begin{frame}{Profile across six lenses}
+\small
+\begin{tabular}{p{0.18\linewidth}p{0.40\linewidth}p{0.30\linewidth}}
+\toprule
+\textbf{Lens} & \textbf{Measure} & \textbf{Example red flag}\\
+\midrule
+Structure & fields, types, schema versions & switches type\\
+Completeness & null \%, gaps by source/date & 30\% missing ends\\
+Uniqueness & duplicate IDs, key collisions & repeated \texttt{trip\_id}\\
+Validity & ranges, allowed values, formats & negative trip duration\\
+Consistency & cross-field / cross-source rules & empty docks $>$ capacity\\
+Freshness & event vs arrival lag, missing hs & API data 8 hours stale\\
+\bottomrule
+\end{tabular}
+\vspace{0.8em}
+\begin{block}{Do not stop at global percentages}
+Break every important metric down by \textbf{date, source, station, and batch}.\\
+An error rate may hide a important broken information.
+\end{block}
+\end{frame}
+
+\begin{frame}{A miniature profile tells a bigger story}
+\textbf{Illustrative sample:} 100,000 trip rows across 14 days.
+
+\medskip
+\begin{tabular}{p{0.27\linewidth}r p{0.47\linewidth}}
+\toprule
+\textbf{Check} & \textbf{Finding} & \textbf{Interpretation}\\
+\midrule
+Null \texttt{end\_st\_id} & 8.4\% & could be valid free-floating returns\\
+Duplicate \texttt{trip\_id} & 0.7\% & test ingestion replay\\
+Duration $<0$ & 0.2\% & bad clock or timestamp parsing\\
+Arrival lag $>24$ h & 12.1\% & unsuitable for live features?\\
+\bottomrule
+\end{tabular}
+\vspace{0.8em}
+\begin{block}{Turn metrics into hypotheses}
+\textbf{Observation:} duplicates spike on Mondays.\\
+\textbf{Hypothesis:} the weekend export is resent each Monday.\\
+\textbf{Next test:} group duplicate IDs by \emph{ingestion batch} before deduplicating.
+\end{block}
+\end{frame}
+
+\begin{frame}{Time is a data quality dimension}
+\begin{columns}[T]
+\column{0.49\linewidth}
+\textbf{Three different clocks}
+\begin{itemize}
+\item \textbf{Event time:} when the trip occurred
+\item \textbf{Arrival time:} when our pipeline received it
+\item \textbf{Processing time:} when we transformed it
+\end{itemize}
+\column{0.49\linewidth}
+\textbf{Check explicitly}
+\begin{itemize}
+\item timezone and daylight-saving rules
+\item late-arriving records
+\item missing / repeated hourly buckets
+\item timestamps in the future
+\end{itemize}
+\end{columns}
+\vspace{0.6em}
+\begin{block}{Example}
+A trip at \textbf{08:15 local time} may be ingested at \textbf{11:40 UTC}. This is not necessarily a 3h25m delay: normalize timezones first.
+\end{block}
+\textbf{Capstone rule:} define whether each feature uses data \emph{available at prediction time}, not merely data present today.
+\end{frame}
+
+\begin{frame}[fragile]{A small, repeatable profiling script}
+\begin{lstlisting}[language=Python]
+import pandas as pd
+
+# Start with a representative raw sample.
+df = pd.read_csv("raw/trips_sample.csv")
+report = pd.DataFrame({
+    "dtype": df.dtypes.astype(str),
+    "null_pct": df.isna().mean().mul(100).round(2),
+    "distinct": df.nunique(dropna=True),
+})
+
+print("rows:", len(df))
+print("duplicate trip IDs:",
+      df.duplicated(subset=["trip_id"]).sum())
+print(report.sort_values("null_pct", ascending=False))
+
+# Add domain checks, batch-level splits, and time lag tests.
+\end{lstlisting}
+\vspace{0.2em}
+\small \textbf{Next engineering step:} persist the report as a dated artifact and fail CI only on \emph{agreed} thresholds, not arbitrary zero-null expectations.
+\end{frame}
+
+\begin{frame}{From finding to action: a quality decision log}
+\small
+\begin{tabular}{p{0.23\linewidth}p{0.27\linewidth}p{0.29\linewidth}}
+\toprule
+\textbf{Finding} & \textbf{Decision} & \textbf{Evidence needed}\\
+\midrule
+0.7\% duplicate IDs & quarantine collisions; do not silently delete & compare source rows and batches\\
+8.4\% missing end station & treat as ``unknown'' pending semantics & provider documentation + sample review\\
+12.1\% arrive late & exclude from low-latency features & latency distribution over 30 days\\
+\bottomrule
+\end{tabular}
+\vspace{0.8em}
+\begin{block}{Avoid two traps}
+\textbf{Trap 1:} ``clean'' means dropping anomalous records.\\
+\textbf{Trap 2:} a dashboard of metrics is a substitute for a decision.
+\end{block}
+Record \textbf{owner, severity, proposed handling, and next verification} for each important issue.
+\end{frame}
+
+\begin{frame}{Capstone checkpoint: show your evidence!}
+\textbf{Submit four small artifacts:}
+\begin{enumerate}
+\item \textbf{Source inventory:} URLs, ownership, access, format, cadence, licensing.
+\item \textbf{Raw landing proof:} file layout, timestamps, hashes, extraction command.
+\item \textbf{Profiling notebook/report:} schema, 6 quality lenses, segmented metrics.
+\item \textbf{Decision log:} top 3 risks, tests, mitigations, go/no-go judgment.
+\end{enumerate}
+\vspace{0.6em}
+\begin{block}{90-second project review}
+\emph{``The most surprising data quality issue was \underline{\hspace{2cm}}. It matters because \underline{\hspace{2cm}}. Our next test is \underline{\hspace{2cm}}.''}
+\end{block}
+\centering \alert{Leave with a verified dataset assumption, not just a downloaded file.}
+\end{frame}
+\end{document}
