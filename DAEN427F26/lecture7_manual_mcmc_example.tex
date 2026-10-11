@@ -7,7 +7,7 @@
 \setbeamertemplate{navigation symbols}{}\setbeamertemplate{footline}[frame number]
 \setbeamertemplate{itemize items}[circle]
 
-\usepackage{amsmath,amssymb,booktabs}
+\usepackage{amsmath,amssymb,booktabs,soul,hyperref}
 
 %\title{A Simple Manual Example of MCMC}
 %\subtitle{Metropolis-Hastings for a Bernoulli Parameter}
@@ -87,6 +87,7 @@ Propose a new value:
 \]
 
 Compute the acceptance ratio:
+\href{https://www.bayesrulesbook.com/chapter-7\#why-the-algorithm-works}{\footnotesize (check \hl{why the algorithm works)}}
 \[
  r = \frac{f(\theta^*)}{f(\theta_t)}
 \]
@@ -320,6 +321,23 @@ y = \beta_0 + \beta_1 x + \varepsilon
 \]
 
 The collection of draws gives the full posterior uncertainty.
+\end{frame}
+
+\begin{frame}{Homework}
+\begin{enumerate}
+\item What are the steps to the Monte Carlo Algorithm?
+\item Name one pro and one con for the Monte Carlo Algorithm.
+\item What are the steps to the Metropolis-Hastings Algorithm?
+\item What’s the difference between the Monte Carlo and Metropolis-Hastings algorithms?
+\item What’s the difference between the Metropolis and Metropolis-Hastings algorithms?
+\item Identify whether the below statements about independence sampling are True or False. If False, explain.
+\begin{enumerate}
+\item The proposal model depends on the current value of the chain.
+\item The proposal model is the same every time.
+\item It is a special case of the Metropolis-Hastings algorithm.
+\item It is a special case of Metropolis algorithm.
+\end{enumerate}
+\end{enumerate}
 \end{frame}
 
 \end{document}
