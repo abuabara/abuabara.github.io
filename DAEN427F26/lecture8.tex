@@ -34,7 +34,7 @@
 \begin{frame}{Our example: artists at MoMA}
 \begin{itemize}
 \item Let $\pi$ be the fraction of major modern-art museum artists born in 1965 or later.
-\item In the chapter's MoMA sample, $Y=14$ of $n=100$ artists meet this definition.
+\item In the MoMA sample, $Y=14$ of $n=100$ artists meet this definition.
 \item Prior: $\pi\sim\mathrm{Beta}(4,6)$.
 \item Sampling model: $Y\mid\pi\sim\mathrm{Bin}(100,\pi)$.
 \end{itemize}
@@ -85,12 +85,12 @@ E(\pi\mid Y=14)&=\frac{18}{110}\approx0.164,\\
 \]
 \begin{itemize}
 \item A typical posterior value is about 16\%.
-\item But a point estimate hides uncertainty.
-\item The chapter contrasts our $\mathrm{Beta}(18,92)$ with a wider $\mathrm{Beta}(4,16)$ posterior based on 10 observations.
+\item But a point estimate hides uncertainty:
+\begin{itemize}
+\item $\mathrm{Beta}(18,92)$ vs. a wider $\mathrm{Beta}(4,16)$ posterior\\based on 10 observations. (check the book!)
 \end{itemize}
-\begin{block}{Intuition}
-Two analyses can have similar centers but very different precision.
-\end{block}
+\item Two analyses can have similar centers\\but very different precision.
+\end{itemize}
 \end{frame}
 
 \begin{frame}{A 95\% posterior credible interval (CI)}
@@ -101,7 +101,7 @@ Let $f(\pi\mid y)$ be the posterior density, and $\pi_q$ its $q$th quantile.
 \[
 P(\pi_{0.025}<\pi<\pi_{0.975}\mid Y=14)=0.95.
 \]
-For the chapter's posterior, the interval is approximately $(0.10,0.24)$.
+For the posterior, the interval is approximately $(0.10,0.24)$.
 \begin{block}{In plain-language ...}
 Given the model and observed data, there is 95\% posterior probability that the population proportion is in this interval.
 \end{block}
@@ -189,13 +189,14 @@ H_0:\pi=0.30\qquad H_a:\pi\ne0.30.
 \]
 
 \begin{itemize}
-\item Under the chapter's continuous Beta prior and posterior, $P(\pi=0.30)=0$.
+\item Under the continuous Beta prior and posterior, $P(\pi=0.30)=0$.
 \item So the previous odds-ratio calculation cannot test this exact point null.
 \item The 95\% CI $(0.10,0.24)$ lies below $0.30$.
 \item Chapter 8 suggests a specified meaningful range: $H_0:\pi\in(0.25,0.35)$.
 \end{itemize}
 \begin{block}{Note}
-Define what counts as a meaningful difference \emph{before} examining the data. (A point-mass prior would be a different model.)
+Define what counts as a meaningful difference \emph{before} examining the data.
+(a point-mass prior would be a different model)
 \end{block}
 \end{frame}
 
@@ -238,11 +239,11 @@ pred <- choose(20, ys) *
   beta(18 + ys, 92 + 20 - ys) /
   beta(18, 92)
 
-pred[ys == 3]            # about 0.2217
+pred[ys == 3]           # about 0.2217
 sum(pred[ys >= 5])      # about 0.233
 sum(ys * pred)          # about 3.273
 \end{lstlisting}
-\footnotesize This is an R implementation; the book displays the analytic calculation rather than this code.
+\footnotesize This is an R implementation;\\the book displays the analytic calculation rather than this code.
 \end{frame}
 \begin{frame}{Exact prediction}
 \begin{itemize}
@@ -301,7 +302,7 @@ A fitted \texttt{stanfit} object containing 20,000 retained draws across four ch
 \end{block}
 \end{frame}
 
-\begin{frame}[fragile]{Check the four chains}
+\begin{frame}[fragile]{MCMC Diagnostics}
 \begin{lstlisting}
 library(bayesplot)
 
@@ -313,7 +314,35 @@ rhat(art_sim, pars = "pi")
 neff_ratio(art_sim, pars = "pi")
 \end{lstlisting}
 \small Reported diagnostics: \texttt{Rhat = 1}; \texttt{neff\_ratio = 0.378}.\par
-\small Expected plots: well-mixed traces, overlapping chain densities, and quickly decaying autocorrelation (see Fig.~8.8).
+\small Expected plots: well-mixed traces, overlapping chain densities,\\and quickly decaying autocorrelation (see Fig.~8.8).
+\end{frame}
+
+\begin{frame}{}
+\small
+\includegraphics[width=.95\textwidth]{art-sim-1-ch8-1.png}
+\begin{itemize}
+    \setlength{\itemsep}{0.1cm}
+    \item \textbf{Trace plot:}
+    The chains fluctuate around a stable value,
+    with no obvious trends or prolonged periods of
+    getting stuck.
+    \item \textbf{Posterior density:}
+    The chains produce similar posterior distributions,
+    centered around $\pi \approx 0.16$.
+
+    \item \textbf{Autocorrelation:}
+    The dependence between successive samples
+    decreases quickly and approaches zero
+    after approximately 5 lags.
+
+\end{itemize}
+
+\vspace{0.1cm}
+
+The rapid decrease in autocorrelation suggests
+\textbf{relatively good mixing}: the chain explores
+the posterior efficiently rather than remaining
+stuck in the same region for long periods.
 \end{frame}
 
 \begin{frame}{Diagnostics}
@@ -321,7 +350,7 @@ neff_ratio(art_sim, pars = "pi")
 \item \texttt{bayesplot}: trace, density overlay, and autocorrelation graphics.
 \item \texttt{rhat()}: checks consistency across chains; near 1 is desirable.
 \item \texttt{neff\_ratio()}: effective sample size divided by retained sample size.
-\item The chapter's ratio $0.378$ corresponds to approximately 7,600 independent-equivalent draws.
+\item The ratio $0.378$ corresponds to approximately 7,600 independent-equivalent draws.
 \end{itemize}
 \begin{block}{Intuition}
 20,000 correlated MCMC draws are not necessarily as informative as 20,000 independent draws. Recheck diagnostics for your own run.
@@ -353,7 +382,7 @@ mean(art_chains_df$pi < 0.20)
 \item \texttt{as.data.frame()}: combine retained chain draws of $\pi$ into an R table.
 \item \texttt{mean()} and \texttt{quantile()}: approximate posterior center and interval endpoints.
 \item \texttt{mean(pi < 0.20)}: fraction of draws consistent with the claim.
-\item \texttt{janitor} is used for the chapter's optional \texttt{tabyl()} count table; it is not required for these shortened lines.
+\item \texttt{janitor} is used for the "optional" \texttt{tabyl()} count table;\\it is not required for these shortened lines.
 \end{itemize}
 \begin{block}{}
 MCMC approximates the exact 95\% CI $(0.1009,0.2379)$ and exact posterior probability $0.849$.
@@ -375,8 +404,17 @@ art_chains_df %>%
     lower_80 = quantile(y_predict, 0.10),
     upper_80 = quantile(y_predict, 0.90))
 \end{lstlisting}
-\small Chapter output: mean $3.283$, central 80\% interval from 1 to 6\\(See Fig.~8.11).
+\small Output: mean $3.283$, central 80\% interval from 1 to 6.
 \end{frame}
+
+\begin{frame}
+\center \includegraphics[width=.6\textwidth]{ch8-hist-1.png}
+\begin{itemize}
+\item A histogram of 20,000 simulated posterior predictions of the number among the next 20 artists that will be Gen X or younger.
+\item We expect roughly 3 of the next 20 artists to be Gen X or younger, but there’s an 80\% chance that this figure is somewhere between 1 and 6 artists.
+\end{itemize}
+\end{frame}
+
 \begin{frame}{Explaining the code: predictive simulation}
 \begin{itemize}
 \item \texttt{set.seed(1)}: makes the R random-number stream reproducible.
@@ -399,7 +437,8 @@ Two probabilities in the chapter answer \emph{different} questions:
 \underbrace{P(Y\le14\mid\pi=0.20)=0.08}_{\text{data variability under an assumed rate}}
 \]
 \begin{block}{Intuition}
-The second quantity does not say there is an 8\% chance that the assumed parameter value is true. Neither quantity is a universal true/false decision rule.
+The second quantity does not say there is an 8\% chance that the assumed parameter value is true.
+Neither quantity is a universal true/false decision rule.
 \end{block}
 \end{frame}
 \begin{frame}{Key takeaways}
@@ -411,17 +450,31 @@ The second quantity does not say there is an 8\% chance that the assumed paramet
 \end{enumerate}
 \end{frame}
 
+\begin{frame}{Check your understanding}
+\small
+\begin{enumerate}
+\item \textbf{Is a 95\% credible interval a 95\% range for a new count?}\\
+\item[] 
+\item \textbf{Does a Bayes factor of 60 mean $P(H_a\mid y)=0.60$?}\\
+\item[]
+\item \textbf{Why not always predict exactly 3 new younger artists?}\\
+\item[]
+\item \textbf{Do many MCMC draws guarantee correct results?}\\
+\item[]
+\end{enumerate}
+\end{frame}
+
 \begin{frame}{Check your understanding (short answers here)}
 \small
 \begin{enumerate}
 \item \textbf{Is a 95\% credible interval a 95\% range for a new count?}\\
-No. It describes $\pi$, not the future count $Y'$.
+\textcolor{blue}{No. It describes $\pi$, not the future count $Y'$.}
 \item \textbf{Does a Bayes factor of 60 mean $P(H_a\mid y)=0.60$?}\\
-No. It is the ratio of posterior odds to prior odds.
+\textcolor{blue}{No. It is the ratio of posterior odds to prior odds.}
 \item \textbf{Why not always predict exactly 3 new younger artists?}\\
-Both the future sample and $\pi$ vary.
+\textcolor{blue}{Both the future sample and $\pi$ vary.}
 \item \textbf{Do many MCMC draws guarantee correct results?}\\
-No. Convergence and mixing must be assessed.
+\textcolor{blue}{No. Convergence and mixing must be assessed.}
 \end{enumerate}
 \end{frame}
 
