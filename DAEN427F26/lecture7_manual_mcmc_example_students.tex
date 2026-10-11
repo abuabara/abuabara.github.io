@@ -48,26 +48,42 @@ The unknown parameter is:
 \]
 \end{frame}
 
-\begin{frame}{Prior and Likelihood}
-Assume a uniform prior:
+\begin{frame}{}
+%\textbf{Question:} We observe 3 successes in 4 trials.
+What can we learn about the unknown success probability $\theta$?
+
+\vspace{0.2cm}
+
+\textbf{1. Prior:} All probabilities between 0 and 1
+are initially equally plausible.
 \[
-\theta \sim \text{Uniform}(0,1)
+\theta \sim \operatorname{Beta}(1,1)
 \]
 
-The likelihood for 3 successes and 1 failure is:
+\textbf{2. Data and likelihood:}
 \[
- p(y \mid \theta) \propto \theta^3(1-\theta)^1
+Y \mid \theta \sim \operatorname{Binomial}(4,\theta),
+\qquad y=3
 \]
 
-Since the prior is uniform, the posterior is proportional to:
+\textbf{3. Bayesian updating:}
 \[
- p(\theta \mid y) \propto \theta^3(1-\theta)
+\begin{aligned}
+p(\theta \mid y)
+&\propto p(y \mid \theta)\,p(\theta)\\
+&\propto \theta^3(1-\theta)\cdot 1
+\end{aligned}
 \]
 
-We define the unnormalized posterior density:
+\textbf{4. Posterior distribution:}
 \[
- f(\theta)=\theta^3(1-\theta)
+\boxed{\theta \mid y \sim \operatorname{Beta}(4,2)}
 \]
+
+Before observing data, all success probabilities were equally
+plausible. After observing 3 successes in 4 trials, larger
+probabilities become more plausible, but uncertainty remains.
+
 \end{frame}
 
 \begin{frame}{Metropolis Rule (Symmetric Proposal)}
@@ -343,12 +359,13 @@ The collection of draws gives the full posterior uncertainty.
 \[
 \alpha=\min\!\left\{1,\frac{\pi(x^*)\,q(x_t\mid x^*)}{\pi(x_t)\,q(x^*\mid x_t)}\right\}.
 \]
-\item Draw $u$ between 0 and 1. If $u<\alpha$, move to $x^*$; otherwise, stay at $x_t$.
+\item Draw $u$ between 0 and 1. If $u<\alpha$, move to $x^*$;\\otherwise, stay at $x_t$.
 \item Repeat to create a chain of samples.
 \end{enumerate}
 \vspace{0.1cm}
 \textbf{$\pi(x)$:} The distribution we want to sample.\\
-\textbf{$q(y\mid x)$:} The chance (or density) of proposing $y$ when at $x$.
+\textbf{$q(y\mid x)$:} The chance (or density) of proposing $y$ when at $x$.\\
+{\footnotesize \textcolor{gray!85}{We use a proposal distribution because knowing how likely a value is under a posterior distribution is not the same as knowing how to \ul{generate random values} from that posterior.}}
 \end{frame}
 
 \begin{frame}{} % Why Do the $q$ Terms Cancel?
@@ -378,7 +395,7 @@ This simpler rule is called the \textbf{Metropolis algorithm}.
 \end{itemize}
 \vspace{0.3cm}
 \textbf{Remember!!} Metropolis is a special case of Metropolis--Hastings.\\[0.25cm]
-Our earlier numerical example used the simpler Metropolis rule.
+Our earlier numerical example used the simpler \hl{Metropolis} rule.
 \end{frame}
 
 \begin{frame}{Independence Sampling}
@@ -397,6 +414,34 @@ q(x^*\mid x_t)=q(x^*).
 \end{itemize}
 \vspace{0.1cm}
 \textbf{Important:} Even though proposals do not depend on the current state, accepted samples can still depend on earlier samples.
+\end{frame}
+
+\begin{frame}{Conclusion}
+\begin{itemize}
+    \setlength{\itemsep}{0.3cm}
+
+    \item \textbf{The posterior distribution} is defined
+    by Bayes' rule, combining the prior and likelihood.
+
+    \item \textbf{MCMC} generates a sequence of dependent
+    samples whose long-run distribution is the posterior.
+
+    \item \textbf{Metropolis-Hastings} is one MCMC algorithm:
+    \begin{enumerate}
+        \item Propose a new value.
+        \item Accept or reject it using the posterior.
+        \item Repeat many times.
+    \end{enumerate}
+
+    \item \textbf{Monte Carlo} uses the resulting samples
+    to approximate posterior means, credible intervals,
+    and probabilities.
+\end{itemize}
+
+\vspace{0.2cm}
+MCMC does not create the posterior distribution.
+It generates samples that allow us to
+\textbf{explore and summarize the posterior}.
 \end{frame}
 
 \begin{frame}{Homework}
