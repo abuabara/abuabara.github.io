@@ -15,7 +15,6 @@ beta = np.linalg.lstsq(X, y, rcond=None)[0]
 
 intercept, slope = beta
 
-print("NUMPY")
 print("Intercept:", intercept)
 print("Slope:", slope)
 
@@ -110,7 +109,6 @@ X_sklearn = x.reshape(-1, 1)
 lr_model = LinearRegression(fit_intercept=True)
 lr_model.fit(X_sklearn, y)
 
-print("\nSCIKIT-LEARN")
 print("Intercept:", lr_model.intercept_)
 print("Slope:", lr_model.coef_[0])
 print("Training R-squared:", lr_model.score(X_sklearn, y))
@@ -157,7 +155,6 @@ problem = cp.Problem(objective)
 # Solve the problem
 problem.solve()
 
-print("\nCVXPY")
 print("Status:", problem.status)
 print("Intercept:", beta_cvx.value[0])
 print("Slope:", beta_cvx.value[1])
@@ -291,12 +288,10 @@ results = pd.DataFrame({
     ]
 })
 
-print("\nCOMPARISON OF REGRESSION METHODS")
 print(results.round(4))
 
 # 14. REGRESSION DIAGNOSTICS
 # 1. Residuals vs. fitted values plot
 # 2. Q-Q plot of the regression residuals
-#
 # Use the textbook, statsmodels documentation, or other online resources.
 # Explain what each diagnostic plot tells you about the regression assumptions.
