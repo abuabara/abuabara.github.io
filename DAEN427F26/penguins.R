@@ -7,7 +7,7 @@ library(rstanarm)
 library(bayesplot)
 
 ############################################################
-# PART 1: BAYESIAN REGRESSION - BIKE RIDERSHIP
+# BAYESIAN REGRESSION - BIKE RIDERSHIP
 ############################################################
 data(bikes)
 
@@ -33,9 +33,10 @@ summary(bike_model)
 
 plot(bike_model)
 
-# CORRECTION:
-# Explicitly extract MCMC draws as an array for bayesplot.
+# Extract MCMC draws as an array (for bayesplot)
 bike_draws_array <- as.array(bike_model)
+
+head(bike_draws_array)
 
 mcmc_trace(bike_draws_array, alpha = 0.1) # Trace plots
 mcmc_dens_overlay(bike_draws_array) # Density plots
@@ -43,9 +44,14 @@ mcmc_acf(bike_draws_array) # Autocorrelation plots
 
 draws <- as.matrix(bike_model) # Obtain posterior parameter draws
 
+head(draws)
+
 # Expected ridership at 75 F
-mu_75 <- draws[, "(Intercept)"] +
-  75 * draws[, "temp_feel"]
+mu_75 <- draws[, "(Intercept)"] + 75 * draws[, "temp_feel"]
+
+plot(mu_75)
+
+hist(mu_75)
 
 # 95% credible interval for mean ridership
 quantile(mu_75, c(0.025, 0.975))
@@ -60,8 +66,9 @@ y_new <- rnorm(
 # 95% posterior predictive interval
 quantile(y_new, c(0.025, 0.975))
 
+
 ############################################################
-# PART 2: PENGUIN DATA EXPLORATION
+# PENGUINS
 ############################################################
 data("penguins_bayes", package = "bayesrules")
 
@@ -88,10 +95,8 @@ penguins %>%
   )
 
 ############################################################
-# PART 3: NORMAL-NORMAL CONJUGATE POSTERIOR
+# NORMAL-NORMAL CONJUGATE POSTERIOR
 ############################################################
-# Normal-Normal conjugate posterior
-
 # Prior parameters
 mu0 <- 190
 prior_sd <- 10
@@ -167,10 +172,8 @@ ggplot(data.frame(mu = post_mu), aes(mu)) +
   )
 
 ############################################################
-# PART 4: SIMPLE BAYESIAN NORMAL REGRESSION
-############################################################
 # SIMPLE BAYESIAN NORMAL REGRESSION
-
+############################################################
 reg9 <- penguins %>%
   # filter(sex == "male") %>%
   select(
@@ -195,7 +198,7 @@ ggplot(
 
 # Center predictor so prior intercept is the expected
 # flipper length at the average bill length, rather
-# than at an unrealistic bill length of 0.
+# than at an unrealistic bill length of 0
 
 bill_reference <- mean(reg9$bill_length_mm)
 
@@ -215,13 +218,12 @@ ggplot(
   )
 
 ############################################################
-# PART 5: BAYESIAN REGRESSION USING RSTANARM
+# BAYESIAN REGRESSION USING RSTANARM
 ############################################################
-# Note:
-# This is a posterior model, not a prior-only model.
+# Note: This is a posterior model, not a prior-only model
 #
 # autoscale = FALSE keeps the specified prior scales
-# rather than automatically adjusting them.
+# rather than automatically adjusting them
 
 fit9_prior_stan <- stan_glm(
   flipper_length_mm ~ bill_centered,
@@ -243,9 +245,9 @@ fit9_prior_stan <- stan_glm(
 
 prior_summary(fit9_prior_stan)
 
-# Update the rstanarm model.
+# Update the rstanarm model
 # Without changed arguments, this refits the model
-# using its existing specification.
+# using its existing specification
 
 fit9 <- update(fit9_prior_stan)
 
@@ -258,14 +260,13 @@ pp_check(fit9)
 plot(fit9, plotfun = "trace")
 
 ############################################################
-# PART 6: BAYESIAN REGRESSION USING BRMS
+# BAYESIAN REGRESSION USING BRMS
 ############################################################
-library(brms)
-# https://github.com/paul-buerkner/brms
+library(brms) # https://github.com/paul-buerkner/brms
 
-# This model is explicitly prior-only.
+# This model is explicitly prior-only
 # It does not condition its parameter draws on the
-# observed flipper lengths.
+# observed flipper lengths
 
 fit9_prior <- brm(
   formula = flipper_length_mm ~ bill_centered,
@@ -296,10 +297,10 @@ summary(fit9_prior)
 plot(fit9_prior)
 
 ############################################################
-# PART 7: BRMS POSTERIOR MODEL
+# BRMS POSTERIOR MODEL
 ############################################################
-# Fit the same model using observed data.
-# Unlike fit9_prior, this returns posterior draws.
+# Fit the same model using observed data
+# Unlike fit9_prior, this returns posterior draws
 
 fit9_brms <- update(
   fit9_prior,
@@ -317,16 +318,15 @@ posterior_interval(fit9_brms, prob = .95)
 # Posterior predictive check
 pp_check(fit9_brms)
 
-
 ############################################################
-# PART 8: PLOT 50 PRIOR REGRESSION LINES
+# PLOT 50 PRIOR REGRESSION LINES
 ############################################################
 # Plot 50 prior linear predictions
-# (without observation-level noise).
+# (without observation-level noise)
 
 prior_draws <- as.matrix(fit9_prior)
 
-# Check actual names of the brms parameters.
+# Check actual names of the brms parameters
 colnames(prior_draws)
 
 # In brms, the expected parameter names include:
@@ -334,7 +334,7 @@ colnames(prior_draws)
 # b_bill_centered
 # sigma
 
-# Set seed for reproducible selection of prior draws.
+# Set seed for reproducible selection of prior draws
 set.seed(84735)
 
 prior_draws <- prior_draws[
@@ -353,7 +353,7 @@ x_seq <- seq(
 )
 
 ############################################################
-# PART 9: ORIGINAL ALTERNATIVE CODE (PRESERVED)
+# ALTERNATIVE CODE
 ############################################################
 # prior_lines <-
 #   # Combine all results
@@ -373,14 +373,12 @@ x_seq <- seq(
 #   })
 # )
 
-# If using the alternative code above with brms,
-# replace:
-#
+# If using the alternative code above with brms, replace:
 # "(Intercept)"  with "b_Intercept"
 # "bill_centered" with "b_bill_centered"
 
 ############################################################
-# PART 10: PRIOR REGRESSION LINES USING TIDYR
+# PRIOR REGRESSION LINES USING TIDYR
 ############################################################
 library(tidyr)
 
@@ -391,7 +389,7 @@ prior_lines <-
   mutate(
     bill_length_mm = x_seq + bill_reference,
     
-    # CORRECTION: Use brms parameter names.
+    # Use brms parameter names
     expected_flipper =
       .data[["b_Intercept"]] +
       .data[["b_bill_centered"]] * x_seq
@@ -418,12 +416,12 @@ ggplot(
   )
 
 ############################################################
-# PART 11: PRIOR PREDICTIVE SIMULATIONS
+# PRIOR PREDICTIVE SIMULATIONS
 ############################################################
-# Four datasets simulated from the model's
-# prior predictive distribution.
+# Four datasets simulated from the model
+# prior predictive distribution
 
-# This now uses a genuine prior-only brms model.
+# This now uses a genuine prior-only brms model
 prior_yrep <- posterior_predict(
   fit9_prior,
   ndraws = 4
@@ -456,9 +454,9 @@ ggplot(
   )
 
 ############################################################
-# PART 12: PREDICTIONS FOR A 45 MM BILL
+# PREDICTIONS FOR A 45 MM BILL
 ############################################################
-# Predicted flipper length for a penguin with a 45 mm bill.
+# Predicted flipper length for a penguin with a 45 mm bill
 
 new9 <- data.frame(
   bill_centered = 45 - bill_reference
@@ -466,15 +464,14 @@ new9 <- data.frame(
 
 # rstanarm results
 
-# 95% credible interval for expected mean.
+# 95% credible interval for expected mean
 posterior_interval(
   fit9,
   newdata = new9,
   prob = .95
 )
 
-# 95% posterior predictive interval
-# for an individual penguin.
+# 95% posterior predictive interval for an individual penguin
 predictive_interval(
   fit9,
   newdata = new9,
@@ -482,9 +479,9 @@ predictive_interval(
 )
 
 ############################################################
-# PART 13: EQUIVALENT PREDICTIONS USING BRMS
+# EQUIVALENT PREDICTIONS USING BRMS
 ############################################################
-# brms predictions for comparison with rstanarm.
+# brms predictions for comparison with rstanarm
 
 # Expected mean flipper length (epred)
 brms_mean_prediction <- posterior_epred(
@@ -509,17 +506,17 @@ quantile(
 )
 
 ############################################################
-# PART 14: COMPARE RSTANARM AND BRMS
+# COMPARE RSTANARM AND BRMS
 ############################################################
 
-# Compare posterior parameter summaries.
+# Compare posterior parameter summaries
 summary(fit9)
 summary(fit9_brms)
 
-# Compare posterior credible intervals.
+# Compare posterior credible intervals
 posterior_interval(fit9, prob = .95)
 posterior_interval(fit9_brms, prob = .95)
 
-# Compare fitted relationships visually.
+# Compare fitted relationships visually
 pp_check(fit9)
 pp_check(fit9_brms)
