@@ -1,0 +1,94 @@
+\documentclass[aspectratio=32,11pt]{beamer}
+\usetheme[
+  style=academic,
+  palette=burgundy,
+  backgroundcolor=FFFFFF,
+  maincolor=500000,
+  accentcolor=500000,
+  frametitle=subtle,
+  footerstyle=minimalist,
+  motif=false,
+  sectionpage=false,
+  light=false,
+  block=sober,
+  codehandler=listings,
+  codestyle=macos, % minimal or macos,
+  codenumbers=false,
+  codelabel=true,
+  titlesize=LARGE
+]{Celestia}
+
+\title{Bayesian Simple Normal Regression}
+\subtitle{Decision and Risk Analysis}
+\author{Alexander Abuabara}
+\institute{Industrial and Systems Engineering, Texas A\&M University}
+\date{Fall 2026}
+
+\begin{document}
+
+% ----- Slide 1: Title -----
+\begin{frame}[plain]
+  \titlepage
+    \vspace{-3.5cm}
+    \begin{center}
+        \includegraphics[height=.9cm]{TAMU_logo.png}
+    \end{center}
+    \vspace{.5cm}
+\end{frame}
+
+% ----- Slide 2: Overview -----
+\begin{frame}{Learning objectives}
+  \begin{itemize}
+    \item Understand the data analysis workflow.
+    \item Write concise Python and R examples.
+    \item Compare outputs across languages.
+  \end{itemize}
+\end{frame}
+
+% ----- Slide 3: Python code -----
+\begin{frame}[fragile]{Python | A simple example}
+  A short Python example using a list and its mean.
+
+  \begin{code*}{python}
+values = [4, 8, 12, 16]
+mean_value = sum(values) / len(values)
+print(f"Mean: {mean_value:.1f}")
+  \end{code*}
+
+  \textbf{Expected output:} \texttt{Mean: 10.0}
+\end{frame}
+
+% ----- Slide 4: R code -----
+\begin{frame}[fragile]{R | The same calculation}
+  The equivalent operation in base R.
+
+  \begin{code*}{R}
+values <- c(4, 8, 12, 16)
+mean_value <- mean(values)
+print(mean_value)
+  \end{code*}
+
+  \textbf{Expected output:} \texttt{[1] 10}
+\end{frame}
+
+% ----- Slide 5: Comparison -----
+\begin{frame}{Python and R | Quick comparison}
+  \begin{tabular}{lll}
+    \textbf{Task} & \textbf{Python} & \textbf{R} \\
+    \hline
+    Create vector & \texttt{[1, 2, 3]} & \texttt{c(1, 2, 3)} \\
+    Length & \texttt{len(x)} & \texttt{length(x)} \\
+    Mean & \texttt{sum(x)/len(x)} & \texttt{mean(x)} \\
+  \end{tabular}
+\end{frame}
+
+% ----- Slide 6: Summary -----
+\begin{frame}{Key takeaways}
+  \begin{itemize}
+    \item Use short, readable examples on each slide.
+    \item Keep slides visually consistent.
+    \item Prefer one idea per slide.
+  \end{itemize}
+\end{frame}
+
+\end{document}

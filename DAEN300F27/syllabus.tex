@@ -1,0 +1,277 @@
+\documentclass[11pt]{article}
+\setlength{\parindent}{0cm}
+\usepackage{parskip}
+\usepackage[margin=.9in]{geometry}
+\usepackage{setspace}
+\setstretch{1.1}
+\usepackage{titling}
+\setlength{\droptitle}{-4em} 
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{10pt plus 2pt minus 2pt}{5pt plus 1pt minus 1pt}
+\renewcommand{\maketitlehookd}{\vspace{-2em}}
+\usepackage{enumitem}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{hyperref}
+
+\title{DAEN 300: Data Engineering Coding Experience I}
+\author{Industrial and Systems Engineering, Texas A\&M University}
+\date{Fall 2027}
+
+\begin{document}
+
+\maketitle
+
+\section*{Course Information}
+
+\begin{itemize}[leftmargin=*,nosep]
+%    \item \textbf{Course:} DAEN 300 -- Data Engineering Coding Experience I
+    \item \textbf{Credit Hours:} 1, \textbf{Contact Hours:} 0 lecture hours, 3 laboratory hours per week
+    \item \textbf{Prerequisites:} Grade of C or better in ECEN 360;
+    concurrent enrollment in DAEN 321 and DAEN 331;
+    junior or senior classification.
+    \item \textbf{Format:} Hands-on computational laboratory, \textbf{Programming Language:} Python
+    \item \textbf{Instructor:} Alexander Abuabara, \textbf{Office hours:} Wednesdays 1-3 PM, ETB 4013\\
+    \url{https://engineering.tamu.edu/industrial/profiles/abuabara-alexander.html}
+\end{itemize}
+
+\section*{Course Description}
+
+Application of computational tools to model and solve data
+engineering problems primarily involving machine learning
+and optimization techniques.
+
+This laboratory course develops practical programming
+skills for solving data engineering problems. Students
+prepare and analyze data, implement machine learning models,
+apply optimization techniques such as loss minimization
+and gradient descent, and solve basic constrained optimization
+problems. Activities emphasize interpretation
+of results and reinforce concepts from concurrent courses.
+
+%This laboratory course emphasizes practical programming
+%skills for solving data engineering problems.
+%Students use Python and computational libraries to prepare
+%and analyze data, implement machine learning algorithms,
+%formulate optimization problems, and interpret computational
+%results. Activities reinforce concepts introduced in
+%concurrent data engineering courses.
+
+%This laboratory course emphasizes practical programming
+%skills for solving data engineering problems.
+%Students use Python and computational libraries to prepare
+%and analyze data, implement and evaluate machine learning
+%models, and apply optimization techniques underlying
+%machine learning, including loss minimization, gradient
+%descent, and model selection. The course also introduces
+%constrained optimization using SciPy. Students learn to
+%interpret computational results and communicate their
+%findings. Laboratory activities reinforce concepts
+%introduced in concurrent data engineering courses.
+
+\section*{Course Learning Objectives}
+
+Upon successful completion of this course, students will
+be able to:
+
+\begin{enumerate}[label=\arabic*.,nosep]
+    \item Develop Python programs to process, analyze,
+    and visualize engineering datasets.
+    \item Implement and evaluate basic machine learning
+    models for prediction and classification.
+    \item Formulate and solve constrained optimization
+    problems using computational tools.
+    \item Interpret computational results, assess model
+    performance, and communicate findings.
+    \item Develop reproducible and documented computational
+    solutions, including collaborative workflows.
+\end{enumerate}
+
+%\section*{Alignment with ABET Student Outcomes}
+%
+%The course supports the following ABET Engineering
+%Accreditation Commission student outcomes:
+%
+%\begin{itemize}[leftmargin=*,nosep]
+%    \item \textbf{Outcome 1:} Identify, formulate, and solve
+%    complex engineering problems by applying principles of
+%    engineering, science, and mathematics.
+%    
+%    \item \textbf{Outcome 2:} Apply engineering design to
+%    produce solutions that meet specified needs with
+%    consideration of relevant constraints.
+%    
+%    \item \textbf{Outcome 3:} Communicate effectively with
+%    a range of audiences.
+%    
+%    \item \textbf{Outcome 5:} Function effectively on a team.
+%    
+%    \item \textbf{Outcome 6:} Develop and conduct appropriate
+%    experimentation, analyze and interpret data, and use
+%    engineering judgment to draw conclusions.
+%    
+%    \item \textbf{Outcome 7:} Acquire and apply new knowledge
+%    as needed, using appropriate learning strategies.
+%\end{itemize}
+%
+%\noindent
+%The primary outcomes assessed in this course are
+%Outcomes 1, 3, and 6.
+
+\section*{Course Topics}
+
+\begin{enumerate}[nosep]
+    \item \textbf{Computational Foundations}
+    \begin{itemize}[nosep]
+        \item Python and Jupyter notebooks
+        \item Numerical computing with NumPy
+        \item Data manipulation with pandas
+        \item Data visualization
+        \item Code documentation and version control
+    \end{itemize}
+
+    \item \textbf{Machine Learning}
+    \begin{itemize}[nosep]
+        \item Regression
+        \item Classification
+        \item Training and testing datasets
+        \item Model evaluation and validation
+        \item Engineering prediction applications
+    \end{itemize}
+
+    \item \textbf{Optimization}
+    \begin{itemize}[nosep]
+        \item Objective functions and constraints
+        \item Linear programming
+        \item Numerical optimization
+        \item Engineering resource allocation problems
+    \end{itemize}
+
+    \item \textbf{Integrated Applications}
+    \begin{itemize}[nosep]
+        \item Combining prediction and optimization
+        \item Reproducible computational workflows
+        \item Interpretation and communication of results
+    \end{itemize}
+\end{enumerate}
+
+\section*{Tentative Course Schedule}
+
+\begin{longtable}{|>{\centering\arraybackslash}p{0.9cm}|p{9cm}|}
+\hline
+\textbf{Week} & \textbf{Laboratory Topic} \\
+\hline
+1  & Python environment, Jupyter notebooks, and Git \\ \hline
+2  & Numerical computing with NumPy \\ \hline
+3  & Data manipulation and cleaning with pandas \\ \hline
+4  & Exploratory data analysis and visualization \\ \hline
+5  & Linear regression \\ \hline
+6  & Classification \\ \hline
+7  & Model validation and performance evaluation \\ \hline
+8  & Machine learning case study \\ \hline
+9  & Optimization formulation and constraints \\ \hline
+10 & Linear programming with SciPy \\ \hline
+11 & Constrained numerical optimization \\ \hline
+12 & Engineering optimization case study \\ \hline
+13 & Integrated project development \\ \hline
+14 & Integrated project implementation and testing \\ \hline
+15 & Project demonstration and presentation \\ \hline
+\end{longtable}
+
+\section*{Software and Computational Tools}
+
+The course uses freely available computational tools:
+
+\begin{itemize}[leftmargin=*, nosep]
+    \item Python 3, JupyterLab or Google Colab
+    \item NumPy and pandas
+    \item Matplotlib
+    \item scikit-learn
+    \item SciPy optimization tools
+    \item Git and GitHub
+\end{itemize}
+
+\section*{Course Materials}
+
+\textbf{Primary Reference:}
+
+\begin{itemize}[leftmargin=*, nosep]
+\item \emph{Data Science: A First Introduction (Python Edition).}
+      University of British Columbia.\\
+      \url{https://github.com/UBC-DSCI/introduction-to-datascience-python}
+\end{itemize}
+
+\textbf{Supplementary Reference:}
+
+\begin{itemize}[leftmargin=*, nosep]
+\item \emph{Mathematical Programming and Operations Research.}\\
+      \url{https://github.com/open-optimization/open-optimization-or-book}
+\item Additional Python notebooks, datasets, and laboratory
+      instructions will be provided by the instructor.
+\end{itemize}
+
+\section*{Assessment and Grading}
+
+\begin{center}
+\begin{tabular}{lr}
+\hline
+\textbf{Assessment Component} & \textbf{Weight} \\
+\hline
+Weekly coding laboratories & 60\% \\
+Machine learning case study & 15\% \\
+Integrated final project & 20\% \\
+Participation and code documentation & 5\% \\
+\hline
+\textbf{Total} & \textbf{100\%} \\
+\hline
+\end{tabular}
+\end{center}
+
+Assignments will be evaluated based on correctness,
+appropriate use of computational methods, interpretation
+of results, and code clarity and reproducibility.
+
+\section*{Integrated Final Project}
+
+Students will complete a small computational project
+combining machine learning and optimization.
+
+The project should include:
+
+\begin{enumerate}[nosep]
+    \item Data preparation and exploratory analysis.
+    \item Development and evaluation of a predictive model.
+    \item Formulation of an optimization problem.
+    \item Computational solution and interpretation.
+    \item Submission of a documented Jupyter notebook
+    and a brief summary of findings.
+\end{enumerate}
+
+Possible applications include demand forecasting,
+manufacturing planning, and resource allocation.
+
+\section*{Instructional Approach}
+
+The course emphasizes learning through hands-on coding.
+Laboratory meetings will consist of short demonstrations,
+guided exercises, and independent or collaborative
+programming activities.
+
+Students are expected to apply mathematical and engineering
+concepts introduced in prerequisite and concurrent courses.
+
+\section*{Course Expectations}
+
+Students are expected to:
+
+\begin{itemize}[leftmargin=*,nosep]
+    \item Attend and participate in laboratory sessions.
+    \item Complete and submit coding assignments on time.
+    \item Write readable and appropriately documented code.
+    \item Interpret and explain computational results.
+    \item Follow university academic integrity policies.
+    \item Acknowledge external code, libraries, and
+    AI-assisted contributions as required by the instructor.
+\end{itemize}
+
+\end{document}
