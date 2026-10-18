@@ -1,0 +1,260 @@
+\documentclass[aspectratio=43,10pt]{beamer}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\definecolor{maroon}{HTML}{500000}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+
+\setbeamercolor{structure}{fg=maroon}
+\setbeamercolor{frametitle}{fg=maroon,bg=white}
+\setbeamercolor{block title}{fg=white,bg=maroon}
+\setbeamercolor{block body}{bg=gray!20,fg=black}
+\setbeamercolor{alerted text}{fg=purple!80}
+
+\title{Data Engineering Architecture and Tool Selection}
+\subtitle{From Project Requirements to Defensible Design Decisions}
+\author{}
+\date{\textcolor{maroon}{DAEN 459 -- Fall 2026\\
+      \textbf{Alexander Abuabara}}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Learning objectives}
+\begin{itemize}
+  \item Explain what a data engineering architecture must accomplish.
+  \item Recognize common architectural patterns and their trade-offs.
+  \item Select tools based on requirements, not popularity.
+  \item Design small experiments to validate architecture decisions.
+  \item Produce evidence-based recommendations for a capstone project.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Start with the problem, not the technology}
+\begin{block}{Architecture question}
+How should data move from its sources to trustworthy, useful outputs under the project's constraints?
+\end{block}
+\begin{itemize}
+  \item \textbf{Stakeholders:} Who needs the data, and for what decisions?
+  \item \textbf{Sources:} APIs, files, relational databases, events, sensors.
+  \item \textbf{Workloads:} Dashboards, analytics, machine learning, applications.
+  \item \textbf{Constraints:} Latency, volume, privacy, budget, skills, operations.
+  \item \textbf{Success:} What measurable outcome means the system works?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{A reference data engineering architecture}
+\centering
+\begin{beamercolorbox}[wd=1.1\linewidth,sep=1em,center,rounded=true]{block body}
+\textbf{Sources} $\longrightarrow$ \textbf{Ingestion} $\longrightarrow$
+\textbf{Storage} $\longrightarrow$ \textbf{Transformation} $\longrightarrow$
+\textbf{Serving}
+\end{beamercolorbox}
+\vspace{1em}
+\begin{columns}[T]
+\column{0.49\textwidth}
+\begin{block}{Cross-cutting capabilities}
+\begin{itemize}
+  \item Data quality and validation
+  \item Metadata, catalog, lineage
+  \item Security and access controls
+\end{itemize}
+\end{block}
+\column{0.49\textwidth}
+\begin{block}{Operational capabilities}
+\begin{itemize}
+  \item Scheduling and orchestration
+  \item Monitoring and alerting
+  \item Testing, deployment, recovery
+\end{itemize}
+\end{block}
+\end{columns}
+\vspace{0.5em}
+\small Architecture is the set of components \emph{and} the contracts between them.
+\end{frame}
+
+\begin{frame}{Architectural choices that shape the system}
+\begin{tabular}{@{}p{0.23\linewidth}p{0.33\linewidth}p{0.35\linewidth}@{}}
+\toprule
+\textbf{Choice} & \textbf{Option A} & \textbf{Option B} \\
+\midrule
+Data movement & Batch: simpler, scheduled & Streaming: lower latency, more operational complexity \\
+Transformation & ETL: transform before loading & ELT: load first, transform in target system \\
+Storage & Warehouse: governed analytical tables & Lake/lakehouse: flexible formats and workloads \\
+Deployment & Managed cloud services & Self-managed or local services \\
+Integration & Point-to-point connections & Reusable pipelines and standard contracts \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.8em}
+\small These are design trade-offs, not universal rankings. Hybrids are common.
+\end{frame}
+
+\begin{frame}{Translate needs into nonfunctional requirements}
+\begin{itemize}
+  \item \textbf{Freshness:} Does the output need updates in secs, minutes, or daily?
+  \item \textbf{Scale:} Current and expected data sizes, arrival rates, user concurrency.
+  \item \textbf{Reliability:} What happens when a source or pipeline fails?
+  \item \textbf{Data quality:} What checks define trustworthy data?
+  \item \textbf{Governance:} Who can access, retain, or delete data?
+  \item \textbf{Maintainability:} Can the capstone team explain, test, operate it?
+  \item \textbf{Cost:} Infrastructure charges \emph{plus} development and maintenance.
+\end{itemize}
+\begin{alertblock}{Key point}
+Write down measurable targets before comparing tools.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Tool categories and illustrative options}
+\small
+\begin{tabular}{@{}p{0.2\linewidth}p{0.3\linewidth}p{0.45\linewidth}@{}}
+\toprule
+\textbf{Capability} & \textbf{Example tools} & \textbf{Question to ask} \\
+\midrule
+Ingestion & Python, Airbyte, Kafka & Scheduled extraction or event-driven flow? \\
+Storage & PostgreSQL, object storage, DuckDB & Operational queries or analytics? \\
+Transformation & SQL, dbt, Spark, pandas & Data size and transformation complexity? \\
+Orchestration & cron, Prefect, Airflow & How many dependent tasks and retries? \\
+Quality & SQL tests, Great Expectations & What defects must be detected? \\
+Serving & BI dashboard, API, SQL models & Who consumes the outputs and how? \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.7em}
+\small Tools listed are examples, not prescribed stacks.\\
+Check current licensing and service constraints before committing.
+\end{frame}
+
+\begin{frame}{A disciplined tool-selection method}
+\begin{enumerate}
+  \item \textbf{Define requirements:} Identify must-haves and nice-to-haves.
+  \item \textbf{Shortlist:} Compare two or three plausible approaches.
+  \item \textbf{Set criteria:} Functionality, integration, learning curve, cost, reliability, maintainability.
+  \item \textbf{Prototype:} Run the same small representative workload.
+  \item \textbf{Measure:} Record latency, throughput, correctness, setup effort, and failure recovery.
+  \item \textbf{Decide:} Document a recommendation and its trade-offs.
+\end{enumerate}
+\begin{block}{Decision principle}
+Choose the \emph{simplest architecture that meets documented requirements}.
+\end{block}
+\end{frame}
+
+\begin{frame}{Example: a weighted decision matrix}
+\small
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Criterion} & \textbf{Weight} & \textbf{Option A (1--5)} & \textbf{Option B (1--5)} \\
+\midrule
+Requirement fit & 0.35 & 4 & 5 \\
+Team familiarity & 0.20 & 5 & 2 \\
+Operating cost & 0.20 & 4 & 3 \\
+Ease of maintenance & 0.15 & 4 & 3 \\
+Integration effort & 0.10 & 5 & 3 \\
+\midrule
+\textbf{Weighted score} & \textbf{1.00} & \textbf{4.30} & \textbf{3.50} \\
+\bottomrule
+\end{tabular}
+\vspace{0.8em}
+\begin{itemize}
+  \item Scores are hypothetical examples, not assessments of real products.
+  \item Define each score using evidence from tests or documentation.
+  \item Perform sensitivity analysis: does the decision change if weights change?
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Capstone exploration 1: Map your data journey}
+\begin{block}{Team exercise (20--30 minutes)}
+Draw a one-page diagram from source data to final user-facing output.
+\end{block}
+\begin{itemize}
+  \item Identify every source, destination, transformation, and dependency.
+  \item Annotate refresh frequency, expected data volume, and data owner.
+  \item Mark where data quality, authentication, and observability belong.
+  \item Distinguish existing components from proposed components.
+\end{itemize}
+\textbf{Deliverable:} Initial architecture diagram + three major assumptions.
+\end{frame}
+
+\begin{frame}{Capstone exploration 2: Compare two viable designs}
+\begin{block}{Possible contrasts}
+\begin{itemize}
+  \item Scheduled Python jobs vs. a workflow orchestrator
+  \item Database transformations vs. transformations in Python
+  \item PostgreSQL analytics vs. columnar analytical engine
+  \item File-based ingestion vs. API-driven ingestion
+\end{itemize}
+\end{block}
+\begin{itemize}
+  \item Use a representative sample and identical success criteria.
+  \item Compare correctness, runtime, complexity, cost, and recoverability.
+  \item Report what would make each architecture preferable.
+\end{itemize}
+\textbf{Deliverable:} Two architecture sketches + one-page trade-off analysis.
+\end{frame}
+
+\begin{frame}{Capstone exploration 3: Test failure and data quality}
+\begin{itemize}
+  \item Introduce malformed records, duplicate events, or missing values.
+  \item Simulate an unavailable source or interrupted pipeline run.
+  \item Check whether reruns are safe and outputs remain reproducible.
+  \item Measure how quickly a failure can be detected and diagnosed.
+  \item Document data checks, retry behavior, and recovery procedure.
+\end{itemize}
+\begin{alertblock}{Guiding question}
+Can the team demonstrate a system that is trustworthy \emph{when things go wrong}?
+\end{alertblock}
+\textbf{Deliverable:} Test results + failure/recovery notes.
+\end{frame}
+
+\begin{frame}{Suggested mini-project: An architecture decision record}
+\textbf{Write a one-page Architecture Decision Record (ADR):}
+\begin{enumerate}
+  \item Context: what problem must be solved?
+  \item Decision: which architecture or tool is proposed?
+  \item Alternatives: what else was considered?
+  \item Evidence: what did the prototype or benchmark show?
+  \item Consequences: what complexity, cost, or risk remains?
+  \item Revisit trigger: what new requirement would change the choice?
+\end{enumerate}
+\vspace{0.4em}
+\small A good ADR documents \emph{why} a decision was made, not just which tool was picked.
+\end{frame}
+
+\begin{frame}{Capstone checkpoint: What each team should present}
+\begin{enumerate}
+  \item A concise problem statement and measurable constraints.
+  \item One current-state and one proposed-state architecture diagram.
+  \item A shortlist of competing tools or patterns with selection criteria.
+  \item Results from one targeted proof-of-concept experiment.
+  \item A decision, its justification, major risks, and next steps.
+\end{enumerate}
+\begin{block}{Discussion prompt}
+Which architecture decision in your project is most uncertain, and what is the \emph{smallest test} that could reduce that uncertainty?
+\end{block}
+\end{frame}
+
+\begin{frame}{}
+\begin{itemize}
+  \item Architecture connects requirements, data flow, operations, and outcomes.
+  \item Tools are interchangeable only within the limits of their capabilities and trade-offs.
+  \item Constraints and evidence should drive tool selection.
+  \item Capstone projects offer a chance to test alternatives, not just assemble a stack.
+  \item Document decisions so another team could understand and maintain the system.
+\end{itemize}
+\vfill
+\centering\Large \textbf{Design deliberately.\\Test assumptions.\\Explain choices.}
+\end{frame}
+
+\end{document}
