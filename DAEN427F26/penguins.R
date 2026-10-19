@@ -1,14 +1,10 @@
-############################################################
 # PACKAGES
-############################################################
 library(tidyverse)
 library(bayesrules)
 library(rstanarm)
 library(bayesplot)
 
-############################################################
-# BAYESIAN REGRESSION - BIKE RIDERSHIP
-############################################################
+# DATA
 data(bikes)
 
 glimpse(bikes)
@@ -17,6 +13,12 @@ summary(bikes[, c("rides", "temp_feel")])
 
 nrow(bikes)
 
+lm(rides ~ temp_feel,
+   data = bikes)
+
+############################################################
+
+# BAYESIAN REGRESSION - BIKE RIDERSHIP
 bike_model <- stan_glm(
   rides ~ temp_feel,
   data = bikes,
@@ -66,10 +68,11 @@ y_new <- rnorm(
 # 95% posterior predictive interval
 quantile(y_new, c(0.025, 0.975))
 
+############################################################
+############################################################
+############################################################
 
-############################################################
 # PENGUINS
-############################################################
 data("penguins_bayes", package = "bayesrules")
 
 penguins <- penguins_bayes
@@ -94,9 +97,7 @@ penguins %>%
     .groups = "drop"
   )
 
-############################################################
 # NORMAL-NORMAL CONJUGATE POSTERIOR
-############################################################
 # Prior parameters
 mu0 <- 190
 prior_sd <- 10
@@ -171,9 +172,7 @@ ggplot(data.frame(mu = post_mu), aes(mu)) +
     x = "Mean length (mm)"
   )
 
-############################################################
 # SIMPLE BAYESIAN NORMAL REGRESSION
-############################################################
 reg9 <- penguins %>%
   # filter(sex == "male") %>%
   select(
@@ -217,9 +216,7 @@ ggplot(
     title = "Observed bill–flipper relationship"
   )
 
-############################################################
 # BAYESIAN REGRESSION USING RSTANARM
-############################################################
 # Note: This is a posterior model, not a prior-only model
 #
 # autoscale = FALSE keeps the specified prior scales
@@ -259,9 +256,7 @@ pp_check(fit9)
 
 plot(fit9, plotfun = "trace")
 
-############################################################
 # BAYESIAN REGRESSION USING BRMS
-############################################################
 library(brms) # https://github.com/paul-buerkner/brms
 
 # This model is explicitly prior-only
@@ -296,9 +291,7 @@ summary(fit9_prior)
 
 plot(fit9_prior)
 
-############################################################
 # BRMS POSTERIOR MODEL
-############################################################
 # Fit the same model using observed data
 # Unlike fit9_prior, this returns posterior draws
 
@@ -318,9 +311,6 @@ posterior_interval(fit9_brms, prob = .95)
 # Posterior predictive check
 pp_check(fit9_brms)
 
-############################################################
-# PLOT 50 PRIOR REGRESSION LINES
-############################################################
 # Plot 50 prior linear predictions
 # (without observation-level noise)
 
@@ -352,9 +342,7 @@ x_seq <- seq(
   length.out = 100
 )
 
-############################################################
 # ALTERNATIVE CODE
-############################################################
 # prior_lines <-
 #   # Combine all results
 #   do.call(
@@ -377,9 +365,7 @@ x_seq <- seq(
 # "(Intercept)"  with "b_Intercept"
 # "bill_centered" with "b_bill_centered"
 
-############################################################
 # PRIOR REGRESSION LINES USING TIDYR
-############################################################
 library(tidyr)
 
 prior_lines <-
@@ -415,9 +401,7 @@ ggplot(
     y = "Expected flipper length (mm)"
   )
 
-############################################################
 # PRIOR PREDICTIVE SIMULATIONS
-############################################################
 # Four datasets simulated from the model
 # prior predictive distribution
 
@@ -453,9 +437,7 @@ ggplot(
     y = "Simulated flipper length (mm)"
   )
 
-############################################################
-# PREDICTIONS FOR A 45 MM BILL
-############################################################
+# PREDICTIONS
 # Predicted flipper length for a penguin with a 45 mm bill
 
 new9 <- data.frame(
@@ -478,9 +460,7 @@ predictive_interval(
   prob = .95
 )
 
-############################################################
 # EQUIVALENT PREDICTIONS USING BRMS
-############################################################
 # brms predictions for comparison with rstanarm
 
 # Expected mean flipper length (epred)
@@ -505,10 +485,7 @@ quantile(
   probs = c(0.025, 0.975)
 )
 
-############################################################
 # COMPARE RSTANARM AND BRMS
-############################################################
-
 # Compare posterior parameter summaries
 summary(fit9)
 summary(fit9_brms)
