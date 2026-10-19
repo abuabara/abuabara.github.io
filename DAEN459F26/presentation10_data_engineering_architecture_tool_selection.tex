@@ -6,6 +6,7 @@
 \usepackage{lmodern}
 \usepackage{booktabs}
 \usepackage{array}
+\usepackage{soul}
 \usepackage{xcolor}
 \definecolor{maroon}{HTML}{500000}
 
@@ -57,9 +58,9 @@ How should data move from its sources to trustworthy, useful outputs under the p
 
 \begin{frame}{A reference data engineering architecture}
 \centering
-\begin{beamercolorbox}[wd=1.1\linewidth,sep=1em,center,rounded=true]{block body}
-\textbf{Sources} $\longrightarrow$ \textbf{Ingestion} $\longrightarrow$
-\textbf{Storage} $\longrightarrow$ \textbf{Transformation} $\longrightarrow$
+\begin{beamercolorbox}[wd=1.0\linewidth,sep=.5em,center,rounded=true]{block body}
+\textbf{Sources} $\rightarrow$ \textbf{Ingestion} $\longrightarrow$
+\textbf{Storage} $\rightarrow$ \textbf{Transformation} $\longrightarrow$
 \textbf{Serving}
 \end{beamercolorbox}
 \vspace{1em}
@@ -86,7 +87,8 @@ How should data move from its sources to trustworthy, useful outputs under the p
 \end{frame}
 
 \begin{frame}{Architectural choices that shape the system}
-\begin{tabular}{@{}p{0.23\linewidth}p{0.33\linewidth}p{0.35\linewidth}@{}}
+\footnotesize
+\begin{tabular}{@{}p{0.2\linewidth}p{0.35\linewidth}p{0.4\linewidth}@{}}
 \toprule
 \textbf{Choice} & \textbf{Option A} & \textbf{Option B} \\
 \midrule
@@ -175,7 +177,7 @@ Integration effort & 0.10 & 5 & 3 \\
 \end{frame}
 
 \begin{frame}{Capstone exploration 1: Map your data journey}
-\begin{block}{Team exercise (20--30 minutes)}
+\begin{block}{Team exercise (20--30 minutes!!)}
 Draw a one-page diagram from source data to final user-facing output.
 \end{block}
 \begin{itemize}
@@ -184,6 +186,8 @@ Draw a one-page diagram from source data to final user-facing output.
   \item Mark where data quality, authentication, and observability belong.
   \item Distinguish existing components from proposed components.
 \end{itemize}
+
+\medskip
 \textbf{Deliverable:} Initial architecture diagram + three major assumptions.
 \end{frame}
 
@@ -201,6 +205,8 @@ Draw a one-page diagram from source data to final user-facing output.
   \item Compare correctness, runtime, complexity, cost, and recoverability.
   \item Report what would make each architecture preferable.
 \end{itemize}
+
+\medskip
 \textbf{Deliverable:} Two architecture sketches + one-page trade-off analysis.
 \end{frame}
 
@@ -212,13 +218,15 @@ Draw a one-page diagram from source data to final user-facing output.
   \item Measure how quickly a failure can be detected and diagnosed.
   \item Document data checks, retry behavior, and recovery procedure.
 \end{itemize}
+
+\medskip
 \begin{alertblock}{Guiding question}
 Can the team demonstrate a system that is trustworthy \emph{when things go wrong}?
 \end{alertblock}
 \textbf{Deliverable:} Test results + failure/recovery notes.
 \end{frame}
 
-\begin{frame}{Suggested mini-project: An architecture decision record}
+\begin{frame}{Assignment: An architecture decision record}
 \textbf{Write a one-page Architecture Decision Record (ADR):}
 \begin{enumerate}
   \item Context: what problem must be solved?
@@ -229,7 +237,7 @@ Can the team demonstrate a system that is trustworthy \emph{when things go wrong
   \item Revisit trigger: what new requirement would change the choice?
 \end{enumerate}
 \vspace{0.4em}
-\small A good ADR documents \emph{why} a decision was made, not just which tool was picked.
+\small \hl{A good ADR documents \emph{why} a decision was made,\\not just which tool was picked.}
 \end{frame}
 
 \begin{frame}{Capstone checkpoint: What each team should present}
@@ -240,8 +248,8 @@ Can the team demonstrate a system that is trustworthy \emph{when things go wrong
   \item Results from one targeted proof-of-concept experiment.
   \item A decision, its justification, major risks, and next steps.
 \end{enumerate}
-\begin{block}{Discussion prompt}
-Which architecture decision in your project is most uncertain, and what is the \emph{smallest test} that could reduce that uncertainty?
+\begin{block}{Discussion}
+Which architecture decision in your project is most uncertain,\\and what is the \emph{smallest test} that could reduce that uncertainty?
 \end{block}
 \end{frame}
 
