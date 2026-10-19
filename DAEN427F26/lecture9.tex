@@ -44,26 +44,59 @@ Capital Bikeshare wants enough bikes available to serve customers, without payin
 \item Modeling question: how does typical ridership vary with temperature?
 \item Decision question: how much capacity should we prepare given a forecast of $75^\circ$F?
 \end{itemize}
-\par\medskip\textbf{Crucial:} estimating the mean is not the same as forecasting one unpredictable day.
+\end{frame}
+
+\begin{frame}[fragile]{R: fit the model}
+\footnotesize
+\begin{verbatim}
+library(tidyverse)
+library(bayesrules)
+library(rstanarm)
+data(bikes)
+
+glimpse(bikes)
+
+summary(bikes[, c("rides", "temp_feel")])
+
+nrow(bikes)
+
+lm(rides ~ temp_feel,
+   data = bikes)
+\end{verbatim}
+\par\medskip\textbf{Crucial/pivotal:} estimating the mean is not the same as forecasting one unpredictable day.
 \end{frame}
 
 \begin{frame}{Model choice comes before computation}
+\small
 \begin{enumerate}
-\item What kind of response is $Y$? Rides are counts, but daily values can be large.
-\item Is a Poisson model reasonable? A Poisson imposes $\operatorname{Var}(Y)=\E(Y)$; historical bike demand is much more variable.
+\item What kind of response is $Y$?\\ \footnotesize{Rides are counts, but daily values can be large.}
+\item Is a Poisson model reasonable?\\\footnotesize{A Poisson imposes $\operatorname{Var}(Y)=\E(Y)$;\\historical bike demand is/can be much more variable.}
+\begin{itemize}
+\item \footnotesize{Bike demand may fluctuate by hundreds of rides because of weather, weekends, holidays, and other factors.}
+\item \footnotesize{If the observed variance exceeds the mean, we call this overdispersion.}
+\end{itemize}
 \item A Normal model may be a useful approximation to the broad, roughly bell-shaped variation.
-\item Temperature explains some, but not all, of that variation.
+\begin{itemize}
+\item \footnotesize{Temperature explains some, but not all, of that variation.}
+\item \footnotesize{Start with Normal regression, then check:}
+\begin{itemize}
+\item \footnotesize{Whether the residuals are approximately Normal.}
+\item \footnotesize{Whether variability changes with temperature.}
+\item \footnotesize{Whether predictions are realistic, especially for unusually demands.}
+\end{itemize}
+\end{itemize}
 \end{enumerate}
-\par\medskip\textbf{Modeling decision:} start with Normal regression; later test fit and check whether predictions behave sensibly (especially in tails).
 \end{frame}
 
 \begin{frame}{From one overall mean to a temperature-specific mean}
+\textbf{Modeling decision:} start with Normal regression; later test fit and check whether predictions behave sensibly (especially in tails).
+
 \[Y_i\mid\mu,\sigma\sim N(\mu,\sigma^2)\qquad\Longrightarrow\qquad
 Y_i\mid\beta_0,\beta_1,\sigma\sim N(\mu_i,\sigma^2)\]
 \[\boxed{\mu_i=\beta_0+\beta_1 X_i}\]
 
 \begin{itemize}
-\item $\beta_0$: fitted mean at $X=0$ (possibly outside a meaningful range).
+\item $\beta_0$: fitted mean at $X=0$\\ \footnotesize{(possibly outside a meaningful range).}
 \item $\beta_1$: expected additional rides per one-degree increase.
 \item $\sigma$: day-to-day standard deviation \emph{at a fixed temperature}.
 \end{itemize}
@@ -105,6 +138,10 @@ Y_i\mid\beta_0,\beta_1,\sigma &\stackrel{ind}{\sim} N(\beta_0+\beta_1X_i,\sigma^
 \end{align*}
 These priors describe plausible parameter values \emph{before} observing the modeled dataset. An Exponential prior keeps $\sigma>0$.
 \par\medskip\textbf{Choice:} tune priors to real knowledge; avoid priors implying absurd ridership changes or implausible fluctuations.
+\begin{itemize}
+\item \footnotesize{Bayesian regression uses the likelihood to describe the data, priors to express initial uncertainty, and the posterior to update our knowledge about regression parameters.}
+\item \footnotesize{Important: Priors should be checked against real-world knowledge, ideally using prior predictive simulations before fitting the model.}
+\end{itemize}
 \end{frame}
 
 \begin{frame}{Centering gives the intercept practical meaning}
