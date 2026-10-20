@@ -199,7 +199,8 @@ library(rstanarm)
 data(bikes)
 
 bike_model <- stan_glm(
-  rides ~ temp_feel, data = bikes,
+  rides ~ temp_feel,
+  data = bikes,
   family = gaussian,
   prior_intercept = normal(5000, 1000),
   prior = normal(100, 40),
@@ -207,7 +208,7 @@ bike_model <- stan_glm(
   chains = 4, iter = 10000, seed = 84735
 )
 \end{verbatim}
-\scriptsize As in the book, \texttt{rstanarm}'s \texttt{prior\_intercept} applies to the internally centered predictor.
+% \scriptsize As in the book, \texttt{rstanarm} \texttt{prior\_intercept} applies to the internally centered predictor.
 \end{frame}
 
 \begin{frame}{Check the simulation before trusting it}
