@@ -1,0 +1,189 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper,margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,enumitem,array,fancyhdr,xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.1}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1pt}
+\setlist[enumerate]{itemsep=1pt,topsep=5pt}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\newcommand{\question}[2]{\vspace{0.7em}\noindent\textbf{Q#1)}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DAEN/ISEN 427/627 Homework 7}
+\par
+\end{center}
+
+\section*{Instructions}
+\begin{itemize}[leftmargin=1.4em,nosep]
+\item For multiple-choice questions, select \emph{one} answer. For true/false questions, give a brief explanation.
+\item For calculation questions, show your formula, key steps, and final answer. Round decimals to three places when appropriate.
+\item \textbf{The exam \#2 will include questions similar in style and difficulty to those in this homework.} Focus on understanding the algorithms and interpreting the results, rather than memorizing answers.
+\end{itemize}
+
+\section*{Part A: Multiple Choice}
+\textit{Choose the one best answer for each question.}
+
+\question{1}{}
+Why might an engineer use Markov chain Monte Carlo (MCMC) to study a Bayesian model?
+\begin{enumerate}[label=\Alph*.]
+\item It always gives an exact formula for the posterior distribution.
+\item It produces draws that can be used to approximate a posterior distribution that is hard to calculate directly.
+\item It removes all uncertainty from the parameter estimate.
+\item It uses only the observed data and does not require a prior.
+\end{enumerate}
+
+\question{2}{}
+Which sequence correctly describes a grid approximation of a posterior distribution?
+\begin{enumerate}[label=\Alph*.]
+\item Choose grid values, compute prior times likelihood at each value, and normalize the weights.
+\item Choose grid values and assign equal posterior probabilities to all of them.
+\item Compute only the likelihood and ignore the prior.
+\item Keep only the grid point with the largest likelihood and discard the others.
+\end{enumerate}
+
+\question{3}{}
+Suppose a Metropolis algorithm uses a \emph{symmetric} proposal distribution and an unnormalized target density $f(\theta)$. What is the acceptance probability for a proposal $\theta^*$ from a current state $\theta_t$?
+\begin{enumerate}[label=\Alph*.]
+\item $\displaystyle \min\!\left(1,\frac{f(\theta_t)}{f(\theta^*)}\right)$
+\item $\displaystyle \frac{f(\theta_t)+f(\theta^*)}{2}$
+\item $\displaystyle \min\!\left(1,\frac{f(\theta^*)}{f(\theta_t)}\right)$
+\item $\displaystyle f(\theta^*)-f(\theta_t)$
+\end{enumerate}
+
+\question{4}{}
+Which result would make you \emph{most concerned} about an MCMC simulation?
+\begin{enumerate}[label=\Alph*.]
+\item A trace plot moves up and down around a stable level.
+\item Several chains overlap and have similar distributions.
+\item A trace plot continues to drift upward throughout the simulation.
+\item The posterior histogram is not perfectly symmetric.
+\end{enumerate}
+
+\question{5}{}
+An engineer reports a 95\% posterior credible interval for the probability that a component fails. Which interpretation is correct?
+\begin{enumerate}[label=\Alph*.]
+\item Given the observed data and model, the posterior probability that the failure probability is in the interval is 95\%.
+\item Exactly 95\% of the tested components failed.
+\item The interval contains 95\% of all future test results.
+\item The failure probability changes from one value to another in repeated tests.
+\end{enumerate}
+
+\question{6}{}
+Which statement about mutual information $I(X;Y)$ is correct?
+\begin{enumerate}[label=\Alph*.]
+\item It can be negative when two variables are negatively correlated.
+\item It measures only straight-line (linear) relationships.
+\item It is zero when $X$ and $Y$ are independent.
+\item It is always one bit for two binary variables.
+\end{enumerate}
+
+\section*{Part B: True or False}
+\textit{Write True or False and explain your answer in one or two sentences.}
+
+\question{7}{}
+In the Metropolis algorithm, if a proposed value is rejected, the next state in the chain is the same as the current state.
+\vspace{0.8em}
+
+\question{8}{}
+In Metropolis--Hastings, the forward and reverse proposal probabilities always cancel, even when the proposal distribution is asymmetric.
+\vspace{0.8em}
+
+\question{9}{}
+The Bayesian posterior predictive distribution takes uncertainty in the unknown parameter into account when predicting a new observation.
+\vspace{0.8em}
+
+\question{10}{}
+If the correlation between $X$ and $Y$ is zero, their mutual information must also be zero.
+\vspace{0.8em}
+
+\section*{Part C: Short Answers and Hand Calculations}
+\textit{Show the main steps.}
+
+\question{11}{}
+A factory is estimating the probability $\theta$ that a part passes inspection. Start with a uniform prior, $\theta\sim\operatorname{Beta}(1,1)$. In four inspections, three parts pass and one fails.
+\begin{enumerate}[label=(\alph*)]
+\item Write an expression for the unnormalized posterior density $f(\theta)$ (you may ignore constants that do not depend on $\theta$).
+\item For the grid $\theta\in\{0.25,\,0.50,\,0.75\}$, calculate $f(\theta)$ at each point.
+\item Divide each weight by the sum of all three weights to obtain the normalized grid probabilities.
+\item Which of these three grid values is most likely under your approximation?
+\end{enumerate}
+\textit{Suggestion: use a table with columns for $\theta$, weight, and normalized probability.}
+
+\question{12}{}
+Consider a target distribution with unnormalized density
+\[
+f(\theta)=\theta^2(1-\theta),\qquad 0<\theta<1.
+\]
+The Metropolis algorithm starts at $\theta_0=0.50$ and uses a symmetric proposal distribution. The proposals and random numbers below have already been provided for you.
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Iteration & Proposed value $\theta^*$ & Uniform draw $u$\\
+\midrule
+1 & 0.60 & 0.40\\
+2 & 0.20 & 0.50\\
+3 & 0.80 & 0.70\\
+\bottomrule
+\end{tabular}
+\end{center}
+At each iteration, calculate
+\[
+\alpha=\min\left(1,\frac{f(\theta^*)}{f(\theta_{t})}\right).
+\]
+\begin{enumerate}[label=(\alph*)]
+\item Find the acceptance probability $\alpha$ at each iteration. Use the \emph{actual current state} when computing the next ratio.
+\item Accept the proposal if $u<\alpha$; otherwise reject it. Record each decision.
+\item Write out the complete chain $\theta_0,\theta_1,\theta_2,\theta_3$.
+\item In one sentence, explain why a rejected proposal still counts as an iteration.
+\end{enumerate}
+
+\question{13}{}
+A team is estimating the probability $\theta$ that a customer chooses a new service. Before collecting data, the team uses the prior $\theta\sim\operatorname{Beta}(2,2)$. Among 10 customers, seven choose the service and three do not.
+\begin{enumerate}[label=(\alph*)]
+\item Use the Beta--Binomial update rule to find the posterior distribution of $\theta$.
+\item Calculate the posterior mean using $E(\theta\mid y)=a_{\rm post}/(a_{\rm post}+b_{\rm post})$.
+\item What is the posterior predictive probability that the \emph{next} customer chooses the service?
+\item Compare your answer with the observed proportion $7/10$. Why are they not exactly the same?
+\end{enumerate}
+
+\question{14}{}
+Two binary sensors $X$ and $Y$ always report the same value. Their joint probability table is:
+\begin{center}
+\begin{tabular}{c|cc|c}
+ & $Y=0$ & $Y=1$ & Total\\
+\hline
+$X=0$ & $0.50$ & $0$ & $0.50$\\
+$X=1$ & $0$ & $0.50$ & $0.50$\\
+\hline
+Total & $0.50$ & $0.50$ & $1.00$
+\end{tabular}
+\end{center}
+Use logarithms base 2 and $\log_2(0.5)=-1$. As usual, terms with zero probability contribute zero to entropy.
+\begin{enumerate}[label=(\alph*)]
+\item Calculate $H(Y)=-\sum_y p(y)\log_2p(y)$ in bits.
+\item What is $H(Y\mid X)$? Explain using the fact that the sensors always agree.
+\item Calculate $I(X;Y)=H(Y)-H(Y\mid X)$.
+\item Explain in plain language what the result means about knowing $Y$ when $X$ is known.
+\end{enumerate}
+
+\question{15}{}
+A Metropolis--Hastings chain is currently at state $A$ and proposes moving to state $B$. Suppose the unnormalized target values and proposal probabilities are
+\[
+f(A)=0.20,\quad f(B)=0.30,\qquad q(B\mid A)=0.60,\quad q(A\mid B)=0.20.
+\]
+Here $q(B\mid A)$ means the probability of proposing $B$ when currently at $A$.
+\begin{enumerate}[label=(\alph*)]
+\item Write the Metropolis--Hastings acceptance formula for this move, including the proposal probabilities.
+\item Calculate the acceptance probability for moving from $A$ to $B$.
+\item If the random uniform draw is $u=0.40$, is the move accepted or rejected?
+\item In one or two sentences, explain why it would be incorrect to leave out the proposal probabilities.
+\end{enumerate}
+
+\end{document}

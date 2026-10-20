@@ -1,0 +1,332 @@
+\documentclass[12pt]{article}
+\usepackage[letterpaper,margin=0.8in]{geometry}
+\usepackage{amsmath,amssymb,booktabs,enumitem,array,fancyhdr,xcolor}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.1}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1pt}
+\setlist[enumerate]{itemsep=1pt,topsep=5pt}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\newenvironment{solution}{\par\smallskip\begingroup\color{blue}\noindent\textbf{Answer: }\smallskip}{\par\endgroup\medskip}
+\newcommand{\question}[2]{\vspace{0.7em}\noindent\textbf{Q#1)}}
+
+\begin{document}
+
+\begin{center}
+{\Large\bfseries DAEN/ISEN 427/627 Homework 7}
+\par
+\end{center}
+
+\section*{Instructions}
+\begin{itemize}[leftmargin=1.4em,nosep]
+\item For multiple-choice questions, select \emph{one} answer. For true/false questions, give a brief explanation.
+\item For calculation questions, show your formula, key steps, and final answer. Round decimals to three places when appropriate.
+\item \textbf{The exam \#2 will include questions similar in style and difficulty to those in this homework.} Focus on understanding the algorithms and interpreting the results, rather than memorizing answers.
+\end{itemize}
+
+\section*{Part A: Multiple Choice}
+\textit{Choose the one best answer for each question.}
+
+\question{1}{}
+Why might an engineer use Markov chain Monte Carlo (MCMC) to study a Bayesian model?
+\begin{enumerate}[label=\Alph*.,nosep]
+\item It always gives an exact formula for the posterior distribution.
+\item It produces draws that can be used to approximate a posterior distribution that is hard to calculate directly.
+\item It removes all uncertainty from the parameter estimate.
+\item It uses only the observed data and does not require a prior.
+\end{enumerate}
+
+\begin{solution}
+\textbf{B.} MCMC constructs a Markov chain whose long-run distribution is the posterior. After assessing the simulation's behavior, its draws can be used to approximate posterior summaries, for example
+\[E(\theta\mid y)\approx \frac{1}{M}\sum_{m=1}^{M}\theta^{(m)}.\]
+MCMC generally gives a numerical approximation, not an exact closed-form expression; it does not eliminate uncertainty or ignore the prior.
+\end{solution}
+
+\question{2}{}
+Which sequence correctly describes a grid approximation of a posterior distribution?
+\begin{enumerate}[label=\Alph*.,nosep]
+\item Choose grid values, compute prior times likelihood at each value, and normalize the weights.
+\item Choose grid values and assign equal posterior probabilities to all of them.
+\item Compute only the likelihood and ignore the prior.
+\item Keep only the grid point with the largest likelihood and discard the others.
+\end{enumerate}
+
+\begin{solution}
+\textbf{A.} At grid value $\theta_j$, first calculate the unnormalized weight
+\[w_j=p(y\mid\theta_j)p(\theta_j),\qquad P_j=\frac{w_j}{\sum_k w_k}.\]
+The prior and likelihood both matter. Normalization converts nonnegative weights into probabilities summing to one; retaining only the maximum would lose information about uncertainty.
+\end{solution}
+
+\question{3}{}
+Suppose a Metropolis algorithm uses a \emph{symmetric} proposal distribution and an unnormalized target density $f(\theta)$. What is the acceptance probability for a proposal $\theta^*$ from a current state $\theta_t$?
+\begin{enumerate}[label=\Alph*.,nosep]
+\item $\displaystyle \min\!\left(1,\frac{f(\theta_t)}{f(\theta^*)}\right)$
+\item $\displaystyle \frac{f(\theta_t)+f(\theta^*)}{2}$
+\item $\displaystyle \min\!\left(1,\frac{f(\theta^*)}{f(\theta_t)}\right)$
+\item $\displaystyle f(\theta^*)-f(\theta_t)$
+\end{enumerate}
+
+\begin{solution}
+\textbf{C.} For a symmetric proposal, the forward and reverse proposal densities cancel in the Metropolis--Hastings ratio:
+\[\alpha=\min\!\left\{1,\frac{f(\theta^*)}{f(\theta_t)}\right\}.\]
+A proposal with higher target density is always accepted; a proposal with lower density may still be accepted. The ratio compares \emph{proposed} to \emph{current} density.
+\end{solution}
+
+\question{4}{}
+Which result would make you \emph{most concerned} about an MCMC simulation?
+\begin{enumerate}[label=\Alph*.,nosep]
+\item A trace plot moves up and down around a stable level.
+\item Several chains overlap and have similar distributions.
+\item A trace plot continues to drift upward throughout the simulation.
+\item The posterior histogram is not perfectly symmetric.
+\end{enumerate}
+
+\begin{solution}
+\textbf{C.} A trace plot drifting upward throughout a run suggests the chain has not settled into a stable sampling pattern.
+Fluctuations around a stable level and agreement among chains are generally reassuring. A skewed posterior histogram alone is not a convergence problem.
+\end{solution}
+
+\question{5}{}
+An engineer reports a 95\% posterior credible interval for the probability that a component fails. Which interpretation is correct?
+\begin{enumerate}[label=\Alph*.,nosep]
+\item Given the observed data and model, the posterior probability that the failure probability is in the interval is 95\%.
+\item Exactly 95\% of the tested components failed.
+\item The interval contains 95\% of all future test results.
+\item The failure probability changes from one value to another in repeated tests.
+\end{enumerate}
+
+\begin{solution}
+\textbf{A.} A 95\% posterior credible interval $[L,U]$ satisfies
+\[P(L\leq\theta\leq U\mid y)=0.95\]
+for the stated model and data (up to numerical approximation).
+The interval describes uncertainty about a \emph{parameter}, not the percentage of observed failures or the range of future individual results.
+\end{solution}
+
+\question{6}{}
+Which statement about mutual information $I(X;Y)$ is correct?
+\begin{enumerate}[label=\Alph*.,nosep]
+\item It can be negative when two variables are negatively correlated.
+\item It measures only straight-line (linear) relationships.
+\item It is zero when $X$ and $Y$ are independent.
+\item It is always one bit for two binary variables.
+\end{enumerate}
+
+\begin{solution}
+\textbf{C.} Mutual information can be written as
+\[I(X;Y)=\sum_{x,y}p(x,y)\log_2\!\left(\frac{p(x,y)}{p(x)p(y)}\right).\]
+When $X$ and $Y$ are independent, $p(x,y)=p(x)p(y)$ and every nonzero-probability term has $\log_2(1)=0$.
+Mutual information is nonnegative and can capture nonlinear as well as linear dependence; it is not always one bit.
+\end{solution}
+
+\section*{Part B: True or False}
+\textit{Write True or False and explain your answer in one or two sentences.}
+
+\question{7}{}
+In the Metropolis algorithm, if a proposed value is rejected, the next state in the chain is the same as the current state.
+\vspace{0.8em}
+
+\begin{solution}
+\textbf{True.} If a proposal is rejected, the update is $\theta_{t+1}=\theta_t$.
+Repeated states are part of the Markov chain and must be retained when summarizing MCMC draws.
+\end{solution}
+
+\question{8}{}
+In Metropolis--Hastings, the forward and reverse proposal probabilities always cancel, even when the proposal distribution is asymmetric.
+\vspace{0.8em}
+
+\begin{solution}
+\textbf{False.} In general,
+\[\alpha=\min\!\left\{1,\frac{f(\theta^*)q(\theta_t\mid\theta^*)}{f(\theta_t)q(\theta^*\mid\theta_t)}\right\}.\]
+The proposal factors cancel only if the relevant forward and reverse proposal probabilities are equal.
+An asymmetric proposal needs the correction factor to target the intended distribution.
+\end{solution}
+
+\question{9}{}
+The Bayesian posterior predictive distribution takes uncertainty in the unknown parameter into account when predicting a new observation.
+\vspace{0.8em}
+
+\begin{solution}
+\textbf{True.} The posterior predictive distribution averages predictions over the posterior uncertainty in the parameter:
+\[p(\widetilde y\mid y)=\int p(\widetilde y\mid\theta)\,p(\theta\mid y)\,d\theta.\]
+This differs from substituting a single best estimate of $\theta$ without accounting for parameter uncertainty.
+\end{solution}
+
+\question{10}{}
+If the correlation between $X$ and $Y$ is zero, their mutual information must also be zero.
+\vspace{0.8em}
+
+\begin{solution}
+\textbf{False.} Zero correlation means no \emph{linear} association, but a nonlinear relationship may still exist and produce positive mutual information.
+For example, if $X$ is equally likely to be $-1,0,$ or $1$ and $Y=X^2$, then $\operatorname{Corr}(X,Y)=0$ even though knowing $X$ determines $Y$.
+\end{solution}
+
+\section*{Part C: Short Answers and Hand Calculations}
+\textit{Show the main steps.}
+
+\question{11}{}
+A factory is estimating the probability $\theta$ that a part passes inspection. Start with a uniform prior, $\theta\sim\operatorname{Beta}(1,1)$. In four inspections, three parts pass and one fails.
+\begin{enumerate}[label=(\alph*),nosep]
+\item Write an expression for the unnormalized posterior density $f(\theta)$ (you may ignore constants that do not depend on $\theta$).
+\item For the grid $\theta\in\{0.25,\,0.50,\,0.75\}$, calculate $f(\theta)$ at each point.
+\item Divide each weight by the sum of all three weights to obtain the normalized grid probabilities.
+\item Which of these three grid values is most likely under your approximation?
+\end{enumerate}
+\textit{Suggestion: use a table with columns for $\theta$, weight, and normalized probability.}
+
+\begin{solution}
+\textbf{(a)} The uniform $\operatorname{Beta}(1,1)$ prior contributes a constant factor. Three passes and one failure give likelihood proportional to $\theta^3(1-\theta)$, so
+\[f(\theta)\propto \theta^3(1-\theta),\qquad 0<\theta<1.\]
+\textbf{(b)--(c)} Calculate each weight and divide by their sum:
+\[
+\begin{aligned}
+w(0.25)&=(0.25)^3(0.75)=0.01171875,\\
+w(0.50)&=(0.50)^3(0.50)=0.06250000,\\
+w(0.75)&=(0.75)^3(0.25)=0.10546875,\\
+\sum_j w_j&=0.17968750.
+\end{aligned}
+\]
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+$\theta$ & $f(\theta)$ (weight) & $f(\theta)/\sum_j f(\theta_j)$\\
+\midrule
+$0.25$ & $0.011719$ & $0.065$\\
+$0.50$ & $0.062500$ & $0.348$\\
+$0.75$ & $0.105469$ & $0.587$\\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{(d)} Of the three \emph{listed grid values}, $\boxed{\theta=0.75}$ has the highest normalized weight.
+Grid probabilities are probabilities assigned to the selected grid points in this discrete approximation. They are not exact point probabilities under the continuous posterior. The binomial coefficient is omitted because it is constant in $\theta$.
+\end{solution}
+
+\question{12}{}
+Consider a target distribution with unnormalized density
+\[
+f(\theta)=\theta^2(1-\theta),\qquad 0<\theta<1.
+\]
+The Metropolis algorithm starts at $\theta_0=0.50$ and uses a symmetric proposal distribution. The proposals and random numbers below have already been provided for you.
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+Iteration & Proposed value $\theta^*$ & Uniform draw $u$\\
+\midrule
+1 & 0.60 & 0.40\\
+2 & 0.20 & 0.50\\
+3 & 0.80 & 0.70\\
+\bottomrule
+\end{tabular}
+\end{center}
+At each iteration, calculate
+\[
+\alpha=\min\left(1,\frac{f(\theta^*)}{f(\theta_{t})}\right).
+\]
+\begin{enumerate}[label=(\alph*),nosep]
+\item Find the acceptance probability $\alpha$ at each iteration. Use the \emph{actual current state} when computing the next ratio.
+\item Accept the proposal if $u<\alpha$; otherwise reject it. Record each decision.
+\item Write out the complete chain $\theta_0,\theta_1,\theta_2,\theta_3$.
+\item In one sentence, explain why a rejected proposal still counts as an iteration.
+\end{enumerate}
+
+\begin{solution}
+First evaluate the density at the states needed:
+\[f(0.50)=0.125,\quad f(0.60)=0.144,\quad f(0.20)=0.032,\quad f(0.80)=0.128.\]
+\textbf{(a)--(b)} Use $\alpha=\min\{1,f(\theta^*)/f(\theta_t)\}$ and accept if $u<\alpha$:
+\begin{center}
+\begin{tabular}{cccccc}
+\toprule
+Iteration & Current & Proposal & $\alpha$ & $u$ & Decision\\
+\midrule
+1 & $0.50$ & $0.60$ & $\min(1,0.144/0.125)=1$ & $0.40$ & Accept\\
+2 & $0.60$ & $0.20$ & $0.032/0.144=0.222$ & $0.50$ & Reject\\
+3 & $0.60$ & $0.80$ & $0.128/0.144=0.889$ & $0.70$ & Accept\\
+\bottomrule
+\end{tabular}
+\end{center}
+\textbf{(c)} The complete chain is
+\[\boxed{(\theta_0,\theta_1,\theta_2,\theta_3)=(0.50,\,0.60,\,0.60,\,0.80).}\]
+\textbf{(d)} A rejected proposal still counts as an iteration because the chain records its unchanged current state at the next step.
+The main pitfall is using the \emph{rejected proposal} $0.20$ as the current state in iteration 3; the correct current state remains $0.60$.
+\end{solution}
+
+\question{13}{}
+A team is estimating the probability $\theta$ that a customer chooses a new service. Before collecting data, the team uses the prior $\theta\sim\operatorname{Beta}(2,2)$. Among 10 customers, seven choose the service and three do not.
+\begin{enumerate}[label=(\alph*),nosep]
+\item Use the Beta--Binomial update rule to find the posterior distribution of $\theta$.
+\item Calculate the posterior mean using $E(\theta\mid y)=a_{\rm post}/(a_{\rm post}+b_{\rm post})$.
+\item What is the posterior predictive probability that the \emph{next} customer chooses the service?
+\item Compare your answer with the observed proportion $7/10$. Why are they not exactly the same?
+\end{enumerate}
+
+\begin{solution}
+\textbf{(a)} For $\theta\sim\operatorname{Beta}(a,b)$ and $s$ successes in $n$ Bernoulli trials,
+\[\theta\mid y\sim\operatorname{Beta}(a+s,b+n-s).\]
+Here $a=2$, $b=2$, $s=7$, and $n-s=3$, giving
+\[\boxed{\theta\mid y\sim\operatorname{Beta}(9,5)}.\]
+\textbf{(b)} The posterior mean is
+\[\boxed{E(\theta\mid y)=\frac{9}{9+5}=\frac{9}{14}\approx0.643}.\]
+\textbf{(c)} For one new Bernoulli outcome $\widetilde Y$,
+\[\boxed{P(\widetilde Y=1\mid y)=E(\theta\mid y)=\frac{9}{14}\approx0.643}.\]
+\textbf{(d)} The observed proportion is $7/10=0.700$. The posterior mean is lower because the $\operatorname{Beta}(2,2)$ prior is centered at $0.5$ and the Bayesian update combines prior information with the observed data.
+The predictive probability for \emph{one} new Bernoulli observation equals the posterior mean. This equivalence does not mean parameter uncertainty can always be ignored for predictions involving multiple future outcomes.
+\end{solution}
+
+\question{14}{}
+Two binary sensors $X$ and $Y$ always report the same value. Their joint probability table is:
+\begin{center}
+\begin{tabular}{c|cc|c}
+ & $Y=0$ & $Y=1$ & Total\\
+\hline
+$X=0$ & $0.50$ & $0$ & $0.50$\\
+$X=1$ & $0$ & $0.50$ & $0.50$\\
+\hline
+Total & $0.50$ & $0.50$ & $1.00$
+\end{tabular}
+\end{center}
+Use logarithms base 2 and $\log_2(0.5)=-1$. As usual, terms with zero probability contribute zero to entropy.
+\begin{enumerate}[label=(\alph*)]
+\item Calculate $H(Y)=-\sum_y p(y)\log_2p(y)$ in bits.
+\item What is $H(Y\mid X)$? Explain using the fact that the sensors always agree.
+\item Calculate $I(X;Y)=H(Y)-H(Y\mid X)$.
+\item Explain in plain language what the result means about knowing $Y$ when $X$ is known.
+\end{enumerate}
+
+\begin{solution}
+\textbf{(a)} From the table, $P(Y=0)=P(Y=1)=0.5$. Thus
+\[H(Y)=-0.5\log_2(0.5)-0.5\log_2(0.5)=\boxed{1\text{ bit}}.\]
+\textbf{(b)} Because $Y=X$ with probability one, $Y$ is known exactly once $X$ is given, so
+\[\boxed{H(Y\mid X)=0\text{ bits}}.\]
+\textbf{(c)} By the entropy identity,
+\[\boxed{I(X;Y)=H(Y)-H(Y\mid X)=1-0=1\text{ bit}}.\]
+\textbf{(d)} Knowing $X$ tells us $Y$ without error. It removes the full one bit of uncertainty that existed about $Y$ before observing $X$.
+Entropy measures uncertainty in a variable; mutual information measures the uncertainty reduced by observing another variable. Zero-probability cells contribute zero.
+\end{solution}
+
+\question{15}{}
+A Metropolis--Hastings chain is currently at state $A$ and proposes moving to state $B$. Suppose the unnormalized target values and proposal probabilities are
+\[
+f(A)=0.20,\quad f(B)=0.30,\qquad q(B\mid A)=0.60,\quad q(A\mid B)=0.20.
+\]
+Here $q(B\mid A)$ means the probability of proposing $B$ when currently at $A$.
+\begin{enumerate}[label=(\alph*),nosep]
+\item Write the Metropolis--Hastings acceptance formula for this move, including the proposal probabilities.
+\item Calculate the acceptance probability for moving from $A$ to $B$.
+\item If the random uniform draw is $u=0.40$, is the move accepted or rejected?
+\item In one or two sentences, explain why it would be incorrect to leave out the proposal probabilities.
+\end{enumerate}
+
+\begin{solution}
+\textbf{(a)} For current state $A$ and proposed state $B$,
+\[\alpha(A,B)=\min\!\left\{1,\frac{f(B)q(A\mid B)}{f(A)q(B\mid A)}\right\}.\]
+\textbf{(b)} Substitute the given values:
+\[\alpha(A,B)=\min\!\left\{1,\frac{(0.30)(0.20)}{(0.20)(0.60)}\right\}=\min\{1,0.5\}=\boxed{0.500}.\]
+\textbf{(c)} Because $u=0.40<0.50$, the proposal is \boxed{\text{accepted}} and the next state is $B$.\\
+\textbf{(d)} The move $A\to B$ is proposed with probability $0.60$, but the reverse move $B\to A$ with probability $0.20$. The proposal probabilities therefore do not cancel; ignoring them would incorrectly give $\min\{1,0.30/0.20\}=1$.
+Always check whether the proposal is symmetric before using the simpler Metropolis acceptance formula. The reverse proposal probability appears in the \emph{numerator}.
+\end{solution}
+
+\end{document}
