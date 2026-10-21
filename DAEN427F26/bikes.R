@@ -14,7 +14,9 @@ summary(bikes[, c("rides", "temp_feel")])
 
 nrow(bikes)
 
-(correlation <- cor(bikes$temp_feel, bikes$rides, use = "complete.obs"))
+(correlation <- cor(bikes$temp_feel,
+                    bikes$rides,
+                    use = "complete.obs"))
 
 summary(lm(rides ~ temp_feel, data = bikes))
 
@@ -23,7 +25,8 @@ hist(bikes$rides, main = "Observed daily rides", xlab = "Rides")
 boxplot(bikes$rides, main = "Daily rides", horizontal = TRUE)
 
 # 2. Center temperature: 75 F is represented by temp_feel_c = 5
-bikes <- mutate(bikes, temp_feel_c = temp_feel - 70)
+bikes <- bikes %>%
+  mutate(temp_feel_c = temp_feel - 70)
 
 summary(bikes$temp_feel_c)
 
@@ -36,15 +39,15 @@ boxplot(bikes$temp_feel_c, main = "Centered temp (70 F)", horizontal = TRUE)
 # autoscale = FALSE keeps the stated prior scales in original units.
 # Normal(mean, SD); exponential(rate) prior for residual SD sigma.
 
-bike_model <- stan_glm(rides ~ temp_feel_c,
-                       data = bikes,
-                       family = gaussian(),
-                       prior_intercept = normal(5000, 1000),  # , autoscale = FALSE
-                       prior = normal(100, 40),               # , autoscale = FALSE
-                       prior_aux = exponential(0.0008),       # , autoscale = FALSE
-                       chains = 4,
-                       iter = 10000,
-                       seed = 1)
+bike_model <- stan_glm(
+  rides ~ temp_feel_c,
+  family = gaussian(),
+  prior_intercept = normal(5000, 1000),  # , autoscale = FALSE
+  prior = normal(100, 40),               # , autoscale = FALSE
+  prior_aux = exponential(0.0008),       # , autoscale = FALSE
+  data = bikes,
+  chains = 4,
+  iter = 10000)
 
 # 3. Diagnose sampling; review warnings, Rhat, effective sample size
 bike_model
