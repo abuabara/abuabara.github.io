@@ -49,6 +49,19 @@ bike_model <- stan_glm(
   chains = 4,
   iter = 10000)
 
+draws <- as.matrix(bike_model)
+
+idx <- sample(seq_len(nrow(draws)), 40)
+
+plot(bikes$temp_feel, bikes$rides,
+     pch = 16, col = "gray75",
+     xlab = "Temperature (F)", ylab = "Daily rides")
+
+for (s in idx) {
+  abline(a = draws[s, "(Intercept)"] - 70 * draws[s, "temp_feel_c"],
+         b = draws[s, "temp_feel_c"],
+         col = adjustcolor("maroon", alpha.f = 0.25))}
+
 # 3. Diagnose sampling; review warnings, Rhat, effective sample size
 bike_model
 

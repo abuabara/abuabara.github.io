@@ -1,5 +1,6 @@
 \documentclass[aspectratio=43,11pt]{beamer}
-\usepackage{amsmath,amssymb,booktabs,xcolor,soul}
+\usepackage{amsmath,amssymb,booktabs,soul}
+\usepackage[dvipsnames]{xcolor}
 \usetheme{default}
 \usecolortheme{default}
 \setbeamertemplate{navigation symbols}{}
@@ -217,6 +218,36 @@ sample-average predictor, not exactly $70^\circ$F. The reported
 \texttt{(Intercept)} is still the mean at $70^\circ$F.
 \end{frame}
 
+{
+\setbeamercolor{background canvas}{bg=Yellow}
+\begin{frame}[fragile]{R: visualize many plausible regression lines from Stan}
+\small
+{One posterior draw = one plausible line.} Plot 40 draws over the data:
+\begin{verbatim}
+# Note: run after fitting bike_model with stan_glm()
+
+draws <- as.matrix(bike_model)
+idx   <- sample(seq_len(nrow(draws)), 40)
+
+plot(bikes$temp_feel, bikes$rides,
+     pch = 16, col = "gray75",
+     xlab = "Temperature (F)", ylab = "Daily rides")
+
+for (s in idx) {
+  abline(a = draws[s, "(Intercept)"] -
+           70 * draws[s, "temp_feel_c"],
+         b = draws[s, "temp_feel_c"],
+         col = adjustcolor("maroon", alpha.f = 0.25))}
+
+\end{verbatim}
+\vspace{-2mm}
+\footnotesize
+%{Why subtract $70\beta_1$?} The fitted model uses $x_c=\texttt{temp\_feel}-70$; \texttt{abline()} uses the raw temperature $x$.\\
+{Interpretation:} Spread among lines represents uncertainty about
+\emph{mean demand}; it does \emph{not} show day-to-day residual noise.
+\end{frame}
+}
+
 \begin{frame}{Check the simulation before trusting it}
 \begin{itemize}
 \item \textbf{Trace plots:} chains should mix and explore similar parameter regions.
@@ -255,6 +286,8 @@ Compute this probability from the refitted model: \texttt{mean(draws[, "temp\_fe
 \par\medskip\textbf{But:} a high posterior probability of positive association does \emph{not} imply predictable daily demand. Residual variation still matters.
 \end{frame}
 
+{
+\setbeamercolor{background canvas}{bg=SpringGreen}
 \begin{frame}{Two questions that must not be confused}
 At $75^\circ$F, the fitted mean is
 \[\widehat\mu(75)=\widehat\beta_{0c}+5\widehat\beta_1.\]
@@ -266,6 +299,64 @@ Only parameter uncertainty matters.
 How uncertain is one \emph{future observation} $Y_{\mathrm{new}}$?\\
 Parameter uncertainty \emph{plus} residual day-to-day variability matter.
 \end{block}
+\end{frame}
+}
+
+\begin{frame}{Same forecast, but two very different questions}
+\small
+Suppose the temperature tomorrow is $75^\circ$F.\\
+\vspace{2ex}
+To make the distinction concrete,\\
+\textbf{imagine} our analysis suggests about \textbf{5,000 rides} on average.
+\vspace{2ex}
+\begin{block}{Question A: If we repeated many $75^\circ$F days,\\what would their average be?}
+\end{block}
+\begin{block}{Question B: How many rides will we get on ONE $75^\circ$F day?}
+\end{block}
+\end{frame}
+
+\begin{frame}{}
+\small
+\begin{block}{Question A: If we repeated many $75^\circ$F days, what would their average be?}
+We want the \textbf{long-run average} number of rides at this temperature.
+\begin{itemize}
+\item Example: perhaps that unknown average is between \textbf{4,900 and 5,100} rides.
+\item Uncertainty: we do not know the true regression line exactly.
+\end{itemize}
+\end{block}
+\begin{block}{Question B: How many rides will we get on ONE $75^\circ$F day?}
+Even if the true average were exactly 5,000, some days might have
+\textbf{4,000} rides and others \textbf{6,000}.
+\begin{itemize}
+\item Uncertainty: the unknown average \emph{and} ordinary day-to-day fluctuations.
+\end{itemize}
+\end{block}
+\textbf{Knowing the average does not tell us exactly what happens tomorrow.}\\[1pt]
+{\scriptsize PS: Numbers are examples, not output from the fitted model.}
+\end{frame}
+
+\begin{frame}[fragile]{Two R functions}
+\small
+What does each simulated number mean?\\
+For a forecast of $75^\circ$F, each posterior draw $s$ supplies a possible
+mean $\mu^{(s)}$ and residual standard deviation $\sigma^{(s)}$.
+\begin{block}{\texttt{posterior\_epred()}: simulate uncertainty about the AVERAGE}
+Returns $\mu^{(s)}=\beta_{0c}^{(s)}+5\beta_1^{(s)}$.\\
+\textbf{Interpret a value of 5,050:} ``The average for $75^\circ$F days might be 5,050.''
+\end{block}
+\begin{block}{\texttt{posterior\_predict()}: simulate an ACTUAL future day}
+Returns $Y_{\rm new}^{(s)}=\mu^{(s)}+\varepsilon^{(s)}$,
+with $\varepsilon^{(s)}\sim N(0,(\sigma^{(s)})^2)$.\\
+\textbf{Interpret a value of 5,900:} ``Tomorrow might have 5,900 rides.''
+\end{block}
+\begin{verbatim}
+new_day <- data.frame(temp_feel_c = 5) # 75 - 70
+avg_draws <- posterior_epred(bike_model, newdata = new_day)
+day_draws <- posterior_predict(bike_model, newdata = new_day)
+\end{verbatim}
+\vspace{-3pt}
+\centering\textbf{Operational question:} $P(\text{tomorrow's rides}>5000)$?
+Use \texttt{mean(day\_draws > 5000)}, \emph{not} \texttt{avg\_draws}.
 \end{frame}
 
 \begin{frame}{Posterior prediction: one extra simulation step}
