@@ -57,7 +57,7 @@ plot(bikes$temp_feel, bikes$rides,
      pch = 16, col = "gray75",
      xlab = "Temperature (F)", ylab = "Daily rides")
 
-for (s in idx) {
+for (s in draws) {
   abline(a = draws[s, "(Intercept)"] - 
            70 * draws[s, "temp_feel_c"],
          b = draws[s, "temp_feel_c"],
