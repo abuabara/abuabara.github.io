@@ -58,7 +58,8 @@ plot(bikes$temp_feel, bikes$rides,
      xlab = "Temperature (F)", ylab = "Daily rides")
 
 for (s in idx) {
-  abline(a = draws[s, "(Intercept)"] - 70 * draws[s, "temp_feel_c"],
+  abline(a = draws[s, "(Intercept)"] - 
+           70 * draws[s, "temp_feel_c"],
          b = draws[s, "temp_feel_c"],
          col = adjustcolor("maroon", alpha.f = 0.25))}
 
