@@ -197,8 +197,8 @@ plot(fit9, plotfun = "trace")
 
 
 fit9_cond_stan <- rstanarm::stan_glmer(
-  flipper_length_mm ~ bill_centered | species,
-  # flipper_length_mm ~ bill_centered + (1 | species),
+  #flipper_length_mm ~ bill_centered | species,
+  flipper_length_mm ~ bill_centered + (1 | species),
   data = reg9,
   family = gaussian(),
   prior_intercept = rstanarm::normal(190, 10, autoscale = FALSE),
