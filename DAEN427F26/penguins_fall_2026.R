@@ -1,5 +1,8 @@
 # PACKAGES
 library(tidyverse)
+library(ggplot2)
+library(dplyr)
+
 library(bayesrules)
 library(rstanarm)
 library(bayesplot)
@@ -194,8 +197,8 @@ plot(fit9, plotfun = "trace")
 
 
 fit9_cond_stan <- rstanarm::stan_glmer(
-  # flipper_length_mm ~ bill_centered | species,
-  flipper_length_mm ~ bill_centered + (1 | species),
+  flipper_length_mm ~ bill_centered | species,
+  # flipper_length_mm ~ bill_centered + (1 | species),
   data = reg9,
   family = gaussian(),
   prior_intercept = rstanarm::normal(190, 10, autoscale = FALSE),
@@ -212,10 +215,6 @@ posterior_interval(fit9_cond_stan, prob = .95)
 pp_check(fit9_cond_stan)
 
 plot(fit9_cond_stan, plotfun = "trace")
-
-library(rstanarm)
-library(ggplot2)
-library(dplyr)
 
 # Prediction grid for each species
 newdata <- reg9 %>%
