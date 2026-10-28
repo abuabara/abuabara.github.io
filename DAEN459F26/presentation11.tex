@@ -1,0 +1,184 @@
+\documentclass[11pt,aspectratio=43]{beamer}
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamercolor{block title}{bg=aggiemaroon,fg=white}
+\title{Design Decisions and Data Architecture}
+\subtitle{Design is a series of justified decisions,\\
+          not just implementation.}
+\author{}
+\date{\textcolor{aggiemaroon}{DAEN 459 -- Fall 2026\\
+      \textbf{Alexander Abuabara}}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+  \vspace{-0.6cm}
+  \begin{center}
+    
+  \end{center}
+\end{frame}
+
+\begin{frame}{1. Engineering principles}
+\textbf{Engineering principles: What makes a solution sound?}
+\begin{itemize}
+  \item \textbf{Scientific reasoning}\\Use models, data, and evidence rather than assumptions.
+  \item \textbf{Safety and responsibility}\\Protect users, data, and the public.
+  \item \textbf{Reliability and verification}\\Measure whether the system performs as required.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{2. Engineering design principles}
+\textbf{Engineering design principles: How do we choose a solution?}
+\begin{itemize}
+  \item \textbf{Requirements first}\\Define stakeholders, needs, constraints, and success criteria.
+  \item \textbf{Compare alternatives}\\Justify trade-offs in cost, quality, complexity, and risk.
+  \item \textbf{Iterate and simplify}\\Prototype, test, refine; design for maintenance and change.
+\end{itemize}
+\begin{block}{}
+Engineering principles establish \emph{what must hold};\\
+Design principles guide \emph{how to decide what to build}.\\
+A strong project explains both the choices and the evidence.
+\end{block}
+\end{frame}
+
+\begin{frame}{3. Engineering Design}
+\begin{enumerate}
+  \item What makes an activity \emph{engineering design},\\rather than only coding or analysis?
+  \item What problem are we solving, and for whom?
+  \item How do requirements, constraints, and trade-offs influence a design?
+  \item How can we know whether a design is good enough?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{3. Engineering design}
+\begin{itemize}
+  \item \textbf{Meaning:} A systematic, iterative process of defining needs, creating alternatives, evaluating trade-offs, and validating a solution.
+  \item \textbf{Starting point:} Stakeholders, problem statement, intended use, and measurable success criteria.
+  \item \textbf{Constraints:} Time, cost, data access, reliability, privacy, skills, and maintainability.
+  \item \textbf{Evidence:} Tests, benchmarks, reviews, prototypes, and feedback against requirements.
+\end{itemize}
+\begin{block}{}
+A design is not simply ``the system we built.'' It includes \emph{why} this solution was selected over plausible alternatives.
+\end{block}
+\end{frame}
+
+\begin{frame}{4. Design planning}
+\begin{enumerate}
+  \item What needs to be decided before implementation begins?
+  \item Which decisions must be made early, and which can wait?
+  \item What deliverables demonstrate design progress?
+  \item How should a team respond when assumptions turn out to be wrong?
+  \item Which unresolved question poses the largest risk to your project?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{4. Design planning}
+\begin{itemize}
+  \item \textbf{Plan around decisions:} Scope, users, requirements, dependencies, responsibilities, and checkpoints.
+  \item \textbf{De-risk early:} Investigate uncertain data sources, integrations, performance, and feasibility first.
+  \item \textbf{Useful artifacts:} Requirement list, architecture sketch, data inventory, prototype, test plan, and decision log.
+  \item \textbf{Iterate:} Revise designs based on evidence; document changes and their consequences.
+\end{itemize}
+\begin{block}{}
+A schedule says \emph{when} work happens. A design plan also says \emph{what must be learned and decided} before proceeding.
+\end{block}
+\end{frame}
+
+\begin{frame}{5. Engineering data architecture}
+\begin{enumerate}
+  \item What is data architecture, and how is it different from a database schema?
+  \item Where do data originate, move, change, and get consumed?
+  \item What components and interfaces does the system need?
+  \item How do reliability, security, and scale affect architectural choices?
+\end{enumerate}
+\vspace{1cm}
+\small \textit{This week: Let us draw the path of one record from its source to a user-facing result.}
+\end{frame}
+
+\begin{frame}{5. Engineering data architecture}
+\begin{itemize}
+  \item \textbf{Meaning:} The high-level organization of data sources, ingestion, storage, transformation, access, and governance.
+  \item \textbf{Data flow:} Identify producers, consumers, movement, transformations, and boundaries between systems.
+  \item \textbf{Choices:} Batch vs. streaming; files vs. databases; centralized vs. distributed processing; managed vs. self-hosted services.
+  \item \textbf{Quality attributes:} Availability, latency, scalability, traceability, security, cost, and operability.
+\end{itemize}
+\begin{block}{}
+Architecture explains how the \emph{parts work together};\\
+a schema specifies how data are \emph{structured within those parts}.
+\end{block}
+\end{frame}
+
+\begin{frame}{6. Data schema}
+\begin{enumerate}
+  \item What does a schema specify about data?
+  \item Which entities, attributes, keys, and relationships matter?
+  \item How are missing values, data types, units, and constraints represented?
+  \item What happens when the data or requirements evolve?
+\end{enumerate}
+\vfill
+\small \textit{Discuss: What error becomes possible if a key, unit, or constraint is missing?}
+\end{frame}
+
+\begin{frame}{6. Data schema}
+\begin{itemize}
+  \item \textbf{Meaning:} A formal description of data structure and rules, e.g., tables, fields, types, relationships, and constraints.
+  \item \textbf{Model at several levels:} Conceptual entities; logical relationships; physical tables, columns, and indexes.
+  \item \textbf{Specify meaning:} Names, definitions, units, allowed values, nullability, uniqueness, and referential integrity.
+  \item \textbf{Plan for change:} Versioning, compatibility, migrations, and validation of incoming data.
+\end{itemize}
+\begin{block}{}
+A schema is an explicit agreement about what data \emph{mean} and what the system is allowed to store.
+\end{block}
+\end{frame}
+
+\begin{frame}{7. Putting it together --- Questions}
+\begin{enumerate}
+  \item What is the engineering problem and how will success be measured?
+  \item What should the design plan investigate first?
+  \item What data architecture would connect to the dashboard?
+  \item What schema would represent reliably?
+  \item Which design trade-off would you defend to a reviewer?
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{7. Putting it together --- Possible answers}
+\small
+\begin{itemize}
+  \item \textbf{Engineering design:} Help facilities staff identify unusual consumption; measure freshness, coverage, and accuracy.
+  \item \textbf{Design plan:} Check sensor access and sampling quality; build an end-to-end prototype before adding features.
+  \item \textbf{Architecture:} Sensors $\rightarrow$ ingestion $\rightarrow$ validation $\rightarrow$ storage $\rightarrow$ analytics/API $\rightarrow$ dashboard.
+  \item \textbf{Schema:} \texttt{Reading(sensor\_id, observed\_at, value, unit, quality\_flag)}; define keys, types, and timestamp conventions.
+  \item \textbf{Trade-off:} A 15-minute batch update may be cheaper and easier to maintain than real-time streaming, if users accept the delay.
+\end{itemize}
+\begin{block}{}
+There is no single perfect answer. Ask whether the team's assumptions and evidence justify each choice.
+\end{block}
+\end{frame}
+
+\begin{frame}{Complementary ideas}
+\begin{itemize}
+  \item \textbf{Engineering design}\\What solution should we build, and why?
+  \item \textbf{Design planning}\\What must we decide, test, and deliver, and in what order?
+  \item \textbf{Data architecture}\\How will data flow through the system?
+  \item \textbf{Data schema}\\How is data represented, constrained, and interpreted?
+\end{itemize}
+\vspace{0.35cm}
+\begin{block}{}
+What is one important design choice your team has made,\\
+and what evidence supports it?
+\end{block}
+\end{frame}
+
+\end{document}
