@@ -1,0 +1,69 @@
+
+\documentclass{beamer}
+\usetheme[titlepage=plain, colortheme=highcontrast]{moloch}
+
+\usepackage{mlmodern}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+
+\lstnewenvironment{code}[1]
+{
+  \lstset{
+    language=#1,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue!90}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{orange!90},
+    showstringspaces=false,
+    breaklines=true,
+    columns=fullflexible,
+    keepspaces=true,
+    frame=single,
+    framerule=1pt,
+    rulecolor=\color{gray!50},
+    backgroundcolor=\color{gray!10},
+    xleftmargin=15pt,
+    xrightmargin=15pt,
+    aboveskip=5pt,
+    belowskip=5pt
+  }
+}
+{}
+
+\title{Moloch Theme}
+\subtitle{A Minimalist Beamer Theme}
+\author{Alexander Abuabara}
+\institute{Texas A\&M University}
+\date{Tue Oct 27 2026}
+\titlegraphic{\includegraphics[width=1.1cm]{images/TAMU_logo.png}}
+
+\begin{document}
+
+\maketitle
+
+\begin{frame}[fragile]
+\frametitle{Python Example}
+
+\begin{code}{Python}
+values = [4, 8, 12, 16]
+mean_value = sum(values) / len(values)
+print(f"Mean: {mean_value:.1f}")
+\end{code}
+
+\begin{itemize}
+\item Test
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Bar}
+Howdy!
+\end{frame}
+
+\begin{frame}
+Test
+\end{frame}
+
+\end{document}
