@@ -1,0 +1,327 @@
+\documentclass[aspectratio=43,11pt]{beamer}
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamersize{text margin left=12mm,text margin right=12mm}
+\setlength{\parskip}{4pt}
+\newcommand{\visual}[3]{\begin{frame}{#1}\centering\includegraphics[width=.94\textwidth,height=.71\textheight,keepaspectratio]{#2}\par\vspace{1mm}{\small #3}\end{frame}}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,booktabs,listings,xcolor,graphicx}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamercolor{frametitle}{fg=aggiemaroon}
+\setbeamercolor{block title}{bg=black!8,fg=black}
+\setbeamercolor{block body}{bg=black!3,fg=black}
+\definecolor{codegray}{gray}{0.24}
+\lstdefinestyle{R}{language=R,basicstyle=\ttfamily\small,keywordstyle=\color{black},commentstyle=\color{codegray},showstringspaces=false,breaklines=true,columns=fullflexible,keepspaces=true}
+\lstset{style=R}
+\newcommand{\stage}[2]{\begin{block}{#1}\small #2\end{block}}
+\title{Decision and Risk Analysis}
+\subtitle{Lecture 11: \textbf{Normal Hierarchical Regression\\with Predictors}}
+\author{}
+\date{\color{aggiemaroon}{DAEN 427 / ISEN 427 / ISEN 627 - Fall 2026\\
+      \textbf{Alexander Abuabara}}}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+\begin{frame}\titlepage
+\centering \footnotesize \url{https://www.bayesrulesbook.com/chapter-17}
+\end{frame}
+
+\begin{frame}{}
+\begin{enumerate}
+\item \textbf{Evaluate:} critique a pooled age--running-time analysis.
+\item \textbf{Apply:} explore groups and fit a varying-intercept model.
+\item \textbf{Understand:} interpret hierarchy, shrinkage, priors, and slopes.
+\item \textbf{Evaluate:} check diagnostics and compare models.
+\item \textbf{Create:} design predictions and transfer the model to another setting.
+\item \textbf{Evaluate:} defend model choice and limitations.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Does age really have so little effect?}
+\stage{Case}{Cherry Blossom 10-mile race: repeated net times for \textbf{36 runners} in their 50s and 60s; 252 complete races reported in the chapter.}
+\[Y_{ij}=\text{net minutes for race }i\text{ of runner }j,\quad X_{ij}=\text{age}.\]
+\begin{block}{Complete pooling}\centering $Y_{ij}\sim N(\beta_0+\beta_1X_{ij},\sigma^2)$\end{block}
+Book:\\
+pooled age slope $\approx0.268$ min/year;
+80\% CrIn $[-0.302,0.842]$.\par
+Does a weak pooled trend imply runners do not slow down?\\
+What assumption is hidden?
+\end{frame}
+
+\begin{frame}{MCQ 1 --- Diagnose complete pooling}
+We draw one regression line through every recorded race. What important detail have we left out?
+\begin{enumerate}
+\item[A.] Runners cannot have different ages.
+\item[B.] Repeated outcomes on a runner may be correlated.
+\item[C.] Normal models cannot use numerical predictors.
+\item[D.] Bayesian models cannot estimate slopes.
+\end{enumerate}
+\textcolor{gray}{\it Answers are at the end.}
+\end{frame}
+
+\begin{frame}[fragile]{Coding warm-up (inspect before modeling)}
+\begin{lstlisting}
+library(bayesrules)
+library(dplyr)
+library(ggplot2)
+data(cherry_blossom_sample)
+running <- cherry_blossom_sample |>
+  select(runner, age, net) |> na.omit() |>
+  mutate(runner = factor(runner))
+
+nrow(running); n_distinct(running$runner)
+running |> count(runner) |> summary()
+ggplot(running, aes(age, net)) + geom_point() +
+  facet_wrap(~ runner)
+\end{lstlisting}
+\textbf{Discuss:} What do you notice about the runners?\\
+Look for differences in typical times and changes with age.
+\end{frame}
+
+\visual{A pooled line can be misleading}{ch17_pool.png}{Illustrative data: one line cannot describe each runner\'s history.}
+
+\begin{frame}{Give each runner a starting point}
+\begin{align*}
+Y_{ij}\mid\beta_{0j},\beta_1,\sigma_y &\sim N(\beta_{0j}+\beta_1 X_{ij},\sigma_y^2),\\
+\beta_{0j}\mid\beta_0,\sigma_0 &\sim N(\beta_0,\sigma_0^2).
+\end{align*}
+\stage{}{Each runner gets their own typical time, but we learn one common age trend. The runners help us learn about one another.}
+$\sigma_y$: race-to-race scatter within a runner.\\
+$\sigma_0$: between-runner scatter in intercepts.\par
+\textbf{Sketch:}\\Draw five parallel runner regression lines and the global line.
+\end{frame}
+
+\visual{What varying intercepts look like}{ch17_intercepts.png}{Each line is one runner. Different baselines, but parallel slopes.}
+
+\begin{frame}[fragile]{Hands-on: build complete and varying-intercept fits}
+\begin{lstlisting}
+library(rstanarm)
+# Short teaching runs; increase iter for final analysis.
+m_pool <- stan_glm(net ~ age, data = running,
+  family = gaussian(), chains = 2, iter = 1000,
+  seed = 84735, refresh = 0)
+
+m_int <- stan_glmer(net ~ age + (1 | runner),
+  data = running, family = gaussian(),
+  prior_intercept = normal(100, 10),
+  prior = normal(2.5, 1),
+  prior_aux = exponential(1, autoscale = TRUE),
+  prior_covariance = decov(reg=1, conc=1,
+                           shape=1, scale=1),
+  chains = 2, iter = 1000, seed = 84735,
+  refresh = 0)
+\end{lstlisting}
+\textbf{Task:} Explain the \texttt{(1 | runner)} term; label the prior on each global parameter.
+\end{frame}
+
+\begin{frame}{MCQ 2 --- What changes from runner to runner?}
+In \texttt{net \~{} age + (1 | runner)},\\
+which feature changes between runners?
+\begin{enumerate}
+\item[A.] Intercept only
+\item[B.] Age slope only
+\item[C.] Both intercept and age slope
+\item[D.] Neither intercept nor slope
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Hands-on: inspect and interpret the output}
+\begin{lstlisting}
+library(broom.mixed)
+tidy(m_int, effects = "fixed", conf.int = TRUE,
+     conf.level = 0.80)
+tidy(m_int, effects = "ran_pars")
+ranef(m_int)$runner |> head()
+\end{lstlisting}
+\stage{Book benchmark (longer fit)}{Global age slope: about $1.30$ min/year, with 80\% credible interval $[1.02,1.58]$. Between-runner SD $\approx13.3$ min; within-runner SD $\approx5.25$ min. Short class runs will differ.}
+\textbf{Question:} Translate the age interval into a sentence about an individual runner's expected change per year, under the model.
+\end{frame}
+
+\begin{frame}{The three choices, in plain language}
+\textbf{Complete pooling:} Treat all races as if they came from the same runner.
+\par \vspace{5mm}
+\textbf{No pooling:} Analyze every runner separately; learn nothing across runners.
+\par \vspace{5mm}
+\textbf{Partial pooling:} Let runners differ, while sharing information about the broader group.
+\par \vspace{6mm}
+\textbf{Ask:} Which approach would you trust for someone with only two races?
+\end{frame}
+
+\visual{Why share information?}{ch17_shrinkage.png}{Illustration: estimates based on fewer races usually move more toward the group.}
+
+\begin{frame}{What do our priors say before seeing the data?}
+\begin{align*}
+\beta_{0c} &\sim N(100,10^2), & \beta_1&\sim N(2.5,1^2),\\
+\sigma_y &\sim\mathrm{Exp}(0.072), & \sigma_0&\sim\mathrm{Exp}(1).
+\end{align*}
+The intercept prior applies to the \emph{centered} intercept, evaluated at mean observed age, in the book's \texttt{rstanarm} parametrization, not the time at age zero.\par
+\par \vspace{4mm}
+Is a mean age slope of 2.5 min/year plausible before examining the data? Why simulate from the prior?
+\end{frame}
+
+\begin{frame}[fragile]{Do these priors generate sensible times?}
+\begin{lstlisting}
+m_prior <- update(m_int, prior_PD = TRUE,
+                  chains = 2, iter = 1000,
+                  seed = 84735, refresh = 0)
+pp_check(m_prior, plotfun = "dens_overlay", nsamples = 30)
+pp_check(m_int, plotfun = "dens_overlay", nsamples = 30)
+\end{lstlisting}
+\textbf{Identify:} Any impossible negative times? Extremely slow 10-mile races? How should a prior predictive check affect prior choice?\par
+\end{frame}
+
+\begin{frame}{What if runners age differently?}
+\[\mu_{ij}=\beta_{0j}+\beta_{1j}X_{ij},\qquad
+\begin{pmatrix}\beta_{0j}\\\beta_{1j}\end{pmatrix}\sim N_2\!\left(\begin{pmatrix}\beta_0\\\beta_1\end{pmatrix},\Sigma\right)\]
+\[\Sigma=\begin{pmatrix}\sigma_0^2&\rho\sigma_0\sigma_1\\\rho\sigma_0\sigma_1&\sigma_1^2\end{pmatrix}.\]
+Runners can differ in both baseline time and age-related change. $\rho$ describes their intercept--slope association.\par
+\textbf{Chapter example:} Runner 20 appears to slow more rapidly than runner 29 in the raw data. Is that sufficient evidence to fit separate slopes?
+\end{frame}
+
+\visual{What varying slopes look like}{ch17_slopes.png}{Here, some runners change more rapidly with age than others.}
+
+\begin{frame}{MCQ 3 --- Interpret correlation}
+Suppose the intercept--slope correlation is negative, where a higher intercept means a slower baseline time and a higher slope means greater slowing with age. Then:
+\begin{enumerate}
+\item[A.] Slower-baseline runners tend to slow down faster.
+\item[B.] Faster-baseline runners tend to slow down faster.
+\item[C.] Every runner has the same slope.
+\item[D.] Race-to-race residual variation must be zero.
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Try allowing different slopes}
+\textbf{Goal:} Decide whether varying age slopes materially improve the analysis.\par
+\vspace{3mm}
+\begin{block}{Models compared}
+\texttt{net \~{} age}\par
+\texttt{net \~{} age + (1 | runner)}\par
+\texttt{net \~{} age + (age | runner)}
+\end{block}
+The final formula estimates correlated runner-specific intercepts and slopes. Greater flexibility can increase computation and estimation difficulty.
+\end{frame}
+
+\begin{frame}[fragile]{Coding lab: varying slopes and diagnostics}
+\begin{lstlisting}
+m_slope <- stan_glmer(net ~ age + (age | runner),
+  data = running, family = gaussian(),
+  prior_intercept = normal(100, 10),
+  prior = normal(2.5, 1),
+  prior_aux = exponential(1, autoscale = TRUE),
+  prior_covariance = decov(reg=1, conc=1,
+                           shape=1, scale=1),
+  chains = 2, iter = 1000, seed = 84735,
+  adapt_delta = 0.99, refresh = 0)
+
+bayesplot::mcmc_trace(as.array(m_slope), pars = "age")
+summary(m_slope)$stan_summary |> head()
+\end{lstlisting}
+\textbf{Check:} $\widehat R$, effective sample size, divergences and trace plots; increase iterations/chains and tune if needed.
+\end{frame}
+
+\begin{frame}[fragile]{Check predictions, then compare models}
+\begin{lstlisting}
+library(bayesplot)
+library(loo)
+pp_check(m_int, nsamples = 40)
+pp_check(m_slope, nsamples = 40)
+loo_int <- loo(m_int)
+loo_slope <- loo(m_slope)
+loo_compare(loo_int, loo_slope)
+\end{lstlisting}
+Book's longer fits: ELPD difference $\approx1.6$ in favor of varying slopes, SE $\approx1.2$; modest evidence, not a decisive win.\par
+\textbf{Task:} Give one reason to prefer simpler intercepts, and one reason to prefer richer slopes.
+\end{frame}
+
+\begin{frame}{MCQ 4 --- Who are we predicting for?}
+You want to assess predictions for \emph{entirely new runners}. What should the test folds hold out?
+\begin{enumerate}
+\item[A.] Random individual races from all runners
+\item[B.] Whole runners, with all of their races
+\item[C.] Only races where net time is missing
+\item[D.] Random posterior draws
+\end{enumerate}
+\par \vspace{4mm}
+How would your split change for predicting the next race of a runner already observed?
+\end{frame}
+
+\begin{frame}{Build a prediction someone could use}
+\stage{Scenario}{Predict net race time at age 61 for sampled runners 1 and 10 and for a new runner, ``Miles.''}
+\begin{enumerate}
+\item Identify known and unknown runner effects.
+\item Specify whether you need an expected time or an individual future race time.
+\item Predict which runner will have the widest interval and why.
+\end{enumerate}
+\textbf{Key distinction:} Existing runner predictions condition on information from that runner; new-runner predictions must also integrate between-runner heterogeneity.
+\end{frame}
+
+\visual{A new runner means more uncertainty}{ch17_predictions.png}{Illustrative intervals, not fitted results: a new runner has an unknown baseline.}
+
+\begin{frame}[fragile]{Coding lab: predictions for new and existing runners}
+\begin{lstlisting}
+new_races <- data.frame(
+  runner = factor(c("1", "10", "Miles"),
+                  levels = c(levels(running$runner), "Miles")),
+  age = 61)
+# rstanarm: sample unseen runner effects from population
+set.seed(84735)
+yrep <- posterior_predict(m_int, newdata = new_races,
+                          allow_new_levels = TRUE,
+                          sample_new_levels = "gaussian")
+apply(yrep, 2, median)
+apply(yrep, 2, quantile, probs = c(.10, .90))
+\end{lstlisting}
+\textbf{Compare:} medians and 80\% predictive intervals. Confirm your installed \texttt{rstanarm} version supports the new-level arguments.
+\end{frame}
+
+\begin{frame}{MCQ 5 --- Predicting a typical time or a real race?}
+Which quantity is appropriate for a \emph{new race outcome}?
+\begin{enumerate}
+\item[A.] Only $\beta_{0j}+\beta_1x$, with all uncertainty removed
+\item[B.] A posterior predictive draw incorporating residual scatter
+\item[C.] The prior mean of $\beta_1$ alone
+\item[D.] The group intercept standard deviation alone
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Choose a model and explain why}
+\begin{enumerate}
+\item Why reject complete pooling for these running data?
+\item Does slope heterogeneity justify the more complex model?
+\item What do predictive checks and held-out validation assess differently?
+\item What assumptions remain untested (linearity, residual structure, longitudinal dependence)?
+\end{enumerate}
+\vspace{3mm}\stage{Book conclusion}{Prefer the varying-intercept model: it captures clustering, while the extra varying slopes add little predictive value in this example.}
+\end{frame}
+
+\begin{frame}{MCQ 6 --- Is the more complex model worth it?}
+The richer model's ELPD improves only slightly, with uncertainty comparable to the difference. The simplest defensible conclusion is:
+\begin{enumerate}
+\item[A.] The richer model is guaranteed better for new runners.
+\item[B.] The pooled model must be selected because it has fewer parameters.
+\item[C.] Prefer the varying-intercept model if the extra complexity lacks a clear benefit.
+\item[D.] Posterior predictive checks no longer matter.
+\end{enumerate}
+\end{frame}
+
+\appendix
+
+\begin{frame}{Answer key --- MCQs 1--3}
+\textbf{1: B.} Races by a given runner can be correlated; pooled independence is questionable.\par\vspace{3mm}
+\textbf{2: A.} \texttt{(1 | runner)} permits varying intercepts; slopes remain shared. As $\sigma_0\to0$, the random-intercept component collapses to the pooled mean structure.\par\vspace{3mm}
+\textbf{3: B.} Negative intercept--slope correlation means lower initial times (faster runners) are associated with steeper age trends.
+\end{frame}
+
+\begin{frame}{Answer key --- MCQs 4--6}
+\textbf{4: B.} Hold out entire runners to evaluate generalization to unseen groups; a different split can be appropriate for future races by observed runners.\par\vspace{3mm}
+\textbf{5: B.} A posterior predictive draw includes both parameter uncertainty and outcome variation.\par\vspace{3mm}
+\textbf{6: C.} Complexity must earn its keep through fit, prediction, or scientific usefulness.
+\end{frame}
+
+\end{document}
