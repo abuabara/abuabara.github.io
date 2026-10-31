@@ -37,6 +37,7 @@ summary(running)
 # Number of observations and runners
 nrow(running)
 n_distinct(running$runner)
+length(unique(running$runner))
 
 # Number of races per runner
 running |>
@@ -56,7 +57,7 @@ ggplot(running, aes(x = age, y = net)) +
     x = "Age (years)",
     y = "Net Race Time (minutes)"
   ) +
-  theme_minimal()
+  theme_void()
 
 # Examine each runner separately
 ggplot(running, aes(x = age, y = net)) +
