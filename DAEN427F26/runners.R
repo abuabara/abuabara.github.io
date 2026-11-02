@@ -1,15 +1,13 @@
-# BAYES RULES! — CHAPTER 17
 # Normal Hierarchical Models with Predictors
 
 # ============================================================
 # 0. PACKAGES AND DATA
 # ============================================================
 
-# Install packages if necessary
+# If necessary
 # install.packages(c(
 #   "bayesrules", "dplyr", "ggplot2", "rstanarm", "tidyverse"
-#   "broom.mixed", "bayesplot", "loo"
-# ))
+#   "broom.mixed", "bayesplot", "loo"))
 
 library(bayesrules)
 library(tidyverse)
@@ -20,7 +18,7 @@ library(broom.mixed)
 library(bayesplot)
 library(loo)
 
-# set.seed(84735)
+# set.seed(1)
 
 data(cherry_blossom_sample)
 
@@ -78,7 +76,7 @@ m_pool <- stan_glm(
   family = gaussian(),
   chains = 2,
   iter = 1000,
-  seed = 84735,
+  seed = 1,
   refresh = 0
 )
 
@@ -119,7 +117,7 @@ m_int <- stan_glmer(
   
   chains = 2,
   iter = 1000,
-  seed = 84735,
+  seed = 1,
   refresh = 0
 )
 
@@ -161,7 +159,7 @@ m_prior <- update(
   prior_PD = TRUE,
   chains = 2,
   iter = 1000,
-  seed = 84735,
+  seed = 1,
   refresh = 0
 )
 
@@ -214,7 +212,7 @@ m_slope <- stan_glmer(
   
   chains = 2,
   iter = 1000,
-  seed = 84735,
+  seed = 1,
   adapt_delta = 0.99,
   refresh = 0
 )
@@ -249,7 +247,7 @@ bayesplot::mcmc_trace(
 )
 
 # MCMC diagnostics
-summary(m_slope)$stan_summary |>
+summary(m_slope) |>
   head()
 
 # Look for:
@@ -293,8 +291,10 @@ pp_check(
 
 # Leave-one-observation-out cross-validation
 loo_int <- loo(m_int)
+loo_int
 
 loo_slope <- loo(m_slope)
+loo_slope
 
 # Compare expected predictive performance
 loo_compare(
