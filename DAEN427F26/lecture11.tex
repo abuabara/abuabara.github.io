@@ -65,6 +65,8 @@
   $Y$ = daily rides, $X$ = temperature (feels-like, $^\circ$F), $n=500$ days.
 \end{frame}
 
+{
+\setbeamercolor{background canvas}{bg=green!10}
 %--------------------------------------------------------------
 \section{Q1: Is the model fair?}
 
@@ -92,7 +94,10 @@
     Which of the four fairness questions would have caught each of these problems earlier?
   \end{exampleblock}
 \end{frame}
+}
 
+{
+\setbeamercolor{background canvas}{bg=orange!10}
 %--------------------------------------------------------------
 \section{Q2: How wrong is the model?}
 
@@ -129,7 +134,8 @@
       Y_1^{(N)}&\cdots&Y_{500}^{(N)}
     \end{bmatrix}
   \]
-  \textbf{Rows} = simulated datasets (used here). \textbf{Columns} = posterior predictive model for one day (used later).
+  \textbf{Rows} = simulated datasets (used here).\par
+  \textbf{Columns} = posterior predictive model for one day (used later).
 \end{frame}
 
 \begin{frame}[fragile]{Posterior predictive check in R}
@@ -147,7 +153,8 @@ library(bayesrules); library(rstanarm); library(bayesplot)
 pp_check(bike_model, nreps = 50) + xlab("rides")
 \end{lstlisting}
   \begin{itemize}
-    \item \textbf{Dark curve} $y$: the observed data. \textbf{Light curves} $y_{rep}$: simulated datasets.
+    \item \textbf{Dark curve} $y$: the observed data.\par
+    \textbf{Light curves} $y_{rep}$: simulated datasets.
     \item \textbf{Bikes result:} center and range are captured, but most simulations miss the \textbf{bimodality}. Not a bad model, just one that could be \emph{less wrong}.
   \end{itemize}
 \end{frame}
@@ -192,7 +199,10 @@ pp_check(bike_model, nreps = 50) + xlab("rides")
   \]
   \textbf{Example:} $Y$ is right-skewed and its spread grows with $X$. After $\log(Y)$, the relationship is linear, the spread is constant, and the \texttt{pp\_check()} looks right.
 \end{frame}
+}
 
+{
+\setbeamercolor{background canvas}{bg=red!10}
 %--------------------------------------------------------------
 \section{Q3: How accurate are the predictions?}
 
@@ -282,6 +292,7 @@ prediction_summary(bike_model, data = bikes)
   \end{center}
   Typically, ridership is about 990 rides (0.77 sd) from its prediction. 43.8\% of days fall in their 50\% interval and 96.8\% in their 95\% interval. Is 990 good enough? \textbf{It depends on context} (ask Capital Bikeshare).
 \end{frame}
+}
 
 %--------------------------------------------------------------
 \begin{frame}{The problem: testing on the data you trained on}
@@ -578,15 +589,18 @@ loo_compare(loo(complete_pool), loo(no_pool), loo(hier_model))
     \vspace{0.6em}
     \item Why is a single ELPD value hard to interpret, and what is it best used for?
     \vspace{0.6em}
-    \item In 10-fold CV with $n=500$, how many models are trained and how many points are in each training set?
-    \vspace{0.6em}
+%    \item In 10-fold CV with $n=500$, how many models are trained and how many points are in each training set?
+%    \vspace{0.6em}
     \item In a Normal hierarchical model, a group has $n_j=3$ observations. Will its estimate be shrunk more or less than a group with $n_j=300$?
     \vspace{0.6em}
     \item When evaluating a hierarchical model, why evaluate ``new group'' prediction separately from ``existing group'' prediction?
   \end{enumerate}
 \end{frame}
 
+{
+\setbeamercolor{background canvas}{bg=gray!20}
 \begin{frame}{Quick Answers (1/2)}
+\small
   \begin{enumerate}
     \item \textbf{Fair? Wrong? Accurate?} (data/context/ethics; assumptions via posterior predictive check; predictive accuracy of the posterior predictive models).
     \item Dark curve: the observed data $y$. Each light curve: one dataset $y_{rep}$ simulated from the posterior model at one parameter draw.
@@ -596,14 +610,16 @@ loo_compare(loo(complete_pool), loo(no_pool), loo(hier_model))
 \end{frame}
 
 \begin{frame}{Quick Answers (2/2)}
+\small
   \begin{enumerate}
     \setcounter{enumi}{4}
     \item The 95\% prediction intervals are too narrow: only 70\% of observations fall inside, instead of about 95\%. The model is overconfident, so assumptions (e.g.\ variance or shape) may be wrong.
     \item The ELPD scale depends on the data and model, so no universal ``good'' value exists. Use it to \textbf{compare models} fit to the same data; higher is better.
-    \item 10 models; each trained on $9/10\cdot 500=450$ points and tested on 50.
+%    \item 10 models; each trained on $9/10\cdot 500=450$ points and tested on 50.
     \item \textbf{More} shrinkage toward the global mean, since little data about that group means the weight $w_j$ on its own sample mean is small.
     \item Predicting a new group also requires uncertainty about the group mean ($\sigma_\mu$), so it is harder and has wider intervals. Accuracy for existing groups can look good while generalization to new groups is poor.
   \end{enumerate}
 \end{frame}
+}
 
 \end{document}
