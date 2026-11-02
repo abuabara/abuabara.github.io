@@ -104,16 +104,10 @@ m_int <- stan_glmer(
   prior = normal(2.5, 1),
   
   prior_aux = exponential(
-    1,
-    autoscale = TRUE
+    1, # autoscale = TRUE
   ),
   
-  prior_covariance = decov(
-    reg = 1,
-    conc = 1,
-    shape = 1,
-    scale = 1
-  ),
+  # prior_covariance = decov(reg = 1, conc = 1, shape = 1, scale = 1),
   
   chains = 2,
   iter = 1000,
@@ -164,18 +158,10 @@ m_prior <- update(
 )
 
 # Prior predictive distribution
-pp_check(
-  m_prior,
-  plotfun = "dens_overlay",
-  nsamples = 30
-)
+pp_check(m_prior, plotfun = "dens_overlay")
 
 # Posterior predictive distribution
-pp_check(
-  m_int,
-  plotfun = "dens_overlay",
-  nsamples = 30
-)
+pp_check(m_int, plotfun = "dens_overlay")
 
 # Questions:
 # 1. Are the simulated race times plausible?
@@ -261,29 +247,15 @@ summary(m_slope) |>
 # ============================================================
 
 # Varying-intercept model
-pp_check(
-  m_int,
-  nsamples = 40
-)
+pp_check(m_int)
 
 # Varying-intercept and varying-slope model
-pp_check(
-  m_slope,
-  nsamples = 40
-)
+pp_check(m_slope)
 
 # Compare posterior predictive distributions
-pp_check(
-  m_int,
-  plotfun = "dens_overlay",
-  nsamples = 40
-)
+pp_check(m_int, plotfun = "dens_overlay")
 
-pp_check(
-  m_slope,
-  plotfun = "dens_overlay",
-  nsamples = 40
-)
+pp_check(m_slope, plotfun = "dens_overlay")
 
 # ============================================================
 # 7. EVALUATE — MODEL COMPARISON
@@ -297,10 +269,7 @@ loo_slope <- loo(m_slope)
 loo_slope
 
 # Compare expected predictive performance
-loo_compare(
-  loo_int,
-  loo_slope
-)
+loo_compare(loo_int, loo_slope)
 
 # Note:
 # These LOO calculations concern individual observations.
