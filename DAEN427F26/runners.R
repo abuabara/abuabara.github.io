@@ -54,8 +54,7 @@ ggplot(running, aes(x = age, y = net)) +
     title = "Age and Running Time",
     x = "Age (years)",
     y = "Net Race Time (minutes)"
-  ) +
-  theme_void()
+  ) #+ theme_void()
 
 # Examine each runner separately
 ggplot(running, aes(x = age, y = net)) +
@@ -138,10 +137,10 @@ head(ranef(m_int)$runner)
 head(coef(m_int)$runner)
 
 # Posterior intervals
-posterior_interval(
+head(posterior_interval(
   m_int,
   prob = 0.80
-)
+))
 
 # ============================================================
 # 3. UNDERSTAND — PRIOR PREDICTIVE CHECKS
