@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage{amsmath}
+\begin{document}
+
+\section*{Machine cycle times: from linear to hierarchical models}
+
+Let $Y_{ij}$ be the cycle time (seconds) of production run $i$ on machine $j$
+($j=1,\dots,24$), $X_{ij}$ the hours since the machine's last maintenance, and
+$N_{ij}=1$ if the run was on the night shift (0 for day). Machines are spread
+over three plants and have between 3 and 20 runs each.
+
+\subsection*{Synthetic data}
+The data were simulated as
+\begin{align*}
+Y_{ij} &= 60 + b_{0j} + (0.05 + b_{1j})\,X_{ij} + 1.5\,N_{ij} + \varepsilon_{ij}\\
+b_{0j} &\sim N(0,\ 4^2), \qquad b_{1j} \sim N(0,\ 0.02^2), \qquad
+\varepsilon_{ij} \sim N(0,\ 2^2)
+\end{align*}
+So every machine has its own baseline and wear rate, the night penalty is
+the same 1.5\,s for all machines, and there is no true plant effect.
+
+\subsection*{M1: Simple linear model (complete pooling)}
+\begin{align*}
+Y_{ij} \mid \beta_0,\beta_1,\sigma &\sim N(\beta_0 + \beta_1 X_{ij},\ \sigma^2)
+\end{align*}
+One line for every machine; only tool wear is used.
+
+\subsection*{M2: Multiple linear model (still pooled)}
+\begin{align*}
+Y_{ij} \mid \beta,\sigma &\sim N(\beta_0 + \beta_1 X_{ij} + \beta_2 N_{ij}
+  + \beta_3\,\text{PlantB}_j + \beta_4\,\text{PlantC}_j,\ \sigma^2)
+\end{align*}
+Adds shift and plant, but machines within a plant are still treated as identical.
+
+\subsection*{M3: Categorical machine (no pooling of intercepts)}
+\begin{align*}
+Y_{ij} \mid \beta_{0j},\beta_1,\beta_2,\sigma &\sim
+  N(\beta_{0j} + \beta_1 X_{ij} + \beta_2 N_{ij},\ \sigma^2)\\
+\beta_{0j} &\sim N(\cdot,\cdot) \ \text{independently for each } j
+\end{align*}
+Each machine gets its own baseline (23 dummy variables); machines share nothing.
+
+\subsection*{M4: Hierarchical, varying intercepts (partial pooling)}
+\begin{align*}
+Y_{ij} \mid \beta_{0j},\beta_1,\beta_2,\sigma &\sim
+  N(\beta_{0j} + \beta_1 X_{ij} + \beta_2 N_{ij},\ \sigma^2)
+  && \text{(within machine)}\\
+\beta_{0j} \mid \beta_0,\sigma_0 &\sim N(\beta_0,\ \sigma_0^2)
+  && \text{(between machines)}\\
+\beta_0,\ \beta_1,\ \beta_2 \sim N(\cdot,\cdot), \quad \sigma &\sim \text{Exp}(\cdot), \quad
+\sigma_0 \sim \text{Exp}(1)
+\end{align*}
+Machine baselines come from a common population, so each is pulled
+(shrunk) toward $\beta_0$; machines with few runs are pulled the most.
+
+\subsection*{M5: Hierarchical, varying shift effect}
+\begin{align*}
+Y_{ij} \mid \beta_{0j},\beta_1,\beta_{2j},\sigma &\sim
+  N(\beta_{0j} + \beta_1 X_{ij} + \beta_{2j} N_{ij},\ \sigma^2)\\
+\begin{pmatrix}\beta_{0j}\\ \beta_{2j}\end{pmatrix} &\sim
+  N\!\left(\begin{pmatrix}\beta_0\\ \beta_2\end{pmatrix},\ \Sigma\right)
+\end{align*}
+Each machine also gets its own night-shift penalty. In the R code
+\texttt{(shift | machine)} has no fixed \texttt{shift} term, so there
+$\beta_2 = 0$ and the night penalties are centred on zero.
+
+\subsection*{Model comparison (leave-one-out ELPD; higher is better)}
+\begin{tabular}{lrr}
+\hline
+Model & ELPD diff & SE diff \\
+\hline
+M4 Hierarchical, varying intercepts & 0.0 & 0.0 \\
+M3 Categorical machine & $-0.9$ & 1.4 \\
+Linear: hours + shift & $-130.3$ & 12.0 \\
+\hline
+M4 Hierarchical, varying intercepts & 0.0 & 0.0 \\
+M5 Hierarchical, varying shift & $-2.7$ & 4.9 \\
+\hline
+\end{tabular}
+
+\subsection*{Reading the results}
+\begin{itemize}
+  \item The pooled linear model ignores the 4\,s spread between machines and
+        loses decisively ($-130.3$, about 10 standard errors).
+  \item M3 and M4 both capture machine differences and predict about equally
+        well. M4 does it with one variance parameter, $\sigma_0$, instead of
+        23 dummies, and can predict a \emph{new} machine; M3 cannot.
+  \item M5 adds machine-specific night penalties that do not exist in the
+        data, so the extra parameters fit noise. Shrinkage keeps the cost
+        small ($-2.7$, within one standard error), and the simpler M4 is
+        preferred.
+\end{itemize}
+
+\end{document}
