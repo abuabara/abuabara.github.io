@@ -201,13 +201,91 @@ pp_check(bike_model, nreps = 50) + xlab("rides")
 \end{frame}
 }
 
+\begin{frame}{What is RMSE?}
+  \begin{itemize}
+    \item How far, on average, predictions are from the actual values
+    \item Expressed in the \textbf{same units} as the outcome variable
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Formula}
+  \[
+    \text{RMSE} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}\left(y_i - \hat{y}_i\right)^2}
+  \]
+  \vspace{1em}
+  \begin{enumerate}
+    \item Compute each residual: $y_i - \hat{y}_i$
+    \item Square it
+    \item Average the squares
+    \item Take the square root
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Interpretation}
+  \begin{itemize}
+    \item Example: predicting house prices, RMSE $= 25{,}000$\\
+          $\Rightarrow$ a typical prediction misses by about \$25k
+    \item Lower is better; RMSE $= 0$ is a perfect fit
+    \item Squaring means large errors weigh more\\
+          $\Rightarrow$ sensitive to outliers
+    \item RMSE $\gg$ MAE (median absolute error) suggests a few large misses
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cautions}
+  \begin{itemize}
+    \item Scale-dependent: compare models only on the \textbf{same outcome}
+    \item Judge size in context, e.g.\ against $\text{SD}(y)$ or with $R^2$
+    \item Training RMSE is optimistic\\
+          $\Rightarrow$ test RMSE $\gg$ training RMSE signals overfitting
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{RMSE vs.\ Residual Standard Error}
+  \begin{itemize}
+    \item R \texttt{lm()} reports the \textit{residual standard error}
+    \item It divides by $n - p$ instead of $n$:
+  \end{itemize}
+  \[
+    \text{RSE} = \sqrt{\frac{1}{n-p}\sum_{i=1}^{n}\left(y_i - \hat{y}_i\right)^2}
+  \]
+  \begin{itemize}
+    \item Slightly larger than raw RMSE
+  \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Computing RMSE}
+  \textbf{R}
+\begin{lstlisting}
+sqrt(mean((y - y_hat)^2))
+\end{lstlisting}
+  \vspace{1em}
+  \textbf{Python}
+\begin{lstlisting}
+import numpy as np
+np.sqrt(np.mean((y - y_hat)**2))
+
+from sklearn.metrics import root_mean_squared_error
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Bayesian Note}
+  \begin{itemize}
+    \item Compute RMSE for each posterior draw\\
+          $\Rightarrow$ a distribution of RMSE values
+    \item For model comparison, ELPD / LOO is usually more informative
+    \item Tools: \texttt{loo} (R), ArviZ (Python)
+  \end{itemize}
+\end{frame}
+
 {
 \setbeamercolor{background canvas}{bg=red!10}
 %--------------------------------------------------------------
-\section{Q3: How accurate are the predictions?}
+%\section{Q3: How accurate are the predictions?}
 
 \begin{frame}{Question 3: How accurate are the posterior predictions?}
-  A good model \textbf{generalizes} beyond the data used to build it. Three tools, from simplest to most technical:
+  A good model \textbf{generalizes} beyond the data used to build it.\\
+  Three tools, from simplest to most technical:
   \begin{enumerate}
     \item Posterior predictive summaries (MAE, scaled MAE, within-50/95)
     \item Cross-validation (honest, out-of-sample versions of the same summaries)
@@ -250,7 +328,7 @@ predict_75 <- bike_model_df %>%
     \bottomrule
   \end{tabular}
   \end{center}
-  \begin{alertblock}{Takeaway}
+  \begin{alertblock}{}
     The same absolute error is far more damning when the model claimed to be confident. Scaling by the posterior sd accounts for the model's \emph{own} stated uncertainty. As a rule of thumb, $|{\rm scaled\ error}|>2$ or $3$ signals a poor prediction (for roughly symmetric posteriors).
   \end{alertblock}
 \end{frame}
