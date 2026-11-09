@@ -135,6 +135,8 @@ library(tidyverse)
 data(spotify)
 glimpse(spotify)
 
+hist(spotify$popularity)
+
 dat <- spotify %>%
   select(y = popularity, group = artist) %>%
   mutate(group = factor(group))
@@ -219,14 +221,3 @@ prediction_summary_cv(model = hier_model, data = dat,
 
 # ELPD (LOO) to compare pooling strategies
 loo_compare(loo(complete_pool), loo(no_pool), loo(hier_model))
-
-# --- Shrinkage worked example: three classrooms ---
-mu_global <- 75
-sig_y     <- 10
-sig_mu    <- 5
-classrooms <- tibble(classroom = c("A", "B", "C"),
-                     n_j = c(4, 25, 100),
-                     ybar_j = 90) %>%
-  mutate(w_j = (n_j / sig_y^2) / (n_j / sig_y^2 + 1 / sig_mu^2),
-         mu_hat_j = w_j * ybar_j + (1 - w_j) * mu_global)
-classrooms
