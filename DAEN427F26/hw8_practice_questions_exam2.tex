@@ -1,0 +1,1289 @@
+\documentclass[aspectratio=43,11pt]{beamer}
+\usetheme{default}
+\usecolortheme{default}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+\usepackage{amsmath,amssymb,booktabs}
+
+\title{Decision and Risk Analysis}
+\subtitle{\textbf{Practice Questions for Exam 2}}
+\author{}
+\date{
+\color{aggiemaroon}{
+DAEN 427 / ISEN 427 / ISEN 627 - Fall 2026\\
+\textbf{Alexander Abuabara}
+}
+}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\newcommand{\divider}[2]{%
+  \begin{frame}
+    \centering
+    {\Large #1}\\[0.6em]
+    {\normalsize #2}
+  \end{frame}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{}
+  \begin{itemize}
+  \item Conceptual questions
+  \item Open questions (for more understanding)
+  \item Calculations (really short hand calculations)
+  \item \textbf{Answers are at the end.}
+  \end{itemize}
+\end{frame}
+
+%==================================================
+\divider{Chapter 6}{Approximating the Posterior}
+
+\begin{frame}{Question 6.1}
+  For each MCMC diagnostic, say in plain words \textbf{what question it
+  answers} and \textbf{what a good result looks like}.
+  \vspace{0.6em}
+  \begin{enumerate}
+    \item Trace plot
+    \item Density plots of the parallel chains, overlaid
+    \item Effective sample size ratio $N_{\text{eff}}/N$
+    \item $\hat R$
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Question 6.2}
+  A grid of 101 values approximates the Beta(11, 3) posterior almost
+  perfectly, while a 6-point grid only produced draws at 0.4, 0.6 and 0.8.
+  \vspace{0.6em}
+
+  \textbf{(a)} Why was the 6-point grid so poor? \\[0.3em]
+  \textbf{(b)} If we keep 101 grid values \emph{per parameter}, how many
+  posterior evaluations would a 3-parameter model need? A 10-parameter
+  model? \\[0.3em]
+  \textbf{(c)} What does this suggest about when to use MCMC instead?
+\end{frame}
+
+\begin{frame}{Question 6.3}
+  Unlike grid approximation, MCMC draws are \emph{dependent}
+  (each depends on the previous one) and are \emph{not} drawn directly
+  from the posterior.
+  \vspace{0.6em}
+
+  \textbf{Why can we still use a Markov chain sample to estimate the
+  posterior mean or a credible interval? What role does running the
+  chain longer (and discarding burn-in) play?}
+\end{frame}
+
+\begin{frame}{Question 6.4}
+  You run 4 parallel chains. Each trace plot, viewed \emph{alone}, looks
+  like stable white noise. But chains 1--2 hover around $\theta \approx 0.3$
+  and chains 3--4 hover around $\theta \approx 0.7$.
+  \vspace{0.6em}
+
+  \textbf{Would $\hat R$ be close to 1? Why do single-chain checks miss this
+  problem, and what should you do?}
+\end{frame}
+
+\begin{frame}{Question 6.5}
+  To ``reduce autocorrelation,'' a colleague keeps every 10th draw,
+  cutting a fast-mixing \texttt{rstan} sample from 20{,}000 to 2{,}000 values.
+  \vspace{0.6em}
+
+  \textbf{Is this a good idea? What is being traded off, and when (if ever)
+  is thinning worth it?}
+\end{frame}
+
+%==================================================
+\begin{frame}{Question 6.6}
+%  $Y \mid \pi \sim \text{Bin}(2, \pi)$, we observe $Y = 2$, and the prior is
+%  Beta(2, 2), so $f(\pi) \propto \pi(1-\pi)$.
+%  Use the grid $\pi \in \{0.25,\ 0.50,\ 0.75\}$.
+%  \vspace{0.6em}
+%
+%  \textbf{(a)} At each grid value compute prior $\times$ likelihood
+%  (up to a constant: $\pi(1-\pi) \cdot \pi^2$). \\[0.3em]
+%  \textbf{(b)} Normalize to get the grid posterior probabilities. \\[0.3em]
+%  \textbf{(c)} Compute the grid posterior mean and compare with the exact
+%  posterior Beta(4, 2), mean $4/6$. Why do they differ?
+%\end{frame}
+
+  $Y \mid \pi \sim \text{Bin}(2, \pi)$, we observe $Y = 2$, and the prior is
+  Beta(2, 2), so $f(\pi) \propto \pi(1-\pi)$.
+  Use the grid $\pi \in \{0.25,\ 0.50,\ 0.75\}$.
+  \vspace{0.6em}
+ 
+  \textbf{(a)} At each grid value compute prior $\times$ likelihood.\\[0.3em]
+  \textbf{(b)} Normalize to get the grid posterior probabilities. \\[0.3em]
+  \textbf{(c)} Compute the grid posterior mean and compare with the exact
+  posterior Beta(4, 2), mean $4/6$. Why do they differ?
+  
+  \vspace{.5cm}  
+  \footnotesize You may drop constant factors (the 6 in the Beta(2, 2) density) that are the same for every $\pi$, so use $\pi(1-\pi) \cdot \pi^2$. % 
+\end{frame}
+
+\begin{frame}
+\footnotesize 
+\begin{align*}
+\text{Prior: } & f(\pi) = 6\,\pi^{2-1}(1-\pi)^{2-1} \propto \pi(1-\pi) \\
+\text{Likelihood: } & L(\pi \mid y=2) = \binom{2}{2}\pi^{2}(1-\pi)^{0} = \pi^{2} \\
+\text{Posterior: } & f(\pi \mid y) \propto \pi(1-\pi)\cdot\pi^{2}
+  = \pi^{3}(1-\pi) = \pi^{4-1}(1-\pi)^{2-1}\\
+  & \;\Rightarrow\; \pi \mid y \sim \text{Beta}(4,2)
+\end{align*}
+\end{frame}
+
+\begin{frame}{Question 6.7}
+  You run 4 chains with 5{,}000 draws each (after burn-in).
+  The variance of all draws combined is 0.09, and the typical
+  variance within a single chain is 0.04. Compute
+  $\hat R \approx \sqrt{\text{Var}_{\text{combined}} /
+  \text{Var}_{\text{within}}}$ and interpret it.
+\end{frame}
+
+%==================================================
+\divider{Chapter 7}{MCMC under the Hood}
+
+\begin{frame}{Question 7.1}
+  \textbf{(a)} Name the two steps of every Metropolis-Hastings iteration.
+  \\[0.3em]
+  \textbf{(b)} If the proposal is rejected, what is the chain's next
+  value? Does that value count as a draw? \\[0.3em]
+  \textbf{(c)} Why do these repeated values matter for getting the
+  posterior right?
+\end{frame}
+
+\begin{frame}{Question 7.2}
+  In the Normal-Normal example (posterior $\mu \mid y \sim N(4, 0.6^2)$),
+  the Metropolis algorithm sometimes \emph{accepts} a proposal that is
+  less plausible than the current value.
+  \vspace{0.6em}
+
+  \textbf{Why is that necessary? Describe the sample you would get from a
+  rule that only accepts moves to more plausible values.}
+\end{frame}
+
+\begin{frame}{Question 7.3}
+  The acceptance probability uses the \emph{unnormalized} posterior
+  $f(\mu)L(\mu \mid y)$, not $f(\mu \mid y)$.
+  \vspace{0.6em}
+
+  \textbf{Why is this enough? And why is this the key reason MCMC works
+  for models where grid approximation and exact formulas fail?}
+\end{frame}
+
+\begin{frame}{Question 7.4}
+  Uniform proposal $\mu' \sim \text{Unif}(\mu - w,\ \mu + w)$.
+  Compare $w = 0.01$, $w = 1$ and $w = 100$.
+  \vspace{0.6em}
+
+  \textbf{(a)} Which has the highest acceptance rate? \\[0.3em]
+  \textbf{(b)} Sketch / describe the trace plot for $w = 0.01$ and
+  $w = 100$. \\[0.3em]
+  \textbf{(c)} Why is a very high acceptance rate \emph{not} a sign of a good
+  chain?
+\end{frame}
+
+\begin{frame}{Question 7.5}
+  For $\pi \in (0,1)$ we use an independence sampler: every proposal
+  comes from the same Beta$(a,b)$ model, regardless of the current $\pi$.
+  The acceptance probability is
+  \[
+    \alpha = \min\left\{1,\
+      \frac{f(\pi' \mid y)}{f(\pi \mid y)} \cdot
+      \frac{q(\pi)}{q(\pi')}\right\}.
+  \]
+  \textbf{(a)} Why is the correction $q(\pi)/q(\pi')$ needed if we propose
+  from, say, Beta(5, 1)? \\[0.3em]
+  \textbf{(b)} What happens to the correction with a Beta(1, 1) proposal?
+\end{frame}
+
+%\begin{frame}{Question 7.6}
+%  Posterior: $\mu \mid y \sim N(4, 0.6^2)$, symmetric Uniform proposals
+%  $\mu' \sim \text{Unif}(\mu - 2,\ \mu + 2)$, i.e.\ $w = 2$.
+%  \vspace{0.6em}
+%
+%  \textbf{(a)} Compute $\alpha$ for a move from $\mu = 4$ to $\mu' = 5.2$,
+%  and for the reverse move from $5.2$ to $4$. \\[0.3em]
+%  \textbf{(b)} How does the ratio of these two move probabilities explain
+%  why the chain ends up visiting values in proportion to the posterior?
+%  
+%\end{frame}
+%
+%\begin{frame}{Formulas for question 7.6}
+%\footnotesize
+%\begin{align*}
+%\text{Posterior (kernel): } & f(\mu \mid y) \propto
+%  \exp\!\left(-\frac{(\mu-4)^2}{2(0.6)^2}\right) \\[4pt]
+%\text{Acceptance (symmetric proposal): } & \alpha =
+%  \min\left\{1,\ \frac{f(\mu' \mid y)}{f(\mu \mid y)}\right\} \\[4pt]
+%\text{Ratio for the Normal: } & \frac{f(\mu' \mid y)}{f(\mu \mid y)} =
+%  \exp\!\left(-\frac{(\mu'-4)^2-(\mu-4)^2}{2(0.6)^2}\right) \\[4pt]
+%\text{Decision: } & \text{draw } U \sim \text{Unif}(0,1);\\
+%  & \text{next value} =
+%  \begin{cases} \mu' & \text{if } U < \alpha \\ \mu & \text{otherwise} \end{cases}
+%\end{align*}
+%  
+%\end{frame}
+
+\begin{frame}{Question 7.6}
+  The posterior is $\mu \mid y \sim N(0,\ 1)$: most
+  plausible at $\mu = 0$. Metropolis proposes
+  $\mu' \sim \text{Unif}(\mu - 3,\ \mu + 3)$ (symmetric), then accepts it
+  with probability $\alpha$.
+  \vspace{0.5em}
+
+  \textbf{(a)} The chain is at $\mu = 0$ (the peak) and proposes
+  $\mu' = 2$. Is 2 more or less plausible than 0? Compute $\alpha$.
+  \\[0.3em]
+  \textbf{(b)} The chain is at $\mu = 2$ and proposes $\mu' = 0$.
+  Compute $\alpha$ \emph{without} a calculator. Why?
+  \\[0.3em]
+  \textbf{(c)} Out of 100 times the chain proposes these moves, about how
+  many times will it actually move $0 \to 2$? And $2 \to 0$?
+  What does that say about how often the chain visits 2 relative to 0?
+  \vspace{0.3em}
+
+  \footnotesize Formulas on the next slide.
+\end{frame}
+
+\begin{frame}{Formulas (for Question 7.6)}
+  \footnotesize
+  \begin{align*}
+  \text{Posterior (kernel): } & f(\mu \mid y) \propto
+    \exp\!\left(-\frac{\mu^2}{2}\right) \\[4pt]
+  \text{Ratio: } &
+    \frac{f(\mu' \mid y)}{f(\mu \mid y)} =
+    \exp\!\left(-\frac{\mu'^2-\mu^2}{2}\right) \\[4pt]
+  \text{Acceptance (symmetric): } & \alpha =
+    \min\left\{1,\ \frac{f(\mu' \mid y)}{f(\mu \mid y)}\right\} \\[4pt]
+  \text{Useful value: } & e^{-2} \approx 0.135
+  \end{align*}
+  \vspace{0.3em}
+  \textbf{Rule of thumb:} moving to a \emph{more} plausible value is
+  always accepted ($\alpha = 1$); moving to a \emph{less} plausible value
+  is accepted with probability equal to the plausibility ratio.
+\end{frame}
+
+%==================================================
+\begin{frame}{Question 7.7}
+  Posterior: $\mu \mid y \sim N(4, 0.6^2)$, so
+  $f(\mu \mid y) \propto \exp\!\left(-\dfrac{(\mu - 4)^2}{2(0.36)}\right)$.
+  Symmetric Uniform proposals.
+  \vspace{0.6em}
+
+  The chain is at $\mu = 3.7$ and proposes $\mu' = 4.9$.
+  \vspace{0.3em}
+
+  \textbf{(a)} Compute the acceptance probability $\alpha$
+  (hint: $e^{-1} \approx 0.368$). \\[0.3em]
+  \textbf{(b)} To decide, we draw $U \sim \text{Unif}(0,1)$ and accept if
+  $U < \alpha$. What is the next value if $U = 0.50$? If $U = 0.20$? \\[0.3em]
+  \textbf{(c)} What would $\alpha$ be for the reverse move, $4.9 \to 3.7$?
+\end{frame}
+
+%\begin{frame}{Question 7.8}
+%  Posterior Beta(3, 4): $f(\pi \mid y) \propto \pi^2 (1-\pi)^3$. \\
+%  Proposal Beta(2, 1): $q(\pi) = 2\pi$ (proposes large $\pi$ more often).
+%  \vspace{0.4em}
+%
+%  Current $\pi = 0.5$, proposal $\pi' = 0.25$.
+%  \vspace{0.4em}
+%
+%  \textbf{(a)} Compute the posterior ratio $f(\pi' \mid y)/f(\pi \mid y)$.
+%  \\[0.3em]
+%  \textbf{(b)} Compute the correction $q(\pi)/q(\pi')$ and the acceptance
+%  probability $\alpha$. \\[0.3em]
+%  \textbf{(c)} The correction \emph{raised} $\alpha$. Explain why, in terms
+%  of how often Beta(2, 1) proposes values like 0.25.
+%\end{frame}
+
+%==================================================
+\divider{Chapter 8}{Posterior Inference \& Prediction}
+
+\begin{frame}{Question 8.1}
+  MoMA example: $\pi$ = proportion of artists who are Gen X or younger.
+  Label each question as \textbf{estimation}, \textbf{hypothesis testing},
+  or \textbf{prediction}:
+  \vspace{0.6em}
+  \begin{enumerate}
+    \item What is a plausible range for $\pi$?
+    \item Is $\pi$ below 0.20?
+    \item How many of the next 20 artworks will be by Gen X artists?
+    \item Is the typical value of $\pi$ closer to 0.15 or 0.30?
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Question 8.2}
+  The middle 95\% credible interval for $\pi$ is $(0.10,\ 0.24)$.
+  \vspace{0.6em}
+
+  \textbf{(a)} Will the middle 99\% interval be wider or narrower? The
+  middle 50\%? \\[0.3em]
+  \textbf{(b)} Which credible level is the ``correct'' one to report?
+\end{frame}
+
+\begin{frame}{Question 8.3}
+  MoMA example: prior Beta(4, 6), $Y = 14$ of $n = 100$ artists are Gen X
+  or younger $\Rightarrow$ posterior Beta(18, 92). The middle 95\% credible
+  interval for $\pi$ is $(0.10,\ 0.24)$.
+  \vspace{0.6em}
+
+  A student says: \emph{``If we repeated the study many times, 95\% of such
+  intervals would contain $\pi$.''}
+  \vspace{0.4em}
+
+  \textbf{Is this the Bayesian interpretation? State it correctly. When
+  would a highest posterior density interval differ from this one?}
+\end{frame}
+
+\begin{frame}{Question 8.4}
+  Testing $H_a: \pi < 0.2$:
+  \vspace{0.3em}
+  \begin{center}
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    & Prior & Posterior \\
+    \midrule
+    $P(H_a)$ & 0.086 & 0.849 \\
+    Odds & 0.094 & 5.62 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  Bayes factor $\approx 60$.
+  \vspace{0.6em}
+
+  \textbf{What does each number measure? Why can the Bayes factor be huge
+  while the posterior probability is ``only'' 0.85?}
+\end{frame}
+
+\begin{frame}{Question 8.5}
+  We want to test $H_0: \pi = 0.3$ vs.\ $H_a: \pi \neq 0.3$.
+  \vspace{0.6em}
+
+  \textbf{(a)} Why can't we compute $P(H_0 \mid y)$ or a Bayes factor
+  directly? \\[0.3em]
+  \textbf{(b)} What is the practical workaround, and what does it conclude
+  here? \\[0.3em]
+  \textbf{(c)} Why should that workaround be set \emph{before} seeing the
+  data?
+\end{frame}
+
+\begin{frame}{Question 8.6}
+  Predict $Y'$ = number of Gen X artists among 20 new works.
+  A student uses the posterior mean $\hat\pi = 0.164$ and reports
+  $Y' \sim \text{Bin}(20,\ 0.164)$.
+  \vspace{0.6em}
+
+  \textbf{(a)} Which source of variability is missing? \\[0.3em]
+  \textbf{(b)} Will the student's predictions be too narrow or too wide? \\[0.3em]
+  \textbf{(c)} With MCMC, why do we simulate one $Y'_i \sim
+  \text{Bin}(20, \pi_i)$ per draw instead of using $20\,\pi_i$?
+\end{frame}
+
+\begin{frame}{Question 8.7}
+  For $H_0: \pi \geq 0.2$ vs.\ $H_a: \pi < 0.2$:
+  \begin{itemize}
+    \item Frequentist p-value $= P(Y \le 14 \mid \pi = 0.2) \approx 0.08$
+    \item Bayesian $P(H_a \mid Y = 14) \approx 0.849$
+  \end{itemize}
+  \vspace{0.4em}
+  A student concludes: \emph{``There is an 8\% chance that $H_0$ is true.''}
+  \vspace{0.6em}
+
+  \textbf{What is wrong? What is the probability of $H_0$ according to the
+  Bayesian analysis, and what does each method condition on?}
+\end{frame}
+
+%==================================================
+\begin{frame}{Question 8.8}
+  Prior $\pi \sim \text{Beta}(4, 6)$; data $Y = 14$ of $n = 100$.
+  \vspace{0.3em}
+
+  Recall: Beta$(\alpha, \beta)$ has mean $\dfrac{\alpha}{\alpha + \beta}$
+  and mode $\dfrac{\alpha - 1}{\alpha + \beta - 2}$.
+  \vspace{0.6em}
+
+  \textbf{(a)} What are the posterior parameters? \\[0.3em]
+  \textbf{(b)} Compute the posterior mean and mode. \\[0.3em]
+  \textbf{(c)} Compute $E(Y' \mid Y = 14)$, the expected number of Gen X
+  artists among 20 new works. Why can you get it without the full
+  posterior predictive model?
+\end{frame}
+
+\begin{frame}{Question 8.9}
+  Recall: odds $= \dfrac{p}{1 - p}$, \quad
+  BF $= \dfrac{\text{posterior odds}}{\text{prior odds}}$.
+  \vspace{0.6em}
+
+  \textbf{(a)} A hypothesis has prior probability 0.2 and posterior
+  probability 0.8. Compute the prior odds, posterior odds, and Bayes
+  factor. \\[0.3em]
+  \textbf{(b)} MoMA: prior odds of $H_a: \pi < 0.2$ are 0.094 and the
+  Bayes factor is 60. Compute the posterior odds and the posterior
+  probability $P(H_a \mid Y = 14)$.
+\end{frame}
+
+%==================================================
+\divider{Chapter 9}{Simple Normal Regression}
+
+\begin{frame}{Question 9.1}
+  Bike model: posterior median slope $\beta_1 \approx 82.2$,
+  80\% credible interval $(75.6,\ 88.8)$, and
+  $P(\beta_1 > 0 \mid \text{data}) \approx 1$.
+  \vspace{0.6em}
+
+  \textbf{(a)} Interpret $\beta_1$ in one sentence. \\[0.3em]
+  \textbf{(b)} Does this show that warmer weather \emph{causes} more
+  ridership? What else could be going on?
+\end{frame}
+
+\begin{frame}{Question 9.2}
+  Bike model: $Y_i \sim N(\beta_0 + \beta_1 X_i,\ \sigma^2)$,
+  $X$ = temperature ($^\circ$F). The posterior median line is
+  \[
+    \hat\mu = -2194 + 82.2\,X .
+  \]
+  \textbf{(a)} Should we worry that the model predicts $-2194$ rides? \\[0.3em]
+  \textbf{(b)} Why did we put the prior on the \emph{centered} intercept
+  $\beta_{0c}$ (rides at an average temperature) instead of $\beta_0$?
+\end{frame}
+
+\begin{frame}{Question 9.3}
+  From the posterior we get two 95\% intervals for 75$^\circ$F:
+  \begin{itemize}
+    \item Credible interval for the \emph{average} ridership on 75$^\circ$F
+      days: $(3843,\ 4095)$
+    \item Prediction interval for ridership on \emph{one} 75$^\circ$F day:
+      $(1500,\ 6482)$
+  \end{itemize}
+  \vspace{0.4em}
+  \textbf{(a)} Why is the second so much wider? \\[0.3em]
+  \textbf{(b)} A manager must decide how many bikes to stock for
+  tomorrow (75$^\circ$F). Which interval is relevant? \\[0.3em]
+  \textbf{(c)} With 50{,}000 days of data, what would happen to each?
+\end{frame}
+
+\begin{frame}{Question 9.4}
+  Data arrive in phases: 30 days, 60 days, then all 500 days.
+  After the first 30 days (all cold winter days), the posterior for
+  $\beta_1$ is still vague and does not reveal the warm-weather pattern.
+  By 500 days it is concentrated near 80.
+  \vspace{0.6em}
+
+  \textbf{Why are the first 30 days so uninformative about the slope,
+  even though 30 is not a tiny sample? What does this show about how a
+  posterior evolves?}
+\end{frame}
+
+%==================================================
+\begin{frame}{Question 9.5}
+  \textbf{(a)} Prior $\beta_1 \sim N(100, 40^2)$. Using mean $\pm$ 2 SD,
+  what range of slopes does the prior consider plausible? What does that
+  mean in rides? \\[0.3em]
+  \textbf{(b)} Prior $\sigma \sim \text{Exp}(0.0008)$. What is the prior
+  mean of $\sigma$? (Exp$(\lambda)$ has mean $1/\lambda$.) \\[0.3em]
+  \textbf{(c)} With the posterior median line $-2194 + 82.2X$: predict
+  ridership at 75$^\circ$F, and the expected difference between a
+  60$^\circ$F and a 70$^\circ$F day.
+\end{frame}
+
+\begin{frame}{Question 9.6}
+  Three posterior draws, each with a standard Normal value $z$:
+  \vspace{0.3em}
+  \begin{center}
+  \begin{tabular}{@{}ccccc@{}}
+    \toprule
+    Draw & $\beta_0$ & $\beta_1$ & $\sigma$ & $z$ \\
+    \midrule
+    1 & $-2200$ & 82 & 1300 & $\phantom{-}0.5$ \\
+    2 & $-2100$ & 81 & 1250 & $-1.0$ \\
+    3 & $-2300$ & 84 & 1280 & $\phantom{-}0.2$ \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \textbf{(a)} For each draw compute $\mu = \beta_0 + 75\beta_1$ and
+  $Y' = \mu + \sigma z$. \\[0.3em]
+  \textbf{(b)} Which set of values ($\mu$'s or $Y'$'s) builds the credible
+  interval for the \emph{average} 75$^\circ$F day, and which builds the
+  prediction interval? Which set is more spread out, and why?
+\end{frame}
+
+%==================================================
+\divider{Chapter 15}{Hierarchical Models}
+
+\begin{frame}{Question 15.1}
+  Which data sets are grouped (hierarchical)? Name the group, and say
+  why observations within a group are likely correlated.
+  \vspace{0.6em}
+  \begin{enumerate}
+    \item Test scores of students from 12 schools
+    \item Blood pressure measured monthly on 40 patients
+    \item One survey response from each of 500 randomly sampled adults
+    \item Daily high temperatures in 10 cities for a year
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Question 15.2}
+  Cherry Blossom data: 252 race times from 36 runners (50s--60s), each
+  observed in several years.
+  \vspace{0.3em}
+
+  Complete pooling (one regression of time on age): slope $\approx 0.27$
+  min/year, 80\% CI $(-0.30,\ 0.84)$. Yet nearly \emph{every} runner gets
+  slower with age, faster than this.
+  \vspace{0.6em}
+
+  \textbf{How can pooling all the data hide a trend that almost every
+  individual shows? Which assumption is violated?}
+\end{frame}
+
+\begin{frame}{Question 15.3}
+  A no-pooled model fits each runner separately. Runner 1 has only 5
+  races and improved over them; the model predicts a time under 75
+  minutes at age 62. The book considers 75--85 minutes more reasonable.
+  \vspace{0.6em}
+
+  \textbf{(a)} Why is the no-pooled prediction implausible? \\[0.3em]
+  \textbf{(b)} Why can't a no-pooled model predict anything for a new
+  runner (e.g.\ \emph{you})?
+\end{frame}
+
+\begin{frame}{Question 15.4}
+  Runner 29 is fast and very consistent; runner 17 is slow and highly
+  variable.
+  \vspace{0.6em}
+
+  \textbf{(a)} Distinguish \emph{within-group} and \emph{between-group}
+  variability using these runners. \\[0.3em]
+  \textbf{(b)} Why are a runner's own race times correlated? \\[0.3em]
+  \textbf{(c)} How does a hierarchical (partial pooling) model use both
+  kinds of variability to sit between the other two approaches?
+\end{frame}
+
+%==================================================
+\begin{frame}{Question 15.5}
+  Two runners, three races each:
+  \vspace{0.3em}
+  \begin{center}
+  \begin{tabular}{@{}lccc@{}}
+    \toprule
+    & Ages & Times (min) & \\
+    \midrule
+    Runner A & 55, 56, 57 & 80, 81, 82 & \\
+    Runner B & 60, 61, 62 & 70, 71, 72 & \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \textbf{(a)} No pooling: what is each runner's slope (min per year)? \\[0.3em]
+  \textbf{(b)} Complete pooling: compute the least-squares slope through
+  all 6 points,
+  $b = \dfrac{\sum (x_i - \bar x)(y_i - \bar y)}{\sum (x_i - \bar x)^2}$.
+  \\[0.3em]
+  \textbf{(c)} Explain the contradiction.
+\end{frame}
+
+\begin{frame}{Question 15.6}
+  A useful simplification: a hierarchical estimate for a runner is roughly
+  \[
+    w \times (\text{runner's own mean}) + (1 - w) \times (\text{overall mean}),
+    \quad 0 \le w \le 1 .
+  \]
+  Overall mean: 90 min. Runners X and Y both have own mean 80 min;
+  X ran 2 races, Y ran 10.
+  \vspace{0.4em}
+
+  \textbf{(a)} Compute the estimate with $w = 0.5$ and with $w = 0.9$.
+  \\[0.3em]
+  \textbf{(b)} Which $w$ fits X and which fits Y? Why? \\[0.3em]
+  \textbf{(c)} Which values of $w$ give complete pooling and no pooling?
+\end{frame}
+
+%==================================================
+\divider{Multiple Choice}{}
+
+\begin{frame}{MCQ 1}
+  You run 4 parallel chains. Which diagnostic most directly detects that
+  the chains are exploring \emph{different} regions of the posterior?
+  \vspace{0.6em}
+  \begin{enumerate}[(A)]
+    \item The effective sample size ratio $N_{\text{eff}}/N$
+    \item The autocorrelation plot of chain 1
+    \item $\hat R$
+    \item The trace plot of a single chain
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{MCQ 2}
+  Metropolis algorithm with a symmetric proposal. The unnormalized
+  posterior is $0.4$ at the current value and $0.1$ at the proposal.
+  What is the probability of accepting the proposal?
+  \vspace{0.6em}
+  \begin{enumerate}[(A)]
+    \item 0.10
+    \item 0.25
+    \item 0.40
+    \item 1 --- it cannot be computed without normalizing
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{MCQ 3}
+  Which statement about the 95\% posterior prediction interval for
+  ridership on a single 75$^\circ$F day is correct?
+  \vspace{0.6em}
+  \begin{enumerate}[(A)]
+    \item It is narrower than the 95\% credible interval for the
+      \emph{average} ridership on 75$^\circ$F days.
+    \item It reflects only uncertainty in $\beta_0$ and $\beta_1$.
+    \item It reflects both uncertainty in the parameters and day-to-day
+      variability around the regression line.
+    \item With enough data it shrinks to a single number.
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{MCQ 4}
+  Using the Cherry Blossom data, we want to predict race times for a
+  \emph{new} runner who is not in the sample. Which models can do this?
+  \vspace{0.6em}
+  \begin{enumerate}[(A)]
+    \item Only the no-pooled model
+    \item Only the complete-pooled model
+    \item The complete-pooled and hierarchical (partial pooling) models
+    \item All three models
+  \end{enumerate}
+\end{frame}
+
+%==================================================
+\divider{Answers}{}
+
+%---------------- Chapter 6 answers
+\begin{frame}{Answer 6.1}
+  \begin{enumerate}
+    \item \textbf{Trace plot:} is the chain wandering stably? Good: looks
+      like random noise around a stable level, with no trends or flat
+      stretches.
+    \item \textbf{Overlaid densities:} do the chains agree? Good: the
+      density curves nearly coincide.
+    \item \textbf{$N_{\text{eff}}/N$:} how many independent draws are our
+      dependent draws worth? Good: not too small (above $\approx 0.1$).
+    \item \textbf{$\hat R$:} is the variability across chains similar to the
+      variability within chains? Good: close to 1 (below $\approx 1.05$).
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Answer 6.2}
+  \textbf{(a)} The posterior can only put mass on grid points. With 6
+  points, values between them (e.g.\ 0.7--0.9, where Beta(11, 3) is
+  concentrated) can't be represented, so the approximation is crude.
+  \vspace{0.4em}
+
+  \textbf{(b)} $101^3 \approx 1.03$ million evaluations;
+  $101^{10} \approx 1.1 \times 10^{20}$. Impossible.
+  \vspace{0.4em}
+
+  \textbf{(c)} The \emph{curse of dimensionality}: grids waste effort on
+  implausible regions. MCMC spends its time where the posterior has mass,
+  so it scales to many parameters.
+\end{frame}
+
+\begin{frame}{Answer 6.3}
+  \begin{itemize}
+    \item The chain is built so that, in the long run, the
+      \emph{distribution of visited values} converges to the posterior.
+    \item Averages over the chain (mean, quantiles) therefore approximate
+      posterior quantities.
+    \item Dependence doesn't make the estimates wrong; it makes each draw
+      carry \emph{less information} (see effective sample size).
+    \item Longer chains: more information and time to settle.
+      Burn-in: discard early values that still reflect the arbitrary
+      starting point.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 6.4}
+  \textbf{No! $\hat R$ would be far above 1} (well past 1.05).
+  \begin{itemize}
+    \item $\hat R \approx \sqrt{\text{Var}_{\text{combined}} /
+      \text{Var}_{\text{within}}}$. The combined chains vary much more than
+      any single chain.
+    \item Each chain looks stable because it is stuck in its own region;
+      only \emph{comparing} chains reveals they disagree.
+    \item Action: don't trust the results. Run longer, use dispersed
+      starting values, and check the model (e.g.\ a multimodal or poorly
+      identified posterior).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 6.5}
+  \textbf{Usually not.}
+  \begin{itemize}
+    \item Thinning lowers autocorrelation but \emph{throws away}
+      information: 20,000 correlated draws generally beat 2,000 less
+      correlated ones.
+    \item The chain is already fast-mixing, so there is little to gain.
+    \item \texttt{rstan}/\texttt{rstanarm} (HMC) are efficient; their
+      authors advise thinning only when memory/storage is a problem.
+    \item To fix slow mixing, prefer running \emph{longer chains} (or
+      improving the model).
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 6.6}
+  \begin{center}
+  \begin{tabular}{@{}cccc@{}}
+    \toprule
+    $\pi$ & $\pi^3(1-\pi)$ & $\times 256$ & Posterior \\
+    \midrule
+    0.25 & 0.0117 & 3 & $3/46 \approx 0.065$ \\
+    0.50 & 0.0625 & 16 & $16/46 \approx 0.348$ \\
+    0.75 & 0.1055 & 27 & $27/46 \approx 0.587$ \\
+    \midrule
+    & & 46 & 1 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  
+%  \footnotesize
+%  Why $256$? Any positive constant works: it multiplies every value
+%  \emph{and} the total, so it cancels when we normalize (as does the 6 we
+%  dropped). $256 = 4^4$ just turns the values into whole numbers.
+%  \normalsize
+  
+  \textbf{(c)} Mean $= (0.25 \cdot 3 + 0.50 \cdot 16 + 0.75 \cdot 27)/46
+  = 29/46 \approx 0.630$, vs.\ exact $0.667$.
+  \vspace{0.3em}
+
+  The grid can't put mass above 0.75, where Beta(4, 2) still has a lot
+  of its mass (its mode is 0.75), so the coarse grid pulls the mean down.
+  A finer grid fixes this.
+\end{frame}
+
+\begin{frame}{Answer 6.7}
+  $\hat R \approx \sqrt{0.09/0.04} = \sqrt{2.25} = 1.5$.
+  Far above 1 (or even a upper limit of 1.05): the chains together vary much more than each one
+  alone, so they disagree. The simulation is unstable and its results
+  should not be trusted.
+\end{frame}
+
+%---------------- Chapter 7 answers
+\begin{frame}{Answer 7.1}
+  \textbf{(a)} (1) \emph{Propose} a new value from a proposal model.
+  (2) \emph{Decide}: accept it with probability $\alpha$, otherwise stay.
+  \vspace{0.4em}
+
+  \textbf{(b)} The chain stays put: the next value equals the current
+  value, and yes, it counts as a draw in the sample.
+  \vspace{0.4em}
+
+  \textbf{(c)} Repeats are how the chain gives more weight to plausible
+  values: it ``lingers'' where the posterior is high. Dropping the
+  repeats would over-represent less plausible values and distort the
+  approximation.
+\end{frame}
+
+\begin{frame}{Answer 7.2}
+  \begin{itemize}
+    \item The goal is not to \emph{find} the most plausible value but to
+      visit every value \emph{in proportion to} its plausibility.
+    \item Less plausible regions (the tails) must be visited sometimes,
+      just less often. Accepting with probability equal to the
+      plausibility ratio does exactly that.
+    \item An ``uphill only'' rule acts like an optimizer: the chain climbs
+      to $\mu \approx 4$ and stays there. The sample has almost no spread,
+      so credible intervals would be far too narrow.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 7.3}
+  \begin{itemize}
+    \item $\alpha$ depends only on a \emph{ratio}:
+    \[
+      \frac{f(\mu' \mid y)}{f(\mu \mid y)}
+      = \frac{f(\mu')L(\mu' \mid y)/f(y)}{f(\mu)L(\mu \mid y)/f(y)}
+      = \frac{f(\mu')L(\mu' \mid y)}{f(\mu)L(\mu \mid y)}.
+    \]
+      The normalizing constant $f(y)$ cancels.
+    \item $f(y)$ is the hard part: a (multiple) integral over all
+      parameters. Prior $\times$ likelihood is easy to evaluate at any
+      point.
+    \item So MCMC needs only what we can always compute, even in models
+      with many parameters.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 7.4}
+  \textbf{(a)} $w = 0.01$: proposals are nearly identical to the current
+  value, so almost all are accepted.
+  \vspace{0.4em}
+
+  \textbf{(b)} $w = 0.01$: a slowly wandering, smooth trace that explores
+  only a small region (high autocorrelation). $w = 100$: long flat
+  stretches where the chain is stuck, because most proposals land in
+  implausible regions and are rejected.
+  \vspace{0.4em}
+
+  \textbf{(c)} Accepting tiny steps isn't exploring. Efficiency depends on
+  \emph{how far} the chain moves, not just \emph{how often}. $w = 1$
+  balances step size and acceptance (the ``Goldilocks'' choice).
+\end{frame}
+
+\begin{frame}{Answer 7.5}
+  \textbf{(a)} Beta(5, 1) proposes large $\pi$ values much more often than
+  small ones. Without correction, the chain would over-visit large values
+  just because they are proposed more, biasing the sample toward the
+  proposal. The factor $q(\pi)/q(\pi')$ penalizes moves to
+  frequently proposed values and boosts moves to rarely proposed ones.
+  \vspace{0.6em}
+
+  \textbf{(b)} Beta(1, 1) is Uniform: $q(\pi) = q(\pi') = 1$, so the
+  correction equals 1 and the algorithm reduces to the plain Metropolis
+  ratio.
+\end{frame}
+
+%\begin{frame}{Answer 7.6}
+%  \textbf{(a)} Proposal is symmetric, so $\alpha$ is the posterior ratio:
+%  \[
+%    \frac{f(5.2 \mid y)}{f(4 \mid y)}
+%    = \exp\!\left(-\frac{(5.2-4)^2}{2(0.6)^2}\right) = e^{-2} \approx 0.135.
+%  \]
+%  $4 \to 5.2$: $\alpha \approx 0.135$. \quad
+%  $5.2 \to 4$: more plausible, so $\alpha = 1$.
+%  \vspace{0.4em}
+%
+%  \textbf{(b)} With $w = 2$ each value is a possible proposal from the
+%  other, with equal proposal density, so
+%  \[
+%    \frac{P(4 \to 5.2)}{P(5.2 \to 4)} = 0.135 = \frac{f(5.2 \mid y)}{f(4 \mid y)}.
+%  \]
+%  The flow between any two values matches their relative posterior
+%  plausibility, so in the long run the chain visits them in that
+%  proportion.
+%\end{frame}
+
+\begin{frame}{Answer 7.6}
+  \textbf{(a)} 2 is farther from the peak, so \emph{less} plausible:
+  \[
+    \frac{f(2 \mid y)}{f(0 \mid y)}
+    = \exp\!\left(-\frac{2^2 - 0^2}{2}\right) = e^{-2} \approx 0.135
+    \;\Rightarrow\; \alpha \approx 0.135
+  \]
+  \textbf{(b)} 0 is the peak, so it is \emph{more} plausible than 2:
+  the ratio is $e^{2} > 1$, so $\alpha = 1$. No calculation needed:
+  uphill moves are always accepted.
+  \vspace{0.4em}
+
+  \textbf{(c)} About $100 \times 0.135 \approx 13$ moves $0 \to 2$, and
+  all $100$ moves $2 \to 0$.
+  \vspace{0.2em}
+
+  The chain moves from 2 back to 0 far more readily than from 0 out to 2.
+  So in the long run it spends about $0.135$ times as much time at 2 as
+  at 0, which is exactly $f(2 \mid y)/f(0 \mid y)$. The chain visits each
+  value in proportion to its posterior plausibility.
+\end{frame}
+
+\begin{frame}{Answer 7.7}
+  \textbf{(a)} Symmetric proposal, so $\alpha$ is the posterior ratio:
+  \[
+    \frac{f(4.9 \mid y)}{f(3.7 \mid y)}
+    = \exp\!\left(-\frac{0.9^2 - 0.3^2}{2(0.36)}\right)
+    = e^{-0.72/0.72} = e^{-1} \approx 0.368 .
+  \]
+  So $\alpha = \min\{1, 0.368\} = 0.368$.
+  \vspace{0.4em}
+
+  \textbf{(b)} $U = 0.50 > 0.368$: reject, next value is $3.7$.
+  $U = 0.20 < 0.368$: accept, next value is $4.9$.
+  \vspace{0.4em}
+
+  \textbf{(c)} $3.7$ is more plausible than $4.9$ (closer to 4), so the
+  ratio is $e^{1} > 1$ and $\alpha = 1$: always accepted.
+\end{frame}
+
+%\begin{frame}{Answer 7.8}
+%  \textbf{(a)}
+%  $\dfrac{0.25^2 \cdot 0.75^3}{0.5^2 \cdot 0.5^3}
+%   = \dfrac{0.0625 \times 0.4219}{0.25 \times 0.125}
+%   = \dfrac{0.02637}{0.03125} \approx 0.844$.
+%  \vspace{0.4em}
+%
+%  \textbf{(b)} $q(0.5)/q(0.25) = 1.0/0.5 = 2$, so
+%  $\alpha = \min\{1,\ 0.844 \times 2\} = \min\{1, 1.69\} = 1$.
+%  Always accepted (without the correction it would be 0.844).
+%  \vspace{0.4em}
+%
+%  \textbf{(c)} Beta(2, 1) rarely proposes small values like 0.25. To still
+%  visit them as often as the posterior requires, the algorithm must accept
+%  them more readily when they do come up. The correction does exactly
+%  that.
+%\end{frame}
+
+%---------------- Chapter 8 answers
+\begin{frame}{Answer 8.1}
+  \begin{enumerate}
+    \item Plausible range for $\pi$: \textbf{estimation}
+      (credible interval).
+    \item Is $\pi < 0.20$? \textbf{Hypothesis testing}
+      (posterior probability, odds, Bayes factor).
+    \item Next 20 artworks: \textbf{prediction}
+      (posterior predictive model for $Y'$).
+    \item Typical value of $\pi$: \textbf{estimation}
+      (posterior mean, median or mode).
+  \end{enumerate}
+  \vspace{0.4em}
+  Note: 1, 2 and 4 are about the parameter $\pi$; 3 is about future
+  \emph{data}.
+\end{frame}
+
+\begin{frame}{Answer 8.2}
+  \textbf{(a)} 99\%: \textbf{wider}, because it must hold more posterior
+  probability: $(0.085,\ 0.265)$. \\
+  50\%: \textbf{narrower}: $(0.139,\ 0.186)$.
+  \vspace{0.6em}
+
+  \textbf{(b)} None. 95\% is a convention, not a rule. The level should fit
+  the purpose, and reporting several levels (or the whole posterior)
+  communicates uncertainty better than any single interval.
+\end{frame}
+\begin{frame}{Answer 8.3}
+  \textbf{Nope}. That is the frequentist confidence-interval
+  interpretation (about the procedure over repeated samples).
+  \vspace{0.4em}
+
+  \textbf{Bayesian:} given the prior and the observed data, there is a
+  95\% posterior probability that $\pi$ is between 0.10 and 0.24.
+  The probability statement is about $\pi$, not about the interval.
+  \vspace{0.4em}
+
+  \textbf{HPD vs.\ middle:} they differ when the posterior is strongly
+  \emph{skewed}. HPD keeps the most plausible values; the middle interval
+  cuts equal tail areas. Beta(18, 92) is fairly symmetric, so they are
+  nearly the same here.
+\end{frame}
+
+\begin{frame}{Answer 8.4}
+  \begin{itemize}
+    \item \textbf{Posterior probability 0.849:} our \emph{final} belief in
+      $H_a$, combining prior and data.
+    \item \textbf{Bayes factor}
+      $= \dfrac{\text{posterior odds}}{\text{prior odds}}
+      = \dfrac{5.62}{0.094} \approx 60$:
+      how much the \emph{data} shifted the odds. A measure of evidence,
+      not of belief.
+    \item The prior was skeptical of $H_a$ (only 0.086). The data raised
+      the odds 60-fold, but starting from a low base, the posterior ends
+      at 0.85.
+    \item Read both with nuance; avoid rigid ``significant'' cutoffs.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 8.5}
+  \textbf{(a)} $\pi$ is continuous, so $P(\pi = 0.3) = 0$ under both prior
+  and posterior. Posterior odds and Bayes factor are undefined (0 / 0).
+  \vspace{0.4em}
+
+  \textbf{(b)} Define a practically meaningful buffer, e.g.\
+  $H_0: \pi \in (0.25, 0.35)$. The whole buffer lies above the 95\% CI
+  $(0.10, 0.24)$ $\Rightarrow$ strong evidence against $H_0$.
+  \vspace{0.4em}
+
+  \textbf{(c)} Choosing the buffer after seeing the data lets us move the
+  goalposts to reach a desired conclusion. It should reflect subject-matter
+  meaning, not results.
+\end{frame}
+
+\begin{frame}{Answer 8.6}
+  \textbf{(a)} \emph{Posterior variability}: uncertainty in $\pi$ itself.
+  Plugging in $\hat\pi$ keeps only sampling variability.
+  \vspace{0.4em}
+
+  \textbf{(b)} Too narrow (overconfident). Same center ($\approx 3.3$), but
+  \begin{center}
+  \begin{tabular}{@{}lc@{}}
+    \toprule
+    & Var$(Y')$ \\
+    \midrule
+    Bin(20, 0.164) & 2.74 \\
+    Posterior predictive (Beta-Binomial) & 3.21 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \textbf{(c)} $20\,\pi_i$ is an expected count and drops sampling
+  variability. Drawing $Y'_i \sim \text{Bin}(20, \pi_i)$ for every
+  posterior draw $\pi_i$ captures \emph{both} sources, approximating
+  $f(y' \mid y) = \int f(y' \mid \pi) f(\pi \mid y)\, d\pi$.
+\end{frame}
+
+\begin{frame}{Answer 8.7}
+  \textbf{The p-value is not $P(H_0 \mid \text{data})$.}
+  \begin{itemize}
+    \item p-value: \emph{assumes} $\pi = 0.2$ and asks how probable data
+      at least this extreme are: $P(\text{data} \mid H_0)$.
+    \item Bayesian: conditions on the observed data and asks how probable
+      the hypothesis is: $P(H_0 \mid Y = 14) = 1 - 0.849 = 0.151$.
+    \item These answer different questions and generally differ.
+      The Bayesian answer is the one the student was trying to state.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 8.8}
+  \textbf{(a)} Beta$(4 + 14,\ 6 + 100 - 14) = $ Beta(18, 92).
+  \vspace{0.4em}
+
+  \textbf{(b)} Mean $= 18/110 \approx 0.164$; \quad
+  mode $= 17/108 \approx 0.157$.
+  \vspace{0.4em}
+
+  \textbf{(c)} $E(Y' \mid Y = 14) = 20 \times E(\pi \mid Y = 14)
+  = 20 \times 18/110 \approx 3.27$ (the book's 3.273).
+  \vspace{0.3em}
+
+  For any $\pi$, $E(Y' \mid \pi) = 20\pi$. Averaging over the posterior
+  just replaces $\pi$ by its posterior mean. That shortcut works for the
+  \emph{mean} only: probabilities and intervals for $Y'$ still need the
+  full posterior predictive model (Q8.4).
+\end{frame}
+
+\begin{frame}{Answer 8.9}
+  \textbf{(a)} Prior odds $= 0.2/0.8 = 0.25$; posterior odds
+  $= 0.8/0.2 = 4$; BF $= 4/0.25 = 16$. The data made the hypothesis's
+  odds 16 times larger.
+  \vspace{0.6em}
+
+  \textbf{(b)} Posterior odds $= 0.094 \times 60 \approx 5.64$.
+  \[
+    P(H_a \mid Y = 14) = \frac{\text{odds}}{1 + \text{odds}}
+    = \frac{5.64}{6.64} \approx 0.849,
+  \]
+  matching the book.
+\end{frame}
+
+%---------------- Chapter 9 answers
+\begin{frame}{Answer 9.1}
+  \textbf{(a)} On average, each 1$^\circ$F increase in temperature is
+  associated with about 82 more riders per day (80\% credible interval:
+  about 76 to 89).
+  \vspace{0.6em}
+
+  \textbf{(b)} No. $P(\beta_1 > 0) \approx 1$ says the
+  \emph{association} is almost surely positive, not that it is causal. The
+  data are observational: warm days also tend to be in seasons with
+  longer daylight, tourism, holidays and school schedules, any of which
+  could affect ridership. Strong evidence of a relationship is not
+  evidence of cause.
+\end{frame}
+
+\begin{frame}{Answer 9.2}
+  \textbf{(a)} No. $-2194$ is the predicted ridership at 0$^\circ$F, far
+  outside the observed temperatures in D.C. It is an extrapolation, so
+  $\beta_0$ has no practical meaning. The line is only trusted where we
+  have data.
+  \vspace{0.4em}
+
+  \textbf{(b)} We can reason about $\beta_{0c}$: ``on a typical
+  (65--70$^\circ$F) day, ridership is around 5000, likely 3000--7000.''
+  Nobody has intuition about rides at 0$^\circ$F. Centering makes the
+  prior easy to elicit and interpret (and \texttt{rstanarm} uses this
+  scale).
+\end{frame}
+
+\begin{frame}{Answer 9.3}
+  \textbf{(a)} The credible interval reflects only \emph{posterior
+  variability} (where the line is). The prediction interval adds
+  \emph{sampling variability}: individual days scatter around the line
+  with SD $\sigma \approx 1281$.
+  \vspace{0.4em}
+
+  \textbf{(b)} The \textbf{prediction interval}: the manager faces one
+  specific day, not the long-run average.
+  \vspace{0.4em}
+
+  \textbf{(c)} The credible interval for the mean shrinks toward a point
+  (the line becomes certain). The prediction interval barely changes: it
+  stays near mean $\pm 1.96\,\sigma \approx \pm 2500$ rides, because
+  day-to-day scatter never goes away. (With 500 days, posterior
+  variability is already small next to $\sigma$.)
+\end{frame}
+
+\begin{frame}{Answer 9.4}
+  \begin{itemize}
+    \item A slope is learned from \emph{variation in $X$}. Thirty winter
+      days cover a narrow, cold temperature range, so they say little
+      about what happens on warm days.
+    \item The information in data depends on \emph{what} was observed,
+      not just \emph{how much}.
+    \item Each phase updates the previous posterior. As data span more
+      temperatures, the posterior for $\beta_1$ moves and narrows,
+      ending concentrated near 80.
+    \item Updating in phases gives the same final posterior as using all
+      500 days at once.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 9.5}
+  \textbf{(a)} $100 \pm 2(40) = (20,\ 180)$: each extra degree adds
+  roughly 20 to 180 rides. The prior is sure the relationship is positive
+  but vague about its size.
+  \vspace{0.4em}
+
+  \textbf{(b)} $1/0.0008 = 1250$ rides: days typically scatter about
+  1250 rides around the line.
+  \vspace{0.4em}
+
+  \textbf{(c)} $-2194 + 82.2 \times 75 = -2194 + 6165 = 3971$ rides
+  (the book reports $\approx 3968$; the gap is rounding in the
+  coefficients). \\
+  A 10$^\circ$F difference: $82.2 \times 10 = 822$ more rides on the
+  70$^\circ$F day. The intercept cancels.
+\end{frame}
+
+\begin{frame}{Answer 9.6}
+  \textbf{(a)}
+  \begin{center}
+  \begin{tabular}{@{}ccc@{}}
+    \toprule
+    Draw & $\mu = \beta_0 + 75\beta_1$ & $Y' = \mu + \sigma z$ \\
+    \midrule
+    1 & $-2200 + 6150 = 3950$ & $3950 + 650 = 4600$ \\
+    2 & $-2100 + 6075 = 3975$ & $3975 - 1250 = 2725$ \\
+    3 & $-2300 + 6300 = 4000$ & $4000 + 256 = 4256$ \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \textbf{(b)} The $\mu$'s build the credible interval for the
+  \emph{average}; the $Y'$'s build the prediction interval. The $Y'$'s
+  are far more spread out (2725 to 4600 vs.\ 3950 to 4000) because they
+  add day-to-day scatter $\sigma z$ on top of the uncertainty in the line.
+  With 20{,}000 draws, this is exactly what \texttt{posterior\_predict()}
+  does.
+\end{frame}
+
+%---------------- Chapter 15 answers
+\begin{frame}{Answer 15.1}
+  \begin{enumerate}
+    \item \textbf{Grouped by school.} Students in one school share
+      teachers, resources and neighborhood.
+    \item \textbf{Grouped by patient.} Repeated measures on one person
+      reflect that person's physiology.
+    \item \textbf{Not grouped.} Independent random sample, one response
+      each.
+    \item \textbf{Grouped by city.} Each city has its own climate (and
+      consecutive days are also correlated over time).
+  \end{enumerate}
+  \vspace{0.4em}
+  The common thread: knowing one observation from a group tells you
+  something about the others in that group.
+\end{frame}
+\begin{frame}{Answer 15.2}
+  \begin{itemize}
+    \item Runners differ a lot in baseline speed (between-runner
+      variability). Complete pooling treats those differences as random
+      noise, inflating $\sigma$ and blurring the age effect.
+    \item Comparisons \emph{across} runners (a fast 60-year-old vs.\ a slow
+      55-year-old) are mixed with changes \emph{within} each runner, which
+      is what ``slowing with age'' actually means.
+    \item Violated assumption: \textbf{independence}. Times from the same
+      runner are correlated, and runner identity is ignored.
+    \item Result: a misleading conclusion about the trend and its
+      significance.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 15.3}
+  \textbf{(a)} Five races are very little information. The model
+  extrapolates runner 1's short-term improvement for years, ignoring
+  what the other 35 runners show: people in their 50s--60s tend to slow
+  down. It uses no information from other groups.
+  \vspace{0.6em}
+
+  \textbf{(b)} It has a separate model for each sampled runner and no model
+  of the \emph{population} of runners. There is nothing to say how a new
+  runner's intercept and slope relate to the others, so it cannot
+  generalize beyond the sample.
+\end{frame}
+
+\begin{frame}{Answer 15.4}
+  \textbf{(a)} \emph{Within}: how much one runner's times vary year to year
+  (small for runner 29, large for runner 17). \emph{Between}: how much
+  runners differ from each other in typical speed (29 vs.\ 17).
+  \vspace{0.4em}
+
+  \textbf{(b)} Each runner's ability persists: a runner who was fast last
+  year is likely fast this year. So knowing one time tells us about the
+  next.
+  \vspace{0.4em}
+
+  \textbf{(c)} It models each runner's own trend (respects between-group
+  differences) \emph{and} treats runners as drawn from one population, so
+  each estimate is pulled toward the overall trend. ``Learn from one
+  another while celebrating our individuality.''
+\end{frame}
+
+\begin{frame}{Answer 15.5}
+  \textbf{(a)} Both runners slow down by \textbf{+1 min/year}.
+  \vspace{0.4em}
+
+  \textbf{(b)} $\bar x = 58.5$, $\bar y = 76$.
+  \begin{itemize}
+    \item $x - \bar x$: $-3.5, -2.5, -1.5, 1.5, 2.5, 3.5$
+    \item $y - \bar y$: $4, 5, 6, -6, -5, -4$
+    \item $\sum (x-\bar x)(y-\bar y) = -71$, \quad
+      $\sum (x-\bar x)^2 = 41.5$
+  \end{itemize}
+  $b = -71/41.5 \approx -1.71$ min/year: runners appear to get
+  \emph{faster} with age!
+  \vspace{0.4em}
+
+  \textbf{(c)} The pooled line compares a slow younger runner with a fast
+  older runner: differences \emph{between} runners masquerade as an age
+  effect. Within each runner, time goes up with age. Ignoring the grouping
+  can hide or even reverse a trend (as in Q15.1).
+\end{frame}
+
+\begin{frame}{Answer 15.6}
+  \textbf{(a)} $w = 0.5$: $0.5(80) + 0.5(90) = 85$ min. \\
+  $w = 0.9$: $0.9(80) + 0.1(90) = 81$ min.
+  \vspace{0.4em}
+
+  \textbf{(b)} X (2 races) $\to w = 0.5$; Y (10 races) $\to w = 0.9$.
+  With more data, a runner's own mean is more reliable, so it gets more
+  weight. With little data, the estimate borrows more from the other
+  runners (it is pulled more toward the overall mean).
+  \vspace{0.4em}
+
+  \textbf{(c)} $w = 0$: complete pooling (everyone gets 90). $w = 1$: no
+  pooling (each runner keeps their own mean). Partial pooling is
+  everything in between. Chapter 16 shows how $w$ also depends on the
+  within- and between-runner variability.
+\end{frame}
+
+%---------------- Multiple choice answers
+\begin{frame}{Multiple-choice answers}
+  \small
+  \textbf{MCQ 1: (C) $\hat R$.} It compares the variability across all
+  chains combined with the variability within each chain.
+  $N_{\text{eff}}/N$, autocorrelation and a single trace plot look at
+  chains one at a time and can miss chains stuck in different places.
+  \vspace{0.5em}
+
+  \textbf{MCQ 2: (B) 0.25.} $\alpha = \min\{1,\ 0.1/0.4\} = 0.25$.
+  Only the ratio matters; the normalizing constant cancels.
+  \vspace{0.5em}
+
+  \textbf{MCQ 3: (C).} The prediction interval combines posterior
+  variability and sampling variability. It is \emph{wider} than the
+  credible interval for the mean (A is false), and it never shrinks to a
+  point because days scatter around the line with SD $\sigma$ (D is
+  false).
+  \vspace{0.5em}
+
+  \textbf{MCQ 4: (C).} Complete pooling has one universal model;
+  the hierarchical model describes the population of runners. The
+  no-pooled model only knows the 36 sampled runners.
+\end{frame}
+
+\end{document}
