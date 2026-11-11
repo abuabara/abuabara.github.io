@@ -1,0 +1,430 @@
+\documentclass[aspectratio=43,11pt]{beamer}
+\usetheme{default}
+\usecolortheme{default}
+\definecolor{aggiemaroon}{RGB}{80,0,0}
+\setbeamercolor{structure}{fg=aggiemaroon}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+\usepackage{amsmath,amssymb,booktabs}
+
+\title{Decision and Risk Analysis}
+\subtitle{\textbf{Review of Evaluating Regression Models}\\And More Practice Questions}
+\author{}
+\date{
+\color{aggiemaroon}{
+DAEN 427 / ISEN 427 / ISEN 627 - Fall 2026\\
+\textbf{Alexander Abuabara}
+}
+}
+\titlegraphic{\vfill \includegraphics[height=1.2cm]{TAMU_logo.png}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{}
+  Before trusting a Bayesian regression model, ask \textbf{three questions}:
+  \vspace{0.6em}
+  \begin{enumerate}
+    \item \textbf{How fair is it?} \\
+      Data collection, purpose, who is affected, embedded biases.
+    \item \textbf{How wrong is it?} \\
+      Are the assumptions reasonable? $\Rightarrow$ posterior predictive checks.
+    \item \textbf{How accurate are its predictions?} \\
+      Typical error and interval coverage $\Rightarrow$ cross-validation, ELPD.
+  \end{enumerate}
+  \vspace{0.6em}
+  \emph{``All models are wrong, but some are useful.''}
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Running example: Capital Bikeshare}
+  \begin{itemize}
+    \item 500 days (2011--2012);\\
+          $Y$ = daily rides, $X$ = feels-like temperature.
+    \item Normal regression:
+    \[
+      Y_i \mid \beta_0,\beta_1,\sigma \sim N(\mu_i,\sigma^2), \quad
+      \mu_i = \beta_0 + \beta_1 X_i
+    \]
+    \item Priors:
+    \[
+      \beta_{0c} \sim N(5000,1000^2),\;
+      \beta_1 \sim N(100,40^2),\;
+      \sigma \sim \text{Exp}(0.0008)
+    \]
+    \item 20{,}000 posterior draws of $(\beta_0,\beta_1,\sigma)$ via MCMC.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Q1. Is the model fair?}
+  \begin{itemize}
+    \item How was the data collected? By whom, and for what purpose?
+    \item How might results impact individuals and society?
+    \item What biases might be baked into the data or the analysis?
+  \end{itemize}
+  \vspace{0.5em}
+  \textbf{Bikes:} no obvious ethical issue, BUT the data only reflects
+  people who already use the service.
+  \vspace{0.5em}
+
+  \textbf{Examples of unfair models:} résumé screening favoring men,
+  face recognition failing on underrepresented groups, a detention
+  algorithm recommending detention almost always.
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Q2. How wrong is the model? Assumptions}
+  The Normal regression model assumes:
+  \begin{enumerate}
+    \item \textbf{Independence:} $Y_i$ independent given $X_i$.
+    \item \textbf{Linearity:} $E(Y\mid X) = \beta_0 + \beta_1 X$.
+    \item \textbf{Normality \& constant variance:} $Y$ varies normally
+      around $\mu$ with the same $\sigma$ for all $X$.
+  \end{enumerate}
+  \vspace{0.5em}
+  Scatterplots help, but a Bayesian has a better tool \ldots
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Posterior predictive checks (PPC)}
+  \textbf{Idea:} if the model is reasonable, data it simulates should look
+  like the data we observed.
+  \vspace{0.5em}
+  \begin{enumerate}
+    \item For each posterior draw $(\beta_0^{(j)},\beta_1^{(j)},\sigma^{(j)})$,
+      simulate $Y_i^{(j)} \sim N(\beta_0^{(j)}+\beta_1^{(j)}X_i,\,(\sigma^{(j)})^2)$
+      for every observed $X_i$.
+    \item Overlay the simulated datasets on the observed data
+      (\texttt{pp\_check()}).
+  \end{enumerate}
+  \vspace{0.5em}
+  \textbf{Bikes:} simulations capture center and spread, but miss the
+  \emph{bimodality} of ridership. Not perfect ... still useful.
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{PPC: what to look for}
+  \begin{itemize}
+    \item \textbf{Shape:} skew, multiple modes, heavy tails.
+    \item \textbf{Summary statistics} $T(y)$: compare observed mean, SD,
+      min, max to their simulated distributions \\
+      (\texttt{pp\_check(fit, plotfun = "stat", stat = "sd")}).
+    \item \textbf{Impossible values:} e.g.\ negative ride counts
+      $\Rightarrow$ wrong data structure.
+    \item \textbf{Patterns vs.\ $X$:} does spread grow with $X$?
+      (non-constant variance).
+  \end{itemize}
+  \vspace{0.5em}
+  \textbf{Caveats:}
+  \begin{itemize}
+    \item The same data both fit and check the model $\Rightarrow$ PPC is
+      lenient; passing $\neq$ ``true'' model.
+    \item Ask: are the mismatches large enough to matter \emph{for our goal}?
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{When the model is (too) wrong}
+  \begin{itemize}
+    \item \textbf{Dependence} (grouped, temporal, spatial) \\
+      $\Rightarrow$ hierarchical, time-series, or spatial models.
+    \item \textbf{Wrong data structure} (counts, binary) \\
+      $\Rightarrow$ Poisson, Negative Binomial, logistic (Ch.\ 12--13).
+    \item \textbf{Nonlinearity / non-constant variance / skew} \\
+      $\Rightarrow$ transform $Y$, $X$, or both (e.g.\ $\log Y$).
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Q3. Accuracy for a single day}
+  Oct 22, 2012: $75.46^\circ$F, observed $Y = 6{,}228$ rides.
+  \vspace{0.4em}
+  \begin{itemize}
+    \item Posterior predictive mean $Y' = 3{,}967$ \\
+      $\Rightarrow$ error $Y - Y' = 2{,}261$ rides.
+    \item Posterior predictive SD $= 1{,}280$ \\
+      $\Rightarrow$ scaled error $= 2261/1280 \approx 1.77$ SDs.
+    \item 50\% interval $(3096, 4831)$: $Y$ \textbf{outside}. \\
+          95\% interval $(1500, 6482)$: $Y$ \textbf{inside}.
+  \end{itemize}
+  \vspace{0.4em}
+  \textbf{Key point:} raw error alone is misleading. The same 2,261 error
+  with SD 500 would be 4.5 SDs off. \emph{Scale matters.}
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Accuracy across all data: summaries}
+  \centering
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Metric & Meaning & Bikes \\
+    \midrule
+    MAE & $\text{median}\,|Y_i - Y_i'|$ & 989.7 \\
+    Scaled MAE & $\text{median}\,|Y_i - Y_i'|/\text{sd}_i$ & 0.771 \\
+    within\_50 & share inside 50\% interval & 0.438 \\
+    within\_95 & share inside 95\% interval & 0.968 \\
+    \bottomrule
+  \end{tabular}
+  \vspace{0.8em}
+  \raggedright
+  \begin{itemize}
+    \item Ideal coverage: within\_50 $\approx 0.5$, within\_95 $\approx 0.95$.
+    \item Computed with \texttt{prediction\_summary()}.
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Cross-validation (honest evaluation)}
+  Evaluating on the data used to fit is \textbf{optimistic}.
+  \vspace{0.4em}
+
+  \textbf{$k$-fold CV:}
+  \begin{enumerate}
+    \item Split data into $k$ folds.
+    \item Train on $k-1$ folds, test on the held-out fold.
+    \item Repeat so each fold is tested once; average metrics.
+  \end{enumerate}
+  \vspace{0.4em}
+  \centering
+  \begin{tabular}{@{}lcc@{}}
+    \toprule
+    & In-sample & 10-fold CV \\
+    \midrule
+    MAE & 990 & 1029 \\
+    Scaled MAE & 0.771 & 0.802 \\
+    within\_50 & 0.438 & 0.420 \\
+    within\_95 & 0.968 & 0.968 \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+%--------------------------------------------------
+{
+\setbeamercolor{background canvas}{bg=yellow!40}
+\begin{frame}{Choosing $k$}
+  \begin{itemize}
+    \item \textbf{Small $k$:} train on less data $\Rightarrow$ pessimistic
+      (biased) error; cheap.
+    \item \textbf{Large $k$ (LOO, $k=n$):} low bias, but $n$ refits and
+      noisier estimates.
+    \item \textbf{Default:} $k = 10$ (or 5 if fitting is slow);
+      larger $k$ / LOO for small $n$.
+    \item \textbf{Bayesian shortcut:} \texttt{loo()} approximates
+      LOO from one fit. % if Pareto $\hat k > 0.7$, refit or use
+      \texttt{kfold()}.
+    \item \textbf{Fold structure beats $k$:} time series $\to$
+      forward-chaining; grouped data $\to$ leave groups out.
+  \end{itemize}
+\end{frame}
+}
+
+%--------------------------------------------------
+\begin{frame}{ELPD}
+  MAE judges only a point prediction. ELPD judges the \emph{whole}
+  predictive distribution.
+  \vspace{0.4em}
+
+  Posterior predictive density of a new value $y'$
+  (averages over parameter uncertainty):
+  \[
+    f(y' \mid \vec{y}) = \iiint f(y' \mid \beta_0,\beta_1,\sigma)\,
+    f(\beta_0,\beta_1,\sigma \mid \vec{y})\, d\beta_0\, d\beta_1\, d\sigma
+  \]
+  \begin{itemize}
+    \item Ask: how much probability density did the model put
+      \emph{where the new value actually landed}?
+    \item Rewards being accurate \textbf{and} honestly uncertain:
+      \begin{itemize}
+        \item off-center prediction $\Rightarrow$ low density;
+        \item overconfident (too narrow) $\Rightarrow$ very low density
+          when it misses;
+        \item too vague (too wide) $\Rightarrow$ low density everywhere.
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Computing and using ELPD}
+  We don't have new data, so use leave-one-out:
+  \[
+    \widehat{\text{ELPD}} = \sum_{i=1}^{n} \log f(y_i \mid \vec y_{-i})
+  \]
+  \begin{itemize}
+    \item Each $y_i$ is scored by a model fit \emph{without} it;
+      \texttt{loo()} approximates this from one fit (PSIS).
+    \item \textbf{Higher (less negative) is better.}
+    \item Bikes: ELPD $= -4289$ (SE 13.1), about $-8.6$ per day.
+      LOOIC $= -2 \times \text{ELPD} = 8578$.
+    \item No absolute scale: the number depends on $n$ and units of $Y$
+      $\Rightarrow$ use it to \emph{compare} models on the same data.
+    \item Compare with \texttt{loo\_compare()}: a difference smaller than
+      about 2 SE of the difference is not convincing (Ch.\ 11).
+  \end{itemize}
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Improving accuracy \& two separate questions}
+  \textbf{Improve predictions:}
+  \begin{itemize}
+    \item More data (sharpens a real relationship; can't create one).
+    \item Better / more predictors (e.g.\ humidity) ... up to a point.
+  \end{itemize}
+  \vspace{0.6em}
+  \textbf{Don't confuse:}
+  \begin{itemize}
+    \item \emph{MCMC quality:} is the simulation a good approximation of
+      the posterior? (trace plots, $\hat R$, ESS)
+    \item \emph{Model quality:} is the model fair, reasonable, accurate?
+  \end{itemize}
+  A great approximation of a bad model is still a bad model.
+\end{frame}
+
+%--------------------------------------------------
+\begin{frame}{Recap}
+  \begin{enumerate}
+    \item \textbf{Fair?} Context-dependent: data, purpose, consequences.
+    \item \textbf{Wrong?} \texttt{pp\_check()}: simulated vs.\ observed data.
+    \item \textbf{Accurate?} MAE, scaled MAE, interval coverage;
+      use cross-validation / ELPD for honest, out-of-sample estimates.
+  \end{enumerate}
+  \vspace{0.5em}
+  Choose $k = 5$--$10$ (or LOO), and match folds to the data's
+  dependence structure.
+\end{frame}
+
+%==================================================
+\begin{frame}
+  \centering\Large More practice questions ...
+\end{frame}
+
+\begin{frame}{Question 1}
+  A posterior predictive check shows that the simulated datasets match
+  the observed data almost perfectly, and all MCMC diagnostics look excellent.
+  \vspace{0.6em}
+
+  \textbf{Can we conclude the model is good and ready to deploy?
+  Why or why not?}
+\end{frame}
+
+\begin{frame}{Question 2}
+  Model A has MAE $= 1000$ rides with predictive SD $\approx 1500$.
+  Model B has MAE $= 1000$ rides with predictive SD $\approx 300$,
+  and within\_95 $= 0.60$.
+  \vspace{0.6em}
+
+  \textbf{Which model better describes its own uncertainty, and why is
+  MAE alone not enough to judge them?}
+\end{frame}
+
+\begin{frame}{Question 3}
+  For the bike model, in-sample MAE was 990 but 10-fold CV MAE was 1029.
+  \vspace{0.6em}
+
+  \textbf{Why did the error go up under cross-validation, and which
+  number should we report when predicting future days?}
+\end{frame}
+
+\begin{frame}{Question 4}
+  In a PPC for the bike model, about 3\% of simulated days have
+  \emph{negative} ride counts. A colleague suggests running the MCMC
+  chains 10 times longer.
+  \vspace{0.6em}
+
+  \textbf{Will that fix the problem? What does the PPC tell you, and
+  what would you change?}
+\end{frame}
+
+\begin{frame}{Question 5}
+  Two models fit to the same bike data:
+  \vspace{0.4em}
+  \begin{itemize}
+    \item Model A (temperature): ELPD $= -4289$
+    \item Model B (temperature + humidity): ELPD $= -4286$
+    \item \texttt{loo\_compare()}: difference $= 3$, SE of difference $= 4$
+  \end{itemize}
+  \vspace{0.6em}
+  \textbf{Is Model B clearly better at predicting new days?
+  Which would you choose, and why?}
+\end{frame}
+
+%==================================================
+{
+\setbeamercolor{background canvas}{bg=blue!20}
+\begin{frame}
+  \centering\Large Answers
+\end{frame}
+
+\begin{frame}{Answer 1}
+  \textbf{No, not yet.}
+  \begin{itemize}
+    \item Good MCMC diagnostics only say we approximated the
+      \emph{posterior} well; they say nothing about the model.
+    \item A good PPC addresses \emph{how wrong}, but not
+      \emph{how fair}: the data may exclude groups or encode bias,
+      and the model's use may cause harm.
+    \item It also says little about \emph{out-of-sample} accuracy.
+      We still need cross-validation / ELPD.
+  \end{itemize}
+  All three questions must be answered.
+\end{frame}
+
+\begin{frame}{Answer 2}
+  \textbf{Model A.}
+  \begin{itemize}
+    \item Same raw error, but Model B claims far more certainty than it
+      has: its scaled errors are $\approx 1000/300 > 3$ SDs.
+    \item within\_95 $= 0.60 \ll 0.95$ $\Rightarrow$ B's intervals are
+      too narrow (overconfident).
+    \item MAE measures only the \emph{center} of the prediction;
+      scaled MAE and interval coverage evaluate the whole
+      \emph{posterior predictive distribution}.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 3}
+  \begin{itemize}
+    \item In-sample evaluation reuses the data the model was fit to,
+      so the model is ``graded on its own homework'' $\Rightarrow$
+      optimistic.
+    \item CV tests each fold on data the model never saw, mimicking
+      prediction for genuinely new days.
+    \item Report the \textbf{CV estimate (MAE $\approx$ 1029 rides)};
+      it is the more honest measure of future performance.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Answer 4}
+  \textbf{No.} Longer chains improve the \emph{MCMC approximation},
+  not the \emph{model}.
+  \begin{itemize}
+    \item The posterior is already well approximated; a Normal model
+      simply allows $Y < 0$.
+    \item The PPC says the \textbf{data structure assumption is wrong}:
+      ride counts are non-negative counts.
+    \item Fix the model: Poisson / Negative Binomial regression
+      (Ch.\ 12), or transform $Y$ (e.g.\ $\log Y$).
+  \end{itemize}
+  MCMC quality and model quality are separate questions.
+\end{frame}
+
+\begin{frame}{Answer 5}
+  \textbf{Not clearly.}
+  \begin{itemize}
+    \item The difference (3) is smaller than its SE (4): well within
+      noise, far from $\approx 2$ SE.
+    \item Judge the \emph{difference} and its SE, not each model's
+      ELPD and SE separately.
+    \item The two models predict about equally well $\Rightarrow$ prefer
+      the simpler Model A, unless humidity matters for another
+      reason (interpretation, theory, a specific use case).
+  \end{itemize}
+\end{frame}
+}
+
+\end{document}
