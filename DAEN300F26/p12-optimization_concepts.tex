@@ -1,0 +1,231 @@
+\documentclass[aspectratio=43,11pt]{beamer}
+\usetheme{default}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{itemize items}[circle]
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\definecolor{maroon}{HTML}{500000}
+\setbeamercolor{structure}{fg=maroon}
+
+\title{Optimization in a Data Workflow}
+\subtitle{Concepts for the Mini-Project}
+\author{DAEN 300 - Fall 2026}
+\date{}
+\titlegraphic{\IfFileExists{TAMU_logo.png}{\includegraphics[height=1.2cm]{TAMU_logo.png}}{}}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%===============================================================
+\section{The dataset}
+
+\begin{frame}{The dataset: FEMA IHP Valid Registrations}
+  \begin{itemize}
+    \item After a declared disaster, households apply to FEMA's
+          \textbf{Individuals and Households Program} (IHP) for help
+    \item One row = one valid registration (an applicant household)
+    \item Published on OpenFEMA; updated weekly
+    \item All personal information removed; location at county / city / ZIP level
+  \end{itemize}
+  \vspace{0.8em}
+  \textbf{Scale:} $\approx$\,25.5 million rows, several GB as CSV \\
+  $\Rightarrow$ too large for Excel; too large to handle carelessly in pandas
+\end{frame}
+
+\begin{frame}{What is in a row?}
+  \centering
+  \small
+  \begin{tabular}{@{}ll@{}}
+    \toprule
+    Group & Example fields \\
+    \midrule
+    Disaster  & \texttt{disasterNumber}, \texttt{damagedStateAbbreviation} \\
+    Household & \texttt{ownRent}, \texttt{residenceType}, \texttt{grossIncome} \\
+    Inspection & \texttt{inspnIssued}, \texttt{inspnReturned} \\
+    Damage    & \texttt{rpfvl}, \texttt{floodDamage}, \texttt{waterLevel} \\
+    Outcome   & \texttt{repairAssistanceEligible}, \texttt{haAmount} \\
+    \bottomrule
+  \end{tabular}
+  \vspace{1em}
+  \raggedright
+  \begin{itemize}
+    \item \texttt{rpfvl}: FEMA-verified loss to the home's structure
+          (floors, walls, electrical, plumbing, HVAC), in dollars
+    \item \texttt{repairAssistanceEligible}: eligible for Home Repair Assistance (yes/no)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Three questions we can ask}
+  \begin{enumerate}
+    \item Was the home \textbf{inspected}? \hfill \emph{classification}
+    \item Is the household \textbf{eligible for repair assistance}? \hfill \emph{classification}
+    \item How much \textbf{real-property damage} (\texttt{rpfvl})? \hfill \emph{regression}
+  \end{enumerate}
+  \vspace{1em}
+  \alert{Time matters:} some fields are known at registration
+  (home type, owner/renter, income); others exist only \emph{after} inspection
+  (damage, eligibility). Using ``future'' fields to predict outcomes is
+  \textbf{data leakage}.
+\end{frame}
+
+%===============================================================
+\section{Optimization}
+
+\begin{frame}{What does ``optimize'' mean here?}
+  \textbf{Make something measurably better --- and show before vs.\ after.}
+  \vspace{1em}
+  \begin{center}
+  \begin{tabular}{@{}llll@{}}
+    \toprule
+    & What we improve & Measure & Reading \\
+    \midrule
+    1 & Data pipeline & time, memory & PDSH 1--3 \\
+    2 & Code          & run time     & PDSH 1--2 \\
+    3 & Model         & test score   & PDSH 5 \\
+    4 & Decision      & value gained & Week 13 \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+  \vspace{1em}
+  Rule: \emph{measure first, change one thing, measure again.}
+\end{frame}
+
+%---------------------------------------------------------------
+\begin{frame}{1. Optimize the data pipeline}
+  \textbf{Idea:} the fastest data is the data you never load.
+  \vspace{0.6em}
+  \begin{itemize}
+    \item \textbf{At the source (API):}
+      \begin{itemize}
+        \item \texttt{\$select} --- only the columns you need
+        \item \texttt{\$filter} --- only one disaster or one state
+      \end{itemize}
+    \item \textbf{When loading (pandas):}
+      \begin{itemize}
+        \item \texttt{usecols=} --- skip unused columns
+        \item \texttt{dtype=} --- \texttt{category} for codes
+              (\texttt{ownRent}, \texttt{residenceType}), \texttt{bool} for flags
+        \item \texttt{chunksize=} --- process a big file piece by piece
+      \end{itemize}
+    \item \textbf{Measure:} \texttt{\%timeit} for time,
+          \texttt{df.memory\_usage(deep=True)} for memory
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Why data types matter}
+  \begin{itemize}
+    \item A text column stores every string separately:
+          \texttt{"Owner"}, \texttt{"Owner"}, \texttt{"Owner"}, \dots
+    \item A \texttt{category} column stores each label once,
+          plus a small integer code per row
+    \item 25 million rows $\times$ a few repeated labels
+          $\Rightarrow$ large memory savings
+  \end{itemize}
+  \vspace{1em}
+  \begin{center}
+  \begin{tabular}{@{}lll@{}}
+    \toprule
+    Type & Stores & Typical use \\
+    \midrule
+    \texttt{object} (text) & full string per row & free text \\
+    \texttt{category} & code per row + label list & repeated codes \\
+    \texttt{bool} & 1 byte per row & yes/no flags \\
+    \texttt{float32} & 4 bytes per row & dollar amounts \\
+    \bottomrule
+  \end{tabular}
+  \end{center}
+\end{frame}
+
+%---------------------------------------------------------------
+\begin{frame}{2. Optimize the code}
+  \textbf{Idea:} find the slow part first; don't guess.
+  \vspace{0.6em}
+  \begin{itemize}
+    \item \textbf{Profile} with \texttt{\%prun}: which function takes the time?
+    \item \textbf{Vectorize}: replace Python loops and \texttt{.apply()} with
+          whole-column NumPy / pandas operations
+    \item \textbf{Aggregate} with \texttt{groupby} instead of looping over groups
+    \item \textbf{Report the speedup}: $\text{speedup} = t_{\text{before}} / t_{\text{after}}$
+  \end{itemize}
+  \vspace{0.8em}
+  \textbf{Why vectorization is faster:} the loop runs in compiled C code
+  over a contiguous array, not one Python object at a time.
+\end{frame}
+
+%---------------------------------------------------------------
+\begin{frame}{3. Optimize the model}
+  \textbf{Idea:} a model's settings (hyperparameters) are chosen by
+  validation, not by default.
+  \vspace{0.6em}
+  \begin{itemize}
+    \item \textbf{Classifier} for \texttt{repairAssistanceEligible};
+          \textbf{regressor} for \texttt{rpfvl}
+    \item \texttt{GridSearchCV}: try combinations, score each with cross-validation
+    \item \textbf{Validation curve}: training vs.\ validation score as complexity grows
+      \begin{itemize}
+        \item too simple $\rightarrow$ underfit (both scores low)
+        \item too complex $\rightarrow$ overfit (gap between them)
+      \end{itemize}
+    \item Always compare with a \textbf{baseline}
+          (majority class, or the mean)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The shape of \texttt{rpfvl}}
+  \begin{itemize}
+    \item Many applicants have \textbf{zero} verified damage
+    \item The rest have a \textbf{long right tail}: a few very large losses
+    \item Large values dominate squared-error metrics
+  \end{itemize}
+  \vspace{0.8em}
+  \textbf{Try:} model $\log(1 + \texttt{rpfvl})$ with \texttt{np.log1p},
+  then convert back with \texttt{np.expm1}
+  \begin{itemize}
+    \item handles zeros ($\log 1 = 0$)
+    \item compresses the tail, so errors become more like \emph{relative} errors
+  \end{itemize}
+\end{frame}
+
+%---------------------------------------------------------------
+\begin{frame}{4. Next year ... optimize a decision}
+  Use the model's predictions to choose an action under a limit.
+  \vspace{0.6em}
+  \begin{itemize}
+    \item Example: inspectors have limited hours --- who should be inspected first?
+    \item Each applicant has a \textbf{value} (from the model) and a \textbf{cost} (time)
+    \item Choose the set with the most total value that fits the budget
+  \end{itemize}
+  \[
+    \max \sum_{i \in S} v_i \quad \text{subject to} \quad \sum_{i \in S} w_i \le W
+  \]
+  \begin{itemize}
+    \item This is the \textbf{0/1 knapsack} problem $\rightarrow$
+          \textbf{dynamic programming} (Next semester!)
+  \end{itemize}
+\end{frame}
+
+%===============================================================
+\begin{frame}{The full picture}
+  \begin{center}
+  \large
+  data prep $\;\rightarrow\;$ ML $\;\rightarrow\;$ optimization
+  \end{center}
+  \vspace{1em}
+  \begin{itemize}
+    \item Load less, store smaller
+    \item Profile, then vectorize
+    \item Tune with validation; compare with a baseline
+    \item Turn predictions into a decision
+  \end{itemize}
+  \vspace{1em}
+  In every step: \textbf{measure before, measure after, explain why.}
+\end{frame}
+
+\end{document}
