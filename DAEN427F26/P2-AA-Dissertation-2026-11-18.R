@@ -79,6 +79,8 @@ survey <- read.csv('/Users/abuabara/GitHub/abuabara.github.io/DAEN427F26/survey_
 
 PlotMiss(survey, main = "Missing survey data (clustered)", clust = TRUE)
 
+glimpse(survey)
+
 dat_bn_dicretized <-
    survey %>%
    as.data.frame() %>%
@@ -105,6 +107,8 @@ dat_bn_dicretized <-
    mutate(age = round_any(age, 10, floor)) %>%
    mutate(across(where(is.numeric), round, 0)) %>%
    mutate_if(is.double, as.ordered)
+
+table(dat_bn_dicretized$evacuation)
 
 dat_bn_dicretized %>% glimpse()
 dat_bn_dicretized %>% tbl_summary() %>% as_hux_table()
